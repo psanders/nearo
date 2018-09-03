@@ -1,0 +1,31 @@
+{
+  "name": "routr-ui",
+  "version": "1.0.0",
+  "private": true,
+  "proxy": "https://localhost:4567",
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "latest",
+    "firebase": "^5.4.1",
+    "mention-hashtag": "^1.1.1",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "node-geocoder": "^3.22.0",
+    "price-extractor": "^1.2.0",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-dropzone-component": "^3.2.0",
+    "react-ellipsis-text": "^1.0.0",
+    "react-linkify": "^0.2.2",
+    "react-moment": "^0.7.9",
+    "react-places-autocomplete": "^7.2.0",
+    "react-scripts": "latest"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

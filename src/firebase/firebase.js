@@ -1,0 +1,40 @@
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
+var prodConfig = {
+  apiKey: "AIzaSyDaARZuHxu8oLnIxCHXUmAfwSSD9hiAvtY",
+  authDomain: "locally-57510.firebaseapp.com",
+  databaseURL: "https://locally-57510.firebaseio.com",
+  projectId: "locally-57510",
+  storageBucket: "locally-57510.appspot.com",
+  messagingSenderId: "225376231981"
+};
+
+var devConfig = {
+  apiKey: "AIzaSyDaARZuHxu8oLnIxCHXUmAfwSSD9hiAvtY",
+  authDomain: "locally-57510.firebaseapp.com",
+  databaseURL: "https://locally-57510.firebaseio.com",
+  projectId: "locally-57510",
+  storageBucket: "locally-57510.appspot.com",
+  messagingSenderId: "225376231981"
+};
+
+const config = process.env.NODE_ENV === 'production'
+  ? prodConfig
+  : devConfig;
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(config);
+}
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+db.settings({timestampsInSnapshots: true});
+const provider = new firebase.auth.GoogleAuthProvider();
+
+export {
+  auth,
+  provider,
+  db
+};
