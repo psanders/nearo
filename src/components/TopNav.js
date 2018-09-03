@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import MailIcon from '@material-ui/icons/Mail';
-import EditIcon from '@material-ui/icons/Edit';
+import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ProfileMenu from './ProfileMenu';
@@ -160,7 +160,7 @@ class TopNav extends React.Component {
           { this.isSignedIn() &&
             <div>
               <IconButton color="secondary" className={classes.button} aria-label="Post">
-                <EditIcon style={{height: 26, width: 26}} />
+                <BookmarkBorder style={{height: 26, width: 26}} />
               </IconButton>
               <IconButton color="inherit" className={classes.button} aria-label="Check Messages">
                 <MailIcon style={{height: 26, width: 26}} />

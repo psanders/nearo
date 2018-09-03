@@ -24,6 +24,11 @@ const styles = theme => ({
   },
   root: {
     width: '100%',
+    border: '1px solid #cdcdcd',
+    /*'&:hover': {
+        border: '1px solid #444',
+        cursor: 'pointer'
+    }*/
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -65,6 +70,9 @@ const styles = theme => ({
     fontSize: 14
   },
   customTFLabel: {
+  },
+  button: {
+    textTransform: 'Capitalize',
   },
 });
 
@@ -139,7 +147,8 @@ class PostPanel extends React.Component {
       locText: this.state.locAddr,
       locLatLng: this.state.locLatLng,
       price: this.getPrice(this.state.body),
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      deleted: false
     })
     .then(function(docRef) {
       self.setState({body: ''});
@@ -206,8 +215,8 @@ class PostPanel extends React.Component {
             </Button>
             <Locator initValue={this.state.locAddr} onSelect={(locAddr) => this.updateLocation(locAddr)}/>
             <span className={classes.flex}/>
-            <Button size="small">Cancel</Button>
-            <Button disabled={!this.state.body || this.state.loading} onClick={() =>  this.createPost(this, this.state.body)} variant="contained" size="small" color="secondary">
+            <Button className={classes.button} size="small">Cancel</Button>
+            <Button className={classes.button} disabled={!this.state.body || this.state.loading} onClick={() =>  this.createPost(this, this.state.body)} variant="contained" size="small" color="secondary">
               Post
             </Button>
           </ExpansionPanelActions>
