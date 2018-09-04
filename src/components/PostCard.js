@@ -20,7 +20,8 @@ import Moment from 'react-moment';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Linkify from 'react-linkify';
-import { auth, db } from '../firebase/firebase';
+import deepOrange from '@material-ui/core/colors/deepOrange';
+import { db } from '../firebase/firebase';
 import {getCategory} from './categories';
 
 const styles = theme => ({
@@ -67,7 +68,8 @@ const styles = theme => ({
   },
   avatar: {
     width: 25,
-    height: 25
+    height: 25,
+    backgroundColor: deepOrange[500],
   },
   header: {
     padding: 0
@@ -82,27 +84,16 @@ class PostCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
-      post: props.post.data(),
-      postId: props.post.id,
       alertOpen: false,
-      anchorEl: null,
-      bookmarked: props.bookmarked
+      anchorEl: null
     }
   }
 
-  componentDidMount() {
-    auth.onAuthStateChanged(user => {
-        this.setState({user: user});
-    });
-  }
-
-  markSold(postId) {
-    const postRef = db.collection('posts').doc(postId);
-    const sold = !this.state.post.sold ? true : false
+  markSold(post) {
+    const postRef = db.collection('posts').doc(post.id);
+    const sold = !post.sold ? true : false
 
     // Update post
-    const post = this.state.post;
     post.sold = sold;
     this.setState({post: post});
 
@@ -125,27 +116,52 @@ class PostCard extends React.Component {
     return email? email.split('@')[0] : 'none';
   }
 
-  handleBookmark = () => {
-    this.setState({bookmarked: true})
-    const bookmarksRef = db.collection('bookmarks').doc(this.state.postId);
+  uiRefreshForBookmark() {
+    const post = this.props.post;
+    post.bookmarked = !post.bookmarked;
+    this.setState({post: post})
+    return post;
+  }
+
+  addBookmark = () => {
+    const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
     bookmarksRef.set({
-      user: this.state.user.email
+      user: this.props.user.email
     }, { merge: true }).then(() => {
       this.props.onNotification('Saved');
     }).catch(function(error) {
-      this.setState({bookmarked: false})
+      this.uiRefreshForBookmark();
       console.error("Error writing document: ", error);
     });
   }
 
-  isOwner(email) {
-    return this.state.user.email === email
+  deleteBookmark = () => {
+    const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
+    bookmarksRef.delete()
+    .then(() => {
+      this.props.onNotification('Removed from saved posts');
+    }).catch(function(error) {
+      this.uiRefreshForBookmark();
+      console.error("Error writing document: ", error);
+    });
+  }
+
+  handleBookmark = () => {
+    if(this.uiRefreshForBookmark()) {
+      this.addBookmark()
+    } else {
+      this.deleteBookmark()
+    }
+  }
+
+  isOwner(user, authorEmail) {
+    return user && user.email === authorEmail
       ? true
       : false;
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, post, user} = this.props;
     const { anchorEl } = this.state;
     const bull = <span className={classes.bullet}>•</span>;
 
@@ -155,68 +171,68 @@ class PostCard extends React.Component {
             <CardContent className={classes.content}>
             <CardHeader className={classes.header}
               avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                    <img alt="Avatar" src={getCategory(this.state.post.category).image} width="25"/>
+                <Avatar color="secondary" aria-label="Post Avatar" className={classes.avatar}>
+                    {getCategory(post.category).image && <img alt="Avatar" src={getCategory(post.category).image} width="25"/>}
+                    {!getCategory(post.category).image && getCategory(post.category).name.charAt(0) }
                 </Avatar>
               }
               title={
-                  <Typography variant="body2">c/{ this.state.post.category } <span style={{color: 'gray', fontSize: '12px', fontWeight: 'normal'}}> {bull} Post by {this.getUsername(this.state.post.author)} <Moment fromNow={true} interval={30000}>{this.state.post.timestamp}</Moment></span></Typography>
+                  <Typography variant="body2">c/{ post.category } <span style={{color: 'gray', fontSize: '12px', fontWeight: 'normal'}}> {bull} Post by {this.getUsername(post.author)} <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment></span></Typography>
               }
             />
 
               <br />
-              { this.state.post.image &&
+              { post.image &&
                 <Typography component="p" style={{marginBottom: 10}}>
-                  <Linkify>{ this.state.post.body }</Linkify>
+                  <Linkify>{ post.body }</Linkify>
                 </Typography>
               }
-              {! this.state.post.image &&
+              {! post.image &&
                 <Typography component="p">
-                  <Linkify>{ this.state.post.body }</Linkify>
+                  <Linkify>{ post.body }</Linkify>
                 </Typography>
               }
 
-              {this.state.post.image &&
+              {post.image &&
                 <CardMedia
                   className={classes.cover}
-                  image={this.state.post.image}
+                  image={post.image}
                   title="Live from space album cover">
-                  {this.state.post.price && <Chip
+                  {post.price && <Chip
                     avatar={
                       <Avatar>
                         <MoneyIcon />
                       </Avatar>
                     }
                     label={
-                      this.state.post.sold? 'Sold' : this.state.post.price
+                      post.sold? 'Sold' : post.price.toFixed(2)
                     }
                     className={classes.chip}
                     color="secondary"
                   />}
                 </CardMedia>
               }
-
             </CardContent>
             <div className={classes.controls}>
               <Button
                 onClick={() => this.handleBookmark()}
                 size="small" className={classes.button}>
                 <BookmarkBorder className={classes.icon}/>
-                { this.state.bookmarked && "Unsave"  }
-                { !this.state.bookmarked && "Save" }
+                { post.bookmarked && "Unsave"  }
+                { !post.bookmarked && "Save" }
               </Button>
               <Button
                 size="small" className={classes.button}>
                 <ShareIcon className={classes.icon}/>
                 Share
               </Button>
-              { !this.isOwner(this.state.post.author) &&
+              { !this.isOwner(user, post.author) &&
                 <Button size="small" className={classes.button}>
                   <QuestionAnswer className={classes.icon}/>
                   Ask
                 </Button>
               }
-              { this.isOwner(this.state.post.author) &&
+              { this.isOwner(user, post.author) &&
                 <div>
                   <Button
                     className={classes.button}
@@ -232,14 +248,14 @@ class PostCard extends React.Component {
                     open={Boolean(anchorEl)}
                     onClose={() => this.setState({ anchorEl: null })}
                   >
-                    <MenuItem onClick={() => this.props.onDelete(this.state.postId)}>
+                    <MenuItem onClick={() => this.props.onDelete(post.id)}>
                       <DeleteIcon className={classes.icon}/>
                       Delete
                     </MenuItem>
-                    <MenuItem onClick={() => this.markSold(this.state.postId)}>
+                    <MenuItem onClick={() => this.markSold(post)}>
                       <SoldOutIcon className={classes.icon}/>
-                      { !this.state.post.sold && "Sold"  }
-                      { this.state.post.sold && "Unsold" }
+                      { !post.sold && "Sold"  }
+                      { post.sold && "Unsold" }
                     </MenuItem>
                   </Menu>
                 </div>

@@ -27,12 +27,11 @@ const theme = createMuiTheme({
 class App extends Component {
 
   constructor(props) {
-      super(props)
-      this.state = {
-          currentLocation: 'Everywhere',
-          mounted: false,
-          user: null
-      }
+    super(props)
+    this.state = {
+        currentLocation: 'Everywhere',
+        mounted: false
+    }
   }
 
   componentDidMount() {

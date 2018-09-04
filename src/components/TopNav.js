@@ -13,7 +13,6 @@ import ProfileMenu from './ProfileMenu';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Locator from './Locator';
 import { doRedirectSignIn } from '../firebase/auth';
-import { auth } from '../firebase/firebase';
 
 const styles = theme => ({
   row: {
@@ -82,17 +81,10 @@ class TopNav extends React.Component {
   constructor(props, context) {
       super(props, context);
       this.state = {
-          user: null,
           open: false,
           locAddr: props.currentLocation,
           locLatLng: null
       };
-  }
-
-  componentWillMount() {
-      auth.onAuthStateChanged(user => {
-          this.setState({user: user});
-      });
   }
 
   componentDidMount() {
@@ -110,7 +102,7 @@ class TopNav extends React.Component {
   }
 
   isSignedIn () {
-      return this.state.user == null ? false : true
+      return this.props.user == null ? false : true
   }
 
   render() {

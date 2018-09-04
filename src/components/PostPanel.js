@@ -16,7 +16,7 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import extract from 'mention-hashtag';
 import { getCategories } from './categories';
 import Locator from './Locator';
-import { db, auth } from '../firebase/firebase';
+import { db } from '../firebase/firebase';
 
 const styles = theme => ({
   flex: {
@@ -86,8 +86,7 @@ class PostPanel extends React.Component {
       locLatLng: null,
       loading: false,
       expanded: false,
-      category: 'news',
-      user: null
+      category: 'general',
     }
     this.updateBody = this.updateBody.bind(this);
   }
@@ -98,10 +97,6 @@ class PostPanel extends React.Component {
 
   componentDidMount() {
     this.updateLocation(this.props.currentLocation);
-    auth.onAuthStateChanged(user => {
-        this.setState({user: user});
-        console.log(user);
-    });
   }
 
   updateLocation = (location) => {
@@ -127,21 +122,21 @@ class PostPanel extends React.Component {
       }
     }
 
-    return results.length > 0 ? results[results.length - 1] : 'news';
+    return results.length > 0 ? results[results.length - 1] : 'general';
   }
 
   getPrice = (text) => {
     const prices = text.split(' ').filter(v => v.startsWith('$'));
     const cleanNumbers = prices.join(' ').replace(/\$/g, ' ').split(' ');
     const results = cleanNumbers.filter(price => !isNaN(price));
-    return results.length > 0 ? results[results.length - 1] : 0;
+    return results.length > 0 ? Number(results[results.length - 1]) : 0;
   }
 
   createPost = (self, body) => {
     self.setState({loading: true})
     db.collection('posts').add({
       category: this.getCategoryInText(this.state.body),
-      author: this.state.user.email,
+      author: this.props.user.email,
       body: body,
       likes: 0,
       locText: this.state.locAddr,

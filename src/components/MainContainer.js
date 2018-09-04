@@ -7,7 +7,7 @@ import PostCard from './PostCard';
 import Ads from './Ads';
 import About from './About';
 import NotificationBar from './NotificationBar';
-import { db } from '../firebase/firebase';
+import { auth, db } from '../firebase/firebase';
 import PostPanel from './PostPanel';
 
 const styles = theme => ({
@@ -35,30 +35,64 @@ const styles = theme => ({
 
 class MainContainer extends React.Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            posts: [],
-            notificationWithUndo: false,
-            notificationBarOpen: false,
-            notificationBarMessage: '',
-            notificationUndo: null,
-            lastDeletedPostId: null,
-        }
+      super(props)
+      this.state = {
+        posts: [],
+        notificationWithUndo: false,
+        notificationBarOpen: false,
+        notificationBarMessage: '',
+        notificationUndo: null,
+        lastDeletedPostId: null
+      }
     }
 
     componentDidMount() {
-      this.reloadPosts();
+      auth.onAuthStateChanged(user => {
+          this.setState({user: user});
+          if (user) {
+            console.log('POINT A');
+            this.getBookmarks(results => {
+              this.updatePost(results);
+            }, user.email);
+          } else {
+            console.log('POINT B');
+            this.updatePost([]);
+          }
+      });
     }
 
-    reloadPosts() {
+    updatePost = (bookmarks) => {
       const posts = [];
       db.collection("posts")
+      .where("deleted", "==", false)
       .orderBy("timestamp", "desc")
-      .get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-              posts.push(doc);
+      .get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+              const post = doc.data();
+              post.id = doc.id;
+              post.bookmarked = false;
+              if(bookmarks) {
+                bookmarks.forEach(x => {
+                  if(x === post.id) {
+                    post.bookmarked = true;
+                  }
+                });
+              }
+              posts.push(post);
           });
           this.setState({posts: posts});
+      });
+    }
+
+    getBookmarks = (callback, user) => {
+      const bookmarks = [];
+      db.collection("bookmarks")
+      .where("user", "==", user)
+      .get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+            bookmarks.push(doc.id);
+        });
+        callback(bookmarks);
       });
     }
 
@@ -75,12 +109,12 @@ class MainContainer extends React.Component {
         this.setState({lastDeletedPostId: postId});
         const postRef = db.collection('posts').doc(postId);
         postRef.set({
-           deleted: true,
-           deletedTimestamp: Date.now()
+          deleted: true,
+          deletedTimestamp: Date.now()
         }, { merge: true }).then(() => {
-          this.reloadPosts();
+          this.updatePost();
           this.handleNotify("Post deleted", this.handleUndeletePost);
-        }).catch(function(error) {
+        }).catch((error) => {
           this.handleNotify("Something when wrong. Please try again later");
         });
     }
@@ -88,20 +122,21 @@ class MainContainer extends React.Component {
     handleUndeletePost = () => {
         const postRef = db.collection('posts').doc(this.state.lastDeletedPostId);
         postRef.set({
-           deleted: false,
-           deletedTimestamp: Date.now()
+          deleted: false,
+          deletedTimestamp: Date.now()
         }, { merge: true }).then(() => {
-          this.reloadPosts();
+          this.updatePost();
         });
         this.setState({ notificationBarOpen: false })
     }
 
     render () {
-      const { classes, user } = this.props;
+      const { classes } = this.props;
+      const { user } = this.state;
 
       return(
         <div className={classes.root}>
-          <TopNav currentLocation={this.props.currentLocation} elevation={0}  className={classes.appBar} />
+          <TopNav user={user} currentLocation={this.props.currentLocation} className={classes.appBar} elevation={0} />
           <main className={classes.content}>
             <div className={classes.toolbar} />
             <Grid
@@ -111,14 +146,14 @@ class MainContainer extends React.Component {
                 spacing={32}>
                   <Grid item sm={6}>
                       <Grid item>
-                        <PostPanel user={user} onNewPost={() => this.reloadPosts()} currentLocation={this.props.currentLocation} />
+                        <PostPanel user={user} onNewPost={() => this.updatePost()} currentLocation={this.props.currentLocation} />
                       </Grid>
                       <div className={classes.gutterBottom}/>
                       {
                         this.state.posts.map(post => {
                           return (
                               <Grid key={post.id} item>
-                                <PostCard onDelete={this.handlePostDelete} onNotification={this.handleNotify} post={post} />
+                                <PostCard user={user} post={post} onDelete={this.handlePostDelete} onNotification={this.handleNotify} />
                                 <div className={classes.gutterBottom}/>
                               </Grid>
                             )
@@ -126,18 +161,18 @@ class MainContainer extends React.Component {
                       }
                   </Grid>
                   <Grid item sm={3}>
-                      <Ads gutterBottom />
-                      <div className={classes.gutterBottom}/>
-                      <About />
+                    <Ads gutterBottom />
+                    <div className={classes.gutterBottom}/>
+                    <About />
                   </Grid>
               </Grid>
           </main>
           <NotificationBar
-              message={ this.state.notificationBarMessage }
-              open={ this.state.notificationBarOpen}
-              showUndo={this.state.notificationWithUndo}
-              handleUndo={(e) => this.handleUndeletePost()}
-              handleClose = { e => this.setState({ notificationBarOpen: false })} />
+            message={ this.state.notificationBarMessage }
+            open={ this.state.notificationBarOpen}
+            showUndo={this.state.notificationWithUndo}
+            handleUndo={(e) => this.handleUndeletePost()}
+            handleClose = { e => this.setState({ notificationBarOpen: false })} />
         </div>
       );
     }
