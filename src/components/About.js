@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -11,28 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-const styles = {
-  card: {
-    minWidth: 275,
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    marginBottom: 16,
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-};
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 
 class About extends React.Component {
 
@@ -50,11 +28,11 @@ class About extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { fullScreen } = this.props;
 
     return (
       <div>
-        <Card onClick={this.handleClickOpen('paper')} className={classes.card} elevation={0}>
+        <Card onClick={this.handleClickOpen('paper')} elevation={0}>
           <CardActionArea>
             <CardContent>
                 <Typography gutterBottom variant="headline" component="h2">
@@ -68,6 +46,7 @@ class About extends React.Component {
         </Card>
 
         <Dialog
+          fullScreen={fullScreen}
           open={this.state.open}
           onClose={this.handleClose}
           scroll={this.state.scroll}
@@ -137,11 +116,8 @@ class About extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleClose} color="primary">
-              Subscribe
+            <Button onClick={this.handleClose} color="secondary">
+              Close
             </Button>
           </DialogActions>
         </Dialog>
@@ -151,7 +127,7 @@ class About extends React.Component {
 }
 
 About.propTypes = {
-  classes: PropTypes.object.isRequired,
+  fullScreen: PropTypes.bool.isRequired
 };
 
-export default withStyles(styles)(About);
+export default withMobileDialog()(About)

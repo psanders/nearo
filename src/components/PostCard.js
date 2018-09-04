@@ -20,7 +20,6 @@ import Moment from 'react-moment';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Linkify from 'react-linkify';
-import deepOrange from '@material-ui/core/colors/deepOrange';
 import { db } from '../firebase/firebase';
 import {getCategory} from './categories';
 
@@ -41,7 +40,6 @@ const styles = theme => ({
     flex: '1 0 auto',
   },
   cover: {
-    minWidth: 560,
     minHeight: 300,
   },
   controls: {
@@ -53,11 +51,11 @@ const styles = theme => ({
   button: {
     textTransform: 'Capitalize',
     fontSize: 12,
-    color: 'gray',
+    color: '#5d5c5c',
     marginRight: 2
   },
   icon: {
-    color: 'gray',
+    color: '#5d5c5c',
     marginRight: 8,
     fontSize: 20
   },
@@ -69,7 +67,7 @@ const styles = theme => ({
   avatar: {
     width: 25,
     height: 25,
-    backgroundColor: deepOrange[500],
+    backgroundColor: '#2c387e',
   },
   header: {
     padding: 0
@@ -177,7 +175,7 @@ class PostCard extends React.Component {
                 </Avatar>
               }
               title={
-                  <Typography variant="body2">c/{ post.category } <span style={{color: 'gray', fontSize: '12px', fontWeight: 'normal'}}> {bull} Post by {this.getUsername(post.author)} <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment></span></Typography>
+                  <Typography variant="body2">c/{ post.category } <span style={{color: '#5d5c5c', fontSize: '12px', fontWeight: 'normal'}}> {bull} Post by {this.getUsername(post.author)} <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment></span></Typography>
               }
             />
 
@@ -198,7 +196,7 @@ class PostCard extends React.Component {
                   className={classes.cover}
                   image={post.image}
                   title="Live from space album cover">
-                  {post.price && <Chip
+                  {post.category === 'forsale' && post.price && <Chip
                     avatar={
                       <Avatar>
                         <MoneyIcon />

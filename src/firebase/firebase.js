@@ -31,10 +31,12 @@ if (!firebase.apps.length) {
 const auth = firebase.auth();
 const db = firebase.firestore();
 db.settings({timestampsInSnapshots: true});
-const provider = new firebase.auth.GoogleAuthProvider();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+const fbProvider = new firebase.auth.FacebookAuthProvider();
 
 export {
   auth,
-  provider,
+  googleProvider,
+  fbProvider,
   db
 };

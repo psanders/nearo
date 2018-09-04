@@ -17,6 +17,8 @@ config/*.yml
 mod/vendor
 jre
 package-lock.json
+.firebase/*
+.firebaserc
 
 # User-specific stuff:
 .idea/workspace.xml

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 import TopNav from './TopNav';
 import PostCard from './PostCard';
 import Ads from './Ads';
@@ -9,6 +10,7 @@ import About from './About';
 import NotificationBar from './NotificationBar';
 import { auth, db } from '../firebase/firebase';
 import PostPanel from './PostPanel';
+import Login from './Login';
 
 const styles = theme => ({
   root: {
@@ -42,7 +44,8 @@ class MainContainer extends React.Component {
         notificationBarOpen: false,
         notificationBarMessage: '',
         notificationUndo: null,
-        lastDeletedPostId: null
+        lastDeletedPostId: null,
+        loginDialogOpen: false
       }
     }
 
@@ -59,6 +62,10 @@ class MainContainer extends React.Component {
             this.updatePost([]);
           }
       });
+    }
+
+    openLoginDialog = () => {
+      this.setState({loginDialogOpen: true});
     }
 
     updatePost = (bookmarks) => {
@@ -136,7 +143,7 @@ class MainContainer extends React.Component {
 
       return(
         <div className={classes.root}>
-          <TopNav user={user} currentLocation={this.props.currentLocation} className={classes.appBar} elevation={0} />
+          <TopNav user={user} onOpenLogin={() => this.openLoginDialog()} currentLocation={this.props.currentLocation} className={classes.appBar} elevation={0} />
           <main className={classes.content}>
             <div className={classes.toolbar} />
             <Grid
@@ -144,7 +151,7 @@ class MainContainer extends React.Component {
                 direction="row"
                 justify="center"
                 spacing={32}>
-                  <Grid item sm={6}>
+                  <Grid item sm={6} xs={12}>
                       <Grid item>
                         <PostPanel user={user} onNewPost={() => this.updatePost()} currentLocation={this.props.currentLocation} />
                       </Grid>
@@ -159,12 +166,19 @@ class MainContainer extends React.Component {
                             )
                         })
                       }
+                      <Hidden smUp={true}>
+                        <Grid item>
+                          <About />
+                        </Grid>
+                      </Hidden>
                   </Grid>
-                  <Grid item sm={3}>
-                    <Ads gutterBottom />
-                    <div className={classes.gutterBottom}/>
-                    <About />
-                  </Grid>
+                  <Hidden smDown={true}>
+                    <Grid item sm={3} xs={12}>
+                        <Ads />
+                        <div className={classes.gutterBottom}/>
+                        <About />
+                    </Grid>
+                  </Hidden>
               </Grid>
           </main>
           <NotificationBar
@@ -173,6 +187,7 @@ class MainContainer extends React.Component {
             showUndo={this.state.notificationWithUndo}
             handleUndo={(e) => this.handleUndeletePost()}
             handleClose = { e => this.setState({ notificationBarOpen: false })} />
+          <Login open={this.state.loginDialogOpen} />
         </div>
       );
     }

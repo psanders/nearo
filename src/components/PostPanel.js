@@ -12,8 +12,9 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Hidden from '@material-ui/core/Hidden';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import extract from 'mention-hashtag';
+//import extract from 'mention-hashtag';
 import { getCategories } from './categories';
 import Locator from './Locator';
 import { db } from '../firebase/firebase';
@@ -96,7 +97,7 @@ class PostPanel extends React.Component {
   }
 
   componentDidMount() {
-    this.updateLocation(this.props.currentLocation);
+    //this.updateLocation(this.props.currentLocation);
   }
 
   updateLocation = (location) => {
@@ -111,7 +112,8 @@ class PostPanel extends React.Component {
   }
 
   getCategoryInText = (text) => {
-    const tags = extract(text, { symbol: false, type: '#' });
+    //const tags = extract(text, { symbol: false, type: '#' });
+    const tags = [];
     const categories = getCategories();
 
     let results = [];
@@ -208,7 +210,9 @@ class PostPanel extends React.Component {
             <Button variant="outlined" style={{marginRight: 10}} color="secondary">
               <AddPhotoIcon />
             </Button>
-            <Locator initValue={this.state.locAddr} onSelect={(locAddr) => this.updateLocation(locAddr)}/>
+            <Hidden smDown={true}>
+              <Locator initValue={this.state.locAddr} onSelect={(locAddr) => this.updateLocation(locAddr)}/>
+            </Hidden>
             <span className={classes.flex}/>
             <Button className={classes.button} size="small">Cancel</Button>
             <Button className={classes.button} disabled={!this.state.body || this.state.loading} onClick={() =>  this.createPost(this, this.state.body)} variant="contained" size="small" color="secondary">

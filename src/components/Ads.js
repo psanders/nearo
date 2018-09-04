@@ -8,10 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
-  card: {
-    minWidth: 275,
-    maxWidth: 345,
-  },
   media: {
     height: 140,
   },

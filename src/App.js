@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import MainContainer from './components/MainContainer';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { showCurrentLocation } from './geocoder/geocoder'
 
 const theme = createMuiTheme({
   props: {
@@ -29,28 +27,15 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        currentLocation: 'Everywhere',
-        mounted: false
+        currentLocation: 'Everywhere'
     }
-  }
-
-  componentDidMount() {
-    showCurrentLocation()
-    .then(geoInfo => {
-      console.log('geo: ' + geoInfo);
-      this.setState({currentLocation: geoInfo.city + ', ' + geoInfo.state})
-      this.setState({mounted: true})
-    })
   }
 
   render() {
     return (
       <div className="App">
           <MuiThemeProvider theme={theme}>
-              { !this.state.mounted && <LinearProgress />}
-              { this.state.mounted
-                && <MainContainer currentLocation={this.state.currentLocation}/>
-              }
+            <MainContainer currentLocation={this.state.currentLocation}/>
           </MuiThemeProvider>
       </div>
     );
