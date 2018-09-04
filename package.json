@@ -1,8 +1,7 @@
 {
-  "name": "routr-ui",
+  "name": "nearo",
   "version": "1.0.0",
   "private": true,
-  "proxy": "https://localhost:4567",
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "latest",
@@ -11,7 +10,6 @@
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
     "node-geocoder": "^3.22.0",
-    "price-extractor": "^1.2.0",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",
