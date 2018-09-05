@@ -121,7 +121,16 @@ class PostCard extends React.Component {
     return post;
   }
 
+  isSignedIn () {
+      return this.props.user == null ? false : true
+  }
+
   addBookmark = () => {
+    if (!this.isSignedIn()) {
+      this.props.onNotification('You must login to create a new post');
+      return
+    }
+
     const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
     bookmarksRef.set({
       user: this.props.user.email

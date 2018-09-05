@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Hidden from '@material-ui/core/Hidden';
 
 const styles = theme => ({
   close: {
@@ -17,6 +18,27 @@ class NotificationBar extends React.Component {
 
   render() {
     const { classes, message, open, handleClose, handleUndo, showUndo} = this.props;
+    const action = [
+      <IconButton
+        key="close"
+        aria-label="Close"
+        color="inherit"
+        className={classes.close}
+        onClick={ e => handleClose(e)}
+      >
+        <CloseIcon />
+      </IconButton>
+    ];
+
+    if (showUndo) {
+      const closeAction = action.pop()
+      action.push(
+        <Button key="undo" disabled={!showUndo} color="secondary" size="small" onClick={handleUndo}>
+            UNDO
+          </Button>
+        );
+      action.push(closeAction);
+    }
 
     return (
       <div>
@@ -32,20 +54,7 @@ class NotificationBar extends React.Component {
             'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">{message}</span>}
-          action={[
-            <Button key="undo" disabled={!showUndo} color="secondary" size="small" onClick={handleUndo}>
-              UNDO
-            </Button>,
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={ e => handleClose(e)}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
+          action={action}
         />
       </div>
     );

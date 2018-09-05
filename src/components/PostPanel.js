@@ -111,6 +111,10 @@ class PostPanel extends React.Component {
       .catch(error => console.error('Error', error));
   }
 
+  isSignedIn () {
+      return this.props.user == null ? false : true
+  }
+
   getCategoryInText = (text) => {
     //const tags = extract(text, { symbol: false, type: '#' });
     const tags = [];
@@ -135,6 +139,11 @@ class PostPanel extends React.Component {
   }
 
   createPost = (self, body) => {
+    if (!this.isSignedIn()) {
+      this.props.onNotification('You must login to create a new post');
+      return
+    }
+    
     self.setState({loading: true})
     db.collection('posts').add({
       category: this.getCategoryInText(this.state.body),

@@ -153,7 +153,7 @@ class MainContainer extends React.Component {
                 spacing={32}>
                   <Grid item sm={6} xs={12}>
                       <Grid item>
-                        <PostPanel user={user} onNewPost={() => this.updatePost()} currentLocation={this.props.currentLocation} />
+                        <PostPanel user={user} onNewPost={() => this.updatePost()} onNotification={this.handleNotify} currentLocation={this.props.currentLocation} />
                       </Grid>
                       <div className={classes.gutterBottom}/>
                       {
