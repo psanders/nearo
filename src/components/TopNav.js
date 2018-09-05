@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ProfileMenu from './ProfileMenu';
 import Hidden from '@material-ui/core/Hidden';
+import { doSignInWithGoogle, doSignInWithFacebook } from '../firebase/auth';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Locator from './Locator';
 
@@ -142,12 +143,12 @@ class TopNav extends React.Component {
 
           { !this.isSignedIn() &&
             <div>
-              <Button size="medium" onClick={onOpenLogin} color="secondary" variant="outlined" className={classes.button}>
-                Log In
-              </Button>
+              {false && <Button size="medium" onClick={onOpenLogin} color="secondary" variant="outlined" className={classes.button}>
+                Continue with Google
+              </Button> }
 
-              <Button  size="medium" onClick={onOpenLogin} color="secondary" variant="contained" className={classes.button}>
-                Sign Up
+             <Button  size="medium" onClick={() => doSignInWithGoogle()} color="secondary" variant="contained" className={classes.button}>
+                Continue with Google
               </Button>
             </div>
           }
@@ -156,9 +157,6 @@ class TopNav extends React.Component {
             <div>
               <IconButton color="secondary" className={classes.button} aria-label="Post">
                 <BookmarkBorder style={{height: 26, width: 26}} />
-              </IconButton>
-              <IconButton color="inherit" className={classes.button} aria-label="Check Messages">
-                <MailIcon style={{height: 26, width: 26}} />
               </IconButton>
             </div>
           }

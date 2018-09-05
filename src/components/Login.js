@@ -6,11 +6,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import CardMedia from '@material-ui/core/CardMedia';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { doSignInWithGoogle, doSignInWithFacebook } from '../firebase/auth';
 import red from '@material-ui/core/colors/red';
 
-class ResponsiveDialog extends React.Component {
+class LoginDialog extends React.Component {
   state = {
     open: false,
   };
@@ -34,29 +37,23 @@ class ResponsiveDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogActions>
-            <IconButton onClick={this.handleClose} aria-label="Close">
-              <CloseIcon />
-            </IconButton>
-          </DialogActions>
-          <DialogContent>
-            <Button onClick={() => doSignInWithGoogle()} variant="contained" style={{backgroundColor: red[500], width: 200}}>
-               Login with Google
-             </Button>
-             <br/>
-             <br/>
-            <Button onClick={() => doSignInWithFacebook()}  variant="contained" color="secondary" style={{width: 200}}>
-               Login with Facebook
-            </Button>
-          </DialogContent>
+        <div style={{padding: 100}}>
+          <Button onClick={() => doSignInWithGoogle()} variant="contained" style={{color: '#FFFFFF', backgroundColor: red[500], width: 200}}>
+             Login with Google
+          </Button>
+          <div style={{marginBottom: 20}}/>
+          <Button onClick={() => doSignInWithFacebook()}  variant="contained" color="secondary" style={{width: 200}}>
+            Login with Facebook
+          </Button>
+        </div>
         </Dialog>
       </div>
     );
   }
 }
 
-ResponsiveDialog.propTypes = {
+LoginDialog.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
 };
 
-export default withMobileDialog()(ResponsiveDialog);
+export default withMobileDialog()(LoginDialog);
