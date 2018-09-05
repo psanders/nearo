@@ -1,7 +1,7 @@
 import { auth, googleProvider, fbProvider } from './firebase';
 
 // Sign In
-export const doRedirectSignIn = (provider) =>
+export const doRedirectSignIn = () =>
   auth.signInWithRedirect(googleProvider);
 
 export const doSignInWithGoogle = () =>
