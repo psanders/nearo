@@ -10,7 +10,6 @@ import About from './About';
 import NotificationBar from './NotificationBar';
 import { auth, db } from '../firebase/firebase';
 import PostPanel from './PostPanel';
-import Login from './Login';
 
 const styles = theme => ({
   root: {
@@ -44,8 +43,7 @@ class MainContainer extends React.Component {
         notificationBarOpen: false,
         notificationBarMessage: '',
         notificationUndo: null,
-        lastDeletedPostId: null,
-        loginDialogOpen: false
+        lastDeletedPostId: null
       }
     }
 
@@ -62,10 +60,6 @@ class MainContainer extends React.Component {
             this.updatePost([]);
           }
       });
-    }
-
-    openLoginDialog = () => {
-      this.setState({loginDialogOpen: true});
     }
 
     updatePost = (bookmarks) => {
@@ -143,7 +137,7 @@ class MainContainer extends React.Component {
 
       return(
         <div className={classes.root}>
-          <TopNav user={user} onOpenLogin={() => this.openLoginDialog()} currentLocation={this.props.currentLocation} className={classes.appBar} elevation={0} />
+          <TopNav user={user} currentLocation={this.props.currentLocation} className={classes.appBar} elevation={0} />
           <main className={classes.content}>
             <div className={classes.toolbar} />
             <Grid
@@ -187,7 +181,6 @@ class MainContainer extends React.Component {
             showUndo={this.state.notificationWithUndo}
             handleUndo={(e) => this.handleUndeletePost()}
             handleClose = { e => this.setState({ notificationBarOpen: false })} />
-          <Login open={this.state.loginDialogOpen} />
         </div>
       );
     }

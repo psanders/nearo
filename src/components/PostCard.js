@@ -229,12 +229,15 @@ class PostCard extends React.Component {
                 { !post.bookmarked && "Save" }
               </Button>
               <Button
+                onClick={() => this.props.onNotification("Not yet implemented")}
                 size="small" className={classes.button}>
                 <ShareIcon className={classes.icon}/>
                 Share
               </Button>
               { !this.isOwner(user, post.author) &&
-                <Button size="small" className={classes.button}>
+                <Button
+                  onClick={() => this.props.onNotification("Not yet implemented")}
+                  size="small" className={classes.button}>
                   <QuestionAnswer className={classes.icon}/>
                   Ask
                 </Button>

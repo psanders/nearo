@@ -15,6 +15,7 @@
     "react-dom": "latest",
     "react-dropzone-component": "^3.2.0",
     "react-ellipsis-text": "^1.0.0",
+    "react-firebase-file-uploader": "^2.4.2",
     "react-linkify": "^0.2.2",
     "react-moment": "^0.7.9",
     "react-places-autocomplete": "^7.2.0",

@@ -5,13 +5,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-import MailIcon from '@material-ui/icons/Mail';
 import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ProfileMenu from './ProfileMenu';
 import Hidden from '@material-ui/core/Hidden';
-import { doSignInWithGoogle, doSignInWithFacebook } from '../firebase/auth';
+import { doSignInWithGoogle } from '../firebase/auth';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import Locator from './Locator';
 

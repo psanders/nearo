@@ -7,12 +7,13 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/Edit';
-import AddPhotoIcon from '@material-ui/icons/AddAPhoto';
+import LocationIcon from '@material-ui/icons/LocationOn';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Hidden from '@material-ui/core/Hidden';
+import ProfilePage from './ProfilePage';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 //import extract from 'mention-hashtag';
 import { getCategories } from './categories';
@@ -30,6 +31,9 @@ const styles = theme => ({
         border: '1px solid #444',
         cursor: 'pointer'
     }*/
+  },
+  cover: {
+    minHeight: 300,
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -88,6 +92,7 @@ class PostPanel extends React.Component {
       loading: false,
       expanded: false,
       category: 'general',
+      imageURL: ""
     }
     this.updateBody = this.updateBody.bind(this);
   }
@@ -138,12 +143,18 @@ class PostPanel extends React.Component {
     return results.length > 0 ? Number(results[results.length - 1]) : 0;
   }
 
+  clearUI = () => {
+    this.setState({body: ''});
+    this.setState({loading: false});
+    this.setState({expanded: false});
+    this.setState({imageURL: ""});
+  }
+
   createPost = (self, body) => {
     if (!this.isSignedIn()) {
       this.props.onNotification('You must login to create a new post');
       return
     }
-    
     self.setState({loading: true})
     db.collection('posts').add({
       category: this.getCategoryInText(this.state.body),
@@ -154,18 +165,17 @@ class PostPanel extends React.Component {
       locLatLng: this.state.locLatLng,
       price: this.getPrice(this.state.body),
       timestamp: Date.now(),
-      deleted: false
+      deleted: false,
+      image: this.state.imageURL
     })
     .then(function(docRef) {
-      self.setState({body: ''});
-      self.setState({loading: false})
-      self.setState({expanded: false})
+      self.clearUI();
+      self.props.onNotification('Post submited');
       self.props.onNewPost();
     })
     .catch(function(error) {
-      self.setState({body: ''});
-      self.setState({loading: false})
-      self.setState({expanded: false})
+      self.clearUI();
+      self.props.onNotification('Unable to submit post. Try again later');
       console.error("Error adding document: ", error);
     });
   }
@@ -214,16 +224,38 @@ class PostPanel extends React.Component {
             />
           </ExpansionPanelDetails>
           <Divider />
+          {this.state.imageURL &&
+            <div style={{padding: 10, paddingBottom: 0}}>
+              <img alt="Post media" style={{width: 100}} src={this.state.imageURL}/>
+              <div/>
+              <Button onClick={() => this.setState({imageURL: ""})} style={{width: 100, borderRadius: 0}} className={classes.button} size="small">Remove</Button>
+            </div>
+          }
           {this.state.loading && <LinearProgress discolor="secondary" /> }
           <ExpansionPanelActions style={{padding: 12, paddingRight: 20}}>
-            <Button variant="outlined" style={{marginRight: 10}} color="secondary">
-              <AddPhotoIcon />
-            </Button>
+            <ProfilePage
+              onProgress={() => this.setState({loading: true})}
+              onUploadSuccess={(url) => {
+                this.setState({loading: false});
+                this.setState({imageURL: url})
+              }}
+              onError={() => {
+                  this.props.onNotification('Unable to upload image. Try again later');
+                  this.setState({loading: false});
+              }}
+              />
+            <Hidden smUp={true}>
+              <Button variant="outlined" style={{marginRight: 10}} color="secondary">
+                <LocationIcon />
+              </Button>
+            </Hidden>
             <Hidden smDown={true}>
               <Locator initValue={this.state.locAddr} onSelect={(locAddr) => this.updateLocation(locAddr)}/>
             </Hidden>
             <span className={classes.flex}/>
-            <Button className={classes.button} size="small">Cancel</Button>
+            <Hidden xsDown={true}>
+              <Button className={classes.button} size="small">Cancel</Button>
+            </Hidden>
             <Button className={classes.button} disabled={!this.state.body || this.state.loading} onClick={() =>  this.createPost(this, this.state.body)} variant="contained" size="small" color="secondary">
               Post
             </Button>
