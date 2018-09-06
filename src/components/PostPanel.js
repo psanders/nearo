@@ -254,7 +254,7 @@ class PostPanel extends React.Component {
             </Hidden>
             <span className={classes.flex}/>
             <Hidden xsDown={true}>
-              <Button className={classes.button} size="small">Cancel</Button>
+              <Button onClick={() => this.clearUI()} className={classes.button} size="small">Cancel</Button>
             </Hidden>
             <Button className={classes.button} disabled={!this.state.body || this.state.loading} onClick={() =>  this.createPost(this, this.state.body)} variant="contained" size="small" color="secondary">
               Post
