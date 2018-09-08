@@ -7,9 +7,10 @@ import TopNav from './TopNav';
 import PostCard from './PostCard';
 import Ads from './Ads';
 import About from './About';
+import PostPanel from './PostPanel';
 import NotificationBar from './NotificationBar';
 import { auth, db } from '../firebase/firebase';
-import PostPanel from './PostPanel';
+import { doSearchAlgolia } from '../firebase/algolia';
 
 const styles = theme => ({
   root: {
@@ -31,69 +32,105 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   gutterBottom: {
     marginBottom: 10
+  },
+  secAppBar: {
+
   }
 });
 
 class MainContainer extends React.Component {
+
     constructor(props) {
       super(props)
       this.state = {
         posts: [],
+        bookmarks: [],
         notificationWithUndo: false,
         notificationBarOpen: false,
         notificationBarMessage: '',
         notificationUndo: null,
-        lastDeletedPostId: null
+        lastDeletedPostId: null,
+        geoloc: null,
+        user: null
       }
     }
 
     componentDidMount() {
       auth.onAuthStateChanged(user => {
           this.setState({user: user});
-          if (user) {
-            console.log('POINT A');
-            this.getBookmarks(results => {
-              this.updatePost(results);
-            }, user.email);
-          } else {
-            console.log('POINT B');
-            this.updatePost([]);
-          }
+          this.updateBookmarks(user);
+          this.doSearchFireBase(this.state.geoHash, results => {
+            this.updatePosts(this.state.bookmarks, results);
+          });
       });
     }
 
-    updatePost = (bookmarks) => {
+    updateBySearch = keywords => {
+      let q = {query: keywords};
+
+      if (this.state.geoloc) {
+        q = {
+          aroundLatLng: this.state.geoloc.lat + "," + this.state.geoloc.lng,
+          aroundRadius:20,
+          query: keywords
+        }
+      }
+
+      doSearchAlgolia(q, results => {
+
+        this.updatePosts(this.state.bookmarks, results);
+      });
+    }
+
+    doSearchFireBase = (geoHash, callback) => {
       const posts = [];
-      db.collection("posts")
-      .where("deleted", "==", false)
-      .orderBy("timestamp", "desc")
+      let postsRef = db.collection("posts")
+        .where("deleted", "==", false);
+      if (geoHash) {
+        postsRef = postsRef.where("geoHashes", "array-contains", geoHash);
+      }
+      postsRef.orderBy("timestamp", "desc")
       .get().then(querySnapshot => {
           querySnapshot.forEach(doc => {
               const post = doc.data();
               post.id = doc.id;
-              post.bookmarked = false;
-              if(bookmarks) {
-                bookmarks.forEach(x => {
-                  if(x === post.id) {
-                    post.bookmarked = true;
-                  }
-                });
-              }
               posts.push(post);
           });
           this.setState({posts: posts});
       });
     }
 
-    getBookmarks = (callback, user) => {
+    updateMyGeoloc = geoloc => {
+        this.setState({geoloc: geoloc});
+        this.updateBySearch("");
+    }
+
+    updatePosts = (bookmarks, posts) => {
+      if (!posts) {
+        return
+      }
+
+      posts.forEach(post => {
+        if(bookmarks) {
+          bookmarks.forEach(x => {
+            if(x === post.id) {
+              post.bookmarked = true;
+            }
+          });
+        }
+      })
+      this.setState({posts:posts});
+    }
+
+    updateBookmarks = (user) => {
       const bookmarks = [];
       db.collection("bookmarks")
-      .where("user", "==", user)
+      .where("user", "==", user.email)
       .get().then(querySnapshot => {
         querySnapshot.forEach(doc => {
             bookmarks.push(doc.id);
         });
-        callback(bookmarks);
+        this.setState({bookmarks: bookmarks});
       });
     }
 
@@ -137,7 +174,9 @@ class MainContainer extends React.Component {
 
       return(
         <div className={classes.root}>
-          <TopNav user={user} currentLocation={this.props.currentLocation} className={classes.appBar} elevation={0} />
+          <TopNav onChangeLocation={geoloc => this.updateMyGeoloc(geoloc)}
+            onSearch={searchText => this.updateBySearch(searchText)}
+            user={user} currentLocation={this.props.currentLocation} className={classes.appBar} elevation={0} />
           <main className={classes.content}>
             <div className={classes.toolbar} />
             <Grid
@@ -147,7 +186,7 @@ class MainContainer extends React.Component {
                 spacing={32}>
                   <Grid item sm={6} xs={12}>
                       <Grid item>
-                        <PostPanel user={user} onNewPost={() => this.updatePost()} onNotification={this.handleNotify} currentLocation={this.props.currentLocation} />
+                        <PostPanel user={user} onNewPost={() => this.updateBySearch()} onNotification={this.handleNotify} currentLocation={this.props.currentLocation} />
                       </Grid>
                       <div className={classes.gutterBottom}/>
                       {

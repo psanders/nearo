@@ -76,7 +76,7 @@ class LocationSearchInput extends React.Component {
                     key={suggestion.description} button>
 
                     <ListItemText
-                      primary={<EllipsisText text={suggestion.description} length={'30'} />}
+                      primary={<EllipsisText text={suggestion.description} length={30} />}
                       />
                   </ListItem>
                 );

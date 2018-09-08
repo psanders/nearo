@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
-var prodConfig = {
+const prodConfig = {
   apiKey: "AIzaSyDaARZuHxu8oLnIxCHXUmAfwSSD9hiAvtY",
   authDomain: "locally-57510.firebaseapp.com",
   databaseURL: "https://locally-57510.firebaseio.com",
@@ -11,7 +11,7 @@ var prodConfig = {
   messagingSenderId: "225376231981"
 };
 
-var devConfig = {
+const devConfig = {
   apiKey: "AIzaSyDaARZuHxu8oLnIxCHXUmAfwSSD9hiAvtY",
   authDomain: "locally-57510.firebaseapp.com",
   databaseURL: "https://locally-57510.firebaseio.com",

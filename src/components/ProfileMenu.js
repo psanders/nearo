@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import { doSignOut } from '../firebase/auth';
 import { auth } from '../firebase/firebase';
 
-
 const styles = ({
   avatar: {
-    margin: 1,
     width: 30,
     height: 30,
   }
@@ -47,7 +45,8 @@ class ProfileMenu extends React.Component {
 
     return (
       <div>
-        <IconButton
+        <Button
+        size="small"
         aria-owns={anchorEl ? 'simple-menu' : null}
         aria-haspopup="true"
           onClick={this.handleClick} color="inherit"  aria-label="Check Messages">
@@ -55,7 +54,7 @@ class ProfileMenu extends React.Component {
             style={{height: 26, width: 26}}
             alt={this.state.user.displayName}
             src={this.state.user.photoURL}  /> }
-        </IconButton>
+        </Button>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}

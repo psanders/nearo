@@ -47,7 +47,7 @@ const styles = theme => ({
   },
   bootstrapInput: {
     borderRadius: 4,
-    color: '#5d5c5c',
+    color: theme.palette.secondary.main,
     backgroundColor: '#f1f5ff',
     fontSize: 16,
     padding: '10px 12px',
@@ -66,9 +66,12 @@ const styles = theme => ({
       '"Segoe UI Symbol"',
     ].join(','),
     '&:focus': {
-      color: 'black',
-      borderColor: '#5d5c5c',
-      boxShadow: '0 0 0 0.1rem #cdcdcd',
+      color: theme.palette.secondary.main,
+      boxShadow: '0 0 0 0.05rem ' + theme.palette.secondary.main,
+    },
+    '&:hover': {
+      color: theme.palette.secondary.main,
+      boxShadow: '0 0 0 0.05rem ' + theme.palette.secondary.main,
     },
   },
   bootstrapFormLabel: {
@@ -87,16 +90,13 @@ class TopNav extends React.Component {
       };
   }
 
-  componentDidMount() {
-    //this.updateLocation(this.props.currentLocation);
-  }
-
   updateLocation = (location) => {
     geocodeByAddress(location)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         this.setState({locAddr: location});
         this.setState({locLatLng: latLng});
+        this.props.onChangeLocation(latLng);
       })
       .catch(error => console.error('Error', error));
   }
@@ -104,6 +104,10 @@ class TopNav extends React.Component {
   isSignedIn () {
       return this.props.user == null ? false : true
   }
+
+  handleChange = name => event => {
+    this.props.onSearch(event.target.value);
+  };
 
   render() {
     const { classes, onOpenLogin } = this.props;
@@ -120,7 +124,8 @@ class TopNav extends React.Component {
             <TextField
              style={{marginRight: 10}}
              placeholder="Search"
-             id="bootstrap-input"
+             id="searchInput"
+             onChange={this.handleChange('searchInput')}
              InputProps={{
                disableUnderline: true,
                classes: {
@@ -136,7 +141,7 @@ class TopNav extends React.Component {
          </Hidden>
 
          <Hidden smDown={true}>
-          <Locator initValue={this.state.locAddr} onSelect={(locAddr) => console.log('locAddr: ' + locAddr)} />
+          <Locator initValue={this.state.locAddr} onSelect={(locAddr) => this.updateLocation(locAddr)} />
          </Hidden>
           <span className={classes.flex} style={{ borderRight: '0.05em solid #dcdcdc', padding: '1em' }}/>
 

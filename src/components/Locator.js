@@ -27,11 +27,11 @@ const styles = theme => ({
     border: '1px solid #fff',
     '&:hover': {
       backgroundColor: '#fff',
-      border: '1px solid #cdcdcd'
+      border: '1px solid ' + theme.palette.secondary.main
     },
     '&:focus': {
       backgroundColor: '#fff',
-      border: '1px solid #cdcdcd',
+      border: '1px solid ' + theme.palette.secondary.main,
       borderBottom: '1px solid #fff',
       borderBottomRightRadius: 0,
       borderBottomLeftRadius: 0,
@@ -41,19 +41,19 @@ const styles = theme => ({
     //marginLeft: theme.spacing.unit,
     backgroundColor: '#fff',
     width: 252,
-    border: '1px solid #cdcdcd',
+    border: '1px solid ' + theme.palette.secondary.main,
     borderBottomRightRadius: 0,
     borderBottomLeftRadius: 0,
     '&:hover': {
       backgroundColor: '#fff',
-      border: '1px solid #cdcdcd'
+      border: '1px solid ' + theme.palette.secondary.main
     }
   },
   menuGrow: {
-    marginTop: -1,
+    marginTop: -2,
     marginLeft: 1,
-    border: '1px solid #cdcdcd',
-    borderTop: '1px solid #fff',
+    border: '1px solid ' + theme.palette.secondary.main,
+    borderTop: '0.01em solid #fff',
     borderTopRightRadius: 0,
     borderTopLeftRadius: 0
   },
@@ -84,7 +84,6 @@ class Locator extends React.Component {
 
   handleToggle = event => {
     this.setState(state => ({ open: !state.open }));
-    console.log('component id: ' + event.currentTarget.id)
     if (event.currentTarget.id === 'location-button') {
       if(this.state.open) {
         event.currentTarget.blur()

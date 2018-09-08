@@ -156,15 +156,16 @@ class PostPanel extends React.Component {
       return
     }
     self.setState({loading: true})
+
     db.collection('posts').add({
       category: this.getCategoryInText(this.state.body),
       author: this.props.user.email,
       body: body,
       likes: 0,
       locText: this.state.locAddr,
-      locLatLng: this.state.locLatLng,
       price: this.getPrice(this.state.body),
       timestamp: Date.now(),
+      _geoloc: this.state.locLatLng,
       deleted: false,
       image: this.state.imageURL
     })
@@ -250,7 +251,7 @@ class PostPanel extends React.Component {
               </Button>
             </Hidden>
             <Hidden smDown={true}>
-              <Locator initValue={this.state.locAddr} onSelect={(locAddr) => this.updateLocation(locAddr)}/>
+              <Locator initValue={this.state.locAddr} onSelect={locAddr => this.updateLocation(locAddr)}/>
             </Hidden>
             <span className={classes.flex}/>
             <Hidden xsDown={true}>

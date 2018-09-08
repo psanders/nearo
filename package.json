@@ -5,7 +5,9 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "@material-ui/icons": "latest",
+    "algoliasearch": "^3.30.0",
     "firebase": "^5.4.1",
+    "latlon-geohash": "^1.1.0",
     "mention-hashtag": "^1.1.1",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
@@ -16,6 +18,7 @@
     "react-dropzone-component": "^3.2.0",
     "react-ellipsis-text": "^1.0.0",
     "react-firebase-file-uploader": "^2.4.2",
+    "react-infinite-scroll-component": "^4.2.0",
     "react-linkify": "^0.2.2",
     "react-moment": "^0.7.9",
     "react-places-autocomplete": "^7.2.0",
