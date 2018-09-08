@@ -67,6 +67,10 @@ class MainContainer extends React.Component {
     }
 
     updateBySearch = (keywords = "", offset = 0) => {
+      console.log("keywords", keywords);
+      console.log("offset", offset);
+      console.log("this.state.geoloc", this.state.geoloc);
+
       if(keywords === 'use-old-keywords') {
         keywords = this.state.keywords;
       } else {
@@ -94,7 +98,7 @@ class MainContainer extends React.Component {
       this.updateBySearch("use-old-keywords", this.state.posts.length);
     }
 
-    updateMyGeoloc = geoloc => {
+    updateMyGeoloc = (geoloc) => {
         this.setState({geoloc: geoloc});
         this.updateBySearch("");
     }
@@ -181,9 +185,12 @@ class MainContainer extends React.Component {
 
       return(
         <div className={classes.root}>
-          <TopNav onChangeLocation={geoloc => this.updateMyGeoloc(geoloc)}
+          <TopNav
+            onChangeLocation={geoloc => this.updateMyGeoloc(geoloc)}
             onSearch={searchText => this.updateBySearch(searchText)}
-            user={user} currentLocation={this.props.currentLocation} className={classes.appBar} elevation={0} />
+            user={user}
+            defaultLocation={this.props.currentLocation}
+            className={classes.appBar} />
           <main className={classes.content}>
             <div className={classes.toolbar} />
             <Grid

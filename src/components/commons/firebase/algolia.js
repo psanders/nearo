@@ -7,13 +7,9 @@ const client = algoliasearch(ALGOLIA_ID, ALGOLIA_SEARCH_KEY);
 const index = client.initIndex('posts');
 
 export const doSearchAlgolia = (q, callback) => {
-
-  console.log('Search for', q);
-
   index
     .search(q)
     .then(function(responses) {
-      console.log(responses);
       callback(responses.hits, responses.nbHits);
     });
 }

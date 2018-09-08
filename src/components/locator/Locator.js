@@ -137,7 +137,6 @@ class Locator extends React.Component {
             open={open}
             anchorEl={this.anchorEl}
             transition
-
             >
             {({ TransitionProps, placement }) => (
               <Grow
@@ -149,7 +148,9 @@ class Locator extends React.Component {
               >
                 <Paper style={{width: 250}}>
                   <ClickAwayListener onClickAway={this.handleClose} >
-                    <LocationSearchInput onSelect={(locAddr)=> {this.handleSelect(locAddr);onSelect(locAddr)}}/>
+                    <LocationSearchInput
+                      showDefaultItem={this.state.locAddr !== "Everywhere"}
+                      onSelect={ locAddr => {this.handleSelect(locAddr);onSelect(locAddr)}}/>
                   </ClickAwayListener>
                 </Paper>
               </Grow>
