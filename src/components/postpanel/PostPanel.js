@@ -13,12 +13,13 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Hidden from '@material-ui/core/Hidden';
-import ProfilePage from './ProfilePage';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+
 //import extract from 'mention-hashtag';
-import { getCategories } from './categories';
-import Locator from './Locator';
-import { db } from '../firebase/firebase';
+import { getCategories } from '../commons/categories';
+import Locator from '../locator/Locator';
+import { db } from '../commons/firebase/firebase';
+import ProfilePage from './ProfilePage';
 
 const styles = theme => ({
   flex: {

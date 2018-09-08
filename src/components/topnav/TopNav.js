@@ -10,9 +10,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ProfileMenu from './ProfileMenu';
 import Hidden from '@material-ui/core/Hidden';
-import { doSignInWithGoogle } from '../firebase/auth';
+
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import Locator from './Locator';
+import { doSignInWithGoogle } from '../commons/firebase/auth';
+import Locator from '../locator/Locator';
 
 const styles = theme => ({
   row: {

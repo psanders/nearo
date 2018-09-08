@@ -5,8 +5,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
-import { doSignOut } from '../firebase/auth';
-import { auth } from '../firebase/firebase';
+
+import { doSignOut } from '../commons/firebase/auth';
+import { auth } from '../commons/firebase/firebase';
 
 const styles = ({
   avatar: {

@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import TopNav from './TopNav';
-import PostCard from './PostCard';
+import Button from '@material-ui/core/Button';
+
 import Ads from './Ads';
 import About from './About';
-import PostPanel from './PostPanel';
+import TopNav from './topnav/TopNav';
+import PostPanel from './postpanel/PostPanel';
+import PostCard from './postcard/PostCard';
 import NotificationBar from './NotificationBar';
-import { auth, db } from '../firebase/firebase';
-import { doSearchAlgolia } from '../firebase/algolia';
+import { auth, db } from './commons/firebase/firebase';
+import { doSearchAlgolia } from './commons/firebase/algolia';
 
 const styles = theme => ({
   root: {
@@ -51,7 +53,8 @@ class MainContainer extends React.Component {
         notificationUndo: null,
         lastDeletedPostId: null,
         geoloc: null,
-        user: null
+        user: null,
+        maxItemPerPage: 20
       }
     }
 
@@ -59,45 +62,36 @@ class MainContainer extends React.Component {
       auth.onAuthStateChanged(user => {
           this.setState({user: user});
           this.updateBookmarks(user);
-          this.doSearchFireBase(this.state.geoHash, results => {
-            this.updatePosts(this.state.bookmarks, results);
-          });
+          this.updateBySearch();
       });
     }
 
-    updateBySearch = keywords => {
-      let q = {query: keywords};
+    updateBySearch = (keywords = "", offset = 0) => {
+      if(keywords === 'use-old-keywords') {
+        keywords = this.state.keywords;
+      } else {
+        this.setState({keywords: keywords});
+      }
+
+      let query = {
+        query: keywords,
+        offset: offset,
+        length: this.state.maxItemPerPage
+      };
 
       if (this.state.geoloc) {
-        q = {
-          aroundLatLng: this.state.geoloc.lat + "," + this.state.geoloc.lng,
-          aroundRadius:20,
-          query: keywords
-        }
+        query.aroundLatLng = this.state.geoloc.lat + "," + this.state.geoloc.lng;
+        query.aroundRadius = 20;
       }
 
-      doSearchAlgolia(q, results => {
-
-        this.updatePosts(this.state.bookmarks, results);
+      doSearchAlgolia(query, (results, nbHits) => {
+        this.setState({nbHits: nbHits});
+        this.updatePosts(this.state.bookmarks, results, offset);
       });
     }
 
-    doSearchFireBase = (geoHash, callback) => {
-      const posts = [];
-      let postsRef = db.collection("posts")
-        .where("deleted", "==", false);
-      if (geoHash) {
-        postsRef = postsRef.where("geoHashes", "array-contains", geoHash);
-      }
-      postsRef.orderBy("timestamp", "desc")
-      .get().then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-              const post = doc.data();
-              post.id = doc.id;
-              posts.push(post);
-          });
-          this.setState({posts: posts});
-      });
+    showMoreResults() {
+      this.updateBySearch("use-old-keywords", this.state.posts.length);
     }
 
     updateMyGeoloc = geoloc => {
@@ -105,7 +99,7 @@ class MainContainer extends React.Component {
         this.updateBySearch("");
     }
 
-    updatePosts = (bookmarks, posts) => {
+    updatePosts = (bookmarks, posts, doConcact) => {
       if (!posts) {
         return
       }
@@ -119,7 +113,14 @@ class MainContainer extends React.Component {
           });
         }
       })
-      this.setState({posts:posts});
+
+      if(doConcact) {
+        posts = this.state.posts.concat(posts);
+      }
+
+      setTimeout(() => {
+        this.setState({posts:posts});
+      }, 1000);
     }
 
     updateBookmarks = (user) => {
@@ -168,6 +169,12 @@ class MainContainer extends React.Component {
         this.setState({ notificationBarOpen: false })
     }
 
+    elementInfiniteLoad = () => {
+        return <div className="infinite-list-item">
+            Loading...
+        </div>;
+    }
+
     render () {
       const { classes } = this.props;
       const { user } = this.state;
@@ -189,21 +196,28 @@ class MainContainer extends React.Component {
                         <PostPanel user={user} onNewPost={() => this.updateBySearch()} onNotification={this.handleNotify} currentLocation={this.props.currentLocation} />
                       </Grid>
                       <div className={classes.gutterBottom}/>
-                      {
-                        this.state.posts.map(post => {
-                          return (
-                              <Grid key={post.id} item>
-                                <PostCard user={user} post={post} onDelete={this.handlePostDelete} onNotification={this.handleNotify} />
-                                <div className={classes.gutterBottom}/>
-                              </Grid>
-                            )
-                        })
-                      }
+
+                        {
+                          this.state.posts.map(post => {
+                            return (
+                               <Grid key={post.id} item>
+                                 <PostCard user={user} post={post} onDelete={this.handlePostDelete} onNotification={this.handleNotify} />
+                                 <div className={classes.gutterBottom}/>
+                               </Grid>
+                             )
+                          })
+                        }
                       <Hidden smUp={true}>
                         <Grid item>
                           <About />
                         </Grid>
                       </Hidden>
+                      {
+                        this.state.posts.length < this.state.nbHits &&
+                        <Grid item>
+                          <Button onClick={() => this.showMoreResults()}> Show more </Button>
+                        </Grid>
+                      }
                   </Grid>
                   <Hidden smDown={true}>
                     <Grid item sm={3} xs={12}>

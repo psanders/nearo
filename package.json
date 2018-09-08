@@ -18,6 +18,7 @@
     "react-dropzone-component": "^3.2.0",
     "react-ellipsis-text": "^1.0.0",
     "react-firebase-file-uploader": "^2.4.2",
+    "react-infinite": "^0.13.0",
     "react-infinite-scroll-component": "^4.2.0",
     "react-linkify": "^0.2.2",
     "react-moment": "^0.7.9",

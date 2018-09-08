@@ -20,8 +20,8 @@ import Moment from 'react-moment';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Linkify from 'react-linkify';
-import { db } from '../firebase/firebase';
-import {getCategory} from './categories';
+import { db } from '../commons/firebase/firebase';
+import {getCategory} from '../commons/categories';
 
 const styles = theme => ({
   card: {
