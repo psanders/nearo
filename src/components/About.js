@@ -96,7 +96,7 @@ class About extends React.Component {
             </DialogContentText>
             <br/>
             <Typography variant="subheading" gutterBottom>
-              Private Policy User Agreement
+              Mod Policy
             </Typography>
             <DialogContentText>
               Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
