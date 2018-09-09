@@ -112,13 +112,12 @@ class MainContainer extends React.Component {
               post.bookmarked = true;
             }
           });
-        })
+      })
 
-        if(doConcact) {
-          posts = this.state.posts.concat(posts);
-        }
+      if(doConcact) {
+        posts = this.state.posts.concat(posts);
+      }
 
-        console.log(posts);
         this.setState({posts: posts});
       })
     }
@@ -141,6 +140,10 @@ class MainContainer extends React.Component {
       });
     }
 
+    handleBookmark = () => {
+      this.updateBookmarks(this.state.user);
+    }
+
     handleNotify = (message, undo) => {
       if (undo) {
         this.setState({notificationWithUndo: true});
@@ -150,14 +153,23 @@ class MainContainer extends React.Component {
       this.setState({ notificationBarOpen: true, notificationBarMessage: message, undo: undo })
     }
 
+    removePostFromArray = (postId) => {
+      const posts = this.state.posts.filter(post => post.id !== postId)
+      this.setState({posts: posts});
+    }
+
+    getPost = (postId) => {
+      return this.state.posts.filter(post => post.id == postId)[0];
+    }
+
     handlePostDelete = (postId) => {
-        this.setState({lastDeletedPostId: postId});
+        this.setState({deletedPost: this.getPost(postId)});
         const postRef = db.collection('posts').doc(postId);
         postRef.set({
           deleted: true,
           deletedTimestamp: Date.now()
         }, { merge: true }).then(() => {
-          this.updatePosts();
+          this.removePostFromArray(postId);
           this.handleNotify("Post deleted", this.handleUndeletePost);
         }).catch((error) => {
           console.log(error);
@@ -165,17 +177,17 @@ class MainContainer extends React.Component {
         });
     }
 
-    handleBookmark = () => {
-      this.updateBookmarks(this.state.user);
-    }
-
     handleUndeletePost = () => {
-        const postRef = db.collection('posts').doc(this.state.lastDeletedPostId);
+        const postRef = db.collection('posts').doc(this.state.deletedPost.id);
         postRef.set({
           deleted: false,
           deletedTimestamp: Date.now()
         }, { merge: true }).then(() => {
-          this.updatePosts();
+          const posts = this.state.posts;
+          const deletedPost = this.state.deletedPost;
+          deletedPost.deleted = false;
+          posts.push(deletedPost);
+          this.setState({posts: posts});
         });
         this.setState({ notificationBarOpen: false })
     }

@@ -9,12 +9,12 @@ import Tooltip from '@material-ui/core/Tooltip';
 class UploaderButton extends Component {
 
   handleUploadError = error => {
-    this.props.onError()
+    this.props.onError();
     console.error(error);
   };
 
   handleUploadSuccess = filename => {
-    this.props.onProgress()
+    this.props.onProgress();
     firebase
       .storage()
       .ref("images")
@@ -27,7 +27,7 @@ class UploaderButton extends Component {
 
   triggerInputFile = () => {
     const fUploader= document.getElementById("uploaderInput");
-    fUploader.click()
+    fUploader.click();
   }
 
   render() {

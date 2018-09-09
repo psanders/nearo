@@ -9,8 +9,20 @@ const client = algoliasearch(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
 
 exports.onPostCreated = functions.firestore.document('posts/{postId}').onCreate((snap, context) => {
   const post = snap.data();
-  post.objectID = context.params.postId;
   post.id = context.params.postId;
+  post.objectID = post.id
   const index = client.initIndex(ALGOLIA_INDEX_NAME);
   return index.saveObject(post);
+});
+
+exports.onPostUpdated = functions.firestore.document('posts/{postId}').onUpdate((change, context) => {
+  const post = change.after.data();
+  post.id = context.params.postId;
+  post.objectID = post.id
+  const index = client.initIndex(ALGOLIA_INDEX_NAME);
+  if (post.deleted) {
+    index.deleteObject(post.id);
+  } else {
+    index.saveObject(post);
+  }
 });
