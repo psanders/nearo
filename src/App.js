@@ -31,7 +31,6 @@ class App extends Component {
       currentLocation: null
     };
     getCurrentLocation().then(loc => {
-      console.log("result", loc);
       if(loc) {
         this.setState({currentLocation: loc});
       } else {

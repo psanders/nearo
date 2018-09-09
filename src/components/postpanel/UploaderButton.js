@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import firebase from "firebase";
-import FileUploader from "react-firebase-file-uploader";
+import React, { Component } from 'react';
+// Warning: This is causing a warning in the console
+import firebase from 'firebase';
+import FileUploader from 'react-firebase-file-uploader';
 import AddPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
