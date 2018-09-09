@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import {openURL} from './commons/utils';
 
 const styles = {
   media: {
@@ -25,16 +26,11 @@ const styles = {
   },
 };
 
-function openInNewTab(url) {
-  var win = window.open(url, '_blank');
-  win.focus();
-}
-
 function SimpleCard(props) {
   const { classes } = props;
 
   return (
-    <Card onClick={() => openInNewTab("https://www.pinterest.com/pin/644507396647500600/")} className={classes.card} elevation={0}>
+    <Card onClick={() => openURL('https://www.pinterest.com/pin/644507396647500600/', true)} className={classes.card} elevation={0}>
       <CardActionArea>
         <CardMedia
           className={classes.media}

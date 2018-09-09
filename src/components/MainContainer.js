@@ -84,7 +84,8 @@ class MainContainer extends React.Component {
 
       if (this.state.geoloc) {
         query.aroundLatLng = this.state.geoloc.lat + "," + this.state.geoloc.lng;
-        query.aroundRadius = 20;
+        //query.aroundRadius = 20;
+        query.minimumAroundRadius = 20000;
       }
 
       doSearchAlgolia(query, (results, nbHits) => {
@@ -161,7 +162,7 @@ class MainContainer extends React.Component {
     }
 
     getPost = (postId) => {
-      return this.state.posts.filter(post => post.id == postId)[0];
+      return this.state.posts.filter(post => post.id === postId)[0];
     }
 
     handlePostDelete = (postId) => {

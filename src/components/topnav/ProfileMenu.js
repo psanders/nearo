@@ -5,7 +5,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
+import ExitIcon from '@material-ui/icons/ExitToApp';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
+import ProfileDialog from '../profile/ProfileDialog';
 import { doSignOut } from '../commons/firebase/auth';
 import { auth } from '../commons/firebase/firebase';
 
@@ -62,8 +65,13 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-          <MenuItem onClick={() => doSignOut()}>Logout</MenuItem>
+          <ProfileDialog>Profile</ProfileDialog>
+          <MenuItem onClick={() => doSignOut()}>
+            <ListItemIcon className={classes.icon}>
+              <ExitIcon />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
         </Menu>
       </div>
     );

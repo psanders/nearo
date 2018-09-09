@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import MainContainer from './components/MainContainer';
+import { Route } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { getCurrentLocation } from './components/locator/dbfunctions';
 
@@ -46,12 +47,7 @@ class App extends Component {
     return (
       <div className="App">
           <MuiThemeProvider theme={theme}>
-            { this.state.currentLocation &&
-                <MainContainer currentLocation={this.state.currentLocation}/>
-            }
-            { !this.state.currentLocation &&
-                <p>Loading...</p>
-            }
+            <Route exact path='/' component={MainContainer} />
           </MuiThemeProvider>
       </div>
     );

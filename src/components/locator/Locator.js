@@ -116,7 +116,7 @@ class Locator extends React.Component {
   };
 
   render() {
-    const { classes, onSelect } = this.props;
+    const { classes } = this.props;
     const { open } = this.state;
 
     return (

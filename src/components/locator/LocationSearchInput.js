@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import google from '@google/maps';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -96,7 +95,7 @@ class LocationSearchInput extends React.Component {
   }
 
   render() {
-    const { classes, onSelect, showDefaultItem } = this.props;
+    const { classes, showDefaultItem } = this.props;
     return (
       <PlacesAutocomplete
         className={classes.root}
