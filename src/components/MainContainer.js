@@ -13,6 +13,7 @@ import PostCard from './postcard/PostCard';
 import NotificationBar from './NotificationBar';
 import { auth, db } from './commons/firebase/firebase';
 import { doSearchAlgolia } from './commons/firebase/algolia';
+import { getBookmarks, saveBookmarks } from './commons/dbfunctions';
 
 const styles = theme => ({
   root: {
@@ -46,8 +47,7 @@ class MainContainer extends React.Component {
       super(props)
       this.state = {
         posts: [],
-        nbHits: -1,
-        bookmarks: [],
+        nbHits: 0,
         notificationWithUndo: false,
         notificationBarOpen: false,
         notificationBarMessage: '',
@@ -86,7 +86,7 @@ class MainContainer extends React.Component {
       }
 
       doSearchAlgolia(query, (results, nbHits) => {
-        this.updatePosts(this.state.bookmarks, results, offset);
+        this.updatePosts(results, offset);
         this.setState({nbHits: nbHits});
       });
     }
@@ -100,26 +100,27 @@ class MainContainer extends React.Component {
         this.updateBySearch("");
     }
 
-    updatePosts = (bookmarks, posts, doConcact) => {
+    updatePosts = (posts, doConcact) => {
       if (!posts) {
         return
       }
 
-      posts.forEach(post => {
-        if(bookmarks) {
+      getBookmarks().then((bookmarks) => {
+        posts.forEach(post => {
           bookmarks.forEach(x => {
             if(x === post.id) {
               post.bookmarked = true;
             }
           });
+        })
+
+        if(doConcact) {
+          posts = this.state.posts.concat(posts);
         }
+
+        console.log(posts);
+        this.setState({posts: posts});
       })
-
-      if(doConcact) {
-        posts = this.state.posts.concat(posts);
-      }
-
-      this.setState({posts:posts});
     }
 
     addNewPost = (post) => {
@@ -136,7 +137,7 @@ class MainContainer extends React.Component {
         querySnapshot.forEach(doc => {
             bookmarks.push(doc.id);
         });
-        this.setState({bookmarks: bookmarks});
+        saveBookmarks(bookmarks);
       });
     }
 
@@ -156,11 +157,16 @@ class MainContainer extends React.Component {
           deleted: true,
           deletedTimestamp: Date.now()
         }, { merge: true }).then(() => {
-          this.updatePost();
+          this.updatePosts();
           this.handleNotify("Post deleted", this.handleUndeletePost);
         }).catch((error) => {
+          console.log(error);
           this.handleNotify("Something when wrong. Please try again later");
         });
+    }
+
+    handleBookmark = () => {
+      this.updateBookmarks(this.state.user);
     }
 
     handleUndeletePost = () => {
@@ -169,15 +175,9 @@ class MainContainer extends React.Component {
           deleted: false,
           deletedTimestamp: Date.now()
         }, { merge: true }).then(() => {
-          this.updatePost();
+          this.updatePosts();
         });
         this.setState({ notificationBarOpen: false })
-    }
-
-    elementInfiniteLoad = () => {
-        return <div className="infinite-list-item">
-            Loading...
-        </div>;
     }
 
     render () {
@@ -209,7 +209,7 @@ class MainContainer extends React.Component {
                           this.state.posts.map(post => {
                             return (
                                <Grid key={post.id} item>
-                                 <PostCard user={user} post={post} onDelete={this.handlePostDelete} onNotification={this.handleNotify} />
+                                 <PostCard user={user} post={post} onBookmark={this.handleBookmark} onDelete={this.handlePostDelete} onNotification={this.handleNotify} />
                                  <div className={classes.gutterBottom}/>
                                </Grid>
                              )
@@ -223,7 +223,7 @@ class MainContainer extends React.Component {
                       {
                         this.state.posts.length < this.state.nbHits &&
                         <Grid item>
-                          <Button onClick={() => this.showMoreResults()}>{this.state.posts.length} {this.state.nbHits} Show more</Button>
+                          <Button onClick={() => this.showMoreResults()}>Show more</Button>
                         </Grid>
                       }
                   </Grid>

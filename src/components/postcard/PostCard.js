@@ -83,7 +83,8 @@ class PostCard extends React.Component {
     super(props);
     this.state = {
       alertOpen: false,
-      anchorEl: null
+      anchorEl: null,
+      post: props.post
     }
   }
 
@@ -115,14 +116,13 @@ class PostCard extends React.Component {
   }
 
   uiRefreshForBookmark() {
-    const post = this.props.post;
+    const post = this.state.post;
     post.bookmarked = !post.bookmarked;
-    this.setState({post: post})
-    return post;
+    this.setState({post: post});
   }
 
   isSignedIn () {
-      return this.props.user == null ? false : true
+    return this.props.user == null ? false : true
   }
 
   addBookmark = () => {
@@ -130,12 +130,13 @@ class PostCard extends React.Component {
       this.props.onNotification('You must login to create a new post');
       return
     }
-
     const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
     bookmarksRef.set({
       user: this.props.user.email
     }, { merge: true }).then(() => {
+      this.uiRefreshForBookmark();
       this.props.onNotification('Saved');
+      this.props.onBookmark();
     }).catch(function(error) {
       this.uiRefreshForBookmark();
       console.error("Error writing document: ", error);
@@ -146,7 +147,9 @@ class PostCard extends React.Component {
     const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
     bookmarksRef.delete()
     .then(() => {
+      this.uiRefreshForBookmark();
       this.props.onNotification('Removed from saved posts');
+      this.props.onBookmark();
     }).catch(function(error) {
       this.uiRefreshForBookmark();
       console.error("Error writing document: ", error);
@@ -154,10 +157,10 @@ class PostCard extends React.Component {
   }
 
   handleBookmark = () => {
-    if(this.uiRefreshForBookmark()) {
-      this.addBookmark()
+    if(!this.state.post.bookmarked) {
+      this.addBookmark();
     } else {
-      this.deleteBookmark()
+      this.deleteBookmark();
     }
   }
 
