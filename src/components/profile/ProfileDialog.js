@@ -35,7 +35,7 @@ function Transition(props) {
 
 class ProfileDialog extends React.Component {
   state = {
-    open: true,
+    open: false,
   };
 
   handleClickOpen = () => {
