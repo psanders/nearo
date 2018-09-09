@@ -15,7 +15,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Hidden from '@material-ui/core/Hidden';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
-//import extract from 'mention-hashtag';
+import extract from 'find-hashtags';
 import { getCategories } from '../commons/categories';
 import Locator from '../locator/Locator';
 import { db } from '../commons/firebase/firebase';
@@ -102,10 +102,6 @@ class PostPanel extends React.Component {
     this.setState({body: e.target.value});
   }
 
-  componentDidMount() {
-    //this.updateLocation(this.props.currentLocation);
-  }
-
   updateLocation = (location) => {
     geocodeByAddress(location)
       .then(results => getLatLng(results[0]))
@@ -121,8 +117,7 @@ class PostPanel extends React.Component {
   }
 
   getCategoryInText = (text) => {
-    //const tags = extract(text, { symbol: false, type: '#' });
-    const tags = [];
+    const tags = extract(text);
     const categories = getCategories();
 
     let results = [];

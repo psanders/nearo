@@ -6,6 +6,7 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "latest",
     "algoliasearch": "^3.30.0",
+    "find-hashtags": "^1.0.1",
     "firebase": "^5.4.1",
     "latlon-geohash": "^1.1.0",
     "localforage": "^1.7.2",
