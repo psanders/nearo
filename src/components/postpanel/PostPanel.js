@@ -170,6 +170,7 @@ class PostPanel extends React.Component {
     .then(function(docRef) {
       self.clearUI();
       self.props.onNotification('Post submited');
+      post.id = docRef.id;
       self.props.onNewPost(post);
     })
     .catch(function(error) {
