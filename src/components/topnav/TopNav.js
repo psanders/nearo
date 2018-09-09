@@ -126,7 +126,7 @@ class TopNav extends React.Component {
     return (
       <div>
       <AppBar elevation={0} color="primary">
-        <Toolbar variant="dense">
+        <Toolbar>
           <Typography variant="title" color="inherit">
             Nearo
           </Typography>
