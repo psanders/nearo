@@ -19,7 +19,7 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { getCategories } from '../commons/categories';
 import Locator from '../locator/Locator';
 import { db } from '../commons/firebase/firebase';
-import ProfilePage from './ProfilePage';
+import UploaderButton from './UploaderButton';
 
 const styles = theme => ({
   flex: {
@@ -235,7 +235,7 @@ class PostPanel extends React.Component {
           }
           {this.state.loading && <LinearProgress discolor="secondary" /> }
           <ExpansionPanelActions style={{padding: 12, paddingRight: 20}}>
-            <ProfilePage
+            <UploaderButton
               onProgress={() => this.setState({loading: true})}
               onUploadSuccess={(url) => {
                 this.setState({loading: false});

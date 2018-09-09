@@ -67,11 +67,7 @@ class MainContainer extends React.Component {
       });
     }
 
-    updateBySearch = (keywords = "", offset = 0) => {
-      console.log("keywords", keywords);
-      console.log("offset", offset);
-      console.log("this.state.geoloc", this.state.geoloc);
-
+    updateBySearch = (keywords = '', offset = 0) => {
       if(keywords === 'use-old-keywords') {
         keywords = this.state.keywords;
       } else {

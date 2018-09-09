@@ -5,7 +5,7 @@ import AddPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
-class ProfilePage extends Component {
+class UploaderButton extends Component {
 
   handleUploadError = error => {
     this.props.onError()
@@ -53,4 +53,4 @@ class ProfilePage extends Component {
   }
 }
 
-export default ProfilePage;
+export default UploaderButton;

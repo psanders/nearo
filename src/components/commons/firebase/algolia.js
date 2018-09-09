@@ -5,6 +5,9 @@ const ALGOLIA_SEARCH_KEY = "c7a59a9ddbe2354bf0d9a1cdfc7f5fe3";
 
 const client = algoliasearch(ALGOLIA_ID, ALGOLIA_SEARCH_KEY);
 const index = client.initIndex('posts');
+index.setSettings({
+  replicas: "posts_timestamp_desc"
+})
 
 export const doSearchAlgolia = (q, callback) => {
   index
