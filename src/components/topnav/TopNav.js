@@ -93,6 +93,7 @@ class TopNav extends React.Component {
   }
 
   updateLocation = (location) => {
+    console.log("location", location);
     if(location === "Everywhere") {
       this.setState({locAddr: "Everywhere"});
       this.setState({locLatLng: null});
@@ -106,6 +107,7 @@ class TopNav extends React.Component {
         this.setState({locAddr: location});
         this.setState({locLatLng: latLng});
         this.props.onChangeLocation(latLng);
+        console.log("latLng: ", latLng);
       })
       .catch(error => console.error('Error', error));
   }
@@ -150,7 +152,7 @@ class TopNav extends React.Component {
          </Hidden>
 
          <Hidden smDown={true}>
-          <Locator initValue={this.state.locAddr} onSelect={(locAddr) => this.updateLocation(locAddr)} />
+          <Locator initValue={this.state.locAddr} onSelect={this.updateLocation} />
          </Hidden>
           <span className={classes.flex} style={{ borderRight: '0.05em solid #dcdcdc', padding: '1em' }}/>
 

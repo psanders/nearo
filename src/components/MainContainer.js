@@ -80,6 +80,8 @@ class MainContainer extends React.Component {
         length: this.state.maxItemPerPage
       };
 
+      console.log('this.state.geoloc', this.state.geoloc);
+
       if (this.state.geoloc) {
         query.aroundLatLng = this.state.geoloc.lat + "," + this.state.geoloc.lng;
         query.aroundRadius = 20;
@@ -97,7 +99,7 @@ class MainContainer extends React.Component {
 
     updateMyGeoloc = (geoloc) => {
         this.setState({geoloc: geoloc});
-        this.updateBySearch("");
+        this.updateBySearch();
     }
 
     updatePosts = (posts, doConcact) => {
@@ -199,8 +201,8 @@ class MainContainer extends React.Component {
       return(
         <div className={classes.root}>
           <TopNav
-            onChangeLocation={geoloc => this.updateMyGeoloc(geoloc)}
-            onSearch={searchText => this.updateBySearch(searchText)}
+            onChangeLocation={this.updateMyGeoloc}
+            onSearch={this.updateBySearch}
             user={user}
             defaultLocation={this.props.currentLocation}
             className={classes.appBar} />

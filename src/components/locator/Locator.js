@@ -109,6 +109,7 @@ class Locator extends React.Component {
   };
 
   handleSelect = locAddr => {
+    this.props.onSelect(locAddr);
     this.setState({locAddr: locAddr});
     this.setState({ open: false });
     saveCurrentLocation(locAddr);
@@ -159,7 +160,7 @@ class Locator extends React.Component {
                   <ClickAwayListener onClickAway={this.handleClose} >
                     <LocationSearchInput
                       showDefaultItem={this.state.locAddr !== "Everywhere"}
-                      onSelect={ locAddr => {this.handleSelect(locAddr);onSelect(locAddr)}}/>
+                      onSelect={ locAddr => {this.handleSelect(locAddr)}}/>
                   </ClickAwayListener>
                 </Paper>
               </Grow>

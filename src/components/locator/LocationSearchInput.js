@@ -47,6 +47,16 @@ class LocationSearchInput extends React.Component {
     this.setState({ address });
   };
 
+  handleSelect = (address, placeId) => {
+    if (address instanceof Object) {
+      console.log("Pinga 1");
+      this.props.onSelect("Everywhere");
+    } else {
+      console.log("Pinga 2");
+      this.props.onSelect(address);
+    }
+  };
+
   getInputItems = (getSuggestionItemProps, suggestions) => {
     return suggestions.map(suggestion => {
       const className = suggestion.active
@@ -76,6 +86,7 @@ class LocationSearchInput extends React.Component {
   getDefaultItem = (classes, onSelect) => {
       return (
         <ListItem
+          onClick={this.handleSelect}
           className={classes.everywhereBtn}
           key="Everywhere"
           button>
@@ -91,7 +102,7 @@ class LocationSearchInput extends React.Component {
         className={classes.root}
         value={this.state.address}
         onChange={this.handleChange}
-        onSelect={onSelect}
+        onSelect={this.handleSelect}
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
@@ -103,7 +114,7 @@ class LocationSearchInput extends React.Component {
             />
             <List dense={true} className="autocomplete-dropdown-container">
               {loading && <p style={{fontSize: 12, marginLeft: 20}}>Loading...</p>}
-              {showDefaultItem && this.getDefaultItem(classes, onSelect)}
+              {showDefaultItem && this.getDefaultItem(classes)}
               {this.getInputItems(getSuggestionItemProps, suggestions)}
               <div style={{width: '100%', height: '12px'}}>
                 <img alt="Powered by Google" style={{float: 'right', marginRight: 12}} height="10px" src="./powered_by_google_default.png"/>
