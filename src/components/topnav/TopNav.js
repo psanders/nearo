@@ -176,7 +176,7 @@ class TopNav extends React.Component {
             </Tooltip>
           }
 
-          { this.isSignedIn() && <ProfileMenu /> }
+          { this.isSignedIn() && <ProfileMenu user={this.props.user}/> }
         </Toolbar>
       </AppBar>
       </div>

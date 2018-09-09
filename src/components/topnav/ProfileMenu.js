@@ -10,7 +10,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import ProfileDialog from '../profile/ProfileDialog';
 import { doSignOut } from '../commons/firebase/auth';
-import { auth } from '../commons/firebase/firebase';
 
 const styles = ({
   avatar: {
@@ -25,14 +24,8 @@ class ProfileMenu extends React.Component {
       super(props, context);
       this.state = {
           anchorEl: null,
-          user: null
+          user: this.props.user
       };
-  }
-
-  componentWillMount() {
-      auth.onAuthStateChanged(user => {
-          this.setState({user: user});
-      });
   }
 
   handleClick = event => {
@@ -44,7 +37,7 @@ class ProfileMenu extends React.Component {
   };
 
   render() {
-    const { anchorEl } = this.state;
+    const { anchorEl, user } = this.state;
     const { classes } = this.props;
 
     return (
@@ -54,10 +47,10 @@ class ProfileMenu extends React.Component {
         aria-owns={anchorEl ? 'simple-menu' : null}
         aria-haspopup="true"
           onClick={this.handleClick} color="inherit"  aria-label="Check Messages">
-          { this.state.user && <Avatar className={classes.avatar}
+          { user && <Avatar className={classes.avatar}
             style={{height: 26, width: 26}}
-            alt={this.state.user.displayName}
-            src={this.state.user.photoURL}  /> }
+            alt={user.name}
+            src={user.picture}  /> }
         </Button>
         <Menu
           id="simple-menu"
@@ -65,7 +58,7 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <ProfileDialog>Profile</ProfileDialog>
+          <ProfileDialog onClick={this.handleClose} user={user}>Profile</ProfileDialog>
           <MenuItem onClick={() => doSignOut()}>
             <ListItemIcon className={classes.icon}>
               <ExitIcon />

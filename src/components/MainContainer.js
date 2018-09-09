@@ -61,13 +61,23 @@ class MainContainer extends React.Component {
 
     componentDidMount() {
       auth.onAuthStateChanged(user => {
-          this.setState({user: user});
-          this.updateBookmarks(user);
-          this.updateBySearch();
+          if (user) {
+            const userRef = db.collection('users').doc(user.email);
+            userRef.get()
+            .then(result => {
+              console.log('result', result.data());
+              const u = result.data();
+              this.setState({user: u});
+              this.updateBookmarks(u);
+              this.updateBySearch();
+            });
+          }
       });
+
+      this.updateBySearch();
     }
 
-    updateBySearch = (keywords = '', offset = 0) => {
+    updateBySearch = (keywords = "", offset = 0) => {
       if(keywords === 'use-old-keywords') {
         keywords = this.state.keywords;
       } else {

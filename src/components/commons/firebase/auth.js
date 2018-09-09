@@ -24,13 +24,8 @@ auth.getRedirectResult().then(function(result) {
         picture: profile.picture
       }
 
-      db.collection('users')
-      .add(user)
-      .then(function(docRef) {
-      })
-      .catch(function(error) {
-        console.error("Error adding document: ", error);
-      });
+      const userRef = db.collection('users');
+      userRef.doc(profile.email).set(user);
   }
 }).catch(function(error) {
   console.error(error);

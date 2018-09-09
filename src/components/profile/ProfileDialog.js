@@ -3,10 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,6 +15,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import SettingsIcon from '@material-ui/icons/Settings';
+import { db } from '../commons/firebase/firebase';
 
 const styles = {
   appBar: {
@@ -36,6 +33,7 @@ function Transition(props) {
 class ProfileDialog extends React.Component {
   state = {
     open: false,
+    user: this.props.user
   };
 
   handleClickOpen = () => {
@@ -46,8 +44,29 @@ class ProfileDialog extends React.Component {
     this.setState({ open: false });
   };
 
+  handleChange = event => {
+    const user = this.state.user;
+    if (event.target.id === 'user-name') {
+      user.name = event.target.value;
+    } else if (event.target.id === 'user-phone') {
+      user.phone = event.target.value;
+    }
+    this.setState({ user: user});
+  };
+
+  save = () => {
+    // Close it first to make it feel faster
+    this.handleClose();
+    const user = this.state.user;
+    const userRef = db.collection("users").doc(user.email);
+    userRef.set(user);
+  };
+
+
   render() {
     const { classes } = this.props;
+    const { user} = this.state;
+
     return (
       <div>
         <MenuItem onClick={this.handleClickOpen}>
@@ -73,51 +92,57 @@ class ProfileDialog extends React.Component {
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
               <Avatar className={classes.avatar}
                 style={{height: 35, width: 35}}
-                alt={"Pedro Sanders"}
-                src={"https://lh5.googleusercontent.com/-PnN3kxCPIKo/AAAAAAAAAAI/AAAAAAAAA4I/wdUgAlKPDjA/photo.jpg"}  />
+                alt={user.name}
+                src={user.picture}  />
               </IconButton>
             </Toolbar>
           </AppBar>
           <div style={{backgroundColor: '#dae0e6', width: '100%', height: '100%'}}>
             <div style={{margin: 'auto', width: '360px', height: 300}}>
               <Paper style={{height: 300, padding: 35}}>
-
                 <Typography variant="title" gutterBottom>
                   Settings
                 </Typography>
                 <TextField
-                  id="full-width"
+                  id="user-name"
                   label="Display Name"
+                  onChange={this.handleChange}
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  placeholder="Placeholder"
+                  value={user.name}
+                  placeholder="Name"
                   helperText="This is what other users will see in your posts"
                   fullWidth
                   margin="normal"
                 />
                 <TextField
-                  id="full-width"
+                  id="user-phone"
                   label="Phone"
+                  onChange={this.handleChange}
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  value={user.phone}
                   placeholder="000-000-000"
                   fullWidth
                   margin="normal"
                 />
                 <TextField
-                  id="full-width"
-                  label="Phone"
+                  id="user-email"
+                  label="Email"
                   InputLabelProps={{
                     shrink: true,
                   }}
                   disabled
-                  value="your@email.com"
+                  value={user.email}
                   placeholder="your@email.com"
                   fullWidth
                   margin="normal"
                 />
+                <Button onClick={this.save} size="small" variant="contained" color="secondary">
+                  Save
+                </Button>
               </Paper>
               <Typography variant="caption" style={{marginTop: 5}} align="center">
                 We will not annoy you with push notification if you are currently online via web/desktop.
