@@ -93,15 +93,12 @@ class TopNav extends React.Component {
   }
 
   updateLocation = (location) => {
-    console.log("location", location);
     if(location === "Everywhere") {
       this.setState({locAddr: "Everywhere"});
       this.setState({locLatLng: null});
       this.props.onChangeLocation(null);
       return
     }
-
-    console.log("WTF");
 
     geocodeByAddress(location)
       .then(results => getLatLng(results[0]))

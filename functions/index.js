@@ -10,8 +10,7 @@ const client = algoliasearch(ALGOLIA_ID, ALGOLIA_ADMIN_KEY);
 exports.onPostCreated = functions.firestore.document('posts/{postId}').onCreate((snap, context) => {
   const post = snap.data();
   post.objectID = context.params.postId;
-  console.log(snap)
-  console.log(context)
+  post.id = context.params.postId;
   const index = client.initIndex(ALGOLIA_INDEX_NAME);
   return index.saveObject(post);
 });

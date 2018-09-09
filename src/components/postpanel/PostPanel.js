@@ -112,7 +112,6 @@ class PostPanel extends React.Component {
       .then(latLng => {
         this.setState({locAddr: location});
         this.setState({locLatLng: latLng});
-        console.log('Success', latLng)
       })
       .catch(error => console.error('Error', error));
   }
@@ -158,7 +157,7 @@ class PostPanel extends React.Component {
     }
     self.setState({loading: true})
 
-    db.collection('posts').add({
+    const post = {
       category: this.getCategoryInText(this.state.body),
       author: this.props.user.email,
       body: body,
@@ -169,11 +168,14 @@ class PostPanel extends React.Component {
       _geoloc: this.state.locLatLng,
       deleted: false,
       image: this.state.imageURL
-    })
+    }
+
+    db.collection('posts')
+    .add(post)
     .then(function(docRef) {
       self.clearUI();
       self.props.onNotification('Post submited');
-      self.props.onNewPost();
+      self.props.onNewPost(post);
     })
     .catch(function(error) {
       self.clearUI();

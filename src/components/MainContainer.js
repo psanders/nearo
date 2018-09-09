@@ -122,6 +122,12 @@ class MainContainer extends React.Component {
       this.setState({posts:posts});
     }
 
+    addNewPost = (post) => {
+      const posts = this.state.posts;
+      posts.unshift(post);
+      this.setState({posts: posts});
+    }
+
     updateBookmarks = (user) => {
       const bookmarks = [];
       db.collection("bookmarks")
@@ -195,7 +201,7 @@ class MainContainer extends React.Component {
                 spacing={32}>
                   <Grid item sm={6} xs={12}>
                       <Grid item>
-                        <PostPanel user={user} onNewPost={() => this.updateBySearch()} onNotification={this.handleNotify} currentLocation={this.props.currentLocation} />
+                        <PostPanel user={user} onNewPost={(post) => this.addNewPost(post)} onNotification={this.handleNotify} currentLocation={this.props.currentLocation} />
                       </Grid>
                       <div className={classes.gutterBottom}/>
 

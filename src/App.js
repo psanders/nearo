@@ -50,6 +50,9 @@ class App extends Component {
             { this.state.currentLocation &&
                 <MainContainer currentLocation={this.state.currentLocation}/>
             }
+            { !this.state.currentLocation &&
+                <p>Loading...</p>
+            }
           </MuiThemeProvider>
       </div>
     );
