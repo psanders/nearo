@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import ProfileMenu from './ProfileMenu';
 import Hidden from '@material-ui/core/Hidden';
@@ -169,11 +170,11 @@ class TopNav extends React.Component {
           }
 
           { this.isSignedIn() &&
-            <div>
+            <Tooltip title="Saved Items">
               <IconButton color="secondary" className={classes.button} aria-label="Post">
                 <BookmarkBorder style={{height: 26, width: 26}} />
               </IconButton>
-            </div>
+            </Tooltip>
           }
 
           { this.isSignedIn() && <ProfileMenu /> }

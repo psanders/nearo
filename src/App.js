@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MainContainer from './components/MainContainer';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { getCurrentLocation } from './components/locator/dbfunctions';
 
 const theme = createMuiTheme({
   props: {
@@ -24,18 +25,31 @@ const theme = createMuiTheme({
 
 class App extends Component {
 
-  constructor(props) {
+  constructor(props){
     super(props)
     this.state = {
-        currentLocation: 'Everywhere',
-    }
+      currentLocation: null
+    };
+    getCurrentLocation().then(loc => {
+      console.log("result", loc);
+      if(loc) {
+        this.setState({currentLocation: loc});
+      } else {
+        this.setState({currentLocation: "Everywhere"});
+      }
+    }).catch(err => {
+      console.log(err);
+      this.setState({currentLocation: "Everywhere"});
+    })
   }
 
   render() {
     return (
       <div className="App">
           <MuiThemeProvider theme={theme}>
-            <MainContainer currentLocation={this.state.currentLocation}/>
+            { this.state.currentLocation &&
+                <MainContainer currentLocation={this.state.currentLocation}/>
+            }
           </MuiThemeProvider>
       </div>
     );

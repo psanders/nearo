@@ -46,6 +46,7 @@ class MainContainer extends React.Component {
       super(props)
       this.state = {
         posts: [],
+        nbHits: -1,
         bookmarks: [],
         notificationWithUndo: false,
         notificationBarOpen: false,
@@ -89,8 +90,8 @@ class MainContainer extends React.Component {
       }
 
       doSearchAlgolia(query, (results, nbHits) => {
-        this.setState({nbHits: nbHits});
         this.updatePosts(this.state.bookmarks, results, offset);
+        this.setState({nbHits: nbHits});
       });
     }
 
@@ -122,9 +123,7 @@ class MainContainer extends React.Component {
         posts = this.state.posts.concat(posts);
       }
 
-      setTimeout(() => {
-        this.setState({posts:posts});
-      }, 1000);
+      this.setState({posts:posts});
     }
 
     updateBookmarks = (user) => {
@@ -222,7 +221,7 @@ class MainContainer extends React.Component {
                       {
                         this.state.posts.length < this.state.nbHits &&
                         <Grid item>
-                          <Button onClick={() => this.showMoreResults()}> Show more </Button>
+                          <Button onClick={() => this.showMoreResults()}>{this.state.posts.length} {this.state.nbHits} Show more</Button>
                         </Grid>
                       }
                   </Grid>

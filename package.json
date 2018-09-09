@@ -8,6 +8,7 @@
     "algoliasearch": "^3.30.0",
     "firebase": "^5.4.1",
     "latlon-geohash": "^1.1.0",
+    "localforage": "^1.7.2",
     "mention-hashtag": "^1.1.1",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
