@@ -19,7 +19,7 @@ import Locator from '../locator/Locator'
 class Topnav extends React.Component {
   state = {
     locInfo: null,
-    searchTerm: null
+    searchTerm: ""
   }
 
   isSignedIn  = () => this.props.user == null ? false : true

@@ -49,7 +49,6 @@ class MainContainer extends React.Component {
       lastDeletedPostId: null,
       geoloc: null,
       maxItemPerPage: 20,
-      userInfo: this.props.userInfo
     }
 
     componentDidMount() {
@@ -65,7 +64,7 @@ class MainContainer extends React.Component {
         } else {
           this.setState({user: null})
           removeUserInfo('user-info')
-          this.updateBySearch()
+          this.updateBySearch({searchTerm: ''})
         }
       })
 
@@ -73,27 +72,25 @@ class MainContainer extends React.Component {
         this.setState({user: user})
       })
 
+      fetchUserInfo('topnav-locator').then(navInfo => {
+        this.setState({navInfo: navInfo})
+      })
+
       fetchUserInfo('bookmarks').then(bookmarks => {
         this.setState({bookmarks: bookmarks})
-        this.updateBySearch()
+        this.updateBySearch({searchTerm: ''})
       })
     }
 
-    updateBySearch = (keywords = "", offset = 0) => {
-      if(keywords === 'use-old-keywords') {
-        keywords = this.state.keywords
-      } else {
-        this.setState({keywords: keywords})
-      }
-
+    updateBySearch = (navInfo, offset = 0) => {
       let query = {
-        query: keywords,
+        query: navInfo.searchTerm,
         offset: offset,
         length: this.state.maxItemPerPage
       }
 
-      if (this.state.geoloc) {
-        query.aroundLatLng = this.state.geoloc.lat + "," + this.state.geoloc.lng
+      if (navInfo.latLng) {
+        query.aroundLatLng = navInfo.latLng.lat + "," + navInfo.latLng.lng
         query.minimumAroundRadius = 20000
       }
 
@@ -103,16 +100,16 @@ class MainContainer extends React.Component {
       })
     }
 
-    showMoreResults = () => this.updateBySearch("use-old-keywords", this.state.posts.length)
+    showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
 
     handleOnNavChange = navInfo => {
-      console.log('navInfo', navInfo)
+      this.updateBySearch(navInfo)
+      this.setState({navInfo: navInfo})
     }
 
     updatePosts = (posts, doConcact) => {
-      if (!posts) {
-        return
-      }
+      if (!posts) return
+
       const bookmarks = this.state.user? this.state.bookmarks : []
       posts.forEach(post => {
         bookmarks.forEach(x => {
