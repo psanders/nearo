@@ -150,10 +150,10 @@ class PostPanel extends React.Component {
       author: this.props.user.email,
       body: body,
       likes: 0,
-      locText: this.state.locAddr,
+      locText: this.state.locInfo.address,
       price: this.getPrice(this.state.body),
       timestamp: Date.now(),
-      _geoloc: this.state.locLatLng,
+      _geoloc: this.state.locInfo.latLng,
       deleted: false,
       image: this.state.imageURL
     }
@@ -217,6 +217,7 @@ class PostPanel extends React.Component {
             />
           </ExpansionPanelDetails>
           <Divider />
+          {this.state.loading && <LinearProgress discolor="secondary" /> }
           {this.state.imageURL &&
             <div style={{padding: 10, paddingBottom: 0}}>
               <img alt="Post media" style={{width: 100}} src={this.state.imageURL}/>
@@ -224,7 +225,6 @@ class PostPanel extends React.Component {
               <Button onClick={() => this.setState({imageURL: ""})} style={{width: 100, borderRadius: 0}} className={classes.button} size="small">Remove</Button>
             </div>
           }
-          {this.state.loading && <LinearProgress discolor="secondary" /> }
           <ExpansionPanelActions style={{padding: 12, paddingRight: 20}}>
             <UploaderButton
               onProgress={() => this.setState({loading: true})}
@@ -243,13 +243,13 @@ class PostPanel extends React.Component {
               </Button>
             </Hidden>
             <Hidden smDown={true}>
-              <Locator name="postpanel-locator" onChangeLocation={this.handleOnChangeLocation } />
+              <Locator name="postpanel-locator" onChangeLocation={ this.handleOnChangeLocation } />
             </Hidden>
             <span className={classes.flex}/>
             <Hidden xsDown={true}>
-              <Button onClick={() => this.clearUI()} className={classes.button} size="small">Cancel</Button>
+              <Button onClick={ () => this.clearUI() } className={ classes.button } size="small">Cancel</Button>
             </Hidden>
-            <Button className={classes.button} disabled={!this.state.body || this.state.loading} onClick={() =>  this.createPost(this, this.state.body)} variant="contained" size="small" color="secondary">
+            <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () =>  this.createPost(this, this.state.body) } variant="contained" size="small" color="secondary">
               Post
             </Button>
           </ExpansionPanelActions>
