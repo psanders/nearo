@@ -25,8 +25,13 @@ class Topnav extends React.Component {
   isSignedIn  = () => this.props.user == null ? false : true
 
   handleChange = name => event => {
-    this.setState({searchTerm: event.target.value})
-    this.props.onChange(this.state)
+    console.log()
+    const searchTerm = event.target.value
+    this.props.onChange({
+      locInfo: this.state.locInfo,
+      searchTerm: searchTerm
+    })
+    this.setState({searchTerm: searchTerm})
   }
 
   handleOnChangeLocation = locInfo => {

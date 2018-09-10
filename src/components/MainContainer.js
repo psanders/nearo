@@ -103,6 +103,7 @@ class MainContainer extends React.Component {
     showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
 
     handleOnNavChange = navInfo => {
+      console.log('navInfo.searchTerm', navInfo.searchTerm)
       this.updateBySearch(navInfo)
       this.setState({navInfo: navInfo})
     }
