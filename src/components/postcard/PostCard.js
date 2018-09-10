@@ -128,27 +128,32 @@ class PostCard extends React.Component {
       this.props.onNotification('You must login to create a new post');
       return
     }
+    // Update UI before it actually happend
+    this.uiRefreshForBookmark();
     const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
     bookmarksRef.set({
       user: this.props.user.email
     }, { merge: true }).then(() => {
-      this.uiRefreshForBookmark();
+
       this.props.onNotification('Saved');
       this.props.onBookmark();
     }).catch(function(error) {
+      // Rollback if something happen
       this.uiRefreshForBookmark();
       console.error("Error writing document: ", error);
     });
   }
 
   deleteBookmark = () => {
+    // Update UI before it actually happend
+    this.uiRefreshForBookmark();
     const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
     bookmarksRef.delete()
     .then(() => {
-      this.uiRefreshForBookmark();
       this.props.onNotification('Removed from saved posts');
       this.props.onBookmark();
     }).catch(function(error) {
+      // Rollback if something happen
       this.uiRefreshForBookmark();
       console.error("Error writing document: ", error);
     });
@@ -259,7 +264,7 @@ class PostCard extends React.Component {
             </CardContent>
             <div className={classes.controls}>
               <Button
-                onClick={() => this.handleBookmark()}
+                onClick={this.handleBookmark}
                 size="small" className={classes.button}>
                 <BookmarkBorder className={classes.icon}/>
                 { post.bookmarked && "Unsave"  }

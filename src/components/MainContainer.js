@@ -12,6 +12,7 @@ import PostCard from './postcard/PostCard'
 import NotificationBar from './NotificationBar'
 import { auth, db } from './commons/firebase/firebase'
 import { doSearchAlgolia } from './commons/firebase/algolia'
+import { storeUserInfo, fetchUserInfo } from './commons/dbfunctions'
 
 const styles = theme => ({
   root: {
@@ -33,46 +34,47 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   gutterBottom: {
     marginBottom: 10
-  },
-  secAppBar: {
-
   }
 })
 
 class MainContainer extends React.Component {
-
-    constructor(props) {
-      super(props)
-      this.state = {
-        posts: [
-          {id: '1'},
-          {id: '2'},
-        ],
-        nbHits: 0,
-        notificationWithUndo: false,
-        notificationBarOpen: false,
-        notificationBarMessage: '',
-        notificationUndo: null,
-        lastDeletedPostId: null,
-        geoloc: null,
-        maxItemPerPage: 20,
-        userInfo: this.props.userInfo
-      }
+    state = {
+      bookmarks: [],
+      posts: [{id: '1'},{id: '2'}],
+      nbHits: 0,
+      notificationWithUndo: false,
+      notificationBarOpen: false,
+      notificationBarMessage: '',
+      notificationUndo: null,
+      lastDeletedPostId: null,
+      geoloc: null,
+      maxItemPerPage: 20,
+      userInfo: this.props.userInfo
     }
 
     componentDidMount() {
-     auth.onAuthStateChanged(user => {
-          if (user) {
-            const userRef = db.collection('users').doc(user.email)
-            userRef
-            .get()
-            .then(result => {
-              this.setState({user: result.data()})
-              this.updateBookmarks(result.data())
-            })
-          }
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          const userRef = db.collection('users').doc(user.email)
+          userRef.get()
+          .then(result => {
+            storeUserInfo('user-info', result.data())
+            this.setState({user: result.data()})
+            this.updateBookmarks(result.data())
+          })
+        } else {
+          // Delete from localdb...
+        }
       })
-      this.updateBySearch()
+
+      fetchUserInfo('user-info').then(user => {
+        this.setState({user: user})
+      })
+
+      fetchUserInfo('bookmarks').then(bookmarks => {
+        this.setState({bookmarks: bookmarks})
+        this.updateBySearch()
+      })
     }
 
     updateBySearch = (keywords = "", offset = 0) => {
@@ -99,11 +101,9 @@ class MainContainer extends React.Component {
       })
     }
 
-    showMoreResults() {
-      this.updateBySearch("use-old-keywords", this.state.posts.length)
-    }
+    showMoreResults = () => this.updateBySearch("use-old-keywords", this.state.posts.length)
 
-    handleOnNavChange = (navInfo) => {
+    handleOnNavChange = navInfo => {
       console.log('navInfo', navInfo)
     }
 
@@ -111,7 +111,7 @@ class MainContainer extends React.Component {
       if (!posts) {
         return
       }
-      const bookmarks = []
+      const bookmarks = this.state.bookmarks
       posts.forEach(post => {
         bookmarks.forEach(x => {
           if(x === post.id) {
@@ -125,20 +125,22 @@ class MainContainer extends React.Component {
       this.setState({posts: posts})
     }
 
-    addNewPost = (post) => {
+    addNewPost = post => {
       const posts = this.state.posts
       posts.unshift(post)
       this.setState({posts: posts})
     }
 
-    updateBookmarks = (user) => {
+    updateBookmarks = user => {
       const bookmarks = []
       db.collection("bookmarks")
       .where("user", "==", user.email)
-      .get().then(querySnapshot => {
+      .get()
+      .then(querySnapshot => {
         querySnapshot.forEach(doc => {
             bookmarks.push(doc.id)
         })
+        storeUserInfo('bookmarks', bookmarks)
       })
     }
 
@@ -153,14 +155,14 @@ class MainContainer extends React.Component {
       this.setState({ notificationBarOpen: true, notificationBarMessage: message, undo: undo })
     }
 
-    removePostFromArray = (postId) => {
+    removePostFromArray = postId => {
       const posts = this.state.posts.filter(post => post.id !== postId)
       this.setState({posts: posts})
     }
 
-    getPost = (postId) => this.state.posts.filter(post => post.id === postId)[0]
+    getPost = postId => this.state.posts.filter(post => post.id === postId)[0]
 
-    handlePostDelete = (postId) => {
+    handlePostDelete = postId => {
         this.setState({deletedPost: this.getPost(postId)})
         const postRef = db.collection('posts').doc(postId)
         postRef.set({
