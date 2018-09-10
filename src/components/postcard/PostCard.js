@@ -125,7 +125,7 @@ class PostCard extends React.Component {
 
   addBookmark = () => {
     if (!this.isSignedIn()) {
-      this.props.onNotification('You must login to create a new post');
+      this.props.onNotification('You must login save a post');
       return
     }
     // Update UI before it actually happend
