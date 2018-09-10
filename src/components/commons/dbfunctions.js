@@ -12,3 +12,7 @@ export const storeUserInfo = (key, value) => {
 export const fetchUserInfo = (key) => {
   return localforage.getItem(key);
 }
+
+export const removeUserInfo = (key) => {
+  return localforage.removeItem(key);
+}

@@ -12,7 +12,7 @@ import PostCard from './postcard/PostCard'
 import NotificationBar from './NotificationBar'
 import { auth, db } from './commons/firebase/firebase'
 import { doSearchAlgolia } from './commons/firebase/algolia'
-import { storeUserInfo, fetchUserInfo } from './commons/dbfunctions'
+import { storeUserInfo, fetchUserInfo, removeUserInfo } from './commons/dbfunctions'
 
 const styles = theme => ({
   root: {
@@ -63,7 +63,9 @@ class MainContainer extends React.Component {
             this.updateBookmarks(result.data())
           })
         } else {
-          // Delete from localdb...
+          this.setState({user: null})
+          removeUserInfo('user-info')
+          this.updateBySearch()
         }
       })
 
@@ -111,7 +113,7 @@ class MainContainer extends React.Component {
       if (!posts) {
         return
       }
-      const bookmarks = this.state.bookmarks
+      const bookmarks = this.state.user? this.state.bookmarks : []
       posts.forEach(post => {
         bookmarks.forEach(x => {
           if(x === post.id) {
