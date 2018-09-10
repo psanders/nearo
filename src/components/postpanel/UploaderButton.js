@@ -14,7 +14,6 @@ class UploaderButton extends Component {
   };
 
   handleUploadSuccess = filename => {
-    this.props.onProgress();
     firebase
       .storage()
       .ref("images")
@@ -45,6 +44,7 @@ class UploaderButton extends Component {
             hidden
             accept="image/png,image/jpg,image/gif"
             storageRef={firebase.storage().ref('images')}
+            onUploadStart={this.props.onUploadStart}
             onUploadError={this.handleUploadError}
             onUploadSuccess={this.handleUploadSuccess}
           />

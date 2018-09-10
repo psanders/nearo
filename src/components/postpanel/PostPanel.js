@@ -174,6 +174,8 @@ class PostPanel extends React.Component {
     }
   }
 
+  handleOnUploadStart = () => this.setState({loading: true})
+
   render() {
     const { classes } = this.props
     this.updateBody = this.updateBody.bind(this)
@@ -212,8 +214,8 @@ class PostPanel extends React.Component {
             />
           </ExpansionPanelDetails>
           <Divider />
-          {this.state.loading && <LinearProgress discolor="secondary" /> }
-          {this.state.imageURL &&
+          { this.state.loading && <LinearProgress discolor="secondary" /> }
+          { this.state.imageURL &&
             <div style={{padding: 10, paddingBottom: 0}}>
               <img alt="Post media" style={{width: 100}} src={this.state.imageURL}/>
               <div/>
@@ -222,7 +224,7 @@ class PostPanel extends React.Component {
           }
           <ExpansionPanelActions style={{padding: 12, paddingRight: 20}}>
             <UploaderButton
-              onProgress={() => this.setState({loading: true})}
+              onUploadStart={this.handleOnUploadStart}
               onUploadSuccess={(url) => {
                 this.setState({loading: false})
                 this.setState({imageURL: url})
