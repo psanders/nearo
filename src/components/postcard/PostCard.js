@@ -68,7 +68,7 @@ const styles = theme => ({
   avatar: {
     width: 25,
     height: 25,
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#3a3aa2',
   },
   header: {
     padding: 0
@@ -181,12 +181,26 @@ class PostCard extends React.Component {
     const avatar = (post) => {
       if (post.category) {
         if(getCategory(post.category).image) {
-          return <img alt="Avatar" src={getCategory(post.category).image} width="25"/>
+          return  <Avatar
+                    color="secondary" aria-label="Post Avatar"
+                    className={classes.avatar}
+                   >
+                    <img alt="Avatar" src={getCategory(post.category).image} width="25"/>
+                  </Avatar>
         } else {
-          return getCategory(post.category).name.charAt(0);
+          return  <Avatar
+                    color="secondary" aria-label="Post Avatar"
+                    className={classes.avatar}
+                  >
+                    {getCategory(post.category).name.charAt(0)}
+                  </Avatar>
         }
       }
-      return "";
+      return <Avatar
+                style={{backgroundColor: '#f4f4f4'}} color="secondary"
+                aria-label="Post Avatar" className={classes.avatar}>
+                {""}
+             </Avatar>
     }
 
     const title = (post) => {
@@ -223,11 +237,7 @@ class PostCard extends React.Component {
           <div className={classes.details}>
             <CardContent className={classes.content}>
             <CardHeader className={classes.header}
-              avatar={
-                <Avatar color="secondary" aria-label="Post Avatar" className={classes.avatar}>
-                  {avatar(post)}
-                </Avatar>
-              }
+              avatar={avatar(post)}
               title={title(post)}
             />
               <br />
@@ -256,17 +266,17 @@ class PostCard extends React.Component {
                     label={
                       post.sold? 'Sold' : post.price.toFixed(2)
                     }
-                    className={classes.chip}
+                    className={ classes.chip }
                     color="secondary"
                   />}
                 </CardMedia>
               }
             </CardContent>
-            <div className={classes.controls}>
+            <div className={ classes.controls }>
               <Button
-                onClick={this.handleBookmark}
-                size="small" className={classes.button}>
-                <BookmarkBorder className={classes.icon}/>
+                onClick={ this.handleBookmark }
+                size="small" className={ classes.button }>
+                <BookmarkBorder className={ classes.icon }/>
                 { post.bookmarked && "Unsave"  }
                 { !post.bookmarked && "Save" }
               </Button>
