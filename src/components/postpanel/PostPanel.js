@@ -82,19 +82,13 @@ const styles = theme => ({
 })
 
 class PostPanel extends React.Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      body: '',
-      locInfo: null,
-      locLatLng: null,
-      loading: false,
-      expanded: false,
-      category: 'general',
-      imageURL: ""
-    }
-    this.updateBody = this.updateBody.bind(this)
+  state = {
+    body: '',
+    locInfo: {},
+    loading: false,
+    expanded: false,
+    category: 'general',
+    imageURL: ""
   }
 
   updateBody = (e) => {
@@ -182,6 +176,7 @@ class PostPanel extends React.Component {
 
   render() {
     const { classes } = this.props
+    this.updateBody = this.updateBody.bind(this)
 
     return (
       <div className={classes.root}>

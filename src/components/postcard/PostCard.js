@@ -80,13 +80,10 @@ const styles = theme => ({
 
 class PostCard extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      alertOpen: false,
-      anchorEl: null,
-      post: props.post
-    }
+  state = {
+    alertOpen: false,
+    anchorEl: null,
+    post: this.props.post
   }
 
   markSold(post) {

@@ -25,7 +25,7 @@ class Locator extends Component {
     fetchUserInfo(this.props.name)
     .then(locInfo => {
       if (locInfo) {
-        console.log('locInfo for ' + this.props.name  + ': ' , locInfo)
+        this.props.onChangeLocation(locInfo)
         this.setState({address: locInfo.address});
       }
     })
