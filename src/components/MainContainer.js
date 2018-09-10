@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import Button from '@material-ui/core/Button';
-
 import Ads from './Ads';
 import About from './About';
 import TopNav from './topnav/TopNav';
@@ -13,7 +12,7 @@ import PostCard from './postcard/PostCard';
 import NotificationBar from './NotificationBar';
 import { auth, db } from './commons/firebase/firebase';
 import { doSearchAlgolia } from './commons/firebase/algolia';
-import { getBookmarks, saveBookmarks } from './commons/dbfunctions';
+import { storeUserInfo } from './commons/dbfunctions';
 
 const styles = theme => ({
   root: {
@@ -46,7 +45,10 @@ class MainContainer extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        posts: [],
+        posts: [
+          {id: '1'},
+          {id: '2'},
+        ],
         nbHits: 0,
         notificationWithUndo: false,
         notificationBarOpen: false,
@@ -54,26 +56,23 @@ class MainContainer extends React.Component {
         notificationUndo: null,
         lastDeletedPostId: null,
         geoloc: null,
-        user: null,
-        maxItemPerPage: 20
+        maxItemPerPage: 20,
+        userInfo: this.props.userInfo
       }
     }
 
     componentDidMount() {
-      auth.onAuthStateChanged(user => {
+     auth.onAuthStateChanged(user => {
           if (user) {
             const userRef = db.collection('users').doc(user.email);
-            userRef.get()
+            userRef
+            .get()
             .then(result => {
-              console.log('result', result.data());
-              const u = result.data();
-              this.setState({user: u});
-              this.updateBookmarks(u);
-              this.updateBySearch();
+              this.setState({user: result.data()});
+              this.updateBookmarks(result.data());
             });
           }
       });
-
       this.updateBySearch();
     }
 
@@ -90,15 +89,13 @@ class MainContainer extends React.Component {
         length: this.state.maxItemPerPage
       };
 
-      console.log('this.state.geoloc', this.state.geoloc);
-
       if (this.state.geoloc) {
         query.aroundLatLng = this.state.geoloc.lat + "," + this.state.geoloc.lng;
-        //query.aroundRadius = 20;
         query.minimumAroundRadius = 20000;
       }
 
       doSearchAlgolia(query, (results, nbHits) => {
+        console.log(results);
         this.updatePosts(results, offset);
         this.setState({nbHits: nbHits});
       });
@@ -117,22 +114,18 @@ class MainContainer extends React.Component {
       if (!posts) {
         return
       }
-
-      getBookmarks().then((bookmarks) => {
-        posts.forEach(post => {
-          bookmarks.forEach(x => {
-            if(x === post.id) {
-              post.bookmarked = true;
-            }
-          });
+      const bookmarks = [];
+      posts.forEach(post => {
+        bookmarks.forEach(x => {
+          if(x === post.id) {
+            post.bookmarked = true;
+          }
+        });
       })
-
       if(doConcact) {
         posts = this.state.posts.concat(posts);
       }
-
-        this.setState({posts: posts});
-      })
+      this.setState({posts: posts});
     }
 
     addNewPost = (post) => {
@@ -149,7 +142,7 @@ class MainContainer extends React.Component {
         querySnapshot.forEach(doc => {
             bookmarks.push(doc.id);
         });
-        saveBookmarks(bookmarks);
+        //saveBookmarks(bookmarks);
       });
     }
 

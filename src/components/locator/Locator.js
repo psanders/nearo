@@ -10,7 +10,6 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import EllipsisText  from 'react-ellipsis-text';
 import LocationSearchInput from './LocationSearchInput';
-import {saveCurrentLocation, getCurrentLocation} from './dbfunctions';
 
 const styles = theme => ({
   root: {
@@ -83,11 +82,6 @@ class Locator extends React.Component {
   }
 
   componentDidMount = () => {
-    if(this.props.initValue) {
-      this.setState({locAddr: this.props.initValue})
-    } else {
-      this.setState({locAddr: getCurrentLocation()});
-    }
   }
 
   handleToggle = event => {
@@ -112,7 +106,6 @@ class Locator extends React.Component {
     this.props.onSelect(locAddr);
     this.setState({locAddr: locAddr});
     this.setState({ open: false });
-    saveCurrentLocation(locAddr);
   };
 
   render() {

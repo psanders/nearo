@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import MainContainer from './components/MainContainer';
-import { Route } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { getCurrentLocation } from './components/locator/dbfunctions';
+import { fetchUserInfo } from './components/commons/dbfunctions'
 
 const theme = createMuiTheme({
   props: {
@@ -29,25 +28,29 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      currentLocation: null
-    };
-    getCurrentLocation().then(loc => {
-      if(loc) {
-        this.setState({currentLocation: loc});
+      loading: false,
+      userInfo: null
+    }
+
+/*    fetchUserInfo().then(userInfo => {
+      if(userInfo) {
+        this.setState({userInfo: userInfo})
       } else {
-        this.setState({currentLocation: "Everywhere"});
+        const uInfo = {
+          bookmarks: []
+        }
+        this.setState({userInfo: uInfo});
       }
     }).catch(err => {
-      console.log(err);
-      this.setState({currentLocation: "Everywhere"});
-    })
+      console.log('err', err);
+    })*/
   }
 
   render() {
     return (
       <div className="App">
           <MuiThemeProvider theme={theme}>
-            <Route exact path='/' component={MainContainer} />
+            <MainContainer/>
           </MuiThemeProvider>
       </div>
     );

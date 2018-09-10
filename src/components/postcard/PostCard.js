@@ -27,6 +27,7 @@ const styles = theme => ({
   card: {
     display: 'flex',
     border: '1px solid #cdcdcd',
+    minHeight: 170
     /*'&:hover': {
         border: '1px solid #444',
         cursor: 'pointer'
@@ -67,7 +68,7 @@ const styles = theme => ({
   avatar: {
     width: 25,
     height: 25,
-    backgroundColor: '#2c387e',
+    backgroundColor: '#f4f4f4',
   },
   header: {
     padding: 0
@@ -175,6 +176,48 @@ class PostCard extends React.Component {
     const { anchorEl } = this.state;
     const bull = <span className={classes.bullet}>•</span>;
 
+    const avatar = (post) => {
+      if (post.category) {
+        if(getCategory(post.category).image) {
+          return <img alt="Avatar" src={getCategory(post.category).image} width="25"/>
+        } else {
+          return getCategory(post.category).name.charAt(0);
+        }
+      }
+      return "";
+    }
+
+    const title = (post) => {
+      if (!post.category) {
+        return (
+          <Typography variant="body2">
+            <div style={{width: 300, height: 8, backgroundColor: '#f4f4f4'}}></div>
+          </Typography>
+        )
+      }
+      return  (<Typography variant="body2">c/{ post.category }
+                <span style={{color: '#5d5c5c', fontSize: '12px', fontWeight: 'normal'}}>
+                  {bull} Post by {this.getUsername(post.author)}
+                  <Moment fromNow={true} interval={30000}>{post.timestamp}
+                  </Moment>
+                </span>
+              </Typography>)
+    }
+
+    const body = (post) => {
+      if (!post.body) {
+        return (
+          <span>
+            <div style={{marginBottom: 8, width: 500, height: 8, backgroundColor: '#f4f4f4'}}/>
+            <div style={{marginBottom: 8, width: 550, height: 8, backgroundColor: '#f4f4f4'}}/>
+            <div style={{marginBottom: 8, width: 520, height: 8, backgroundColor: '#f4f4f4'}}/>
+            <div style={{marginBottom: 8, width: 500, height: 8, backgroundColor: '#f4f4f4'}}/>
+          </span>
+        )
+      }
+      return (<Linkify>{ post.body }</Linkify>)
+    }
+
     return (
       <Card className={classes.card} elevation={0}>
           <div className={classes.details}>
@@ -182,24 +225,20 @@ class PostCard extends React.Component {
             <CardHeader className={classes.header}
               avatar={
                 <Avatar color="secondary" aria-label="Post Avatar" className={classes.avatar}>
-                    {getCategory(post.category).image && <img alt="Avatar" src={getCategory(post.category).image} width="25"/>}
-                    {!getCategory(post.category).image && getCategory(post.category).name.charAt(0) }
+                  {avatar(post)}
                 </Avatar>
               }
-              title={
-                  <Typography variant="body2">c/{ post.category } <span style={{color: '#5d5c5c', fontSize: '12px', fontWeight: 'normal'}}> {bull} Post by {this.getUsername(post.author)} <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment></span></Typography>
-              }
+              title={title(post)}
             />
-
               <br />
               { post.image &&
                 <Typography component="p" style={{marginBottom: 10}}>
-                  <Linkify>{ post.body }</Linkify>
+                  { body(post) }
                 </Typography>
               }
               {! post.image &&
                 <Typography component="p">
-                  <Linkify>{ post.body }</Linkify>
+                  { body(post) }
                 </Typography>
               }
 
@@ -207,7 +246,7 @@ class PostCard extends React.Component {
                 <CardMedia
                   className={classes.cover}
                   image={post.image}
-                  title="Live from space album cover">
+                  title="">
                   {post.category === 'forsale' && post.price && <Chip
                     avatar={
                       <Avatar>
