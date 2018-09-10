@@ -89,8 +89,9 @@ class MainContainer extends React.Component {
         length: this.state.maxItemPerPage
       }
 
-      if (navInfo.latLng) {
-        query.aroundLatLng = navInfo.latLng.lat + "," + navInfo.latLng.lng
+      if (navInfo.locInfo && navInfo.locInfo.latLng) {
+        query.aroundLatLng = navInfo.locInfo.latLng.lat + ","
+          + navInfo.locInfo.latLng.lng
         query.minimumAroundRadius = 20000
       }
 
@@ -103,7 +104,7 @@ class MainContainer extends React.Component {
     showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
 
     handleOnNavChange = navInfo => {
-      console.log('navInfo.searchTerm', navInfo.searchTerm)
+      console.log('navInfo.searchTerm xxx', navInfo)
       this.updateBySearch(navInfo)
       this.setState({navInfo: navInfo})
     }

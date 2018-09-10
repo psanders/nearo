@@ -35,8 +35,11 @@ class Topnav extends React.Component {
   }
 
   handleOnChangeLocation = locInfo => {
+    this.props.onChange({
+      locInfo: locInfo,
+      searchTerm: this.state.searchTerm
+    })
     this.setState({locInfo: locInfo})
-    this.props.onChange(this.state)
   }
 
   render() {
