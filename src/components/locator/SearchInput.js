@@ -26,7 +26,7 @@ const styles = theme => ({
       border: '1px solid #444',
     },
   },
-  everywhereBtn: {
+  anywhereBtn: {
     backgroundColor: '#fff',
     cursor: 'pointer',
     '&:hover': {
@@ -79,10 +79,10 @@ class LocationSearchInput extends React.Component {
       return (
         <ListItem
           onClick={this.handleSelect}
-          className={this.props.classes.everywhereBtn}
-          key="Everywhere"
+          className={this.props.classes.anywhereBtn}
+          key="Anywhere"
           button>
-          <ListItemText primary={"Everywhere"} />
+          <ListItemText primary={"Anywhere"} />
         </ListItem>
       )
   }
