@@ -1,25 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
-import ExpandMoreIcon from '@material-ui/icons/Edit';
-import Typography from '@material-ui/core/Typography';
-import LocationIcon from '@material-ui/icons/LocationOn';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Hidden from '@material-ui/core/Hidden';
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions'
+import ExpandMoreIcon from '@material-ui/icons/Edit'
+import Typography from '@material-ui/core/Typography'
+import LocationIcon from '@material-ui/icons/LocationOn'
+import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
+import TextField from '@material-ui/core/TextField'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import Hidden from '@material-ui/core/Hidden'
+import extract from 'find-hashtags'
 
-import extract from 'find-hashtags';
-import { getCategories } from '../commons/categories';
-import Locator from '../locator/Locator';
-import { db } from '../commons/firebase/firebase';
-import UploaderButton from './UploaderButton';
+import { getCategories } from '../commons/categories'
+import Locator from '../locator/Locator'
+import { db } from '../commons/firebase/firebase'
+import UploaderButton from './UploaderButton'
 
 const styles = theme => ({
   flex: {
@@ -80,36 +79,30 @@ const styles = theme => ({
   button: {
     textTransform: 'Capitalize',
   },
-});
+})
 
 class PostPanel extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       body: '',
-      locAddr: props.currentLocation,
+      locInfo: null,
       locLatLng: null,
       loading: false,
       expanded: false,
       category: 'general',
       imageURL: ""
     }
-    this.updateBody = this.updateBody.bind(this);
+    this.updateBody = this.updateBody.bind(this)
   }
 
   updateBody = (e) => {
-    this.setState({body: e.target.value});
+    this.setState({body: e.target.value})
   }
 
-  updateLocation = (location) => {
-    geocodeByAddress(location)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => {
-        this.setState({locAddr: location});
-        this.setState({locLatLng: latLng});
-      })
-      .catch(error => console.error('Error', error));
+  handleOnChangeLocation = (locInfo) => {
+    this.setState({locInfo: locInfo})
   }
 
   isSignedIn () {
@@ -117,37 +110,37 @@ class PostPanel extends React.Component {
   }
 
   getCategoryInText = (text) => {
-    const tags = extract(text);
-    const categories = getCategories();
+    const tags = extract(text)
+    const categories = getCategories()
 
-    let results = [];
+    let results = []
 
     for (var i = 0; i < categories.length; i++) {
       if (tags.join().toLowerCase().includes(categories[i].ref)) {
-          results.push(categories[i].ref);
+          results.push(categories[i].ref)
       }
     }
 
-    return results.length > 0 ? results[results.length - 1] : 'general';
+    return results.length > 0 ? results[results.length - 1] : 'general'
   }
 
   getPrice = (text) => {
-    const prices = text.split(' ').filter(v => v.startsWith('$'));
-    const cleanNumbers = prices.join(' ').replace(/\$/g, ' ').split(' ');
-    const results = cleanNumbers.filter(price => !isNaN(price));
-    return results.length > 0 ? Number(results[results.length - 1]) : 0;
+    const prices = text.split(' ').filter(v => v.startsWith('$'))
+    const cleanNumbers = prices.join(' ').replace(/\$/g, ' ').split(' ')
+    const results = cleanNumbers.filter(price => !isNaN(price))
+    return results.length > 0 ? Number(results[results.length - 1]) : 0
   }
 
   clearUI = () => {
-    this.setState({body: ''});
-    this.setState({loading: false});
-    this.setState({expanded: false});
-    this.setState({imageURL: ""});
+    this.setState({body: ''})
+    this.setState({loading: false})
+    this.setState({expanded: false})
+    this.setState({imageURL: ""})
   }
 
   createPost = (self, body) => {
     if (!this.isSignedIn()) {
-      this.props.onNotification('You must login to create a new post');
+      this.props.onNotification('You must login to create a new post')
       return
     }
     self.setState({loading: true})
@@ -168,27 +161,27 @@ class PostPanel extends React.Component {
     db.collection('posts')
     .add(post)
     .then(function(docRef) {
-      self.clearUI();
-      self.props.onNotification('Post submited');
-      post.id = docRef.id;
-      self.props.onNewPost(post);
+      self.clearUI()
+      self.props.onNotification('Post submited')
+      post.id = docRef.id
+      self.props.onNewPost(post)
     })
     .catch(function(error) {
-      self.clearUI();
-      self.props.onNotification('Unable to submit post. Try again later');
-      console.error("Error adding document: ", error);
-    });
+      self.clearUI()
+      self.props.onNotification('Unable to submit post. Try again later')
+      console.error("Error adding document: ", error)
+    })
   }
 
   changeExpanded = () => {
     this.setState({expanded: !this.state.expanded})
     if (!this.state.expanded) {
-      this.textField.focus();
+      this.textField.focus()
     }
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -236,12 +229,12 @@ class PostPanel extends React.Component {
             <UploaderButton
               onProgress={() => this.setState({loading: true})}
               onUploadSuccess={(url) => {
-                this.setState({loading: false});
+                this.setState({loading: false})
                 this.setState({imageURL: url})
               }}
               onError={() => {
-                  this.props.onNotification('Unable to upload image. Try again later');
-                  this.setState({loading: false});
+                  this.props.onNotification('Unable to upload image. Try again later')
+                  this.setState({loading: false})
               }}
               />
             <Hidden smUp={true}>
@@ -250,7 +243,7 @@ class PostPanel extends React.Component {
               </Button>
             </Hidden>
             <Hidden smDown={true}>
-              <Locator initValue={this.state.locAddr} onSelect={locAddr => this.updateLocation(locAddr)}/>
+              <Locator name="postpanel-locator" onChangeLocation={this.handleOnChangeLocation } />
             </Hidden>
             <span className={classes.flex}/>
             <Hidden xsDown={true}>
@@ -262,12 +255,12 @@ class PostPanel extends React.Component {
           </ExpansionPanelActions>
         </ExpansionPanel>
       </div>
-    );
+    )
   }
 }
 
 PostPanel.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(PostPanel);
+export default withStyles(styles)(PostPanel)

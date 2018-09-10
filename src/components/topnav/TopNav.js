@@ -65,7 +65,7 @@ class Topnav extends React.Component {
              />
            </Hidden>
            <Hidden smDown={true}>
-            <Locator onChangeLocation={ this.handleOnChangeLocation } />
+            <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
            </Hidden>
             <span className={ classes.flex } style={{ borderRight: '0.05em solid #dcdcdc', padding: '1em' }}/>
             { !this.isSignedIn() &&

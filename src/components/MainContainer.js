@@ -12,7 +12,6 @@ import PostCard from './postcard/PostCard'
 import NotificationBar from './NotificationBar'
 import { auth, db } from './commons/firebase/firebase'
 import { doSearchAlgolia } from './commons/firebase/algolia'
-import { storeUserInfo } from './commons/dbfunctions'
 
 const styles = theme => ({
   root: {
@@ -95,7 +94,6 @@ class MainContainer extends React.Component {
       }
 
       doSearchAlgolia(query, (results, nbHits) => {
-        console.log(results)
         this.updatePosts(results, offset)
         this.setState({nbHits: nbHits})
       })

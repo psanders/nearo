@@ -10,6 +10,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import LocationIcon from '@material-ui/icons/LocationOn'
 import EllipsisText  from 'react-ellipsis-text'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import {storeUserInfo, fetchUserInfo} from '../commons/dbfunctions';
 
 import { styles } from './LocatorStyles'
 import SearchInput from './SearchInput'
@@ -18,6 +19,16 @@ class Locator extends Component {
   state = {
     expanded: false,
     address: 'Anywhere'
+  }
+
+  componentDidMount = () => {
+    fetchUserInfo(this.props.name)
+    .then(locInfo => {
+      if (locInfo) {
+        console.log('locInfo for ' + this.props.name  + ': ' , locInfo)
+        this.setState({address: locInfo.address});
+      }
+    })
   }
 
   handleToggle = e => {
@@ -39,7 +50,6 @@ class Locator extends Component {
   }
 
   handleSelect = address => {
-
     if (address === 'Anywhere') {
       this.props.onChangeLocation({
         address: 'Anywhere',
@@ -49,10 +59,12 @@ class Locator extends Component {
       geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        this.props.onChangeLocation({
+        const locInfo = {
           address: address,
           latLng: latLng
-        })
+        }
+        this.props.onChangeLocation(locInfo)
+        storeUserInfo(this.props.name, locInfo)
       })
       .catch(error => console.error('Error', error))
     }

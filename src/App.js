@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import MainContainer from './components/MainContainer';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { fetchUserInfo } from './components/commons/dbfunctions'
 
 const theme = createMuiTheme({
   props: {
@@ -31,19 +30,6 @@ class App extends Component {
       loading: false,
       userInfo: null
     }
-
-/*    fetchUserInfo().then(userInfo => {
-      if(userInfo) {
-        this.setState({userInfo: userInfo})
-      } else {
-        const uInfo = {
-          bookmarks: []
-        }
-        this.setState({userInfo: uInfo});
-      }
-    }).catch(err => {
-      console.log('err', err);
-    })*/
   }
 
   render() {

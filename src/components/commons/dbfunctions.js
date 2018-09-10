@@ -1,14 +1,14 @@
 import localforage from 'localforage';
 
-export const storeUserInfo = (userInfo) => {
-  localforage.setItem('user-info', userInfo)
+export const storeUserInfo = (key, value) => {
+  localforage.setItem(key, value)
   .then(() => {
-    return localforage.getItem('user-info');
+    return localforage.getItem(key);
   }).catch(err => {
     console.error(err);
   });
 }
 
-export const fetchUserInfo = () => {
-  return localforage.getItem('user-info');
+export const fetchUserInfo = (key) => {
+  return localforage.getItem(key);
 }
