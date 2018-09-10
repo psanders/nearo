@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import Button from '@material-ui/core/Button';
-import Ads from './Ads';
-import About from './About';
-import TopNav from './topnav/TopNav';
-import PostPanel from './postpanel/PostPanel';
-import PostCard from './postcard/PostCard';
-import NotificationBar from './NotificationBar';
-import { auth, db } from './commons/firebase/firebase';
-import { doSearchAlgolia } from './commons/firebase/algolia';
-import { storeUserInfo } from './commons/dbfunctions';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
+import Button from '@material-ui/core/Button'
+import Ads from './Ads'
+import About from './About'
+import Topnav from './topnav/Topnav'
+import PostPanel from './postpanel/PostPanel'
+import PostCard from './postcard/PostCard'
+import NotificationBar from './NotificationBar'
+import { auth, db } from './commons/firebase/firebase'
+import { doSearchAlgolia } from './commons/firebase/algolia'
+import { storeUserInfo } from './commons/dbfunctions'
 
 const styles = theme => ({
   root: {
@@ -38,7 +38,7 @@ const styles = theme => ({
   secAppBar: {
 
   }
-});
+})
 
 class MainContainer extends React.Component {
 
@@ -64,151 +64,143 @@ class MainContainer extends React.Component {
     componentDidMount() {
      auth.onAuthStateChanged(user => {
           if (user) {
-            const userRef = db.collection('users').doc(user.email);
+            const userRef = db.collection('users').doc(user.email)
             userRef
             .get()
             .then(result => {
-              this.setState({user: result.data()});
-              this.updateBookmarks(result.data());
-            });
+              this.setState({user: result.data()})
+              this.updateBookmarks(result.data())
+            })
           }
-      });
-      this.updateBySearch();
+      })
+      this.updateBySearch()
     }
 
     updateBySearch = (keywords = "", offset = 0) => {
       if(keywords === 'use-old-keywords') {
-        keywords = this.state.keywords;
+        keywords = this.state.keywords
       } else {
-        this.setState({keywords: keywords});
+        this.setState({keywords: keywords})
       }
 
       let query = {
         query: keywords,
         offset: offset,
         length: this.state.maxItemPerPage
-      };
+      }
 
       if (this.state.geoloc) {
-        query.aroundLatLng = this.state.geoloc.lat + "," + this.state.geoloc.lng;
-        query.minimumAroundRadius = 20000;
+        query.aroundLatLng = this.state.geoloc.lat + "," + this.state.geoloc.lng
+        query.minimumAroundRadius = 20000
       }
 
       doSearchAlgolia(query, (results, nbHits) => {
-        console.log(results);
-        this.updatePosts(results, offset);
-        this.setState({nbHits: nbHits});
-      });
+        console.log(results)
+        this.updatePosts(results, offset)
+        this.setState({nbHits: nbHits})
+      })
     }
 
     showMoreResults() {
-      this.updateBySearch("use-old-keywords", this.state.posts.length);
+      this.updateBySearch("use-old-keywords", this.state.posts.length)
     }
 
-    updateMyGeoloc = (geoloc) => {
-        this.setState({geoloc: geoloc});
-        this.updateBySearch();
+    handleOnNavChange = (navInfo) => {
+      console.log('navInfo', navInfo)
     }
 
     updatePosts = (posts, doConcact) => {
       if (!posts) {
         return
       }
-      const bookmarks = [];
+      const bookmarks = []
       posts.forEach(post => {
         bookmarks.forEach(x => {
           if(x === post.id) {
-            post.bookmarked = true;
+            post.bookmarked = true
           }
-        });
+        })
       })
       if(doConcact) {
-        posts = this.state.posts.concat(posts);
+        posts = this.state.posts.concat(posts)
       }
-      this.setState({posts: posts});
+      this.setState({posts: posts})
     }
 
     addNewPost = (post) => {
-      const posts = this.state.posts;
-      posts.unshift(post);
-      this.setState({posts: posts});
+      const posts = this.state.posts
+      posts.unshift(post)
+      this.setState({posts: posts})
     }
 
     updateBookmarks = (user) => {
-      const bookmarks = [];
+      const bookmarks = []
       db.collection("bookmarks")
       .where("user", "==", user.email)
       .get().then(querySnapshot => {
         querySnapshot.forEach(doc => {
-            bookmarks.push(doc.id);
-        });
-        //saveBookmarks(bookmarks);
-      });
+            bookmarks.push(doc.id)
+        })
+      })
     }
 
-    handleBookmark = () => {
-      this.updateBookmarks(this.state.user);
-    }
+    handleBookmark = () => this.updateBookmarks(this.state.user)
 
     handleNotify = (message, undo) => {
       if (undo) {
-        this.setState({notificationWithUndo: true});
+        this.setState({notificationWithUndo: true})
       } else {
-        this.setState({notificationWithUndo: false});
+        this.setState({notificationWithUndo: false})
       }
       this.setState({ notificationBarOpen: true, notificationBarMessage: message, undo: undo })
     }
 
     removePostFromArray = (postId) => {
       const posts = this.state.posts.filter(post => post.id !== postId)
-      this.setState({posts: posts});
+      this.setState({posts: posts})
     }
 
-    getPost = (postId) => {
-      return this.state.posts.filter(post => post.id === postId)[0];
-    }
+    getPost = (postId) => this.state.posts.filter(post => post.id === postId)[0]
 
     handlePostDelete = (postId) => {
-        this.setState({deletedPost: this.getPost(postId)});
-        const postRef = db.collection('posts').doc(postId);
+        this.setState({deletedPost: this.getPost(postId)})
+        const postRef = db.collection('posts').doc(postId)
         postRef.set({
           deleted: true,
           deletedTimestamp: Date.now()
         }, { merge: true }).then(() => {
-          this.removePostFromArray(postId);
-          this.handleNotify("Post deleted", this.handleUndeletePost);
+          this.removePostFromArray(postId)
+          this.handleNotify("Post deleted", this.handleUndeletePost)
         }).catch((error) => {
-          console.log(error);
-          this.handleNotify("Something when wrong. Please try again later");
-        });
+          console.log(error)
+          this.handleNotify("Something when wrong. Please try again later")
+        })
     }
 
     handleUndeletePost = () => {
-        const postRef = db.collection('posts').doc(this.state.deletedPost.id);
+        const postRef = db.collection('posts').doc(this.state.deletedPost.id)
         postRef.set({
           deleted: false,
           deletedTimestamp: Date.now()
         }, { merge: true }).then(() => {
-          const posts = this.state.posts;
-          const deletedPost = this.state.deletedPost;
-          deletedPost.deleted = false;
-          posts.push(deletedPost);
-          this.setState({posts: posts});
-        });
+          const posts = this.state.posts
+          const deletedPost = this.state.deletedPost
+          deletedPost.deleted = false
+          posts.push(deletedPost)
+          this.setState({posts: posts})
+        })
         this.setState({ notificationBarOpen: false })
     }
 
     render () {
-      const { classes } = this.props;
-      const { user } = this.state;
+      const { classes } = this.props
+      const { user } = this.state
 
       return(
         <div className={classes.root}>
-          <TopNav
-            onChangeLocation={this.updateMyGeoloc}
-            onSearch={this.updateBySearch}
+          <Topnav
+            onChange={this.handleOnNavChange}
             user={user}
-            defaultLocation={this.props.currentLocation}
             className={classes.appBar} />
           <main className={classes.content}>
             <div className={classes.toolbar} />
@@ -261,12 +253,12 @@ class MainContainer extends React.Component {
             handleUndo={(e) => this.handleUndeletePost()}
             handleClose = { e => this.setState({ notificationBarOpen: false })} />
         </div>
-      );
+      )
     }
 }
 
 MainContainer.propTypes = {
     classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(MainContainer);
+export default withStyles(styles)(MainContainer)
