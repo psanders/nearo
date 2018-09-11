@@ -10,6 +10,7 @@ import Topnav from './topnav/Topnav'
 import PostPanel from './postpanel/PostPanel'
 import PostCard from './postcard/PostCard'
 import NotificationBar from './NotificationBar'
+import ProfileDialog from './profile/ProfileDialog'
 import { auth, db } from './commons/firebase/firebase'
 import { doSearchAlgolia } from './commons/firebase/algolia'
 import { storeUserInfo, fetchUserInfo, removeUserInfo } from './commons/dbfunctions'
@@ -104,7 +105,6 @@ class MainContainer extends React.Component {
     showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
 
     handleOnNavChange = navInfo => {
-      console.log('navInfo.searchTerm xxx', navInfo)
       this.updateBySearch(navInfo)
       this.setState({navInfo: navInfo})
     }
@@ -251,8 +251,9 @@ class MainContainer extends React.Component {
             message={ this.state.notificationBarMessage }
             open={ this.state.notificationBarOpen}
             showUndo={this.state.notificationWithUndo}
-            handleUndo={(e) => this.handleUndeletePost()}
+            handleUndo={this.handleUndeletePost}
             handleClose = { e => this.setState({ notificationBarOpen: false })} />
+            {user && user.isNewUser && <ProfileDialog onNotification={this.handleNotify} open={true} user={ user } /> }
         </div>
       )
     }

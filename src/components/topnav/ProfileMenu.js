@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
-import ExitIcon from '@material-ui/icons/ExitToApp';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Button from '@material-ui/core/IconButton'
+import Avatar from '@material-ui/core/Avatar'
+import ExitIcon from '@material-ui/icons/ExitToApp'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
 
-import ProfileDialog from '../profile/ProfileDialog';
-import { doSignOut } from '../commons/firebase/auth';
+import ProfileDialog from '../profile/ProfileDialog'
+import { doSignOut } from '../commons/firebase/auth'
 
 const styles = ({
   avatar: {
@@ -19,26 +19,22 @@ const styles = ({
 })
 
 class ProfileMenu extends React.Component {
-
-  constructor(props, context) {
-      super(props, context);
-      this.state = {
-          anchorEl: null,
-          user: this.props.user
-      };
+  state = {
+      anchorEl: null,
+      user: this.props.user
   }
 
   handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
+    this.setState({ anchorEl: event.currentTarget })
+  }
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+    this.setState({ anchorEl: null })
+  }
 
   render() {
-    const { anchorEl, user } = this.state;
-    const { classes } = this.props;
+    const { anchorEl, user } = this.state
+    const { classes } = this.props
 
     return (
       <div>
@@ -67,12 +63,12 @@ class ProfileMenu extends React.Component {
           </MenuItem>
         </Menu>
       </div>
-    );
+    )
   }
 }
 
 ProfileMenu.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(ProfileMenu);
+export default withStyles(styles)(ProfileMenu)

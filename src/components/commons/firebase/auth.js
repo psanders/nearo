@@ -19,11 +19,12 @@ auth.getRedirectResult().then(function(result) {
       const profile = result.additionalUserInfo.profile;
       const user = {
         email: profile.email,
+        username: '',
         name: profile.name,
         gender: profile.gender,
-        picture: profile.picture
+        picture: profile.picture,
+        isNewUser: true
       }
-
       const userRef = db.collection('users');
       userRef.doc(profile.email).set(user);
   }

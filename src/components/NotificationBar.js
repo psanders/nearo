@@ -22,8 +22,8 @@ class NotificationBar extends React.Component {
         key="close"
         aria-label="Close"
         color="inherit"
-        className={classes.close}
-        onClick={ e => handleClose(e)}
+        className={ classes.close }
+        onClick={ handleClose }
       >
         <CloseIcon />
       </IconButton>
@@ -32,7 +32,7 @@ class NotificationBar extends React.Component {
     if (showUndo) {
       const closeAction = action.pop()
       action.push(
-        <Button key="undo" disabled={!showUndo} color="secondary" size="small" onClick={handleUndo}>
+        <Button key="undo" disabled={ !showUndo } color="secondary" size="small" onClick={ handleUndo }>
             UNDO
           </Button>
         );
@@ -48,12 +48,12 @@ class NotificationBar extends React.Component {
           }}
           open={ open }
           autoHideDuration={4000}
-          onClose={e => handleClose(e)}
+          onClose={ handleClose }
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">{message}</span>}
-          action={action}
+          message={<span id="message-id">{ message }</span>}
+          action={ action }
         />
       </div>
     );

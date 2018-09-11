@@ -15,6 +15,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
 import SettingsIcon from '@material-ui/icons/Settings'
+import NotificationBar from '../NotificationBar'
 import PhoneInput from './PhoneInput'
 import { db } from '../commons/firebase/firebase'
 import { storeUserInfo } from '../commons/dbfunctions'
@@ -34,48 +35,86 @@ function Transition(props) {
 
 class ProfileDialog extends React.Component {
   state = {
-    open: false,
-    user: this.props.user
+    open: this.props.open,
+    user: this.props.user,
+    notification: {
+      open: false,
+      message: ''
+    }
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true })
-  }
+  handleClickOpen = () => this.setState({ open: true })
 
-  handleClose = () => {
-    this.setState({ open: false })
-  }
+  handleClose = () => this.setState({ open: false })
 
   handleChange = event => {
-    console.log('event.target.id', event.target.id )
-    console.log('value', event.target.value )
     const user = this.state.user
     if (event.target.id === 'user-name') {
       user.name = event.target.value
     } else if (event.target.id === 'user-phone') {
       user.phone = event.target.value
+    } else if (event.target.id === 'user-username') {
+      user.username = event.target.value
     }
     this.setState({ user: user})
   }
 
   save = () => {
     // Close it first to make it feel faster
-    this.handleClose()
     const user = this.state.user
+    if (!user.isNewUser) {
+      this.handleClose()
+    }
     user.phone = user.phone
       .replace("(","")
       .replace(")","")
       .replace("-","")
       .replace(" ","")
+
+    if (user.isNewUser) {
+      db.collection("users")
+        .where("username", "==", user.username)
+        .get()
+        .then(querySnapshot => {
+          if(querySnapshot.empty) {
+            this.reallySave(user)
+            this.handleClose()
+          } else {
+            this.notify("Sorry, this username is taken. Try a different one")
+          }
+      })
+    } else {
+      this.reallySave(user)
+    }
+  }
+
+  reallySave = (user) => {
     const userRef = db.collection("users").doc(user.email)
+    user.isNewUser = false
     userRef.set(user)
     storeUserInfo('user-info', user)
   }
 
   isNotValid = user => !user.name
     || !user.phone
-    || user.name.length < 3
+    || user.name.length <= 5
     || user.phone.trim().length < 10
+    || user.username.length <= 5
+    || !this.alphanumeric(user.username)
+
+  alphanumeric = (text) => {
+    const letters = /^[0-9a-zA-Z]+$/
+    return text.match(letters) ? true : false
+  }
+
+  notify = (message) => {
+    const notification = {
+      message: message,
+      open: true
+    }
+    this.setState({notification: notification})
+    console.log('this.state.notification', this.state.notification)
+  }
 
   render() {
     const { classes } = this.props
@@ -97,9 +136,11 @@ class ProfileDialog extends React.Component {
         >
           <AppBar className={classes.appBar} >
             <Toolbar color="secondary" style={{backgroundColor: '#dae0e6'}}>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-                <ArrowBackIcon />
-              </IconButton>
+              { !user.isNewUser &&
+                <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                  <ArrowBackIcon />
+                </IconButton>
+              }
               <Typography variant="title" color="inherit" className={classes.flex}>
                 Nearo
               </Typography>
@@ -112,8 +153,8 @@ class ProfileDialog extends React.Component {
             </Toolbar>
           </AppBar>
           <div style={{backgroundColor: '#dae0e6', width: '100%', height: '100%'}}>
-            <div style={{margin: 'auto', width: '360px', height: 300}}>
-              <Paper style={{height: 300, padding: 35}}>
+            <div style={{margin: 'auto', width: '360px', height: 345}}>
+              <Paper style={{height: 335, padding: 35, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
                 <Typography variant="title" gutterBottom>
                   Settings
                 </Typography>
@@ -125,8 +166,23 @@ class ProfileDialog extends React.Component {
                     shrink: true,
                   }}
                   value={user.name}
+                  error={user.name.length < 3}
                   placeholder="Name"
                   fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  id="user-username"
+                  label="Username"
+                  disabled={!user.isNewUser}
+                  onChange={this.handleChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={user.username}
+                  error={!this.alphanumeric(user.username) | user.username.length < 4}
+                  fullWidth
+                  helperText="Must be alphanumeric"
                   margin="normal"
                 />
                 <PhoneInput
@@ -156,6 +212,10 @@ class ProfileDialog extends React.Component {
               </Typography>
             </div>
           </div>
+          <NotificationBar
+            message={ this.state.notification.message }
+            open={ this.state.notification.open }
+            handleClose = { e => this.setState({ notification: {open: false }})} />
         </Dialog>
       </div>
     )
