@@ -162,8 +162,8 @@ class PostCard extends React.Component {
     }
   }
 
-  isOwner(user, authorEmail) {
-    return user && user.email === authorEmail
+  isOwner(user, author) {
+    return user && user.username === author
       ? true
       : false;
   }
