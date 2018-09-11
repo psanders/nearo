@@ -1,21 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Slide from '@material-ui/core/Slide';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Avatar from '@material-ui/core/Avatar';
-import Paper from '@material-ui/core/Paper';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { db } from '../commons/firebase/firebase';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import Slide from '@material-ui/core/Slide'
+import MenuItem from '@material-ui/core/MenuItem'
+import TextField from '@material-ui/core/TextField'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import Avatar from '@material-ui/core/Avatar'
+import Paper from '@material-ui/core/Paper'
+import SettingsIcon from '@material-ui/icons/Settings'
+import PhoneInput from './PhoneInput'
+import { db } from '../commons/firebase/firebase'
+import { storeUserInfo } from '../commons/dbfunctions'
 
 const styles = {
   appBar: {
@@ -24,48 +26,55 @@ const styles = {
   flex: {
     flex: 1,
   },
-};
+}
 
 function Transition(props) {
-  return <Slide direction="up" {...props} />;
+  return <Slide direction="up" {...props} />
 }
 
 class ProfileDialog extends React.Component {
   state = {
     open: false,
     user: this.props.user
-  };
+  }
 
   handleClickOpen = () => {
-    this.setState({ open: true });
-  };
+    this.setState({ open: true })
+  }
 
   handleClose = () => {
-    this.setState({ open: false });
-  };
+    this.setState({ open: false })
+  }
 
   handleChange = event => {
-    const user = this.state.user;
+    console.log('event.target.id', event.target.id )
+    console.log('value', event.target.value )
+    const user = this.state.user
     if (event.target.id === 'user-name') {
-      user.name = event.target.value;
+      user.name = event.target.value
     } else if (event.target.id === 'user-phone') {
-      user.phone = event.target.value;
+      user.phone = event.target.value
     }
-    this.setState({ user: user});
-  };
+    this.setState({ user: user})
+  }
 
   save = () => {
     // Close it first to make it feel faster
-    this.handleClose();
-    const user = this.state.user;
-    const userRef = db.collection("users").doc(user.email);
-    userRef.set(user);
-  };
-
+    this.handleClose()
+    const user = this.state.user
+    user.phone = user.phone
+      .replace("(","")
+      .replace(")","")
+      .replace("-","")
+      .replace(" ","")
+    const userRef = db.collection("users").doc(user.email)
+    userRef.set(user)
+    storeUserInfo('user-info', user)
+  }
 
   render() {
-    const { classes } = this.props;
-    const { user} = this.state;
+    const { classes } = this.props
+    const { user} = this.state
 
     return (
       <div>
@@ -112,21 +121,13 @@ class ProfileDialog extends React.Component {
                   }}
                   value={user.name}
                   placeholder="Name"
-                  helperText="This is what other users will see in your posts"
                   fullWidth
                   margin="normal"
                 />
-                <TextField
+                <PhoneInput
                   id="user-phone"
-                  label="Phone"
-                  onChange={this.handleChange}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
                   value={user.phone}
-                  placeholder="000-000-000"
-                  fullWidth
-                  margin="normal"
+                  onChange={this.handleChange}
                 />
                 <TextField
                   id="user-email"
@@ -140,7 +141,7 @@ class ProfileDialog extends React.Component {
                   fullWidth
                   margin="normal"
                 />
-                <Button onClick={this.save} size="small" variant="contained" color="secondary">
+                <Button disabled={user.name.length < 3 || user.phone.trim().length < 10} onClick={this.save} size="small" variant="contained" color="secondary">
                   Save
                 </Button>
               </Paper>
@@ -152,12 +153,12 @@ class ProfileDialog extends React.Component {
           </div>
         </Dialog>
       </div>
-    );
+    )
   }
 }
 
 ProfileDialog.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(ProfileDialog);
+export default withStyles(styles)(ProfileDialog)
