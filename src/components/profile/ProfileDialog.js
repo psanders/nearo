@@ -72,6 +72,11 @@ class ProfileDialog extends React.Component {
     storeUserInfo('user-info', user)
   }
 
+  isNotValid = user => !user.name
+    || !user.phone
+    || user.name.length < 3
+    || user.phone.trim().length < 10
+
   render() {
     const { classes } = this.props
     const { user} = this.state
@@ -141,7 +146,7 @@ class ProfileDialog extends React.Component {
                   fullWidth
                   margin="normal"
                 />
-                <Button disabled={user.name.length < 3 || user.phone.trim().length < 10} onClick={this.save} size="small" variant="contained" color="secondary">
+                <Button disabled={ this.isNotValid(user) } onClick={ this.save } size="small" variant="contained" color="secondary">
                   Save
                 </Button>
               </Paper>

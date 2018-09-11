@@ -43,6 +43,8 @@ class PhoneInput extends React.Component {
   }
 
   isValidNumber = (number) => {
+    if (!number) return false
+
     return number
       .replace("(","")
       .replace(")","")
