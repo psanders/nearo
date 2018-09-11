@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
+
 import Ads from './Ads'
 import About from './About'
 import Topnav from './topnav/Topnav'
@@ -158,39 +159,41 @@ class MainContainer extends React.Component {
 
     removePostFromArray = postId => {
       const posts = this.state.posts.filter(post => post.id !== postId)
+      // I do this to prevent the "show more button" from showing up
+      this.setState({nbHits: (this.state.nbHits - 1)})
       this.setState({posts: posts})
     }
 
     getPost = postId => this.state.posts.filter(post => post.id === postId)[0]
 
     handlePostDelete = postId => {
-        this.setState({deletedPost: this.getPost(postId)})
-        const postRef = db.collection('posts').doc(postId)
-        postRef.set({
-          deleted: true,
-          deletedTimestamp: Date.now()
-        }, { merge: true }).then(() => {
-          this.removePostFromArray(postId)
-          this.handleNotify("Post deleted", this.handleUndeletePost)
-        }).catch((error) => {
-          console.log(error)
-          this.handleNotify("Something when wrong. Please try again later")
-        })
+      this.setState({deletedPost: this.getPost(postId)})
+      const postRef = db.collection('posts').doc(postId)
+      postRef.set({
+        deleted: true,
+        deletedTimestamp: Date.now()
+      }, { merge: true }).then(() => {
+        this.removePostFromArray(postId)
+        this.handleNotify("Post deleted", this.handleUndeletePost)
+      }).catch((error) => {
+        console.log(error)
+        this.handleNotify("Something when wrong. Please try again later")
+      })
     }
 
     handleUndeletePost = () => {
-        const postRef = db.collection('posts').doc(this.state.deletedPost.id)
-        postRef.set({
-          deleted: false,
-          deletedTimestamp: Date.now()
-        }, { merge: true }).then(() => {
-          const posts = this.state.posts
-          const deletedPost = this.state.deletedPost
-          deletedPost.deleted = false
-          posts.push(deletedPost)
-          this.setState({posts: posts})
-        })
-        this.setState({ notificationBarOpen: false })
+      const postRef = db.collection('posts').doc(this.state.deletedPost.id)
+      postRef.set({
+        deleted: false,
+        deletedTimestamp: Date.now()
+      }, { merge: true }).then(() => {
+        const posts = this.state.posts
+        const deletedPost = this.state.deletedPost
+        deletedPost.deleted = false
+        posts.push(deletedPost)
+        this.setState({posts: posts})
+      })
+      this.setState({ notificationBarOpen: false })
     }
 
     render () {
@@ -234,14 +237,14 @@ class MainContainer extends React.Component {
                       {
                         this.state.posts.length < this.state.nbHits &&
                         <Grid item>
-                          <Button onClick={() => this.showMoreResults()}>Show more</Button>
+                          <Button onClick={ this.showMoreResults }>Show more</Button>
                         </Grid>
                       }
                   </Grid>
                   <Hidden smDown={true}>
                     <Grid item sm={3} xs={12}>
                         <Ads />
-                        <div className={classes.gutterBottom}/>
+                        <div className={ classes.gutterBottom }/>
                         <About />
                     </Grid>
                   </Hidden>
