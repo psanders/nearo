@@ -141,7 +141,7 @@ class PostPanel extends React.Component {
 
     const post = {
       category: this.getCategoryInText(this.state.body),
-      author: this.props.user.email,
+      author: this.props.user.username,
       body: body,
       likes: 0,
       locText: this.state.locInfo.address,

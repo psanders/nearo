@@ -109,10 +109,6 @@ class PostCard extends React.Component {
     });
   }
 
-  getUsername = (email) => {
-    return email? email.split('@')[0] : 'none';
-  }
-
   uiRefreshForBookmark() {
     const post = this.state.post;
     post.bookmarked = !post.bookmarked;
@@ -212,7 +208,7 @@ class PostCard extends React.Component {
       }
       return  (<Typography variant="body2">c/{ post.category }
                 <span style={{color: '#5d5c5c', fontSize: '12px', fontWeight: 'normal'}}>
-                  {bull} Post by {this.getUsername(post.author)} <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment>
+                  {bull} Post by {post.author} <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment>
                 </span>
               </Typography>)
     }
