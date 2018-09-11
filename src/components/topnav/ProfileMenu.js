@@ -48,7 +48,7 @@ class ProfileMenu extends React.Component {
         aria-haspopup="true"
           onClick={this.handleClick} color="inherit"  aria-label="Check Messages">
           { user && <Avatar className={classes.avatar}
-            style={{height: 26, width: 26}}
+            style={{height: 35, width: 35}}
             alt={user.name}
             src={user.picture}  /> }
         </Button>

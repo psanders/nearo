@@ -75,7 +75,7 @@ class Topnav extends React.Component {
            <Hidden smDown={true}>
             <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
            </Hidden>
-            <span className={ classes.flex } style={{ borderRight: '0.05em solid #dcdcdc', padding: '1em' }}/>
+            <span className={ classes.flex } /*style={{ borderRight: '0.05em solid #dcdcdc', padding: '1em' }}*/ />
             { !this.isSignedIn() &&
               <div>
                 {false && <Button size="medium" onClick={onOpenLogin} color="secondary" variant="outlined" className={classes.button}>
@@ -87,7 +87,7 @@ class Topnav extends React.Component {
                 </Button>
               </div>
             }
-            { this.isSignedIn() &&
+            { false &&
               <Tooltip title="Saved Items">
                 <IconButton color="secondary" className={classes.button} aria-label="Post">
                   <BookmarkBorder style={{height: 26, width: 26}} />
