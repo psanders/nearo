@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import BookmarkBorder from '@material-ui/icons/BookmarkBorder';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import QuestionAnswer from '@material-ui/icons/QuestionAnswer';
 import MoneyIcon from '@material-ui/icons/AttachMoney';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -125,17 +125,16 @@ class PostCard extends React.Component {
 
   addBookmark = () => {
     if (!this.isSignedIn()) {
-      this.props.onNotification('You must login save a post');
+      this.props.onNotification('You must login to like a post');
       return
     }
     // Update UI before it actually happend
     this.uiRefreshForBookmark();
-    const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
+    const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id);
     bookmarksRef.set({
       user: this.props.user.email
     }, { merge: true }).then(() => {
-
-      this.props.onNotification('Saved');
+      this.props.onNotification('Noted!');
       this.props.onBookmark();
     }).catch(function(error) {
       // Rollback if something happen
@@ -147,10 +146,10 @@ class PostCard extends React.Component {
   deleteBookmark = () => {
     // Update UI before it actually happend
     this.uiRefreshForBookmark();
-    const bookmarksRef = db.collection('bookmarks').doc(this.props.post.id);
+    const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id);
     bookmarksRef.delete()
     .then(() => {
-      this.props.onNotification('Removed from saved posts');
+      this.props.onNotification('Unliked');
       this.props.onBookmark();
     }).catch(function(error) {
       // Rollback if something happen
@@ -174,8 +173,8 @@ class PostCard extends React.Component {
   }
 
   render() {
-    const { classes, post, user} = this.props;
-    const { anchorEl } = this.state;
+    const { classes, user} = this.props;
+    const { anchorEl, post } = this.state;
     const bull = <span className={classes.bullet}>•</span>;
 
     const avatar = (post) => {
@@ -276,9 +275,9 @@ class PostCard extends React.Component {
               <Button
                 onClick={ this.handleBookmark }
                 size="small" className={ classes.button }>
-                <BookmarkBorder className={ classes.icon }/>
-                { post.bookmarked && "Unsave"  }
-                { !post.bookmarked && "Save" }
+                <FavoriteBorder className={ classes.icon }/>
+                { post.bookmarked && "Unlike"  }
+                { !post.bookmarked && "Like" }
               </Button>
               <Button
                 onClick={() => this.props.onNotification("Not yet implemented")}
