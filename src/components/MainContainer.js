@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Route } from 'react-router'
+import { Route } from 'react-router-dom'
 
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
@@ -229,7 +229,6 @@ class MainContainer extends React.Component {
               }
             />
             <Route
-              withRouter
               exact
               path='/posts/:postId'
               render={(props) =>

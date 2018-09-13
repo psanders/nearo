@@ -19,6 +19,7 @@ import { getCategories } from '../commons/categories'
 import Locator from '../locator/Locator'
 import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
+import { fetchUserInfo } from '../commons/dbfunctions';
 
 const styles = theme => ({
   flex: {
@@ -89,6 +90,15 @@ class PostPanel extends React.Component {
     expanded: false,
     category: 'general',
     imageURL: ""
+  }
+
+  componentDidMount = () => {
+    fetchUserInfo('postpanel-locator')
+    .then(locInfo => {
+      if (locInfo) {
+        this.setState({locInfo: locInfo})
+      }
+    })
   }
 
   updateBody = (e) => {

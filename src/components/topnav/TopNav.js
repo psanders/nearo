@@ -11,6 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
 import Hidden from '@material-ui/core/Hidden'
+import { Link } from 'react-router-dom'
 
 import { doSignInWithGoogle } from '../commons/firebase/auth'
 import { styles } from './TopnavStyles'
@@ -49,7 +50,7 @@ class Topnav extends React.Component {
         <AppBar elevation={0} color="primary">
           <Toolbar>
             <Typography variant="title" color="inherit">
-              Nearo
+              <Link to="/" style={{color: '#303030', textDecoration: 'none'}}>Nearo</Link>
             </Typography>
             <span style={{marginLeft: '15px'}}/>
             <Hidden smDown={true}>
