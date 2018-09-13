@@ -109,7 +109,7 @@ class LocationSearchInput extends React.Component {
               {showDefaultItem && this.getDefaultItem()}
               {this.getInputItems(getSuggestionItemProps, suggestions)}
               <div style={{width: '100%', height: '12px'}}>
-                <img alt="Powered by Google" style={{float: 'right', marginRight: 12}} height="10px" src="./powered_by_google_default.png"/>
+                <img alt="Powered by Google" style={{float: 'right', marginRight: 12}} height="10px" src="/powered_by_google_default.png"/>
               </div>
             </List>
           </div>
