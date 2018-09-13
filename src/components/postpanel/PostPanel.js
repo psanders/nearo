@@ -134,7 +134,7 @@ class PostPanel extends React.Component {
 
   createPost = (self, body) => {
     if (!this.isSignedIn()) {
-      this.props.onNotification('You must login to create a new post')
+      self.props.onNotification('You must login to create a new post')
       return
     }
     self.setState({loading: true})
@@ -161,6 +161,7 @@ class PostPanel extends React.Component {
       self.props.onNewPost(post)
     })
     .catch(function(error) {
+      console.log(error)
       self.clearUI()
       self.props.onNotification('Unable to submit post. Try again later')
       console.error("Error adding document: ", error)

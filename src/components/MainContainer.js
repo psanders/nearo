@@ -1,20 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import Hidden from '@material-ui/core/Hidden'
-import Button from '@material-ui/core/Button'
 
-import Ads from './Ads'
-import About from './About'
 import Topnav from './topnav/Topnav'
-import PostPanel from './postpanel/PostPanel'
-import PostCard from './postcard/PostCard'
 import NotificationBar from './NotificationBar'
 import ProfileDialog from './profile/ProfileDialog'
 import { auth, db } from './commons/firebase/firebase'
 import { doSearchAlgolia } from './commons/firebase/algolia'
 import { storeUserInfo, fetchUserInfo, removeUserInfo } from './commons/dbfunctions'
+import PostsContainer from './PostsContainer'
 
 const styles = theme => ({
   root: {
@@ -201,54 +195,23 @@ class MainContainer extends React.Component {
       const { user } = this.state
 
       return(
-        <div className={classes.root}>
+        <div className={ classes.root }>
           <Topnav
-            onChange={this.handleOnNavChange}
+            onChange={ this.handleOnNavChange }
             user={user}
             className={classes.appBar} />
-          <main className={classes.content}>
-            <div className={classes.toolbar} />
-            <Grid
-                container
-                direction="row"
-                justify="center"
-                spacing={32}>
-                  <Grid item sm={6} xs={12}>
-                      <Grid item>
-                        <PostPanel user={user} onNewPost={(post) => this.addNewPost(post)} onNotification={this.handleNotify} currentLocation={this.props.currentLocation} />
-                      </Grid>
-                      <div className={classes.gutterBottom}/>
-
-                        {
-                          this.state.posts.map(post => {
-                            return (
-                               <Grid key={post.id} item>
-                                 <PostCard user={user} post={post} onBookmark={this.handleBookmark} onDelete={this.handlePostDelete} onNotification={this.handleNotify} />
-                                 <div className={classes.gutterBottom}/>
-                               </Grid>
-                             )
-                          })
-                        }
-                      <Hidden smUp={true}>
-                        <Grid item>
-                          <About />
-                        </Grid>
-                      </Hidden>
-                      {
-                        this.state.posts.length < this.state.nbHits &&
-                        <Grid item>
-                          <Button onClick={ this.showMoreResults }>Show more</Button>
-                        </Grid>
-                      }
-                  </Grid>
-                  <Hidden smDown={true}>
-                    <Grid item sm={3} xs={12}>
-                        <Ads />
-                        <div className={ classes.gutterBottom }/>
-                        <About />
-                    </Grid>
-                  </Hidden>
-              </Grid>
+          <main className={ classes.content }>
+            <div className={ classes.toolbar } />
+            <PostsContainer user={ user }
+              classes={ classes }
+              posts={this.state.posts}
+              onNewPost={ this.addNewPost }
+              onBookmark={ this.handleBookmark }
+              onDelete={ this.handlePostDelete }
+              onNotification={ this.handleNotify }
+              onShowMoreResult={ this.showMoreResults }
+              nbHits={ this.state.nbHits }
+              />
           </main>
           <NotificationBar
             message={ this.state.notificationBarMessage }
