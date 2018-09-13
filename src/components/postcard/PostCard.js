@@ -12,7 +12,6 @@ import MoneyIcon from '@material-ui/icons/AttachMoney';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SoldOutIcon from '@material-ui/icons/MonetizationOn';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import ShareIcon from '@material-ui/icons/Share';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
@@ -20,6 +19,7 @@ import Moment from 'react-moment';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Linkify from 'react-linkify';
+import ShareButton from '../share/ShareButton'
 import { db } from '../commons/firebase/firebase';
 import {getCategory} from '../commons/categories';
 
@@ -154,7 +154,8 @@ class PostCard extends React.Component {
     });
   }
 
-  handleBookmark = () => {
+  handleBookmark = (e) => {
+    e.stopPropagation();
     if(!this.state.post.bookmarked) {
       this.addBookmark();
     } else {
@@ -275,12 +276,7 @@ class PostCard extends React.Component {
                 { post.bookmarked && "Unlike"  }
                 { !post.bookmarked && "Like" }
               </Button>
-              <Button
-                onClick={() => this.props.onNotification("Not yet implemented")}
-                size="small" className={classes.button}>
-                <ShareIcon className={classes.icon}/>
-                Share
-              </Button>
+              <ShareButton classes={classes} url={"https://locally-57510.firebaseapp.com/posts/" + post.id}/>
               { !this.isOwner(user, post.author) &&
                 <Button
                   onClick={() => this.props.onNotification("Not yet implemented")}
