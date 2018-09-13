@@ -27,11 +27,11 @@ const styles = theme => ({
   card: {
     display: 'flex',
     border: '1px solid #cdcdcd',
-    minHeight: 170
-    /*'&:hover': {
+    minHeight: 170,
+    '&:hover': {
         border: '1px solid #444',
         cursor: 'pointer'
-    }*/
+    }
   },
   details: {
     display: 'flex',

@@ -1,11 +1,9 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
-import Button from '@material-ui/core/Button'
 
 import Ads from './Ads'
 import About from './About'
-import PostPanel from './postpanel/PostPanel'
 import PostCard from './postcard/PostCard'
 
 export default function SinglePostContainer(props) {

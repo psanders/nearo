@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
@@ -7,6 +8,7 @@ import Ads from './Ads'
 import About from './About'
 import PostPanel from './postpanel/PostPanel'
 import PostCard from './postcard/PostCard'
+import { openURL } from './commons/utils'
 
 export default function PostsContainer(props) {
   const user = props.user
@@ -29,7 +31,7 @@ export default function PostsContainer(props) {
             {
               props.posts.map(post => {
                 return (
-                   <Grid key={post.id} item>
+                   <Grid key={post.id} item onClick={ () => openURL('/posts/' + post.id) } >
                      <PostCard
                       user={user}
                       post={post}

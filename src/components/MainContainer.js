@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Router, Route, Link } from 'react-router'
+import { Route } from 'react-router'
 
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
@@ -11,6 +11,7 @@ import { doSearchAlgolia } from './commons/firebase/algolia'
 import { storeUserInfo, fetchUserInfo, removeUserInfo } from './commons/dbfunctions'
 import PostsContainer from './PostsContainer'
 import SinglePostContainer from './SinglePostContainer'
+import { openURL } from './commons/utils'
 
 const styles = theme => ({
   root: {
@@ -38,14 +39,13 @@ const styles = theme => ({
 class MainContainer extends React.Component {
     state = {
       bookmarks: [],
-      posts: [{id: '1'},{id: '2'}],
+      posts: [{id: '1'}],
       nbHits: 0,
       notificationWithUndo: false,
       notificationBarOpen: false,
       notificationBarMessage: '',
       notificationUndo: null,
       lastDeletedPostId: null,
-      geoloc: null,
       maxItemPerPage: 20,
     }
 
@@ -104,7 +104,13 @@ class MainContainer extends React.Component {
     handleOnNavChange = navInfo => {
       this.updateBySearch(navInfo)
       this.setState({navInfo: navInfo})
+
+      if(this.getCurrentPathname()) {
+        openURL("/")
+      }
     }
+
+    getCurrentPathname = () => window.location.pathname.split('/')[2]
 
     updatePosts = (posts, doConcact) => {
       if (!posts) return
@@ -201,7 +207,7 @@ class MainContainer extends React.Component {
           <Topnav
             onChange={ this.handleOnNavChange }
             user={user}
-            className={classes.appBar} />
+            className={ classes.appBar } />
           <main className={ classes.content }>
             <Route
               exact path='/'>
@@ -229,7 +235,7 @@ class MainContainer extends React.Component {
               render={(props) =>
                 <SinglePostContainer user={ user }
                   classes={ classes }
-                  post={ this.getPost(window.location.pathname.split('/')[2]) }
+                  post={ this.getPost(this.getCurrentPathname()) }
                   onNewPost={ this.addNewPost }
                   onBookmark={ this.handleBookmark }
                   onDelete={ this.handlePostDelete }

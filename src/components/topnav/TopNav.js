@@ -25,7 +25,6 @@ class Topnav extends React.Component {
   isSignedIn  = () => this.props.user == null ? false : true
 
   handleChange = name => event => {
-    console.log()
     const searchTerm = event.target.value
     this.props.onChange({
       locInfo: this.state.locInfo,
@@ -82,7 +81,7 @@ class Topnav extends React.Component {
                   Continue with Google
                 </Button> }
 
-               <Button  size="medium" onClick={() => doSignInWithGoogle()} color="secondary" variant="contained" className={classes.button}>
+               <Button  size="medium" onClick={ doSignInWithGoogle } color="secondary" variant="contained" className={classes.button}>
                   Continue with Google
                 </Button>
               </div>
