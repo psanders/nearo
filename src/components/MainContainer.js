@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
+import { Router, Route, Link } from 'react-router'
 
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
@@ -9,6 +10,7 @@ import { auth, db } from './commons/firebase/firebase'
 import { doSearchAlgolia } from './commons/firebase/algolia'
 import { storeUserInfo, fetchUserInfo, removeUserInfo } from './commons/dbfunctions'
 import PostsContainer from './PostsContainer'
+import SinglePostContainer from './SinglePostContainer'
 
 const styles = theme => ({
   root: {
@@ -201,17 +203,42 @@ class MainContainer extends React.Component {
             user={user}
             className={classes.appBar} />
           <main className={ classes.content }>
-            <div className={ classes.toolbar } />
-            <PostsContainer user={ user }
-              classes={ classes }
-              posts={this.state.posts}
-              onNewPost={ this.addNewPost }
-              onBookmark={ this.handleBookmark }
-              onDelete={ this.handlePostDelete }
-              onNotification={ this.handleNotify }
-              onShowMoreResult={ this.showMoreResults }
-              nbHits={ this.state.nbHits }
-              />
+            <Route
+              exact path='/'>
+              <div className={ classes.toolbar } />
+            </Route>
+            <Route
+              exact path='/'
+              render={(props) =>
+                <PostsContainer user={ user }
+                  classes={ classes }
+                  posts={this.state.posts}
+                  onNewPost={ this.addNewPost }
+                  onBookmark={ this.handleBookmark }
+                  onDelete={ this.handlePostDelete }
+                  onNotification={ this.handleNotify }
+                  onShowMoreResult={ this.showMoreResults }
+                  nbHits={ this.state.nbHits }
+                  />
+              }
+            />
+            <Route
+              withRouter
+              exact
+              path='/posts/:postId'
+              render={(props) =>
+                <SinglePostContainer user={ user }
+                  classes={ classes }
+                  post={ this.getPost(window.location.pathname.split('/')[2]) }
+                  onNewPost={ this.addNewPost }
+                  onBookmark={ this.handleBookmark }
+                  onDelete={ this.handlePostDelete }
+                  onNotification={ this.handleNotify }
+                  onShowMoreResult={ this.showMoreResults }
+                  nbHits={ this.state.nbHits }
+                  />
+              }
+            />
           </main>
           <NotificationBar
             message={ this.state.notificationBarMessage }
