@@ -86,7 +86,8 @@ class PostCard extends React.Component {
     post: this.props.post
   }
 
-  markSold(post) {
+  markSold() {
+    const post = this.props.post
     const postRef = db.collection('posts').doc(post.id);
     const sold = !post.sold ? true : false
 
@@ -291,7 +292,10 @@ class PostCard extends React.Component {
                     className={classes.button}
                     aria-owns={anchorEl ? 'simple-menu' : null}
                     aria-haspopup="true"
-                    onClick={(event) => this.setState({ anchorEl: event.currentTarget })}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      this.setState({ anchorEl: e.currentTarget })
+                    }}
                   >
                     <MoreHorizIcon className={classes.icon}/>
                   </Button>
@@ -299,13 +303,22 @@ class PostCard extends React.Component {
                     id="simple-menu"
                     anchorEl={anchorEl}
                     open={Boolean(anchorEl)}
-                    onClose={() => this.setState({ anchorEl: null })}
+                    onClose={e => {
+                      e.stopPropagation()
+                      this.setState({ anchorEl: null })}
+                    }
                   >
-                    <MenuItem onClick={() => this.props.onDelete(post.id)}>
+                    <MenuItem onClick={e => {
+                        e.stopPropagation()
+                        this.props.onDelete(post.id)
+                     }}>
                       <DeleteIcon className={classes.icon}/>
                       Delete
                     </MenuItem>
-                    <MenuItem onClick={() => this.markSold(post)}>
+                    <MenuItem onClick={e => {
+                      e.stopPropagation()
+                      this.markSold()
+                    }}>
                       <SoldOutIcon className={classes.icon}/>
                       { !post.sold && "Sold"  }
                       { post.sold && "Unsold" }
