@@ -35,7 +35,7 @@ class BottomNav extends React.Component {
         showLabels
         className={classes.root}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon color="red" />} />
+        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
         <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
         <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
       </BottomNavigation>

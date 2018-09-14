@@ -1,6 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 
+import PostPanel from './postpanel/PostPanel'
 import GoogleMap from './map/GoogleMap'
 import PostCard from './postcard/PostCard'
 import { openURL } from './commons/utils'
@@ -15,7 +16,13 @@ export default function PostsContainer(props) {
       alignItems="flex-start"
       >
         <Grid item sm={6} xs={12} style={{backgroundColor: '#fff'}}>
-          <div style={{postion:'absolute', height: 'calc(100vh - 60px)', overflowY: 'scroll'}}>
+          <div style={{postion:'absolute', height: 'calc(100vh - 45px)', overflowY: 'scroll'}}>
+            <Grid item>
+              <PostPanel user={user}
+                onNewPost={props.onNewPost}
+                onNotification={props.onNotification}
+              />
+            </Grid>
             {
               props.posts.map(post => {
                 return (

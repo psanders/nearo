@@ -5,10 +5,6 @@ export const styles = theme => ({
   root: {
     width: '100%',
     border: '1px solid #cdcdcd',
-    '&:hover': {
-        border: '1px solid #444',
-        cursor: 'pointer'
-    }
   },
   cover: {
     minHeight: 300,

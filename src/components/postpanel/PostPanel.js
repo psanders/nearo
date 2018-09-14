@@ -128,7 +128,8 @@ class PostPanel extends React.Component {
     return (
       <div className={classes.root}>
         <ExpansionPanel
-          expanded={this.state.expanded} elevation={0} >
+          expanded={this.state.expanded} elevation={0}
+          style={{backgroundColor: '#f4f4f4'}}>
           <ExpansionPanelSummary
             onClick={() => this.changeExpanded()}
             expandIcon={<ExpandMoreIcon />}>
