@@ -29,13 +29,10 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: '#dae0e6',
-    padding: theme.spacing.unit * 2,
+    //padding: theme.spacing.unit * 2,
     minWidth: 0, // So the Typography noWrap works
   },
   toolbar: theme.mixins.toolbar,
-  gutterBottom: {
-    marginBottom: 10
-  }
 })
 
 class MainContainer extends React.Component {
@@ -170,14 +167,14 @@ class MainContainer extends React.Component {
 
   getPost = postId => this.state.posts.filter(post => post.id === postId)[0]
 
-  handlePostDelete = postId => {
-    this.setState({deletedPost: this.getPost(postId)})
-    const postRef = db.collection('posts').doc(postId)
+  handlePostDelete = (post) => {
+    this.setState({deletedPost: this.getPost(post.id)})
+    const postRef = db.collection('posts').doc(post.id)
     postRef.set({
       deleted: true,
       deletedTimestamp: Date.now()
     }, { merge: true }).then(() => {
-      this.removePostFromArray(postId)
+      this.removePostFromArray(post.id)
       this.handleNotify("Post deleted", this.handleUndeletePost)
     }).catch((error) => {
       console.log(error)
@@ -200,6 +197,29 @@ class MainContainer extends React.Component {
     this.setState({ notificationBarOpen: false })
   }
 
+  markSold = (post) => {
+    const postRef = db.collection('posts').doc(post.id)
+    const sold = !post.sold ? true : false
+
+    // Update post
+    post.sold = sold
+    this.setState({post: post})
+
+    postRef.set({
+       sold: !sold
+    }, { merge: true }).then(() => {
+      if(sold) {
+        this.handleNotify('Post marked as sold')
+      } else {
+        this.handleNotify('Post marked as unsold')
+      }
+    }).catch(error => {
+      post.sold = !sold
+      this.setState({post: post})
+      console.error("Error writing document: ", error)
+    })
+  }
+
   render () {
     const { classes } = this.props
     const { user } = this.state
@@ -210,7 +230,7 @@ class MainContainer extends React.Component {
           onChange={ this.handleOnNavChange }
           user={user}
           className={ classes.appBar } />
-        <main className={ classes.content } style={{width: '100%'}}>
+        <main className={ classes.content }>
           <Route
             exact path='/'>
             <div className={ classes.toolbar } />
@@ -219,11 +239,11 @@ class MainContainer extends React.Component {
             exact path='/'
             render={(props) =>
               <PostsContainer user={ user }
-                classes={ classes }
                 posts={this.state.posts}
                 onNewPost={ this.addNewPost }
                 onBookmark={ this.handleBookmark }
                 onDelete={ this.handlePostDelete }
+                onMarkSold = { this.markSold }
                 onNotification={ this.handleNotify }
                 onShowMoreResult={ this.showMoreResults }
                 nbHits={ this.state.nbHits }

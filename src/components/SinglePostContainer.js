@@ -1,9 +1,6 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import Hidden from '@material-ui/core/Hidden'
 
-import Ads from './Ads'
-import About from './About'
 import PostCard from './postcard/PostCard'
 
 export default function SinglePostContainer(props) {
@@ -28,19 +25,7 @@ export default function SinglePostContainer(props) {
               <div className={ classes.gutterBottom }/>
               </Grid>
             }
-            <Hidden smUp={true}>
-              <Grid item>
-                <About />
-              </Grid>
-            </Hidden>
         </Grid>
-        <Hidden smDown={true}>
-          <Grid item sm={3} xs={12}>
-              <Ads />
-              <div className={ classes.gutterBottom }/>
-              <About />
-          </Grid>
-        </Hidden>
     </Grid>
   )
 }

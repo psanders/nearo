@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import ShareIcon from '@material-ui/icons/Share'
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'
 import Ionicon from 'react-ionicons'
 import {
@@ -11,60 +12,7 @@ import {
   WhatsappShareButton,
 } from 'react-share'
 
-const styles = theme => ({
-  card: {
-    display: 'flex',
-    border: '1px solid #cdcdcd',
-    minHeight: 170,
-    '&:hover': {
-        border: '1px solid #444',
-        cursor: 'pointer'
-    }
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
-  cover: {
-    minHeight: 300,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing.unit + 5,
-    paddingBottom: 8
-  },
-  button: {
-    textTransform: 'Capitalize',
-    fontSize: 12,
-    color: '#5d5c5c',
-    marginRight: 2
-  },
-  icon: {
-    color: '#5d5c5c',
-    marginRight: 8,
-    fontSize: '20px'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  avatar: {
-    width: 25,
-    height: 25,
-    backgroundColor: '#3a3aa2',
-  },
-  header: {
-    padding: 0
-  },
-  chip: {
-    margin: theme.spacing.unit,
-  },
-})
+import { styles } from './PostCardStyles'
 
 class ShareButton extends React.Component {
   state = {
@@ -86,15 +34,15 @@ class ShareButton extends React.Component {
     const { classes, url } = this.props
 
     return (
-      <div>
+      <span>
         <Button
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={ this.handleClick }
-          className={ classes.button }
+          className={ classes.actionBtn }
         >
-          <ShareIcon className={ classes.icon }/>
-          Share
+          <ShareIcon className={ classes.actionIcon }/>
+          <Typography variant="caption" color="textSecondary">Share</Typography>
         </Button>
         <Menu
           id="simple-menu"
@@ -103,25 +51,37 @@ class ShareButton extends React.Component {
           onClose={ this.handleClose }
         >
           <MenuItem  onClick={ this.handleClose }>
-            <Ionicon  icon="logo-whatsapp" className={ classes.icon } color="#5d5c5c"/>
+            <Ionicon  icon="logo-whatsapp" className={ classes.actionIcon } color="#5d5c5c"/>
             <WhatsappShareButton
-             children="Whatsapp"
-             url={url} />
+            children={
+              <Typography variant="caption">
+               Whatsapp
+              </Typography>
+            }
+             url={ url } />
           </MenuItem>
           <MenuItem  onClick={ this.handleClose }>
-            <Ionicon  icon="logo-facebook" className={ classes.icon } color="#5d5c5c"/>
+            <Ionicon icon="logo-facebook" className={ classes.actionIcon } color="#5d5c5c"/>
             <FacebookShareButton
-             children="Facebook"
-             url={url} />
+            children={
+              <Typography variant="caption">
+               Facebook
+              </Typography>
+            }
+             url={ url } />
           </MenuItem>
           <MenuItem onClick={ this.handleClose }>
-            <Ionicon icon="logo-twitter" className={ classes.icon } color="#5d5c5c"/>
+            <Ionicon icon="logo-twitter" className={ classes.actionIcon } color="#5d5c5c"/>
             <TwitterShareButton
-             children="Twitter"
-             url={url} />
+             children={
+               <Typography variant="caption">
+                Twitter
+               </Typography>
+             }
+             url={ url } />
           </MenuItem>
         </Menu>
-      </div>
+      </span>
     )
   }
 }

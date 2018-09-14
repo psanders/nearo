@@ -1,54 +1,39 @@
 export const styles = theme => ({
-  card: {
-    display: 'flex',
-    border: '1px solid #cdcdcd',
-    minHeight: 170,
+  post: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 2,
+    borderBottom: '1px solid #f4f4f4',
     '&:hover': {
-        border: '1px solid #444',
-        cursor: 'pointer'
+      backgroundColor: '#f6f7ff',
+      cursor: 'pointer'
     }
   },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
+  image: {
+    width: 128,
+    height: 128,
   },
-  content: {
-    flex: '1 0 auto',
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
   cover: {
-    minHeight: 300,
+    minHeight: 50,
+    borderRadius: 2,
   },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing.unit + 5,
-    paddingBottom: 8
-  },
-  button: {
+  actionBtn: {
     textTransform: 'Capitalize',
+    fontSize: 8,
+    color: '#5d5c5c',
+    padding: 5,
+    minHeight: 2,
+    minWidth: 2,
+    marginRight: 5
+  },
+  actionIcon: {
+    color: '#5d5c5c',
     fontSize: 12,
-    color: '#5d5c5c',
-    marginRight: 2
-  },
-  icon: {
-    color: '#5d5c5c',
-    marginRight: 8,
-    fontSize: 20
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  avatar: {
-    width: 25,
-    height: 25,
-    backgroundColor: '#3a3aa2',
-  },
-  header: {
-    padding: 0
-  },
-  chip: {
-    margin: theme.spacing.unit,
+    marginRight: 5
   },
 });
