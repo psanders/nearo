@@ -4,7 +4,7 @@ export const styles = theme => ({
     padding: theme.spacing.unit * 2,
     borderBottom: '1px solid #f4f4f4',
     '&:hover': {
-      backgroundColor: '#f6f7ff',
+      backgroundColor: theme.palette.primary.a50,
       cursor: 'pointer'
     }
   },

@@ -61,4 +61,18 @@ export const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
+  newPostBtn: {
+    backgroundColor: theme.palette.accent.main,
+    textTransform: 'capitalize',
+    marginRight: 20,
+    '&:hover': {
+      backgroundColor: theme.palette.accent.light
+    },
+    minHeight: 40,
+    fontSize: 16
+  },
+  newPostIcon: {
+    fontSize: 17,
+    marginRight: 5
+  }
 });

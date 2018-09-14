@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField'
 import BookmarkBorder from '@material-ui/icons/BookmarkBorder'
+import CameraIcon from '@material-ui/icons/CameraAlt'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
@@ -87,13 +88,12 @@ class Topnav extends React.Component {
                 </Button>
               </div>
             }
-            { false &&
-              <Tooltip title="Saved Items">
-                <IconButton color="secondary" className={classes.button} aria-label="Post">
-                  <BookmarkBorder style={{height: 26, width: 26}} />
-                </IconButton>
-              </Tooltip>
-            }
+
+            <Button className={classes.newPostBtn} variante="contained">
+              <CameraIcon className={classes.newPostIcon} />
+              New publication
+            </Button>
+
             { this.isSignedIn() && <ProfileMenu user={this.props.user}/> }
           </Toolbar>
         </AppBar>
