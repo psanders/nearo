@@ -9,7 +9,7 @@ import MoreButton from './MoreButton'
 import { styles } from './PostCardStyles'
 
 function PostActions(props) {
-  const { classes, post, url } = props;
+  const { classes, post, isOwner, url } = props;
 
   return (
     <div>
@@ -21,12 +21,13 @@ function PostActions(props) {
         </Typography>
       </Button>
       <ShareButton url={ url } post={ post }/>
-      <MoreButton
+      {
+        isOwner && <MoreButton
         post={ post }
         onDelete={ props.onDelete }
         onMarkSold={ props.onMarkSold }
-        onNotification={ props.onNotification }
-      />
+        onNotification={ props.onNotification } />
+      }
     </div>
   );
 }

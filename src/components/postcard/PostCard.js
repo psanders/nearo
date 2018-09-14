@@ -69,6 +69,12 @@ class PostCard extends React.Component {
     this.setState({post: post})
   }
 
+  isOwner = (user, author) => {
+    return user && user.username === author
+      ? true
+      : false
+  }
+
   render() {
     const { classes, post } = this.props;
 
@@ -86,10 +92,12 @@ class PostCard extends React.Component {
               </Grid>
               <Grid item>
                 <PostActions post={ post }
-                onDelete={ this.props.onDelete }
-                onMarkSold = { this.props.onMarkSold}
-                url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
-                onChangeBookmark={ this.handleBookmark }/>
+                  isOwner={ this.isOwner() }
+                  onDelete={ this.props.onDelete }
+                  onMarkSold = { this.props.onMarkSold}
+                  url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
+                  onChangeBookmark={ this.handleBookmark }
+                />
               </Grid>
             </Grid>
           </Grid>
