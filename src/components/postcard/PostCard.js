@@ -1,179 +1,124 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import QuestionAnswer from '@material-ui/icons/QuestionAnswer';
-import MoneyIcon from '@material-ui/icons/AttachMoney';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SoldOutIcon from '@material-ui/icons/MonetizationOn';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
-import Moment from 'react-moment';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Linkify from 'react-linkify';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
+import QuestionAnswer from '@material-ui/icons/QuestionAnswer'
+import MoneyIcon from '@material-ui/icons/AttachMoney'
+import DeleteIcon from '@material-ui/icons/Delete'
+import SoldOutIcon from '@material-ui/icons/MonetizationOn'
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
+import CardHeader from '@material-ui/core/CardHeader'
+import Avatar from '@material-ui/core/Avatar'
+import Chip from '@material-ui/core/Chip'
+import Moment from 'react-moment'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Linkify from 'react-linkify'
 import ShareButton from '../share/ShareButton'
-import { db } from '../commons/firebase/firebase';
-import {getCategory} from '../commons/categories';
-
-const styles = theme => ({
-  card: {
-    display: 'flex',
-    border: '1px solid #cdcdcd',
-    minHeight: 170,
-    '&:hover': {
-        border: '1px solid #444',
-        cursor: 'pointer'
-    }
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
-  cover: {
-    minHeight: 300,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing.unit + 5,
-    paddingBottom: 8
-  },
-  button: {
-    textTransform: 'Capitalize',
-    fontSize: 12,
-    color: '#5d5c5c',
-    marginRight: 2
-  },
-  icon: {
-    color: '#5d5c5c',
-    marginRight: 8,
-    fontSize: 20
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  avatar: {
-    width: 25,
-    height: 25,
-    backgroundColor: '#3a3aa2',
-  },
-  header: {
-    padding: 0
-  },
-  chip: {
-    margin: theme.spacing.unit,
-  },
-});
+import { db } from '../commons/firebase/firebase'
+import { getCategory } from '../commons/categories'
+import { styles } from './PostCardStyles'
 
 class PostCard extends React.Component {
-
   state = {
     alertOpen: false,
     anchorEl: null,
     post: this.props.post
   }
 
-  markSold() {
+  markSold = () => {
     const post = this.props.post
-    const postRef = db.collection('posts').doc(post.id);
+    const postRef = db.collection('posts').doc(post.id)
     const sold = !post.sold ? true : false
 
     // Update post
-    post.sold = sold;
-    this.setState({post: post});
+    post.sold = sold
+    this.setState({post: post})
 
     postRef.set({
        sold: !sold
     }, { merge: true }).then(() => {
       if(sold) {
-        this.props.onNotification('Post marked as sold');
+        this.props.onNotification('Post marked as sold')
       } else {
-        this.props.onNotification('Post marked as unsold');
+        this.props.onNotification('Post marked as unsold')
       }
     }).catch(function(error) {
-      post.sold = !sold;
-      this.setState({post: post});
-      console.error("Error writing document: ", error);
-    });
+      post.sold = !sold
+      this.setState({post: post})
+      console.error("Error writing document: ", error)
+    })
   }
 
-  uiRefreshForBookmark() {
-    const post = this.state.post;
-    post.bookmarked = !post.bookmarked;
-    this.setState({post: post});
+  uiRefreshForBookmark = () => {
+    const post = this.state.post
+    post.bookmarked = !post.bookmarked
+    this.setState({post: post})
   }
 
-  isSignedIn () {
+  isSignedIn = () => {
     return this.props.user == null ? false : true
   }
 
   addBookmark = () => {
     if (!this.isSignedIn()) {
-      this.props.onNotification('You must login to like a post');
+      this.props.onNotification('You must login to like a post')
       return
     }
     // Update UI before it actually happend
-    this.uiRefreshForBookmark();
-    const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id);
+    this.uiRefreshForBookmark()
+    const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id)
     bookmarksRef.set({
       user: this.props.user.email
     }, { merge: true }).then(() => {
-      this.props.onNotification('Noted!');
-      this.props.onBookmark();
+      this.props.onNotification('Noted!')
+      this.props.onBookmark()
     }).catch(function(error) {
       // Rollback if something happen
-      this.uiRefreshForBookmark();
-      console.error("Error writing document: ", error);
-    });
+      this.uiRefreshForBookmark()
+      console.error("Error writing document: ", error)
+    })
   }
 
   deleteBookmark = () => {
     // Update UI before it actually happend
-    this.uiRefreshForBookmark();
-    const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id);
+    this.uiRefreshForBookmark()
+    const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id)
     bookmarksRef.delete()
     .then(() => {
-      this.props.onNotification('Unliked');
-      this.props.onBookmark();
+      this.props.onNotification('Unliked')
+      this.props.onBookmark()
     }).catch(function(error) {
       // Rollback if something happen
-      this.uiRefreshForBookmark();
-      console.error("Error writing document: ", error);
-    });
+      this.uiRefreshForBookmark()
+      console.error("Error writing document: ", error)
+    })
   }
 
   handleBookmark = (e) => {
-    e.stopPropagation();
+    e.stopPropagation()
     if(!this.state.post.bookmarked) {
-      this.addBookmark();
+      this.addBookmark()
     } else {
-      this.deleteBookmark();
+      this.deleteBookmark()
     }
   }
 
-  isOwner(user, author) {
+  isOwner = (user, author) => {
     return user && user.username === author
       ? true
-      : false;
+      : false
   }
 
   render() {
-    const { classes, user} = this.props;
-    const { anchorEl, post } = this.state;
-    const bull = <span className={classes.bullet}>•</span>;
+    const { classes, user} = this.props
+    const { anchorEl, post } = this.state
+    const bull = <span className={classes.bullet}>•</span>
 
     const avatar = (post) => {
       if (post.category) {
@@ -313,7 +258,7 @@ class PostCard extends React.Component {
                         this.props.onDelete(post.id)
                      }}>
                       <DeleteIcon className={classes.icon}/>
-                      Delete
+                      Remove
                     </MenuItem>
                     <MenuItem onClick={e => {
                       e.stopPropagation()
@@ -329,13 +274,13 @@ class PostCard extends React.Component {
             </div>
           </div>
       </Card>
-    );
+    )
   }
 }
 
 PostCard.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles, { withTheme: true })(PostCard);
+export default withStyles(styles, { withTheme: true })(PostCard)
