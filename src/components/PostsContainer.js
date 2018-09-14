@@ -15,6 +15,7 @@ export default function PostsContainer(props) {
       alignItems="flex-start"
       >
         <Grid item sm={6} xs={12} style={{backgroundColor: '#fff'}}>
+          <div style={{postion:'absolute', height: 'calc(100vh - 60px)', overflowY: 'scroll'}}>
             {
               props.posts.map(post => {
                 return (
@@ -30,9 +31,10 @@ export default function PostsContainer(props) {
                  )
               })
             }
+          </div>
         </Grid>
         <Grid item sm={6} xs={12}>
-          <GoogleMap style={{ position:'absolute', height: '100vh', width: '100%' }}/>
+          <GoogleMap style={{height: '100vh', width: '100%' }}/>
         </Grid>
     </Grid>
   )

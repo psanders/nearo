@@ -3,8 +3,18 @@ body {
   padding: 0;
   font-family: sans-serif;
   background-color: #dae0e6;
+  overflow-y: hidden;
 }
 
 .Linkify a {
   color: #0075DB;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }
