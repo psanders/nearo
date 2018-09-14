@@ -47,10 +47,10 @@ class Topnav extends React.Component {
 
     return (
       <div>
-        <AppBar elevation={0} color="primary">
+        <AppBar color="primary">
           <Toolbar>
             <Typography variant="title" color="inherit">
-              <Link to="/" style={{color: '#303030', textDecoration: 'none'}}>Nearo</Link>
+              <Link to="/" style={{color: '#fff', textDecoration: 'none'}}>Nearo</Link>
             </Typography>
             <span style={{marginLeft: '15px'}}/>
             <Hidden smDown={true}>

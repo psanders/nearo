@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
+import Hidden from '@material-ui/core/Hidden'
 import { Route } from 'react-router-dom'
+import BottomNav from './bottomnav/BottomNav'
 
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
@@ -37,224 +39,227 @@ const styles = theme => ({
 })
 
 class MainContainer extends React.Component {
-    state = {
-      bookmarks: [],
-      posts: [{id: '1'}],
-      nbHits: 0,
-      notificationWithUndo: false,
-      notificationBarOpen: false,
-      notificationBarMessage: '',
-      notificationUndo: null,
-      lastDeletedPostId: null,
-      maxItemPerPage: 20,
+  state = {
+    bookmarks: [],
+    posts: [{id: '1'}],
+    nbHits: 0,
+    notificationWithUndo: false,
+    notificationBarOpen: false,
+    notificationBarMessage: '',
+    notificationUndo: null,
+    lastDeletedPostId: null,
+    maxItemPerPage: 20,
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        const userRef = db.collection('users').doc(user.email)
+        userRef.get()
+        .then(result => {
+          storeUserInfo('user-info', result.data())
+          this.setState({user: result.data()})
+          this.updateBookmarks(result.data())
+        })
+      } else {
+        this.setState({user: null})
+        removeUserInfo('user-info')
+        this.updateBySearch({searchTerm: ''})
+      }
+    })
+
+    fetchUserInfo('user-info').then(user => {
+      this.setState({user: user})
+    })
+
+    fetchUserInfo('topnav-locator').then(navInfo => {
+      this.setState({navInfo: navInfo})
+    })
+
+    fetchUserInfo('bookmarks').then(bookmarks => {
+      this.setState({bookmarks: bookmarks})
+      this.updateBySearch({searchTerm: ''})
+    })
+  }
+
+  updateBySearch = (navInfo, offset = 0) => {
+    let query = {
+      query: navInfo.searchTerm,
+      offset: offset,
+      length: this.state.maxItemPerPage
     }
 
-    componentDidMount() {
-      auth.onAuthStateChanged(user => {
-        if (user) {
-          const userRef = db.collection('users').doc(user.email)
-          userRef.get()
-          .then(result => {
-            storeUserInfo('user-info', result.data())
-            this.setState({user: result.data()})
-            this.updateBookmarks(result.data())
-          })
-        } else {
-          this.setState({user: null})
-          removeUserInfo('user-info')
-          this.updateBySearch({searchTerm: ''})
+    if (navInfo.locInfo && navInfo.locInfo.latLng) {
+      query.aroundLatLng = navInfo.locInfo.latLng.lat + ","
+        + navInfo.locInfo.latLng.lng
+      query.minimumAroundRadius = 20000
+    }
+
+    doSearchAlgolia(query, (results, nbHits) => {
+      this.updatePosts(results, offset)
+      this.setState({nbHits: nbHits})
+    })
+  }
+
+  showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
+
+  handleOnNavChange = navInfo => {
+    this.updateBySearch(navInfo)
+    this.setState({navInfo: navInfo})
+
+    if(this.getCurrentPathname()) {
+      openURL("/")
+    }
+  }
+
+  getCurrentPathname = () => window.location.pathname.split('/')[2]
+
+  updatePosts = (posts, doConcact) => {
+    if (!posts) return
+
+    const bookmarks = this.state.user? this.state.bookmarks : []
+    posts.forEach(post => {
+      bookmarks.forEach(x => {
+        if(x === post.id) {
+          post.bookmarked = true
         }
       })
-
-      fetchUserInfo('user-info').then(user => {
-        this.setState({user: user})
-      })
-
-      fetchUserInfo('topnav-locator').then(navInfo => {
-        this.setState({navInfo: navInfo})
-      })
-
-      fetchUserInfo('bookmarks').then(bookmarks => {
-        this.setState({bookmarks: bookmarks})
-        this.updateBySearch({searchTerm: ''})
-      })
+    })
+    if(doConcact) {
+      posts = this.state.posts.concat(posts)
     }
+    this.setState({posts: posts})
+  }
 
-    updateBySearch = (navInfo, offset = 0) => {
-      let query = {
-        query: navInfo.searchTerm,
-        offset: offset,
-        length: this.state.maxItemPerPage
-      }
+  addNewPost = post => {
+    const posts = this.state.posts
+    posts.unshift(post)
+    this.setState({posts: posts})
+  }
 
-      if (navInfo.locInfo && navInfo.locInfo.latLng) {
-        query.aroundLatLng = navInfo.locInfo.latLng.lat + ","
-          + navInfo.locInfo.latLng.lng
-        query.minimumAroundRadius = 20000
-      }
-
-      doSearchAlgolia(query, (results, nbHits) => {
-        this.updatePosts(results, offset)
-        this.setState({nbHits: nbHits})
+  updateBookmarks = user => {
+    const bookmarks = []
+    db.collection("bookmarks")
+    .where("user", "==", user.email)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+          bookmarks.push(doc.id)
       })
+      storeUserInfo('bookmarks', bookmarks)
+    })
+  }
+
+  handleBookmark = () => this.updateBookmarks(this.state.user)
+
+  handleNotify = (message, undo) => {
+    if (undo) {
+      this.setState({notificationWithUndo: true})
+    } else {
+      this.setState({notificationWithUndo: false})
     }
+    this.setState({ notificationBarOpen: true, notificationBarMessage: message, undo: undo })
+  }
 
-    showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
+  removePostFromArray = postId => {
+    const posts = this.state.posts.filter(post => post.id !== postId)
+    // I do this to prevent the "show more button" from showing up
+    this.setState({nbHits: (this.state.nbHits - 1)})
+    this.setState({posts: posts})
+  }
 
-    handleOnNavChange = navInfo => {
-      this.updateBySearch(navInfo)
-      this.setState({navInfo: navInfo})
+  getPost = postId => this.state.posts.filter(post => post.id === postId)[0]
 
-      if(this.getCurrentPathname()) {
-        openURL("/")
-      }
-    }
+  handlePostDelete = postId => {
+    this.setState({deletedPost: this.getPost(postId)})
+    const postRef = db.collection('posts').doc(postId)
+    postRef.set({
+      deleted: true,
+      deletedTimestamp: Date.now()
+    }, { merge: true }).then(() => {
+      this.removePostFromArray(postId)
+      this.handleNotify("Post deleted", this.handleUndeletePost)
+    }).catch((error) => {
+      console.log(error)
+      this.handleNotify("Something when wrong. Please try again later")
+    })
+  }
 
-    getCurrentPathname = () => window.location.pathname.split('/')[2]
-
-    updatePosts = (posts, doConcact) => {
-      if (!posts) return
-
-      const bookmarks = this.state.user? this.state.bookmarks : []
-      posts.forEach(post => {
-        bookmarks.forEach(x => {
-          if(x === post.id) {
-            post.bookmarked = true
-          }
-        })
-      })
-      if(doConcact) {
-        posts = this.state.posts.concat(posts)
-      }
-      this.setState({posts: posts})
-    }
-
-    addNewPost = post => {
+  handleUndeletePost = () => {
+    const postRef = db.collection('posts').doc(this.state.deletedPost.id)
+    postRef.set({
+      deleted: false,
+      deletedTimestamp: Date.now()
+    }, { merge: true }).then(() => {
       const posts = this.state.posts
-      posts.unshift(post)
+      const deletedPost = this.state.deletedPost
+      deletedPost.deleted = false
+      posts.push(deletedPost)
       this.setState({posts: posts})
-    }
+    })
+    this.setState({ notificationBarOpen: false })
+  }
 
-    updateBookmarks = user => {
-      const bookmarks = []
-      db.collection("bookmarks")
-      .where("user", "==", user.email)
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-            bookmarks.push(doc.id)
-        })
-        storeUserInfo('bookmarks', bookmarks)
-      })
-    }
+  render () {
+    const { classes } = this.props
+    const { user } = this.state
 
-    handleBookmark = () => this.updateBookmarks(this.state.user)
-
-    handleNotify = (message, undo) => {
-      if (undo) {
-        this.setState({notificationWithUndo: true})
-      } else {
-        this.setState({notificationWithUndo: false})
-      }
-      this.setState({ notificationBarOpen: true, notificationBarMessage: message, undo: undo })
-    }
-
-    removePostFromArray = postId => {
-      const posts = this.state.posts.filter(post => post.id !== postId)
-      // I do this to prevent the "show more button" from showing up
-      this.setState({nbHits: (this.state.nbHits - 1)})
-      this.setState({posts: posts})
-    }
-
-    getPost = postId => this.state.posts.filter(post => post.id === postId)[0]
-
-    handlePostDelete = postId => {
-      this.setState({deletedPost: this.getPost(postId)})
-      const postRef = db.collection('posts').doc(postId)
-      postRef.set({
-        deleted: true,
-        deletedTimestamp: Date.now()
-      }, { merge: true }).then(() => {
-        this.removePostFromArray(postId)
-        this.handleNotify("Post deleted", this.handleUndeletePost)
-      }).catch((error) => {
-        console.log(error)
-        this.handleNotify("Something when wrong. Please try again later")
-      })
-    }
-
-    handleUndeletePost = () => {
-      const postRef = db.collection('posts').doc(this.state.deletedPost.id)
-      postRef.set({
-        deleted: false,
-        deletedTimestamp: Date.now()
-      }, { merge: true }).then(() => {
-        const posts = this.state.posts
-        const deletedPost = this.state.deletedPost
-        deletedPost.deleted = false
-        posts.push(deletedPost)
-        this.setState({posts: posts})
-      })
-      this.setState({ notificationBarOpen: false })
-    }
-
-    render () {
-      const { classes } = this.props
-      const { user } = this.state
-
-      return(
-        <div className={ classes.root }>
-          <Topnav
-            onChange={ this.handleOnNavChange }
-            user={user}
-            className={ classes.appBar } />
-          <main className={ classes.content }>
-            <Route
-              exact path='/'>
-              <div className={ classes.toolbar } />
-            </Route>
-            <Route
-              exact path='/'
-              render={(props) =>
-                <PostsContainer user={ user }
-                  classes={ classes }
-                  posts={this.state.posts}
-                  onNewPost={ this.addNewPost }
-                  onBookmark={ this.handleBookmark }
-                  onDelete={ this.handlePostDelete }
-                  onNotification={ this.handleNotify }
-                  onShowMoreResult={ this.showMoreResults }
-                  nbHits={ this.state.nbHits }
-                  />
-              }
-            />
-            <Route
-              exact
-              path='/posts/:postId'
-              render={(props) =>
-                <SinglePostContainer user={ user }
-                  classes={ classes }
-                  post={ this.getPost(this.getCurrentPathname()) }
-                  onNewPost={ this.addNewPost }
-                  onBookmark={ this.handleBookmark }
-                  onDelete={ this.handlePostDelete }
-                  onNotification={ this.handleNotify }
-                  onShowMoreResult={ this.showMoreResults }
-                  nbHits={ this.state.nbHits }
-                  />
-              }
-            />
-          </main>
-          <NotificationBar
-            message={ this.state.notificationBarMessage }
-            open={ this.state.notificationBarOpen}
-            showUndo={this.state.notificationWithUndo}
-            handleUndo={this.handleUndeletePost}
-            handleClose = { e => this.setState({ notificationBarOpen: false })} />
-            {user && user.isNewUser && <ProfileDialog onNotification={this.handleNotify} open={true} user={ user } /> }
-        </div>
-      )
-    }
+    return(
+      <div className={ classes.root }>
+        <Topnav
+          onChange={ this.handleOnNavChange }
+          user={user}
+          className={ classes.appBar } />
+        <main className={ classes.content } style={{width: '100%'}}>
+          <Route
+            exact path='/'>
+            <div className={ classes.toolbar } />
+          </Route>
+          <Route
+            exact path='/'
+            render={(props) =>
+              <PostsContainer user={ user }
+                classes={ classes }
+                posts={this.state.posts}
+                onNewPost={ this.addNewPost }
+                onBookmark={ this.handleBookmark }
+                onDelete={ this.handlePostDelete }
+                onNotification={ this.handleNotify }
+                onShowMoreResult={ this.showMoreResults }
+                nbHits={ this.state.nbHits }
+              />
+            }
+          />
+          <Route
+            exact
+            path='/posts/:postId'
+            render={(props) =>
+              <SinglePostContainer user={ user }
+                classes={ classes }
+                post={ this.getPost(this.getCurrentPathname()) }
+                onNewPost={ this.addNewPost }
+                onBookmark={ this.handleBookmark }
+                onDelete={ this.handlePostDelete }
+                onNotification={ this.handleNotify }
+                onShowMoreResult={ this.showMoreResults }
+                nbHits={ this.state.nbHits }
+                />
+            }
+          />
+        </main>
+        <Hidden smUp={true}>
+          <BottomNav />
+        </Hidden>
+        <NotificationBar
+          message={ this.state.notificationBarMessage }
+          open={ this.state.notificationBarOpen}
+          showUndo={this.state.notificationWithUndo}
+          handleUndo={this.handleUndeletePost}
+          handleClose = { e => this.setState({ notificationBarOpen: false })} />
+          {user && user.isNewUser && <ProfileDialog onNotification={this.handleNotify} open={true} user={ user } /> }
+      </div>
+    )
+  }
 }
 
 MainContainer.propTypes = {

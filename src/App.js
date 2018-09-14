@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import React, { Component } from 'react'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-import MainContainer from './components/MainContainer';
-import './App.css';
+import MainContainer from './components/MainContainer'
+import './App.css'
 
 const theme = createMuiTheme({
   props: {
@@ -13,7 +13,7 @@ const theme = createMuiTheme({
   palette: {
       primary: {
         light: '#757ce8',
-        main: '#fff',
+        main: '#757ce8',
         dark: '#002884',
         contrastText: '#444',
       },
@@ -21,7 +21,7 @@ const theme = createMuiTheme({
         main: '#3F51B5',
       },
     },
-});
+})
 
 class App extends Component {
 
@@ -37,11 +37,11 @@ class App extends Component {
     return (
       <div className="App">
           <MuiThemeProvider theme={theme}>
-            <MainContainer/>
+            <MainContainer />
           </MuiThemeProvider>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
