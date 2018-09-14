@@ -19,68 +19,8 @@ import { getCategories } from '../commons/categories'
 import Locator from '../locator/Locator'
 import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
-import { fetchUserInfo } from '../commons/dbfunctions';
-
-const styles = theme => ({
-  flex: {
-    flex: 1,
-  },
-  root: {
-    width: '100%',
-    border: '1px solid #cdcdcd',
-    '&:hover': {
-        border: '1px solid #444',
-        cursor: 'pointer'
-    }
-  },
-  cover: {
-    minHeight: 300,
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-  icon: {
-    verticalAlign: 'bottom',
-    height: 20,
-    width: 20,
-  },
-  details: {
-    alignItems: 'center',
-    padding: 0
-  },
-  column: {
-    flexBasis: '33.33%',
-  },
-  helper: {
-    borderLeft: `2px solid ${theme.palette.divider}`,
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
-  },
-  link: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
-  },
-  customTFRoot: {
-    backgroundColor: '#fff',
-    width: 'calc(100% - 20px)',
-    padding: 10,
-  },
-  customTFInput: {
-    color: 'black',
-    fontSize: 14
-  },
-  customTFLabel: {
-  },
-  button: {
-    textTransform: 'Capitalize',
-  },
-})
+import { fetchUserInfo } from '../commons/dbfunctions'
+import { styles } from './PostPanelStyles'
 
 class PostPanel extends React.Component {
   state = {
@@ -101,19 +41,13 @@ class PostPanel extends React.Component {
     })
   }
 
-  updateBody = (e) => {
-    this.setState({body: e.target.value})
-  }
+  updateBody = e => this.setState({body: e.target.value})
 
-  handleOnChangeLocation = (locInfo) => {
-    this.setState({locInfo: locInfo})
-  }
+  handleOnChangeLocation = locInfo => this.setState({locInfo: locInfo})
 
-  isSignedIn () {
-      return this.props.user == null ? false : true
-  }
+  isSignedIn = () => this.props.user == null ? false : true
 
-  getCategoryInText = (text) => {
+  getCategoryInText = text => {
     const tags = extract(text)
     const categories = getCategories()
 
@@ -129,7 +63,7 @@ class PostPanel extends React.Component {
   }
 
   getPrice = (text) => {
-    const prices = text.split(' ').filter(v => v.startsWith('$'))
+    const prices = text.replace(',','').split(' ').filter(v => v.startsWith('$'))
     const cleanNumbers = prices.join(' ').replace(/\$/g, ' ').split(' ')
     const results = cleanNumbers.filter(price => !isNaN(price))
     return results.length > 0 ? Number(results[results.length - 1]) : 0
