@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import ButtonBase from '@material-ui/core/ButtonBase'
 import CardMedia from '@material-ui/core/CardMedia'
 import Moment from 'react-moment'
+import LinkIcon from '@material-ui/icons/Link'
 import { styles } from './PostCardStyles'
 
 import { db } from '../commons/firebase/firebase'
@@ -76,7 +77,16 @@ class PostCard extends React.Component {
   }
 
   render() {
-    const { classes, post } = this.props;
+    const { classes, post } = this.props
+
+    function image(post) {
+      if (post.image) return <div style={{ width: 130, height: 110, borderRadius: 2}} />
+
+      return <div style={{ border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 2}}>
+              <LinkIcon color="primary" style={{
+                width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
+             </div>
+    }
 
     return (
       <div className={classes.post}>
@@ -101,26 +111,24 @@ class PostCard extends React.Component {
               </Grid>
             </Grid>
           </Grid>
-          { post.image &&
-            <Grid item>
-              <ButtonBase className={classes.image}>
-                <CardMedia
-                  className={classes.cover}
-                  image={post.image}
-                >
-                  <div style={{width: 130, height: 110, borderBottomLeftRadius: 30}} />
-                </CardMedia>
-              </ButtonBase>
-              </Grid>
-          }
+          <Grid item>
+            <ButtonBase className={ classes.image }>
+              <CardMedia
+                className={ classes.cover }
+                image={ post.image }
+              >
+                {image(post)}
+              </CardMedia>
+            </ButtonBase>
+          </Grid>
         </Grid>
       </div>
-    );
+    )
   }
 }
 
 PostCard.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(PostCard);
+export default withStyles(styles)(PostCard)

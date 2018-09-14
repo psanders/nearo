@@ -1,6 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 
+import GoogleMap from './map/GoogleMap'
 import PostCard from './postcard/PostCard'
 import { openURL } from './commons/utils'
 
@@ -29,6 +30,9 @@ export default function PostsContainer(props) {
                  )
               })
             }
+        </Grid>
+        <Grid item sm={6} xs={12}>
+          <GoogleMap style={{ position:'absolute', height: '100vh', width: '100%' }}/>
         </Grid>
     </Grid>
   )
