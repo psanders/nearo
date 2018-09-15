@@ -21,7 +21,7 @@ class GMap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          { this.props.store.posts.map(post => <Marker latLng={ post._geoloc } />) }
+          { this.props.store.posts.map(post => <Marker key={ post.id } latLng={ post._geoloc } />) }
         </GoogleMapReact>
       </div>
     )

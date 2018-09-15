@@ -10,8 +10,7 @@ import LinkIcon from '@material-ui/icons/Link'
 import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
 
-import { notificationsStore } from '../stores/notifications'
-import { db } from '../commons/firebase/firebase'
+import { bookmarksStore } from '../stores/bookmarks'
 import { getCategory } from '../commons/categories'
 import PostActions from './PostActions'
 
@@ -21,51 +20,15 @@ class PostCard extends React.Component {
     post: this.props.post
   }
 
-  addBookmark = () => {
-    if (!this.isSignedIn()) {
-      notificationsStore.showNotification('You must login to like a post')
-      return
-    }
-    // Update UI before it actually happend
-    this.uiRefreshForBookmark()
-    const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id)
-    bookmarksRef.set({
-      user: this.props.user.email
-    }, { merge: true }).then(() => {
-      notificationsStore.showNotification('Noted!')
-      this.props.onBookmark()
-    }).catch(function(error) {
-      // Rollback if something happen
-      this.uiRefreshForBookmark()
-      console.error("Error writing document: ", error)
-    })
-  }
-
-  deleteBookmark = () => {
-    // Update UI before it actually happend
-    this.uiRefreshForBookmark()
-    const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id)
-    bookmarksRef.delete()
-    .then(() => {
-      notificationsStore.showNotification('Unliked')
-      this.props.onBookmark()
-    }).catch(function(error) {
-      // Rollback if something happen
-      this.uiRefreshForBookmark()
-      console.error("Error writing document: ", error)
-    })
-  }
-
   handleBookmark = (e) => {
     e.stopPropagation()
+    this.uiRefreshForBookmark()
     if(!this.state.post.bookmarked) {
-      this.addBookmark()
+      bookmarksStore.addToBookmarks(this.state.post)
     } else {
-      this.deleteBookmark()
+      bookmarksStore.removeFromBookmarks(this.state.post)
     }
   }
-
-  isSignedIn = () => this.props.user == null ? false : true
 
   uiRefreshForBookmark = () => {
     const post = this.state.post

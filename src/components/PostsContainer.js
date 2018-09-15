@@ -32,9 +32,6 @@ class PostsContainer extends Component {
                        <PostCard
                         user={ user }
                         post={ post }
-                        onBookmark={ this.props.onBookmark }
-                        onDelete={ this.props.onDelete }
-                        onMarkSold = { this.props.onMarkSold }
                         />
                      </Grid>
                    )
