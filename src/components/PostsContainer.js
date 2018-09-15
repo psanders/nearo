@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 
-import PostPanel from './postpanel/PostPanel'
+import FiltersBar from './filtersbar/FiltersBar'
 import GoogleMap from './map/GoogleMap'
 import PostCard from './postcard/PostCard'
 import { openURL } from './commons/utils'
@@ -18,10 +18,7 @@ export default function PostsContainer(props) {
         <Grid item sm={6} xs={12} style={{backgroundColor: '#fff'}}>
           <div style={{postion:'absolute', height: 'calc(100vh - 45px)', overflowY: 'scroll'}}>
             <Grid item>
-              <PostPanel user={user}
-                onNewPost={props.onNewPost}
-                onNotification={props.onNotification}
-              />
+              <FiltersBar onChangedFilter={ props.onChangedFilter } />
             </Grid>
             {
               props.posts.map(post => {

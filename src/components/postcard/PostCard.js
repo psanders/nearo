@@ -82,7 +82,7 @@ class PostCard extends React.Component {
     function image(post) {
       if (post.image) return <div style={{ width: 130, height: 110, borderRadius: 2}} />
 
-      return <div style={{ border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 2}}>
+      return <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 2}}>
               <LinkIcon color="primary" style={{
                 width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
              </div>

@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
-import { fetchUserInfo } from '../commons/dbfunctions';
+import React, { Component } from 'react'
+import GoogleMapReact from 'google-map-react'
+
+import { fetchUserInfo } from '../commons/dbfunctions'
+import Marker from './Marker'
 
 class SimpleMap extends Component {
   state = {
@@ -13,7 +15,7 @@ class SimpleMap extends Component {
       lng: 30.33
     },
     zoom: 11
-  };
+  }
 
   componentDidMount = () => {
     fetchUserInfo('topnav-locator')
@@ -25,6 +27,7 @@ class SimpleMap extends Component {
   }
 
   render() {
+
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
@@ -33,10 +36,12 @@ class SimpleMap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           center={this.state.center}
-        />
+        >
+          <Marker latLng={{lat: 19.7807686, lng:-70.68710909999999}} />
+        </GoogleMapReact>
       </div>
-    );
+    )
   }
 }
 
-export default SimpleMap;
+export default SimpleMap
