@@ -35,6 +35,7 @@ export const styles = theme => ({
     backgroundColor: '#f1f5ff',
     fontSize: 16,
     padding: '10px 12px',
+    height: 22,
     width: 250,
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     fontFamily: [
@@ -68,7 +69,7 @@ export const styles = theme => ({
     '&:hover': {
       backgroundColor: theme.palette.accent.light
     },
-    minHeight: 40,
+    height: 42,
     fontSize: 16
   },
   newPostIcon: {

@@ -73,8 +73,8 @@ class Topnav extends React.Component {
            <Hidden smDown={true}>
             <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
            </Hidden>
-            <span className={ classes.flex } /*style={{ borderRight: '0.05em solid #dcdcdc', padding: '1em' }}*/ />
-            { !usersStore.isSignedIn() &&
+            <span className={ classes.flex } />
+           { !usersStore.isSignedIn() &&
               <div>
                 {false && <Button size="medium" onClick={onOpenLogin} color="secondary" variant="outlined" className={classes.button}>
                   Continue with Google
