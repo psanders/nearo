@@ -7,6 +7,7 @@ import { observer } from 'mobx-react'
 
 import { usersStore } from './stores/users'
 import { postsStore } from './stores/posts'
+import { navStore } from './stores/navigation'
 import { notificationsStore } from './stores/notifications'
 import BottomNav from './bottomnav/BottomNav'
 import Topnav from './topnav/Topnav'
@@ -65,6 +66,7 @@ class MainContainer extends React.Component {
             render={(props) =>
               <PostsContainer user={ user }
                 postsStore={ postsStore }
+                navStore={ navStore }
               />
             }
           />

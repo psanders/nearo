@@ -40,7 +40,9 @@ class PostsContainer extends Component {
             </div>
           </Grid>
           <Grid item sm={6} xs={12}>
-            <GoogleMap store={ this.props.postsStore } style={{height: '100vh', width: '100%' }}/>
+            <GoogleMap navStore={ this.props.navStore } 
+              postsStore={ this.props.postsStore }
+              style={{height: '100vh', width: '100%' }}/>
           </Grid>
       </Grid>
     )

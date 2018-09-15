@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react'
 import Marker from './Marker'
+import { observer } from 'mobx-react'
 
+@observer
 class GMap extends Component {
 
   static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
     zoom: 11
   }
 
@@ -18,10 +16,11 @@ class GMap extends Component {
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
+          defaultCenter={ this.props.navStore.navInfo.latLng}
+          defaultZoom={ this.props.zoom }
+          center={ this.props.navStore.navInfo.latLng }
         >
-          { this.props.store.posts.map(post => <Marker key={ post.id } latLng={ post._geoloc } />) }
+          { this.props.postsStore.posts.map(post => <Marker key={ post.id } latLng={ post._geoloc } />) }
         </GoogleMapReact>
       </div>
     )
