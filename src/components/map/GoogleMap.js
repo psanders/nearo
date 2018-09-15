@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react'
+import { observer } from 'mobx-react'
 
 import { fetchUserInfo } from '../commons/dbfunctions'
 import Marker from './Marker'
@@ -29,7 +30,6 @@ class SimpleMap extends Component {
   render() {
 
     return (
-      // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
@@ -37,8 +37,9 @@ class SimpleMap extends Component {
           defaultZoom={this.props.zoom}
           center={this.state.center}
         >
-          <Marker latLng={{lat: 19.7807686, lng:-70.68710909999999}} />
+
         </GoogleMapReact>
+        console.log(this.props.appState)
       </div>
     )
   }
