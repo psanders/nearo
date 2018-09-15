@@ -5,6 +5,7 @@ import Hidden from '@material-ui/core/Hidden'
 import { Route } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
+import { usersStore } from './stores/users'
 import { postsStore } from './stores/posts'
 import { notificationsStore } from './stores/notifications'
 import BottomNav from './bottomnav/BottomNav'
@@ -51,8 +52,8 @@ class MainContainer extends React.Component {
     return(
       <div className={ classes.root }>
         <Topnav
-          onChange={ this.handleOnNavChange }
-          user={user}
+          usersStore={ usersStore }
+          postsStore={ postsStore }
           className={ classes.appBar } />
         <main className={ classes.content }>
           <Route

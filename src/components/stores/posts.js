@@ -7,7 +7,6 @@ import { doSearchAlgolia } from '../commons/firebase/algolia'
 const maxItemperPage = 20
 
 class PostsStore {
-
     @observable posts = []
     @observable nbHits = 0
 
@@ -15,7 +14,6 @@ class PostsStore {
       when(
         () => appStore.isReady(),
         () => {
-          console.log("User status is", usersStore.isStatusVerified())
           this.updateBySearch({searchTerm: ''})
         })
     }
@@ -58,7 +56,6 @@ class PostsStore {
       }
       this.posts = posts
     }
-
 
     showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
 

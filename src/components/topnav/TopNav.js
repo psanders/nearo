@@ -10,22 +10,22 @@ import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
 import Hidden from '@material-ui/core/Hidden'
 import { Link } from 'react-router-dom'
+import { observer } from 'mobx-react'
 
 import { doSignInWithGoogle } from '../commons/firebase/auth'
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
 
+@observer
 class Topnav extends React.Component {
   state = {
     locInfo: null,
     searchTerm: ""
   }
 
-  isSignedIn  = () => this.props.user == null ? false : true
-
   handleChange = name => event => {
     const searchTerm = event.target.value
-    this.props.onChange({
+    this.props.postsStore.updateBySearch({
       locInfo: this.state.locInfo,
       searchTerm: searchTerm
     })
@@ -33,7 +33,7 @@ class Topnav extends React.Component {
   }
 
   handleOnChangeLocation = locInfo => {
-    this.props.onChange({
+    this.props.postsStore.updateBySearch({
       locInfo: locInfo,
       searchTerm: this.state.searchTerm
     })
@@ -41,7 +41,7 @@ class Topnav extends React.Component {
   }
 
   render() {
-    const { classes, onOpenLogin } = this.props
+    const { classes, onOpenLogin, usersStore } = this.props
 
     return (
       <div>
@@ -74,7 +74,7 @@ class Topnav extends React.Component {
             <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
            </Hidden>
             <span className={ classes.flex } /*style={{ borderRight: '0.05em solid #dcdcdc', padding: '1em' }}*/ />
-            { !this.isSignedIn() &&
+            { !usersStore.isSignedIn() &&
               <div>
                 {false && <Button size="medium" onClick={onOpenLogin} color="secondary" variant="outlined" className={classes.button}>
                   Continue with Google
@@ -91,7 +91,7 @@ class Topnav extends React.Component {
               New publication
             </Button>
 
-            { this.isSignedIn() && <ProfileMenu user={this.props.user}/> }
+            { usersStore.isSignedIn() && <ProfileMenu user={ usersStore.currentUser }/> }
           </Toolbar>
         </AppBar>
       </div>
