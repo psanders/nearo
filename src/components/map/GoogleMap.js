@@ -16,7 +16,6 @@ class GMap extends Component {
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
-          defaultCenter={ this.props.navStore.navInfo.latLng}
           defaultZoom={ this.props.zoom }
           center={ this.props.navStore.navInfo.latLng }
         >
