@@ -8,11 +8,14 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Moment from 'react-moment'
 import LinkIcon from '@material-ui/icons/Link'
 import { styles } from './PostCardStyles'
+import { observer } from 'mobx-react'
 
+import { notificationsStore } from '../stores/notifications'
 import { db } from '../commons/firebase/firebase'
 import { getCategory } from '../commons/categories'
 import PostActions from './PostActions'
 
+@observer
 class PostCard extends React.Component {
   state = {
     post: this.props.post
@@ -20,7 +23,7 @@ class PostCard extends React.Component {
 
   addBookmark = () => {
     if (!this.isSignedIn()) {
-      this.props.onNotification('You must login to like a post')
+      notificationsStore.showNotification('You must login to like a post')
       return
     }
     // Update UI before it actually happend
@@ -29,7 +32,7 @@ class PostCard extends React.Component {
     bookmarksRef.set({
       user: this.props.user.email
     }, { merge: true }).then(() => {
-      this.props.onNotification('Noted!')
+      notificationsStore.showNotification('Noted!')
       this.props.onBookmark()
     }).catch(function(error) {
       // Rollback if something happen
@@ -44,7 +47,7 @@ class PostCard extends React.Component {
     const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id)
     bookmarksRef.delete()
     .then(() => {
-      this.props.onNotification('Unliked')
+      notificationsStore.showNotification('Unliked')
       this.props.onBookmark()
     }).catch(function(error) {
       // Rollback if something happen
@@ -81,7 +84,6 @@ class PostCard extends React.Component {
 
     function image(post) {
       if (!post.image) {
-        console.log('DBG001')
         return <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 2}}>
           <LinkIcon color="primary" style={{
             width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>

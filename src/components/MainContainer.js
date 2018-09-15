@@ -4,7 +4,9 @@ import { withStyles } from '@material-ui/core/styles'
 import Hidden from '@material-ui/core/Hidden'
 import { Route } from 'react-router-dom'
 import { observer } from 'mobx-react'
-import { postsStore } from '../stores/posts'
+
+import { postsStore } from './stores/posts'
+import { notificationsStore } from './stores/notifications'
 
 import BottomNav from './bottomnav/BottomNav'
 import Topnav from './topnav/Topnav'
@@ -43,10 +45,6 @@ class MainContainer extends React.Component {
     bookmarks: [],
     posts: [{id: '1'}],
     nbHits: 0,
-    notificationWithUndo: false,
-    notificationBarOpen: false,
-    notificationBarMessage: '',
-    notificationUndo: null,
     lastDeletedPostId: null,
     maxItemPerPage: 20,
   }
@@ -154,15 +152,6 @@ class MainContainer extends React.Component {
 
   handleBookmark = () => this.updateBookmarks(this.state.user)
 
-  handleNotify = (message, undo) => {
-    if (undo) {
-      this.setState({notificationWithUndo: true})
-    } else {
-      this.setState({notificationWithUndo: false})
-    }
-    this.setState({ notificationBarOpen: true, notificationBarMessage: message, undo: undo })
-  }
-
   removePostFromArray = postId => {
     const posts = this.state.posts.filter(post => post.id !== postId)
     // I do this to prevent the "show more button" from showing up
@@ -244,12 +233,11 @@ class MainContainer extends React.Component {
             exact path='/'
             render={(props) =>
               <PostsContainer user={ user }
-                posts={this.state.posts}
+                postsStore={ postsStore }
                 onNewPost={ this.addNewPost }
                 onBookmark={ this.handleBookmark }
                 onDelete={ this.handlePostDelete }
                 onMarkSold = { this.markSold }
-                onNotification={ this.handleNotify }
                 onShowMoreResult={ this.showMoreResults }
                 nbHits={ this.state.nbHits }
               />
@@ -265,7 +253,6 @@ class MainContainer extends React.Component {
                 onNewPost={ this.addNewPost }
                 onBookmark={ this.handleBookmark }
                 onDelete={ this.handlePostDelete }
-                onNotification={ this.handleNotify }
                 onShowMoreResult={ this.showMoreResults }
                 nbHits={ this.state.nbHits }
                 />
@@ -275,13 +262,9 @@ class MainContainer extends React.Component {
         <Hidden smUp={true}>
           <BottomNav />
         </Hidden>
-        <NotificationBar
-          message={ this.state.notificationBarMessage }
-          open={ this.state.notificationBarOpen}
-          showUndo={this.state.notificationWithUndo}
-          handleUndo={this.handleUndeletePost}
-          handleClose = { e => this.setState({ notificationBarOpen: false })} />
-          {user && user.isNewUser && <ProfileDialog onNotification={this.handleNotify} open={true} user={ user } /> }
+        <NotificationBar notificationsStore={ notificationsStore }/>
+
+        {user && user.isNewUser && <ProfileDialog open={true} user={ user } /> }
       </div>
     )
   }
