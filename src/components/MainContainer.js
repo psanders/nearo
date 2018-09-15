@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Hidden from '@material-ui/core/Hidden'
 import { Route } from 'react-router-dom'
-import BottomNav from './bottomnav/BottomNav'
+import { observer } from 'mobx-react'
+import { postsStore } from '../stores/posts'
 
+import BottomNav from './bottomnav/BottomNav'
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
 import ProfileDialog from './profile/ProfileDialog'
@@ -35,6 +37,7 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 })
 
+@observer
 class MainContainer extends React.Component {
   state = {
     bookmarks: [],
@@ -126,6 +129,8 @@ class MainContainer extends React.Component {
       posts = this.state.posts.concat(posts)
     }
     this.setState({posts: posts})
+
+    postsStore.setData(posts)
   }
 
   addNewPost = post => {

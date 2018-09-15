@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react'
 import { observer } from 'mobx-react'
 
-import { fetchUserInfo } from '../commons/dbfunctions'
-import Marker from './Marker'
-
-class SimpleMap extends Component {
+@observer
+class GMap extends Component {
   state = {
     center: {}
   }
@@ -18,17 +16,7 @@ class SimpleMap extends Component {
     zoom: 11
   }
 
-  componentDidMount = () => {
-    fetchUserInfo('topnav-locator')
-    .then(locInfo => {
-      if (locInfo) {
-        this.setState({center: locInfo.latLng})
-      }
-    })
-  }
-
   render() {
-
     return (
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
@@ -36,13 +24,10 @@ class SimpleMap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           center={this.state.center}
-        >
-
-        </GoogleMapReact>
-        console.log(this.props.appState)
+        />
       </div>
     )
   }
 }
 
-export default SimpleMap
+export default GMap

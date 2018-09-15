@@ -80,12 +80,20 @@ class PostCard extends React.Component {
     const { classes, post } = this.props
 
     function image(post) {
-      if (post.image) return <div style={{ width: 130, height: 110, borderRadius: 2}} />
+      if (!post.image) {
+        console.log('DBG001')
+        return <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 2}}>
+          <LinkIcon color="primary" style={{
+            width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
+        </div>
+      }
 
-      return <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 2}}>
-              <LinkIcon color="primary" style={{
-                width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
-             </div>
+      return  <CardMedia
+                className={ classes.cover }
+                image={ post.image }
+              >
+                <div style={{ width: 130, height: 110, borderRadius: 2}} />
+              </CardMedia>
     }
 
     return (
@@ -113,12 +121,7 @@ class PostCard extends React.Component {
           </Grid>
           <Grid item>
             <ButtonBase className={ classes.image }>
-              <CardMedia
-                className={ classes.cover }
-                image={ post.image }
-              >
-                {image(post)}
-              </CardMedia>
+              { image(post) }
             </ButtonBase>
           </Grid>
         </Grid>

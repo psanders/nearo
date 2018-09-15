@@ -1,11 +1,11 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 
+import { postsStore } from '../stores/posts'
 import FiltersBar from './filtersbar/FiltersBar'
 import GoogleMap from './map/GoogleMap'
 import PostCard from './postcard/PostCard'
 import { openURL } from './commons/utils'
-import { appState } from './commons/state'
 
 export default function PostsContainer(props) {
   const user = props.user
@@ -39,7 +39,7 @@ export default function PostsContainer(props) {
           </div>
         </Grid>
         <Grid item sm={6} xs={12}>
-          <GoogleMap appState={ appState } style={{height: '100vh', width: '100%' }}/>
+          <GoogleMap store={ postsStore } style={{height: '100vh', width: '100%' }}/>
         </Grid>
     </Grid>
   )

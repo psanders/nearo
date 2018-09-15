@@ -1,11 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
-import GridListTileBar from '@material-ui/core/GridListTileBar'
-import IconButton from '@material-ui/core/IconButton'
-import StarBorderIcon from '@material-ui/icons/StarBorder'
 import Button from '@material-ui/core/Button'
 import { getCategories } from '../commons/categories'
 
@@ -38,7 +33,7 @@ function FiltersBar(props) {
         {
           getCategories().map(category => {
             return (
-              <Button onClick={ () => props.onChangedFilter(category.ref) } className={classes.button} variant="outlined">{ category.name }</Button>
+              <Button key={category.ref} onClick={ () => props.onChangedFilter(category.ref) } className={classes.button} variant="outlined">{ category.name }</Button>
             )
           })
         }
