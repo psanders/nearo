@@ -51,48 +51,45 @@ class Topnav extends React.Component {
               <Link to="/" style={{color: '#fff', textDecoration: 'none'}}>Nearo</Link>
             </Typography>
             <span style={{marginLeft: '15px'}}/>
-            <Hidden smDown={true}>
-              <TextField
-               style={{marginRight: 10}}
-               placeholder="Search"
-               id="searchInput"
-               onChange={this.handleChange('searchInput')}
-               InputProps={{
-                 disableUnderline: true,
-                 classes: {
-                   root: classes.bootstrapRoot,
-                   input: classes.bootstrapInput,
-                 }
-               }}
-               InputLabelProps={{
-                 shrink: true,
-                 className: classes.bootstrapFormLabel,
-               }}
-             />
-           </Hidden>
+            <TextField
+             style={{marginRight: 10}}
+             placeholder="Search"
+             id="searchInput"
+             onChange={this.handleChange('searchInput')}
+             InputProps={{
+               disableUnderline: true,
+               classes: {
+                 root: classes.bootstrapRoot,
+                 input: classes.bootstrapInput,
+               }
+             }}
+             InputLabelProps={{
+               shrink: true,
+               className: classes.bootstrapFormLabel,
+             }}
+           />
            <Hidden smDown={true}>
             <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
-           </Hidden>
-           <span className={ classes.flex } />
-            {
-              !usersStore.isSignedIn() &&
-              <div>
-               <Button  size="medium" onClick={ doSignInWithGoogle } color="secondary" variant="contained" className={classes.button}>
+             <span className={ classes.flex } />
+              {
+                !usersStore.isSignedIn() &&
+                <Button  size="medium" onClick={ doSignInWithGoogle } color="secondary" variant="contained" className={classes.button}>
                   Continue with Google
                 </Button>
-              </div>
-            }
+              }
+
+
+              {
+                usersStore.isSignedIn() &&
+                <Button className={classes.newPostBtn} variante="contained">
+                  <CameraIcon className={classes.newPostIcon} />
+                  New publication
+                </Button>
+              }
+            </Hidden>
 
             {
-              usersStore.isSignedIn() &&
-              <Button className={classes.newPostBtn} variante="contained">
-                <CameraIcon className={classes.newPostIcon} />
-                New publication
-              </Button>
-            }
-
-            {
-              usersStore.isSignedIn() && <ProfileMenu usersStore={ usersStore }/> 
+              usersStore.isSignedIn() && <ProfileMenu usersStore={ usersStore }/>
             }
           </Toolbar>
         </AppBar>
