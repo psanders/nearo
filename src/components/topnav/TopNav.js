@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import TextField from '@material-ui/core/TextField'
 import PostIcon from '@material-ui/icons/LibraryAdd'
+import AuthIcon from '@material-ui/icons/Fingerprint'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
@@ -68,7 +69,7 @@ class Topnav extends React.Component {
                className: classes.bootstrapFormLabel,
              }}
            />
-            <Hidden smDown={true}>
+            <Hidden xsDown={true}>
               <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
                <span className={ classes.flex } />
                 {
@@ -81,6 +82,15 @@ class Topnav extends React.Component {
                       Sign Up
                     </Button>
                   </div>
+                }
+            </Hidden>
+            <Hidden smUp={true}>
+               <span className={ classes.flex } />
+                {
+                  !usersStore.isSignedIn() &&
+                  <Button onClick={ doSignInWithGoogle } >
+                    <AuthIcon style={{ color: '#FFEA00'}} className={ classes.newPostIcon } />
+                  </Button>
                 }
             </Hidden>
             <Hidden smDown={true}>

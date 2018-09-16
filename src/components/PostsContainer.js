@@ -29,7 +29,7 @@ class PostsContainer extends Component {
               {
                 posts.map(post => {
                   return (
-                     <Grid key={ post.id } item onClick={ () => openURL('/posts/' + post.id) } >
+                     <Grid key={ post.id } item /*onClick={ () => openURL('/posts/' + post.id) }*/ >
                        <PostCard
                         user={ user }
                         post={ post }
