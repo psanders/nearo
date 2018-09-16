@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Hidden from '@material-ui/core/Hidden'
 import { Route } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
@@ -9,7 +8,6 @@ import { usersStore } from './stores/users'
 import { postsStore } from './stores/posts'
 import { navStore } from './stores/navigation'
 import { notificationsStore } from './stores/notifications'
-import BottomNav from './bottomnav/BottomNav'
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
 import ProfileDialog from './profile/ProfileDialog'
@@ -87,8 +85,7 @@ class MainContainer extends React.Component {
           postsStore={ postsStore }
           navStore={ navStore }
           usersStore={ usersStore }
-          />
-
+        />
         {
           usersStore.currentUser &&
           usersStore.currentUser.isNewUser &&

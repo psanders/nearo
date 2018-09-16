@@ -38,10 +38,9 @@ export const styles = theme => ({
   customTFRoot: {
     backgroundColor: '#fff',
     width: '100%',
-    height: '100vh',
   },
   customTFInput: {
-    padding: 10,
+    paddingLeft: 10,
     color: 'black',
     fontSize: 14
   },
