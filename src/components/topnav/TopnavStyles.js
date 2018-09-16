@@ -3,9 +3,6 @@ export const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  button: {
-    marginLeft: theme.spacing.unit,
-  },
   leftIcon: {
     marginRight: 5
   },
@@ -75,5 +72,10 @@ export const styles = theme => ({
   newPostIcon: {
     fontSize: 17,
     marginRight: 5
-  }
+  },
+  button: {
+    textTransform: 'capitalize',
+    height: 42,
+    fontSize: 16
+  },
 });

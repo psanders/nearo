@@ -41,7 +41,7 @@ class Topnav extends React.Component {
   }
 
   render() {
-    const { classes, onOpenLogin, usersStore } = this.props
+    const { classes, usersStore } = this.props
 
     return (
       <div>
@@ -73,25 +73,27 @@ class Topnav extends React.Component {
            <Hidden smDown={true}>
             <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
            </Hidden>
-            <span className={ classes.flex } />
-           { !usersStore.isSignedIn() &&
+           <span className={ classes.flex } />
+            {
+              !usersStore.isSignedIn() &&
               <div>
-                {false && <Button size="medium" onClick={onOpenLogin} color="secondary" variant="outlined" className={classes.button}>
-                  Continue with Google
-                </Button> }
-
                <Button  size="medium" onClick={ doSignInWithGoogle } color="secondary" variant="contained" className={classes.button}>
                   Continue with Google
                 </Button>
               </div>
             }
 
-            <Button className={classes.newPostBtn} variante="contained">
-              <CameraIcon className={classes.newPostIcon} />
-              New publication
-            </Button>
+            {
+              usersStore.isSignedIn() &&
+              <Button className={classes.newPostBtn} variante="contained">
+                <CameraIcon className={classes.newPostIcon} />
+                New publication
+              </Button>
+            }
 
-            { usersStore.isSignedIn() && <ProfileMenu user={ usersStore.currentUser }/> }
+            {
+              usersStore.isSignedIn() && <ProfileMenu user={ usersStore.currentUser }/> 
+            }
           </Toolbar>
         </AppBar>
       </div>
