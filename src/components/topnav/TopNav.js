@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import TextField from '@material-ui/core/TextField'
-import CameraIcon from '@material-ui/icons/CameraAlt'
+import PostIcon from '@material-ui/icons/LibraryAdd'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
@@ -68,29 +68,29 @@ class Topnav extends React.Component {
                className: classes.bootstrapFormLabel,
              }}
            />
-           <Hidden smDown={true}>
-            <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
-             <span className={ classes.flex } />
-              {
-                !usersStore.isSignedIn() &&
-                <Button  size="medium" onClick={ doSignInWithGoogle } color="secondary" variant="contained" className={classes.button}>
-                  Continue with Google
-                </Button>
-              }
-
-
-              {
-                usersStore.isSignedIn() &&
-                <Button className={classes.newPostBtn} variante="contained">
-                  <CameraIcon className={classes.newPostIcon} />
-                  New publication
-                </Button>
-              }
+            <Hidden smDown={true}>
+              <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
+               <span className={ classes.flex } />
+                {
+                  !usersStore.isSignedIn() &&
+                  <Button  size="medium" onClick={ doSignInWithGoogle } color="secondary" variant="contained" className={classes.button}>
+                    Continue with Google
+                  </Button>
+                }
             </Hidden>
 
             {
-              usersStore.isSignedIn() && <ProfileMenu usersStore={ usersStore }/>
+              usersStore.isSignedIn() &&
+              <Button onClick={ this.props.postsStore.openPostDialog } >
+                <PostIcon style={{ color: '#FFEA00'}} className={ classes.newPostIcon } />
+              </Button>
             }
+
+            <Hidden smDown={true}>
+              {
+                usersStore.isSignedIn() && <ProfileMenu usersStore={ usersStore }/>
+              }
+            </Hidden>
           </Toolbar>
         </AppBar>
       </div>

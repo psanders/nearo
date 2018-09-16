@@ -31,21 +31,11 @@ import { styles } from './PostPanelStyles'
 @observer
 class PostPanel extends React.Component {
   state = {
-    open: true,
     body: '',
-    locInfo: {},
     loading: false,
     expanded: false,
     category: 'general',
-    imageURL: ""
-  }
-
-  handleClickOpen = () => {
-    this.setState({ open: true })
-  }
-
-  handleClose = () => {
-    this.setState({ open: false })
+    imageURL: ''
   }
 
   updateBody = e => this.setState({body: e.target.value})
@@ -117,8 +107,8 @@ class PostPanel extends React.Component {
       <div>
         <Dialog
           fullScreen={ fullScreen }
-          open={ this.state.open }
-          onClose={ this.handleClose }
+          open={ this.props.postsStore.isPostDialogOpen() }
+          onClose={ this.props.postsStore.hidePostDialog }
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle id="responsive-dialog-title">{"New Post"}</DialogTitle>
@@ -170,7 +160,7 @@ class PostPanel extends React.Component {
                Near { this.props.navStore.address }
             </Typography>
             <span className={classes.flex}/>
-            <Button onClick={ this.handleClose } className={ classes.button } size="small">Cancel</Button>
+            <Button onClick={ this.props.postsStore.hidePostDialog  } className={ classes.button } size="small">Cancel</Button>
             <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () =>  this.createPost(this, this.state.body) } variant="contained" size="small" color="secondary">
               Post
             </Button>

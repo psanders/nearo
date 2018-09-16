@@ -70,7 +70,7 @@ export const styles = theme => ({
     fontSize: 16
   },
   newPostIcon: {
-    fontSize: 17,
+    fontSize: 25,
     marginRight: 5
   },
   button: {

@@ -22,7 +22,7 @@ class PostsContainer extends Component {
         alignItems="flex-start"
         >
           <Grid item sm={6} xs={12} style={{backgroundColor: '#fff'}}>
-            <div style={{postion:'absolute', height: 'calc(100vh - 65px)', overflowY: 'scroll'}}>
+            <div style={{postion:'absolute', height: 'calc(100vh - 55px)', overflowY: 'scroll'}}>
               <Grid item>
                 <FiltersBar onChangedFilter={ this.props.onChangedFilter } />
               </Grid>

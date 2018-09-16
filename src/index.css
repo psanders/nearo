@@ -1,9 +1,11 @@
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   background-color: #304FFE;
   overflow-y: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 
 .Linkify a {

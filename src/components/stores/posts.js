@@ -7,6 +7,7 @@ import { doSearchAlgolia } from '../commons/firebase/algolia'
 const maxItemperPage = 20
 
 class PostsStore {
+    @observable postDialogOpen = false
     @observable posts = []
     @observable nbHits = 0
 
@@ -20,6 +21,12 @@ class PostsStore {
         () => this.updateBySearch({searchTerm: ''})
       )
     }
+
+    isPostDialogOpen = () => this.postDialogOpen
+
+    openPostDialog = () => this.postDialogOpen = true
+
+    hidePostDialog = () => this.postDialogOpen = false
 
     updateBySearch = (navInfo, offset = 0) => {
       let query = {
