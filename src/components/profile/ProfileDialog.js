@@ -36,11 +36,7 @@ function Transition(props) {
 class ProfileDialog extends React.Component {
   state = {
     open: this.props.open,
-    user: this.props.user,
-    notification: {
-      open: false,
-      message: ''
-    }
+    user: this.props.usersStore.currentUser,
   }
 
   handleClickOpen = () => this.setState({ open: true })
@@ -52,7 +48,8 @@ class ProfileDialog extends React.Component {
     if (event.target.id === 'user-name') {
       user.name = event.target.value
     } else if (event.target.id === 'user-phone') {
-      user.phone = event.target.value
+      user.phone = event.target.value.trim()
+      console.log('event.target.value.trim()', event.target.value.trim())
     } else if (event.target.id === 'user-username') {
       user.username = event.target.value
     }
@@ -80,7 +77,8 @@ class ProfileDialog extends React.Component {
             this.reallySave(user)
             this.handleClose()
           } else {
-            this.notify("Sorry, this username is taken. Try a different one")
+            this.props.notificationsStore
+              .showNotification('Sorry, this username is taken. Try a different one')
           }
       })
     } else {
@@ -95,30 +93,41 @@ class ProfileDialog extends React.Component {
     storeUserInfo('user-info', user)
   }
 
-  isNotValid = user => !user.name
+  isInvalidUser = user => {
+    if (user.username.length <= 5 || !this.alphanumeric(user.username)){
+      return true
+    }
+    return false
+  }
+
+  isValidNumber = (number) => {
+    if (!number) return false
+
+    return number
+      .replace("(","")
+      .replace(")","")
+      .replace("-","")
+      .replace(" ","").trim().length === 10
+  }
+
+  isInvalid = user => {
+    return !user.name
     || !user.phone
     || user.name.length <= 5
-    || user.phone.trim().length < 10
-    || user.username.length <= 5
-    || !this.alphanumeric(user.username)
+    || !this.isValidNumber(user.phone)
+    || this.isInvalidUser(user)
+
+    return false
+  }
 
   alphanumeric = (text) => {
     const letters = /^[0-9a-zA-Z]+$/
     return text.match(letters) ? true : false
   }
 
-  notify = (message) => {
-    const notification = {
-      message: message,
-      open: true
-    }
-    this.setState({notification: notification})
-    console.log('this.state.notification', this.state.notification)
-  }
-
   render() {
     const { classes } = this.props
-    const { user} = this.state
+    const { user } = this.state
 
     return (
       <div>
@@ -130,18 +139,19 @@ class ProfileDialog extends React.Component {
         </MenuItem>
         <Dialog
           fullScreen
-          open={this.state.open}
+          open={this.state.open || user.isNewUser}
           onClose={this.handleClose}
           TransitionComponent={Transition}
         >
           <AppBar className={classes.appBar} >
-            <Toolbar color="secondary" style={{backgroundColor: '#dae0e6'}}>
-              { !user.isNewUser &&
+            <Toolbar color="secondary" >
+              {
+                !user.isNewUser &&
                 <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
                   <ArrowBackIcon />
                 </IconButton>
               }
-              <Typography variant="title" color="inherit" className={classes.flex}>
+              <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
                 Nearo
               </Typography>
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
@@ -165,8 +175,8 @@ class ProfileDialog extends React.Component {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  value={user.name}
-                  error={user.name.length < 3}
+                  value={ user.name }
+                  error={ user.name.length < 3 }
                   placeholder="Name"
                   fullWidth
                   margin="normal"
@@ -180,7 +190,7 @@ class ProfileDialog extends React.Component {
                     shrink: true,
                   }}
                   value={user.username}
-                  error={!this.alphanumeric(user.username) | user.username.length < 4}
+                  error={this.isInvalidUser(user)}
                   fullWidth
                   helperText="Must be alphanumeric"
                   margin="normal"
@@ -202,7 +212,7 @@ class ProfileDialog extends React.Component {
                   fullWidth
                   margin="normal"
                 />
-                <Button disabled={ this.isNotValid(user) } onClick={ this.save } size="small" variant="contained" color="secondary">
+                <Button disabled={ this.isInvalid(user) } onClick={ this.save } size="small" variant="contained" color="secondary">
                   Save
                 </Button>
               </Paper>
@@ -212,10 +222,7 @@ class ProfileDialog extends React.Component {
               </Typography>
             </div>
           </div>
-          <NotificationBar
-            message={ this.state.notification.message }
-            open={ this.state.notification.open }
-            handleClose = { e => this.setState({ notification: {open: false }})} />
+          <NotificationBar />
         </Dialog>
       </div>
     )

@@ -92,7 +92,7 @@ class Topnav extends React.Component {
             }
 
             {
-              usersStore.isSignedIn() && <ProfileMenu user={ usersStore.currentUser }/> 
+              usersStore.isSignedIn() && <ProfileMenu usersStore={ usersStore }/> 
             }
           </Toolbar>
         </AppBar>

@@ -48,7 +48,6 @@ class MainContainer extends React.Component {
 
   render () {
     const { classes } = this.props
-    const { user } = this.state
 
     return(
       <div className={ classes.root }>
@@ -64,7 +63,7 @@ class MainContainer extends React.Component {
           <Route
             exact path='/'
             render={(props) =>
-              <PostsContainer user={ user }
+              <PostsContainer user={ usersStore.currentUser }
                 postsStore={ postsStore }
                 navStore={ navStore }
               />
@@ -74,7 +73,7 @@ class MainContainer extends React.Component {
             exact
             path='/posts/:postId'
             render={(props) =>
-              <SinglePostContainer user={ user }
+              <SinglePostContainer user={ usersStore.currentUser }
                 classes={ classes }
                 post={ this.getPost(this.getCurrentPathname()) }
                 />
@@ -86,7 +85,11 @@ class MainContainer extends React.Component {
         </Hidden>
         <NotificationBar notificationsStore={ notificationsStore }/>
 
-        {user && user.isNewUser && <ProfileDialog open={true} user={ user } /> }
+        {
+          usersStore.currentUser &&
+          usersStore.currentUser.isNewUser &&
+          <ProfileDialog usersStore={ usersStore } notificationsStore={ notificationsStore }/>
+        }
       </div>
     )
   }

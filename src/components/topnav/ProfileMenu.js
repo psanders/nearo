@@ -7,6 +7,7 @@ import Button from '@material-ui/core/IconButton'
 import Avatar from '@material-ui/core/Avatar'
 import ExitIcon from '@material-ui/icons/ExitToApp'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import { observer } from 'mobx-react'
 
 import ProfileDialog from '../profile/ProfileDialog'
 import { doSignOut } from '../commons/firebase/auth'
@@ -18,10 +19,10 @@ const styles = ({
   }
 })
 
+@observer
 class ProfileMenu extends React.Component {
   state = {
       anchorEl: null,
-      user: this.props.user
   }
 
   handleClick = event => {
@@ -33,8 +34,9 @@ class ProfileMenu extends React.Component {
   }
 
   render() {
-    const { anchorEl, user } = this.state
-    const { classes } = this.props
+    const { anchorEl } = this.state
+    const { classes, usersStore } = this.props
+    const user = usersStore.currentUser
 
     return (
       <div>
@@ -54,7 +56,7 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <ProfileDialog onClick={this.handleClose} user={user}>Profile</ProfileDialog>
+          <ProfileDialog usersStore={ usersStore }>Profile</ProfileDialog>
           <MenuItem onClick={() => doSignOut()}>
             <ListItemIcon className={classes.icon}>
               <ExitIcon />
