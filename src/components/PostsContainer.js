@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
 import { observer } from 'mobx-react'
 
 import FiltersBar from './filtersbar/FiltersBar'
@@ -21,7 +22,7 @@ class PostsContainer extends Component {
         alignItems="flex-start"
         >
           <Grid item sm={6} xs={12} style={{backgroundColor: '#fff'}}>
-            <div style={{postion:'absolute', height: 'calc(100vh - 45px)', overflowY: 'scroll'}}>
+            <div style={{postion:'absolute', height: 'calc(100vh - 65px)', overflowY: 'scroll'}}>
               <Grid item>
                 <FiltersBar onChangedFilter={ this.props.onChangedFilter } />
               </Grid>
@@ -39,11 +40,13 @@ class PostsContainer extends Component {
               }
             </div>
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <GoogleMap navStore={ this.props.navStore } 
-              postsStore={ this.props.postsStore }
-              style={{height: '100vh', width: '100%' }}/>
-          </Grid>
+          <Hidden smDown={true}>
+            <Grid item sm={6} xs={12}>
+              <GoogleMap navStore={ this.props.navStore }
+                postsStore={ this.props.postsStore }
+                style={{height: '100vh', width: '100%' }}/>
+            </Grid>
+          </Hidden>
       </Grid>
     )
   }
