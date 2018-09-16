@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
 import { observer } from 'mobx-react'
 
-import FiltersBar from './filtersbar/FiltersBar'
+import SubBar from './subbar/SubBar'
 import GoogleMap from './map/GoogleMap'
 import PostCard from './postcard/PostCard'
 import { openURL } from './commons/utils'
@@ -24,7 +24,7 @@ class PostsContainer extends Component {
           <Grid item sm={6} xs={12} style={{backgroundColor: '#fff'}}>
             <div style={{postion:'absolute', height: 'calc(100vh - 55px)', overflowY: 'scroll'}}>
               <Grid item>
-                <FiltersBar onChangedFilter={ this.props.onChangedFilter } />
+                <SubBar postsStore={ this.props.postsStore } navStore={ this.props.navStore } />
               </Grid>
               {
                 posts.map(post => {

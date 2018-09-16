@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route } from 'react-router-dom'
@@ -36,7 +36,7 @@ const styles = theme => ({
 })
 
 @observer
-class MainContainer extends React.Component {
+class MainContainer extends Component {
   state = {
     bookmarks: [],
     posts: [{id: '1'}],

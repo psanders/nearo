@@ -71,9 +71,20 @@ export const styles = theme => ({
   newPostIcon: {
     fontSize: 25,
   },
-  button: {
+  loginBtn: {
     textTransform: 'capitalize',
-    height: 42,
-    fontSize: 16
+    marginLeft: 8,
+    color: '#fff',
+    border: '1px solid #fff'
+  },
+  signupBtn: {
+    textTransform: 'capitalize',
+    marginLeft: 8,
+    color: '#000',
+    backgroundColor: theme.palette.accent.main,
+    borderColor: theme.palette.accent.main,
+    '&:hover': {
+      backgroundColor: theme.palette.accent.light
+    },    
   },
 });

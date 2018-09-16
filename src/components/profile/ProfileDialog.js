@@ -146,7 +146,7 @@ class ProfileDialog extends React.Component {
               {
                 !user.isNewUser &&
                 <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-                  <ArrowBackIcon />
+                  <ArrowBackIcon style={{ color: '#fff' }} />
                 </IconButton>
               }
               <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>

@@ -100,32 +100,6 @@ class PostPanel extends React.Component {
 
   handleOnUploadStart = () => this.setState({loading: true})
 
-  textArea = (classes, style) => {
-    return <TextField
-      style={style}
-      value={ this.state.body }
-      onChange={ this.updateBody }
-      multiline
-      rows={4}
-      fullWidth
-      autoFocus
-      InputProps={{
-        disableUnderline: true,
-        classes: {
-          root: classes.customTFRoot,
-          input: classes.customTFInput,
-        },
-      }}
-      inputProps= {{
-        maxLength: 254,
-      }}
-      InputLabelProps={{
-        shrink: false,
-        className: classes.customTFLabel,
-      }}
-    />
-  }
-
   render() {
     const { classes, fullScreen } = this.props
     this.updateBody = this.updateBody.bind(this)
@@ -140,16 +114,30 @@ class PostPanel extends React.Component {
         >
           <DialogTitle id="responsive-dialog-title">New Post</DialogTitle>
           <DialogContent className={ classes.details }>
-            <Hidden xsDown={true}>
-              {this.textArea(classes, {height: '100%'})}
-            </Hidden>
-            <Hidden smUp={true}>
-              {this.textArea(classes, {height: '100vh'})}
-            </Hidden>
+            <TextField
+              value={ this.state.body }
+              onChange={ this.updateBody }
+              multiline
+              rows={4}
+              fullWidth
+              autoFocus
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  root: classes.customTFRoot,
+                  input: classes.customTFInput,
+                },
+              }}
+              inputProps= {{
+                maxLength: 254,
+              }}
+              InputLabelProps={{
+                shrink: false,
+                className: classes.customTFLabel,
+              }}
+            />
           </DialogContent>
-          <Divider />
 
-          { this.state.loading && <LinearProgress discolor="secondary" /> }
           { this.state.imageURL &&
             <div>
               <Hidden xsDown={true}>
@@ -162,7 +150,7 @@ class PostPanel extends React.Component {
                 </div>
               </Hidden>
               <Hidden smUp={true}>
-                <div style={{ padding: 10, paddingBottom: 0 }}>
+                <div style={{ padding: 10 }}>
                   <Chip
                     avatar={<Avatar src={ this.state.imageURL } />}
                     label="Remove"
@@ -173,6 +161,11 @@ class PostPanel extends React.Component {
               </Hidden>
             </div>
           }
+
+          <Divider />
+
+          { this.state.loading && <LinearProgress discolor="secondary" /> }
+
           <DialogActions style={{ padding: 12, paddingRight: 20 }}>
             <UploaderButton
               onUploadStart={this.handleOnUploadStart}

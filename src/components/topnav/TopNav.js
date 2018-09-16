@@ -73,24 +73,28 @@ class Topnav extends React.Component {
                <span className={ classes.flex } />
                 {
                   !usersStore.isSignedIn() &&
-                  <Button  size="medium" onClick={ doSignInWithGoogle } color="secondary" variant="contained" className={classes.button}>
-                    Continue with Google
-                  </Button>
+                  <div>
+                    <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.loginBtn}>
+                      Login
+                    </Button>
+                    <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.signupBtn}>
+                      Sign Up
+                    </Button>
+                  </div>
                 }
+            </Hidden>
+            <Hidden smDown={true}>
+              {
+                usersStore.isSignedIn() &&
+                <Button onClick={ this.props.postsStore.openPostDialog } >
+                  <PostIcon style={{ color: '#FFEA00'}} className={ classes.newPostIcon } />
+                </Button>
+              }
             </Hidden>
 
             {
-              usersStore.isSignedIn() &&
-              <Button onClick={ this.props.postsStore.openPostDialog } >
-                <PostIcon style={{ color: '#FFEA00'}} className={ classes.newPostIcon } />
-              </Button>
+              usersStore.isSignedIn() && <ProfileMenu usersStore={ usersStore }/>
             }
-
-            <Hidden smDown={true}>
-              {
-                usersStore.isSignedIn() && <ProfileMenu usersStore={ usersStore }/>
-              }
-            </Hidden>
           </Toolbar>
         </AppBar>
       </div>
