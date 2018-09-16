@@ -8,6 +8,10 @@ class NotificationsStore {
       timeout: 0
     }
 
+    showMustLogin = () => {
+      this.showNotification('Sorry! You must login first')
+    }
+
     showNotification = (message, timeout = 0, undoCallback = null) => {
       const state = {
         open: true,

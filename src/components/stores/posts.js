@@ -1,6 +1,7 @@
 import { observable, when } from "mobx"
 import { usersStore } from './users'
 import { bookmarksStore } from './bookmarks'
+import { notificationsStore } from './notifications'
 import { appStore } from './app'
 import { doSearchAlgolia } from '../commons/firebase/algolia'
 
@@ -24,7 +25,13 @@ class PostsStore {
 
     isPostDialogOpen = () => this.postDialogOpen
 
-    openPostDialog = () => this.postDialogOpen = true
+    openPostDialog = () => {
+      if(!usersStore.isSignedIn()) {
+        notificationsStore.showMustLogin()
+        return
+      }
+      this.postDialogOpen = true
+    }
 
     hidePostDialog = () => this.postDialogOpen = false
 

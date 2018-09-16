@@ -66,7 +66,7 @@ class PostPanel extends React.Component {
   createPost = (self, body) => {
     if (!this.props.usersStore.isSignedIn()) {
       this.props.notificationsStore
-        .showNotification('Ups :( you must login first')
+        .showMustLogin()
       return
     }
     self.setState({loading: true})

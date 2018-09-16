@@ -36,7 +36,7 @@ class BookmarksStore {
 
     addToBookmarks = (post, callback) => {
       if (!usersStore.isSignedIn()) {
-        notificationsStore.showNotification('You must login to like a post')
+        notificationsStore.showMustLogin()
         // Revert change in UI
         callback()
         return
