@@ -53,4 +53,7 @@ export const styles = theme => ({
   button: {
     textTransform: 'Capitalize',
   },
+  chip: {
+    margin: theme.spacing.unit,
+  },  
 })

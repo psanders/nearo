@@ -83,7 +83,8 @@ class MainContainer extends React.Component {
         </main>
         <NotificationBar notificationsStore={ notificationsStore }/>
         <PostPanel
-          postsStore= { postsStore }
+          notificationsStore={ notificationsStore }
+          postsStore={ postsStore }
           navStore={ navStore }
           usersStore={ usersStore }
           />

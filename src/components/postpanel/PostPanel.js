@@ -1,11 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions'
-import ExpandMoreIcon from '@material-ui/icons/Edit'
 import Typography from '@material-ui/core/Typography'
 import LocationIcon from '@material-ui/icons/LocationOn'
 import Button from '@material-ui/core/Button'
@@ -20,6 +15,8 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 import { observer } from 'mobx-react'
 
 import { getCategories } from '../commons/categories'
@@ -72,6 +69,11 @@ class PostPanel extends React.Component {
   }
 
   createPost = (self, body) => {
+    if (!this.props.usersStore.isSignedIn()) {
+      this.props.notificationsStore
+        .showNotification('Ups :( you must login first')
+      return
+    }
     self.setState({loading: true})
 
     const post = {
@@ -89,8 +91,10 @@ class PostPanel extends React.Component {
 
     db.collection('posts')
     .add(post)
-    .then(function(docRef) {
+    .then(docRef => {
       post.id = docRef.id
+      this.props.postsStore.addNewPost(post)
+      this.props.postsStore.hidePostDialog()
     })
     .catch(function(error) {
       console.error("Error adding document: ", error)
@@ -137,10 +141,27 @@ class PostPanel extends React.Component {
 
           { this.state.loading && <LinearProgress discolor="secondary" /> }
           { this.state.imageURL &&
-            <div style={{padding: 10, paddingBottom: 0}}>
-              <img alt="Post media" style={{width: 100}} src={this.state.imageURL}/>
-              <div/>
-              <Button onClick={() => this.setState({imageURL: ""})} style={{width: 100, borderRadius: 0}} className={classes.button} size="small">Remove</Button>
+            <div>
+              <Hidden xsDown={true}>
+                <div style={{ padding: 10, paddingBottom: 0 }}>
+                  <img alt="Post media" style={{ width: 100 }} src={ this.state.imageURL }/>
+                  <div/>
+                  <Button onClick={() => this.setState({imageURL: ""})}
+                    style={{width: 100, borderRadius: 0}}
+                    className={classes.button} size="small">Remove</Button>
+                </div>
+              </Hidden>
+
+              <Hidden smUp={true}>
+                <div style={{ padding: 10, paddingBottom: 0 }}>
+                  <Chip
+                    avatar={<Avatar src={ this.state.imageURL } />}
+                    label="Remove"
+                    onDelete={ () => this.setState({imageURL: ""}) }
+                    variant="outlined"
+                  />
+                </div>
+              </Hidden>
             </div>
           }
 
@@ -152,7 +173,7 @@ class PostPanel extends React.Component {
                 this.setState({imageURL: url})
               }}
               onError={() => {
-                  this.props.onNotification('Unable to upload image. Try again later')
+                  this.props.notificationsStore.showNotification('Unable to upload image. Try again later')
                   this.setState({loading: false})
               }}
               />

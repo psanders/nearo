@@ -69,11 +69,7 @@ class PostsStore {
 
     showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
 
-    addNewPost = post => {
-      const posts = this.state.posts
-      posts.unshift(post)
-      this.setState({posts: posts})
-    }
+    addNewPost = post => this.posts.unshift(post)
 
     removePostFromArray = postId => {
       const posts = this.state.posts.filter(post => post.id !== postId)
