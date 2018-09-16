@@ -8,11 +8,12 @@ class NavStore {
     constructor () {
       fetchUserInfo('topnav-locator')
       .then(info => {
-        this.navInfo.latLng = info.latLng
+        if(info) {
+          this.navInfo.latLng = info.latLng
+        }
         this.loaded = true
       })
       .catch(error => {
-        this.loaded = true
         console.log(error)
       })
     }

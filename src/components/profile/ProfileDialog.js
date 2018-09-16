@@ -116,8 +116,6 @@ class ProfileDialog extends React.Component {
     || user.name.length <= 5
     || !this.isValidNumber(user.phone)
     || this.isInvalidUser(user)
-
-    return false
   }
 
   alphanumeric = (text) => {
