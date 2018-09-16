@@ -13,6 +13,8 @@ class BookmarksStore {
         () => {
           if (usersStore.isSignedIn()) {
             this.loadBookmarks(usersStore.currentUser)
+          } else {
+            this.loaded = true
           }
         })
     }
@@ -24,8 +26,8 @@ class BookmarksStore {
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           this.bookmarks.push(doc.id)
-          this.loaded = true
         })
+        this.loaded = true
       })
     }
 

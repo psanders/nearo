@@ -14,6 +14,7 @@ class PostsStore {
       when(
         () => appStore.isReady(),
         () => {
+          console.log('dependencies loaded')
           this.updateBySearch({searchTerm: ''})
         })
     }
