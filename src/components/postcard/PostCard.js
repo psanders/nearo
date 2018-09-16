@@ -23,7 +23,8 @@ class PostCard extends React.Component {
   handleBookmark = (e) => {
     e.stopPropagation()
     this.uiRefreshForBookmark()
-    if(!this.state.post.bookmarked) {
+    // I know it looks backwards...
+    if(this.state.post.bookmarked) {
       bookmarksStore.addToBookmarks(this.state.post)
     } else {
       bookmarksStore.removeFromBookmarks(this.state.post)

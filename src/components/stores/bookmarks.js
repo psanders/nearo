@@ -38,9 +38,9 @@ class BookmarksStore {
         notificationsStore.showNotification('You must login to like a post')
         return
       }
-      const bookmarksRef = db.collection('bookmarks').doc(this.state.post.id)
+      const bookmarksRef = db.collection('bookmarks').doc(post.id)
       bookmarksRef.set({
-        user: this.props.user.email
+        user: usersStore.currentUser.email
       }, { merge: true }).then(() => {
         notificationsStore.showNotification('Noted!')
       }).catch(error => {
