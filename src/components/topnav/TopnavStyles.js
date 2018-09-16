@@ -62,7 +62,6 @@ export const styles = theme => ({
   newPostBtn: {
     backgroundColor: theme.palette.accent.main,
     textTransform: 'capitalize',
-    marginRight: 20,
     '&:hover': {
       backgroundColor: theme.palette.accent.light
     },
@@ -71,7 +70,6 @@ export const styles = theme => ({
   },
   newPostIcon: {
     fontSize: 25,
-    marginRight: 5
   },
   button: {
     textTransform: 'capitalize',

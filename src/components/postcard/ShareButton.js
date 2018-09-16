@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import ShareIcon from '@material-ui/icons/Share'
+import ShareIcon from '@material-ui/icons/Link'
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'
 import Ionicon from 'react-ionicons'

@@ -33,7 +33,7 @@ export const styles = theme => ({
   },
   actionIcon: {
     color: '#5d5c5c',
-    fontSize: 12,
+    fontSize: 14,
     marginRight: 5
   },
 });
