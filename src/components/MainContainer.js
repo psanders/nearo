@@ -81,9 +81,6 @@ class MainContainer extends React.Component {
             }
           />
         </main>
-        <Hidden smUp={true}>
-          <BottomNav />
-        </Hidden>
         <NotificationBar notificationsStore={ notificationsStore }/>
         <PostPanel navStore={ navStore } usersStore={ usersStore }/>
 
