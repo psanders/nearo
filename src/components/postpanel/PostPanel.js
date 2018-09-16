@@ -14,16 +14,24 @@ import TextField from '@material-ui/core/TextField'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Hidden from '@material-ui/core/Hidden'
 import extract from 'find-hashtags'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import withMobileDialog from '@material-ui/core/withMobileDialog'
+import { observer } from 'mobx-react'
 
 import { getCategories } from '../commons/categories'
 import Locator from '../locator/Locator'
 import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
-import { fetchUserInfo } from '../commons/dbfunctions'
 import { styles } from './PostPanelStyles'
 
+@observer
 class PostPanel extends React.Component {
   state = {
+    open: true,
     body: '',
     locInfo: {},
     loading: false,
@@ -32,18 +40,15 @@ class PostPanel extends React.Component {
     imageURL: ""
   }
 
-  componentDidMount = () => {
-    fetchUserInfo('postpanel-locator')
-    .then(locInfo => {
-      if (locInfo) {
-        this.setState({locInfo: locInfo})
-      }
-    })
+  handleClickOpen = () => {
+    this.setState({ open: true })
+  }
+
+  handleClose = () => {
+    this.setState({ open: false })
   }
 
   updateBody = e => this.setState({body: e.target.value})
-
-  handleOnChangeLocation = locInfo => this.setState({locInfo: locInfo})
 
   isSignedIn = () => this.props.user == null ? false : true
 
@@ -77,21 +82,17 @@ class PostPanel extends React.Component {
   }
 
   createPost = (self, body) => {
-    if (!this.isSignedIn()) {
-      self.props.onNotification('You must login to create a new post')
-      return
-    }
     self.setState({loading: true})
 
     const post = {
       category: this.getCategoryInText(this.state.body),
-      author: this.props.user.username,
+      author: this.props.usersStore.currentUser.username,
       body: body,
       likes: 0,
-      locText: this.state.locInfo.address,
+      locText: this.props.navStore.address,
       price: this.getPrice(this.state.body),
       timestamp: Date.now(),
-      _geoloc: this.state.locInfo.latLng,
+      _geoloc: this.props.navStore.navInfo.latLng,
       deleted: false,
       image: this.state.imageURL
     }
@@ -99,46 +100,29 @@ class PostPanel extends React.Component {
     db.collection('posts')
     .add(post)
     .then(function(docRef) {
-      self.clearUI()
-      self.props.onNotification('Post submited')
       post.id = docRef.id
-      self.props.onNewPost(post)
     })
     .catch(function(error) {
-      console.log(error)
-      self.clearUI()
-      self.props.onNotification('Unable to submit post. Try again later')
       console.error("Error adding document: ", error)
     })
-  }
-
-  changeExpanded = () => {
-    this.setState({expanded: !this.state.expanded})
-    if (!this.state.expanded) {
-      this.textField.focus()
-    }
   }
 
   handleOnUploadStart = () => this.setState({loading: true})
 
   render() {
-    const { classes } = this.props
+    const { classes, fullScreen } = this.props
     this.updateBody = this.updateBody.bind(this)
 
     return (
-      <div className={classes.root}>
-        <ExpansionPanel
-          expanded={this.state.expanded} elevation={0}
-          style={{backgroundColor: '#f4f4f4'}}>
-          <ExpansionPanelSummary
-            onClick={() => this.changeExpanded()}
-            expandIcon={<ExpandMoreIcon />}>
-            <div>
-              <Typography className={classes.heading}>New Post</Typography>
-            </div>
-          </ExpansionPanelSummary>
-          <Divider />
-          <ExpansionPanelDetails className={classes.details}>
+      <div>
+        <Dialog
+          fullScreen={ fullScreen }
+          open={ this.state.open }
+          onClose={ this.handleClose }
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogTitle id="responsive-dialog-title">{"New Post"}</DialogTitle>
+          <DialogContent className={classes.details}>
             <TextField
               inputRef={tf => this.textField = tf}
               value={this.state.body}
@@ -158,8 +142,9 @@ class PostPanel extends React.Component {
                 className: classes.customTFLabel,
               }}
             />
-          </ExpansionPanelDetails>
+          </DialogContent>
           <Divider />
+
           { this.state.loading && <LinearProgress discolor="secondary" /> }
           { this.state.imageURL &&
             <div style={{padding: 10, paddingBottom: 0}}>
@@ -168,7 +153,8 @@ class PostPanel extends React.Component {
               <Button onClick={() => this.setState({imageURL: ""})} style={{width: 100, borderRadius: 0}} className={classes.button} size="small">Remove</Button>
             </div>
           }
-          <ExpansionPanelActions style={{padding: 12, paddingRight: 20}}>
+
+          <DialogActions style={{padding: 12, paddingRight: 20}}>
             <UploaderButton
               onUploadStart={this.handleOnUploadStart}
               onUploadSuccess={(url) => {
@@ -180,23 +166,16 @@ class PostPanel extends React.Component {
                   this.setState({loading: false})
               }}
               />
-            <Hidden smUp={true}>
-              <Button variant="outlined" style={{marginRight: 10}} color="secondary">
-                <LocationIcon />
-              </Button>
-            </Hidden>
-            <Hidden smDown={true}>
-              <Locator name="postpanel-locator" onChangeLocation={ this.handleOnChangeLocation } />
-            </Hidden>
+            <Typography variant="caption" gutterBottom align="center">
+               Near { this.props.navStore.address }
+            </Typography>
             <span className={classes.flex}/>
-            <Hidden xsDown={true}>
-              <Button onClick={ () => this.clearUI() } className={ classes.button } size="small">Cancel</Button>
-            </Hidden>
+            <Button onClick={ this.handleClose } className={ classes.button } size="small">Cancel</Button>
             <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () =>  this.createPost(this, this.state.body) } variant="contained" size="small" color="secondary">
               Post
             </Button>
-          </ExpansionPanelActions>
-        </ExpansionPanel>
+          </DialogActions>
+        </Dialog>
       </div>
     )
   }
@@ -204,6 +183,7 @@ class PostPanel extends React.Component {
 
 PostPanel.propTypes = {
   classes: PropTypes.object.isRequired,
+  fullScreen: PropTypes.bool.isRequired,
 }
 
-export default withStyles(styles)(PostPanel)
+export default withMobileDialog()(withStyles(styles)(PostPanel))

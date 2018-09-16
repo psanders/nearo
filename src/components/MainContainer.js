@@ -15,6 +15,7 @@ import NotificationBar from './NotificationBar'
 import ProfileDialog from './profile/ProfileDialog'
 import PostsContainer from './PostsContainer'
 import SinglePostContainer from './SinglePostContainer'
+import PostPanel from './postpanel/PostPanel'
 
 const styles = theme => ({
   root: {
@@ -84,6 +85,7 @@ class MainContainer extends React.Component {
           <BottomNav />
         </Hidden>
         <NotificationBar notificationsStore={ notificationsStore }/>
+        <PostPanel navStore={ navStore } usersStore={ usersStore }/>
 
         {
           usersStore.currentUser &&

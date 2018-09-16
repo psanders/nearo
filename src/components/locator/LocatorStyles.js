@@ -42,7 +42,7 @@ export const styles = theme => ({
     border: '1px solid ' + theme.palette.secondary.main,
     borderTop: '0.01em solid #fff',
     borderTopRightRadius: 0,
-    borderTopLeftRadius: 0
+    borderTopLeftRadius: 0,
   },
   leftIcon: {
     marginLeft: 0,

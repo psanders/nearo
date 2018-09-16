@@ -101,7 +101,7 @@ class Locator extends Component {
               <ArrowDropDownIcon style={{color: 'black'}}/>
           </Button>
           <Popper
-            style={{zIndex: 1000}}
+            style={{zIndex: 2000}}
             placement="bottom"
             disablePortal={false}
             open={expanded}

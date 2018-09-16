@@ -7,7 +7,6 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 import CardMedia from '@material-ui/core/CardMedia'
 import Moment from 'react-moment'
 import LinkIcon from '@material-ui/icons/Link'
-import Hidden from '@material-ui/core/Hidden'
 import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
 
