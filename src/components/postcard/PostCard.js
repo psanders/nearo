@@ -25,7 +25,7 @@ class PostCard extends React.Component {
     this.uiRefreshForBookmark()
     // I know it looks backwards...
     if(this.state.post.bookmarked) {
-      bookmarksStore.addToBookmarks(this.state.post)
+      bookmarksStore.addToBookmarks(this.state.post, this.uiRefreshForBookmark)
     } else {
       bookmarksStore.removeFromBookmarks(this.state.post)
     }

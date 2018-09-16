@@ -16,7 +16,8 @@ class BookmarksStore {
           } else {
             this.loaded = true
           }
-        })
+        }
+      )
     }
 
     loadBookmarks(user) {
@@ -33,9 +34,11 @@ class BookmarksStore {
 
     isLoaded = () => this.loaded
 
-    addToBookmarks = (post) => {
+    addToBookmarks = (post, callback) => {
       if (!usersStore.isSignedIn()) {
         notificationsStore.showNotification('You must login to like a post')
+        // Revert change in UI
+        callback()
         return
       }
       const bookmarksRef = db.collection('bookmarks').doc(post.id)
@@ -44,6 +47,8 @@ class BookmarksStore {
       }, { merge: true }).then(() => {
         notificationsStore.showNotification('Noted!')
       }).catch(error => {
+        // Revert change in UI
+        callback()
         console.error("Error writing document: ", error)
       })
     }
@@ -54,6 +59,7 @@ class BookmarksStore {
       .then(() => {
         notificationsStore.showNotification('Unliked')
       }).catch(error => {
+
         console.error("Error writing document: ", error)
       })
     }

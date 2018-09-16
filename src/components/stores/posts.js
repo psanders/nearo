@@ -12,10 +12,13 @@ class PostsStore {
 
     constructor () {
       when(
-        () => appStore.isReady(),
-        () => {
-          this.updateBySearch({searchTerm: ''})
-        })
+        () => appStore.isReady() && usersStore.isSignedIn(),
+        () => this.updateBySearch({searchTerm: ''})
+      )
+      when(
+        () => appStore.isReady() && !usersStore.isSignedIn(),
+        () => this.updateBySearch({searchTerm: ''})
+      )
     }
 
     updateBySearch = (navInfo, offset = 0) => {
@@ -126,7 +129,6 @@ class PostsStore {
         console.error("Error writing document: ", error)
       })
     }*/
-
 }
 
 export const postsStore = new PostsStore()
