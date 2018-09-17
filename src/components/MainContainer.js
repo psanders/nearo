@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import { usersStore } from './stores/users'
 import { postsStore } from './stores/posts'
@@ -44,33 +44,39 @@ class MainContainer extends Component {
   render () {
     const { classes } = this.props
 
+    const NoMatch = ({ location }) => (
+      <div style={{margin: 20}}>
+        <h3>Ups! No match was found for <code>{location.pathname}</code></h3>
+      </div>
+    )
+
     return(
       <div className={ classes.root }>
         <Topnav
           usersStore={ usersStore }
           postsStore={ postsStore }
           className={ classes.appBar } />
+
         <main className={ classes.content }>
-          <Route
-            exact path='/'>
-            <div className={ classes.toolbar } />
-          </Route>
-          <Route
-            exact path='/'
-            render={(props) =>
-              <PostsContainer
-                postsStore={ postsStore }
-                navStore={ navStore }
-              />
-            }
-          />
-          <Route
-            exact
-            path='/posts/:postId'
-            render={(props) =>
-              <SinglePostContainer />
-            }
-          />
+          <div className={ classes.toolbar } />
+          <Switch>
+            <Route
+              exact path='/'
+              render={(props) =>
+                <PostsContainer
+                  postsStore={ postsStore }
+                  navStore={ navStore }
+                />
+              }
+            />
+            <Route
+              path='/posts/:postId'
+              render={(props) =>
+                <SinglePostContainer />
+              }
+            />
+            <Route component={NoMatch} />
+          </Switch>
         </main>
         <NotificationBar notificationsStore={ notificationsStore }/>
         <PostPanel

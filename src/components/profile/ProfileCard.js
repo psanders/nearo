@@ -40,6 +40,9 @@ const styles = {
 
 function ProfileCard(props) {
   const { classes, user } = props
+  const avatar = user.picture
+    ? user.picture
+    : "/images/default-avatar.png"
 
   return (
     <Card elevation={0} className={classes.card}>
@@ -47,7 +50,7 @@ function ProfileCard(props) {
         <div className={classes.row}>
           <Avatar
             alt={ user.name }
-            src={ user.picture }
+            src={ avatar }
             className={classNames(classes.avatar, classes.bigAvatar)}
           />
         </div>
