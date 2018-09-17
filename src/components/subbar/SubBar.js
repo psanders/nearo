@@ -31,11 +31,12 @@ class SubBar extends Component {
 
   render() {
     const { classes } = this.props
+    const address = this.props.navStore.navInfo.locInfo.address
 
     return (
       <Toolbar className={classes.filters}>
         <Typography className={classes.title} variant="body1" color="inherit">
-          { this.props.postsStore.nbHits } results nearby  { "\"" + this.props.navStore.address + "\"" }
+          { this.props.postsStore.nbHits } results nearby  { "\"" + address + "\"" }
         </Typography>
         <span className={ classes.flex } />
         <Button onClick={  this.props.postsStore.openPostDialog } variant="flat" className={classes.button}>

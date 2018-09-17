@@ -9,11 +9,11 @@ class AppStore {
     constructor () {
       when(
         () => usersStore.isStatusVerified()
-          && bookmarksStore.isLoaded()
-          && navStore.isLoaded(),
+              && bookmarksStore.isLoaded()
+              && navStore.isLoaded(),
         () => {
           this.ready = true
-        })
+      })
     }
 
     isReady = () => this.ready

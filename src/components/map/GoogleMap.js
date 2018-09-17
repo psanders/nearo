@@ -8,8 +8,8 @@ class GMap extends Component {
 
   static defaultProps = {
     center: {
-      lat: 19.7807686,
-      lng: -70.68710909999999
+      lat: 37.09024,
+      lng: -95.71289100000001
     },
     zoom: 11
   }
@@ -22,7 +22,7 @@ class GMap extends Component {
           bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
           defaultCenter= { this.props.center }
           defaultZoom={ this.props.zoom }
-          center={ this.props.navStore.navInfo.latLng }
+          center={ this.props.navStore.navInfo.locInfo.latLng }
         >
           {
             this.props.postsStore.posts.map(post =>

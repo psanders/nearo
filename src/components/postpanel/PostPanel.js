@@ -71,15 +71,18 @@ class PostPanel extends React.Component {
     }
     self.setState({loading: true})
 
+    const address = this.props.navStore.navInfo.locInfo.address
+    const latLng = this.props.navStore.navInfo.locInfo.latLng
+
     const post = {
       category: this.getCategoryInText(this.state.body),
       author: this.props.usersStore.currentUser.username,
       body: body,
       likes: 0,
-      locText: this.props.navStore.address,
+      locText: address,
       price: this.getPrice(this.state.body),
       timestamp: Date.now(),
-      _geoloc: this.props.navStore.navInfo.latLng,
+      _geoloc: latLng,
       deleted: false,
       image: this.state.imageURL
     }
@@ -179,7 +182,7 @@ class PostPanel extends React.Component {
               }}
               />
             <Typography variant="caption" gutterBottom align="center">
-               Near { this.props.navStore.address }
+               Near { this.props.navStore.navInfo.locInfo.address }
             </Typography>
             <span className={ classes.flex }/>
             <Button onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}

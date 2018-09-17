@@ -3,23 +3,25 @@ import { fetchUserInfo, storeUserInfo } from '../commons/dbfunctions'
 
 class NavStore {
     @observable loaded = false
-    @observable navInfo = { searchTerm: '' }
-    @observable address = ''
+    @observable navInfo = {
+      searchTerm: '',
+      locInfo: {
+        address: 'USA',
+        latLng: {
+          lat: 37.09024,
+          lng: -95.71289100000001
+        }
+      }
+    }
 
     constructor () {
       fetchUserInfo('locator')
       .then(info => {
         if(info) {
-          this.navInfo.latLng = info.latLng
-          this.address = info.address
+          this.navInfo.locInfo = info
           this.loaded = true
         } else {
-          this.navInfo.latLng = {lat: 37.09024, lng: -95.71289100000001}
-          this.address = 'USA'
-          storeUserInfo('locator',
-            { latLng: this.navInfo.latLng,address: this.address },
-            () => this.loaded = true
-          )
+          storeUserInfo('locator', this.navInfo.locInfo, () => this.loaded = true )
         }
       })
       .catch(error => {

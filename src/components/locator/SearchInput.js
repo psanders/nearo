@@ -62,7 +62,7 @@ class LocationSearchInput extends React.Component {
   }
 
   render() {
-    const { classes, showDefaultItem } = this.props
+    const { classes } = this.props
     return (
       <PlacesAutocomplete
         className={classes.root}

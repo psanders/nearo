@@ -2,6 +2,7 @@ import { observable, when } from "mobx"
 import { usersStore } from './users'
 import { bookmarksStore } from './bookmarks'
 import { notificationsStore } from './notifications'
+import { navStore } from './navigation'
 import { appStore } from './app'
 import { doSearchAlgolia } from '../commons/firebase/algolia'
 
@@ -15,11 +16,12 @@ class PostsStore {
     constructor () {
       when(
         () => appStore.isReady() && usersStore.isSignedIn(),
-        () => this.updateBySearch({searchTerm: ''})
+        () => this.updateBySearch(navStore.navInfo)
       )
+
       when(
         () => appStore.isReady() && !usersStore.isSignedIn(),
-        () => this.updateBySearch({searchTerm: ''})
+        () => this.updateBySearch(navStore.navInfo)
       )
     }
 
@@ -43,6 +45,7 @@ class PostsStore {
       }
 
       if (navInfo.locInfo && navInfo.locInfo.latLng) {
+        console.log('navInfo', navInfo)
         query.aroundLatLng = navInfo.locInfo.latLng.lat + ","
           + navInfo.locInfo.latLng.lng
         query.minimumAroundRadius = 20000
