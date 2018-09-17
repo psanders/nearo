@@ -45,7 +45,6 @@ class PostsStore {
       }
 
       if (navInfo.locInfo && navInfo.locInfo.latLng) {
-        console.log('navInfo', navInfo)
         query.aroundLatLng = navInfo.locInfo.latLng.lat + ","
           + navInfo.locInfo.latLng.lng
         query.minimumAroundRadius = 20000

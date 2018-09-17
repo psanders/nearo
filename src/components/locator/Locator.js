@@ -56,6 +56,7 @@ class Locator extends Component {
         address: address,
         latLng: latLng
       }
+      this.props.onChangeLocation(locInfo)
       storeUserInfo(this.props.name, locInfo)
     })
     .catch(error => console.error('Error', error))
