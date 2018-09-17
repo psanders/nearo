@@ -2,9 +2,7 @@ import React from 'react'
 import MaskedInput from 'react-text-mask'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
+import TextField from '@material-ui/core/TextField'
 
 const styles = theme => ({
   container: {
@@ -54,21 +52,20 @@ class PhoneInput extends React.Component {
   }
 
   render() {
-    const { classes, id } = this.props
 
     return (
-      <div className={classes.container}>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor={id}>Phone</InputLabel>
-          <Input
-            error={!this.isValidNumber(this.state.value)}
-            value={this.state.value}
-            onChange={this.handleChange('value')}
-            id={id}
-            inputComponent={TextMaskCustom}
-          />
-        </FormControl>
-      </div>
+      <TextField
+        variant="outlined"
+        id="user-phone"
+        label="Phone"
+        fullWidth
+        margin="normal"
+        InputProps={{
+          inputComponent: TextMaskCustom,
+          value: this.state.value,
+          onChange: this.handleChange('value'),
+        }}
+      />
     )
   }
 }

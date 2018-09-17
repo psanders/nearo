@@ -51,12 +51,13 @@ class GMap extends Component {
     return (
       <div style={{ height: 'calc(100vh - 60px)', width: '100%' }}>
         <GoogleMapReact
+          yesIWantToUseGoogleMapApiInternals={true}
           bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
           defaultCenter= { this.props.navStore.navInfo.locInfo.latLng }
           defaultZoom={ this.props.zoom }
           onGoogleApiLoaded={({ map, maps }) => {
-            this.state.map = map
-            this.state.maps = maps
+            this.setState({map: map})
+            this.setState({maps: maps})
           }}
         >
           {

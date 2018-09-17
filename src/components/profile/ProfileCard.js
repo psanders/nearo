@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import classNames from 'classnames'
 import Avatar from '@material-ui/core/Avatar'
+import PhoneIcon from '@material-ui/icons/ContactPhone'
 import blue from '@material-ui/core/colors/blue'
 
 const styles = {
@@ -25,6 +26,16 @@ const styles = {
     width: 80,
     height: 80,
   },
+  phoneIcon: {
+    fontSize: 18,
+    marginTop: 3,
+    marginRight: 5,
+    color: blue[500]
+  },
+  phone:{
+    display: 'flex',
+    marginTop: 4
+  }
 }
 
 function ProfileCard(props) {
@@ -48,6 +59,14 @@ function ProfileCard(props) {
           <Typography variant="body1" gutterBottom>
             { user.bio }
           </Typography>
+          { !user.keepPhonePrivate &&
+            <div className={classes.phone}>
+              <PhoneIcon className={ classes.phoneIcon }/>
+              <Typography variant="body2" gutterBottom>
+                { user.phone }
+              </Typography>
+            </div>
+          }
           <Typography variant="caption">
             { user.username }
           </Typography>

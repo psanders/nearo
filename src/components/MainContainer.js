@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route } from 'react-router-dom'
-import { observer } from 'mobx-react'
 
 import { usersStore } from './stores/users'
 import { postsStore } from './stores/posts'
@@ -33,7 +32,6 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 })
 
-@observer
 class MainContainer extends Component {
   state = {
     bookmarks: [],

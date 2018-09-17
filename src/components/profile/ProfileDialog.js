@@ -17,17 +17,22 @@ import Paper from '@material-ui/core/Paper'
 import SettingsIcon from '@material-ui/icons/Settings'
 import NotificationBar from '../NotificationBar'
 import PhoneInput from './PhoneInput'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 import { db } from '../commons/firebase/firebase'
 import { storeUserInfo } from '../commons/dbfunctions'
 
-const styles = {
+const styles = theme => ({
   appBar: {
     position: 'relative',
   },
   flex: {
     flex: 1,
   },
-}
+  textField: {
+    width: 262 /* Why?? */
+  },
+})
 
 function Transition(props) {
   return <Slide direction="up" {...props} />
@@ -52,6 +57,11 @@ class ProfileDialog extends React.Component {
       console.log('event.target.value.trim()', event.target.value.trim())
     } else if (event.target.id === 'user-username') {
       user.username = event.target.value
+    } else if (event.target.id === 'user-bio') {
+      user.bio = event.target.value
+    } else if (event.target.id === 'user-phone-private') {
+      console.log('CB', event.target.checked)
+      user.keepPhonePrivate = event.target.checked
     }
     this.setState({ user: user})
   }
@@ -87,10 +97,11 @@ class ProfileDialog extends React.Component {
   }
 
   reallySave = (user) => {
+    const u = JSON.parse(JSON.stringify(user))
     const userRef = db.collection("users").doc(user.email)
     user.isNewUser = false
-    userRef.set(user)
-    storeUserInfo('user-info', user)
+    userRef.set(u)
+    storeUserInfo('user-info', u)
   }
 
   isInvalidUser = user => {
@@ -162,11 +173,12 @@ class ProfileDialog extends React.Component {
           </AppBar>
           <div style={{backgroundColor: '#dae0e6', width: '100%', height: '100%'}}>
             <div style={{margin: 'auto', width: '360px', height: 345}}>
-              <Paper style={{height: 335, padding: 35, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
+              <Paper style={{padding: 35, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
                 <Typography variant="title" gutterBottom>
                   Settings
                 </Typography>
                 <TextField
+                  variant="outlined"
                   id="user-name"
                   label="Display Name"
                   onChange={this.handleChange}
@@ -179,37 +191,58 @@ class ProfileDialog extends React.Component {
                   fullWidth
                   margin="normal"
                 />
-                <TextField
-                  id="user-username"
-                  label="Username"
-                  disabled={!user.isNewUser}
-                  onChange={this.handleChange}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  value={user.username}
-                  error={this.isInvalidUser(user)}
-                  fullWidth
-                  helperText="Must be alphanumeric"
-                  margin="normal"
-                />
+                {
+                  user.isNewUser &&
+                  <TextField
+                    variant="outlined"
+                    id="user-username"
+                    label="Username"
+                    disabled={!user.isNewUser}
+                    onChange={this.handleChange}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    value={user.username}
+                    error={this.isInvalidUser(user)}
+                    fullWidth
+                    helperText="Must be alphanumeric"
+                    margin="normal"
+                  />
+                }
                 <PhoneInput
                   id="user-phone"
                   value={user.phone}
                   onChange={this.handleChange}
                 />
-                <TextField
-                  id="user-email"
-                  label="Email"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  disabled
-                  value={user.email}
-                  placeholder="your@email.com"
-                  fullWidth
-                  margin="normal"
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      id="user-phone-private"
+                      checked={user.keepPhonePrivate}
+                      onChange={this.handleChange}
+                      color="primary"
+                    />
+                  }
+                  label="Keep Phone Private"
                 />
+
+                <TextField
+                  id="user-bio"
+                  label="About"
+                  multiline
+                  rows="4"
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
+                  inputProps= {{
+                    maxLength: 128,
+                  }}
+                  onChange={this.handleChange}
+                  className={classes.textField}
+                  value={ user.bio }
+                />
+
                 <Button disabled={ this.isInvalid(user) } onClick={ this.save } size="small" variant="contained" color="secondary">
                   Save
                 </Button>

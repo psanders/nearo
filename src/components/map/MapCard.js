@@ -23,11 +23,9 @@ const styles = {
 
 function MapCard(props) {
   const { classes, center } = props
-  const mapConfig = {
-    panControl: false,
-    mapTypeControl: false,
-    scrollwheel: false,
-    styles: [{ stylers: [{ 'saturation': -50 }, { 'gamma': 0.8 }, { 'lightness': 4 }, { 'visibility': 'on' }] }]
+  const defaultCenter = {
+    lat: 37.09024,
+    lng: -95.71289100000001
   }
 
   return (
@@ -35,9 +33,9 @@ function MapCard(props) {
       <CardContent className={classes.cardContent}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
-          defaultCenter={center}
+          defaultCenter={defaultCenter}
+          center={center}
           defaultZoom={8}
-          options={mapConfig}
         >
           <MarkerIcon className={classes.marker} lat={center.lat} lng={center.lng}/>
         </GoogleMapReact>

@@ -126,15 +126,16 @@ class PostPanel extends React.Component {
               fullWidth
               autoFocus
               InputProps={{
+                inputProps: {
+                  maxLength: 254,
+                },
                 disableUnderline: true,
                 classes: {
                   root: classes.customTFRoot,
                   input: classes.customTFInput,
                 },
               }}
-              inputProps= {{
-                maxLength: 254,
-              }}
+
               InputLabelProps={{
                 shrink: false,
                 className: classes.customTFLabel,

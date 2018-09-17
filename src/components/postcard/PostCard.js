@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import CardMedia from '@material-ui/core/CardMedia'
 import Moment from 'react-moment'
+import { Link } from 'react-router-dom'
 import LinkIcon from '@material-ui/icons/Link'
 import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
@@ -13,7 +14,6 @@ import { observer } from 'mobx-react'
 import { bookmarksStore } from '../stores/bookmarks'
 import { getCategory } from '../commons/categories'
 import PostActions from './PostActions'
-import { openURL } from '../commons/utils'
 
 @observer
 class PostCard extends React.Component {
@@ -87,9 +87,11 @@ class PostCard extends React.Component {
             </Grid>
           </Grid>
           <Grid item>
-            <ButtonBase onClick={() => openURL('/posts/' + post.id)} className={ classes.image }>
-              { image(post) }
-            </ButtonBase>
+            <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
+              <ButtonBase className={ classes.image }>
+                { image(post) }
+              </ButtonBase>
+            </Link>
           </Grid>
         </Grid>
       </div>

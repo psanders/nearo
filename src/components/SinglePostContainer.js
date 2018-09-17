@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CardMedia from '@material-ui/core/CardMedia'
-import Hidden from '@material-ui/core/Hidden'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -41,7 +40,6 @@ class SinglePostContainer extends Component {
     userRef.get()
     .then(user => {
       if (user.exists) {
-        console.log('user', user)
         this.setState({user: user.data()})
       }
     }).catch(error => {
@@ -86,11 +84,9 @@ class SinglePostContainer extends Component {
             <ProfileCard user={ user }/>
             <br />
             { post._geoloc &&
-              <div>
-                <MapCard center={ post._geoloc } />
-                <br />
-              </div>
+              <MapCard center={ post._geoloc } />
             }
+            <br />
             <Ads />
             <br />
             <About />
