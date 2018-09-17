@@ -2,9 +2,6 @@ export const styles = theme => ({
   flex: {
     flex: 1,
   },
-  cover: {
-    minHeight: 300,
-  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
   },
@@ -20,6 +17,7 @@ export const styles = theme => ({
   details: {
     alignItems: 'center',
     padding: 0,
+    maxHeight: 150
   },
   column: {
     flexBasis: '33.33%',
@@ -36,14 +34,15 @@ export const styles = theme => ({
     },
   },
   customTFRoot: {
+    paddingTop: 10,
     backgroundColor: '#fff',
-    width: '100%',
-    height: '100vh'
+    height: '100vh',
   },
   customTFInput: {
-    paddingLeft: 10,
+    padding: 10,
     color: 'black',
-    fontSize: 14
+    fontSize: 14,
+    height: '100vh',
   },
   button: {
     textTransform: 'Capitalize',

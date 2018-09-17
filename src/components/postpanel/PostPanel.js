@@ -117,6 +117,9 @@ class PostPanel extends React.Component {
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle id="responsive-dialog-title">New Post</DialogTitle>
+
+          <Divider />
+
           <DialogContent className={ classes.details }>
             <TextField
               value={ this.state.body }
@@ -135,7 +138,6 @@ class PostPanel extends React.Component {
                   input: classes.customTFInput,
                 },
               }}
-
               InputLabelProps={{
                 shrink: false,
                 className: classes.customTFLabel,
