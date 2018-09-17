@@ -1,11 +1,13 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
-import Menu from '@material-ui/core/Menu'
+import Popover from '@material-ui/core/Popover'
 import MenuItem from '@material-ui/core/MenuItem'
 import ShareIcon from '@material-ui/icons/Link'
 import Typography from '@material-ui/core/Typography';
+import blue from '@material-ui/core/colors/blue'
 import { withStyles } from '@material-ui/core/styles'
 import Ionicon from 'react-ionicons'
+import TextField from '@material-ui/core/TextField';
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -19,68 +21,88 @@ class ShareButton extends React.Component {
     anchorEl: null,
   }
 
-  handleClick = e => {
-    e.stopPropagation()
-    this.setState({ anchorEl: e.currentTarget })
+  handlePopoverOpen = event => {
+    this.setState({ anchorEl: event.currentTarget })
   }
 
-  handleClose = (e) => {
-    e.stopPropagation()
+  handlePopoverClose = () => {
     this.setState({ anchorEl: null })
   }
 
   render() {
     const { anchorEl } = this.state
     const { classes, url } = this.props
+    const open = Boolean(anchorEl)
 
     return (
       <span>
         <Button
-          aria-owns={anchorEl ? 'simple-menu' : null}
+          aria-owns={anchorEl ? 'mouse-over-popover' : null}
           aria-haspopup="true"
-          onClick={ this.handleClick }
+          onClick={ this.handlePopoverOpen }
           className={ classes.actionBtn }
         >
           <ShareIcon className={ classes.actionIcon }/>
           <Typography variant="caption" color="textSecondary">Share</Typography>
         </Button>
-        <Menu
-          id="simple-menu"
+        <Popover
+          elevation={2}
+          id="mouse-over-popover"
+          className={classes.popover}
+          classes={{
+            paper: classes.paper,
+          }}
+          open={open}
           anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={ this.handleClose }
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          onClose={this.handlePopoverClose}
+          disableRestoreFocus
         >
-          <MenuItem  onClick={ this.handleClose }>
-            <Ionicon  icon="logo-whatsapp" className={ classes.actionIcon } color="#5d5c5c"/>
-            <WhatsappShareButton
-            children={
-              <Typography variant="caption">
-               Whatsapp
-              </Typography>
-            }
-             url={ url } />
-          </MenuItem>
-          <MenuItem  onClick={ this.handleClose }>
-            <Ionicon icon="logo-facebook" className={ classes.actionIcon } color="#5d5c5c"/>
-            <FacebookShareButton
-            children={
-              <Typography variant="caption">
-               Facebook
-              </Typography>
-            }
-             url={ url } />
-          </MenuItem>
-          <MenuItem onClick={ this.handleClose }>
-            <Ionicon icon="logo-twitter" className={ classes.actionIcon } color="#5d5c5c"/>
-            <TwitterShareButton
-             children={
-               <Typography variant="caption">
-                Twitter
-               </Typography>
-             }
-             url={ url } />
-          </MenuItem>
-        </Menu>
+          <div style={{width: 350, padding: 10}}>
+            <Typography variant="body2">
+              Help your friends find local information!
+            </Typography>
+            <Typography variant="body1">
+              Share the link to this post:
+            </Typography>
+            <div>
+              <TextField
+                id="outlined-name"
+                label="URL"
+                value={url}
+                fullWidth
+                margin="normal"
+              />
+            </div>
+            <div className={classes.row}>
+              <FacebookShareButton
+                children={
+                  <Button className={classes.button}>
+                    <Ionicon icon="logo-facebook" className={classes.logoIcon} color={blue[700]}/>
+                     Facebook
+                  </Button>
+                }
+                url={ url }
+              />
+              <TwitterShareButton
+                children={
+                  <Button className={classes.button}>
+                    <Ionicon icon="logo-twitter" className={classes.logoIcon} color={blue[500]}/>
+                     Twitter
+                  </Button>
+                }
+                url={ url }
+              />
+            </div>
+          </div>
+        </Popover>
       </span>
     )
   }

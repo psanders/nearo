@@ -35,4 +35,21 @@ export const styles = theme => ({
     fontSize: 14,
     marginRight: 5
   },
+  logoIcon: {
+    width: '18px',
+    marginRight: 5
+  },
+  row: {
+    display: 'flex'
+  },
+  button: {
+    minHeight: 10,
+    minWidth: 10,
+    padding: 2,
+    marginRight: 10,
+    textTransform: 'capitalize',
+    fontSize: 14,
+    fontWeight: 200,
+    color: '#2398c9'
+  },
 });
