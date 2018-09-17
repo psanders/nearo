@@ -1,31 +1,118 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import CardMedia from '@material-ui/core/CardMedia'
+import Hidden from '@material-ui/core/Hidden'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
+import Moment from 'react-moment'
 
-import PostCard from './postcard/PostCard'
+import MapCard from './map/MapCard'
+import ProfileCard from './profile/ProfileCard'
+import About from './About'
+import Ads from './Ads'
+import { db } from './commons/firebase/firebase'
 
-export default function SinglePostContainer(props) {
-  const user = props.user
-  const classes = props.classes
+class SinglePostContainer extends Component {
+  state = {
+    post: {},
+    user: {}
+  }
 
-  return (
-    <Grid
-      container
-      direction="row"
-      justify="center"
-      spacing={32}>
-        <Grid item sm={6} xs={12}>
-            { props.post && <Grid key={props.post.id} item>
-              <PostCard
-                user={ user }
-                post={ props.post }
-                onBookmark={ props.onBookmark }
-                onDelete={ props.onDelete }
-                onNotification={ props.onNotification }
-              />
-              <div className={ classes.gutterBottom }/>
-              </Grid>
+  currentPath = () =>  window.location.pathname.split('/')[2]
+
+  componentDidMount () {
+    const postRef = db.collection('posts').doc(this.currentPath())
+    postRef.get()
+    .then(post => {
+      if (post.exists && !post.data().deleted) {
+        this.loadUser(post.data().userId)
+        this.setState({post: post.data()})
+      } else {
+        // throw 404
+      }
+    }).catch(error => {
+      console.error(error)
+    })
+  }
+
+  loadUser = userId => {
+    const userRef = db.collection('users').doc(userId)
+    userRef.get()
+    .then(user => {
+      if (user.exists) {
+        console.log('user', user)
+        this.setState({user: user.data()})
+      }
+    }).catch(error => {
+      console.error(error)
+    })
+  }
+
+  render() {
+    const { classes } = this.props
+    const { post, user } = this.state
+
+    return (
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        spacing={32}>
+          <Grid item sm={8} md={5} xs={10}>
+            <br />
+            <div style={{backgroundColor: '#fff', padding: 10}}>
+              { post.image &&
+                <CardMedia
+                  image={ post.image }
+                >
+                  <div style={{ width: 130, height: 210, borderRadius: 2}} />
+                </CardMedia>
+              }
+              <br />
+              <Typography className={ classes.capitalize } variant="title" gutterBottom>
+                { post.category }
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                { post.body }
+              </Typography>
+              <Typography variant="caption" gutterBottom>
+                Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment> nearby { "\"" + post.locText + "\""}
+              </Typography>
+            </div>
+          </Grid>
+          <Grid item sm={8} md={3} xs={10}>
+            <br />
+            <ProfileCard user={ user }/>
+            <br />
+            { post._geoloc &&
+              <div>
+                <MapCard center={ post._geoloc } />
+                <br />
+              </div>
             }
-        </Grid>
-    </Grid>
-  )
+            <Ads />
+            <br />
+            <About />
+            <br />
+          </Grid>
+          <br />
+      </Grid>
+    )
+  }
 }
+
+SinglePostContainer.propTypes = {
+    classes: PropTypes.object.isRequired,
+}
+
+const styles = {
+  root: {
+    backgroundColor: '#fff'
+  },
+  capitalize: {
+    textTransform: 'capitalize'
+  }
+}
+
+export default withStyles(styles)(SinglePostContainer)

@@ -29,8 +29,6 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: '#dae0e6',
-    //padding: theme.spacing.unit * 2,
-    minWidth: 0, // So the Typography noWrap works
   },
   toolbar: theme.mixins.toolbar,
 })
@@ -62,7 +60,7 @@ class MainContainer extends Component {
           <Route
             exact path='/'
             render={(props) =>
-              <PostsContainer user={ usersStore.currentUser }
+              <PostsContainer
                 postsStore={ postsStore }
                 navStore={ navStore }
               />
@@ -72,10 +70,7 @@ class MainContainer extends Component {
             exact
             path='/posts/:postId'
             render={(props) =>
-              <SinglePostContainer user={ usersStore.currentUser }
-                classes={ classes }
-                post={ this.getPost(this.getCurrentPathname()) }
-                />
+              <SinglePostContainer />
             }
           />
         </main>

@@ -69,22 +69,26 @@ class Topnav extends React.Component {
                className: classes.bootstrapFormLabel,
              }}
            />
-            <Hidden xsDown={true}>
-              <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
-               <span className={ classes.flex } />
-                {
-                  !usersStore.isSignedIn() &&
-                  <div>
-                    <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.loginBtn}>
-                      Login
-                    </Button>
-                    <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.signupBtn}>
-                      Sign Up
-                    </Button>
-                  </div>
-                }
+
+           <Hidden xsDown={true}>
+            <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
+           </Hidden>
+ 
+           <Hidden smDown={true}>
+             <span className={ classes.flex } />
+              {
+                !usersStore.isSignedIn() &&
+                <div>
+                  <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.loginBtn}>
+                    Login
+                  </Button>
+                  <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.signupBtn}>
+                    Sign Up
+                  </Button>
+                </div>
+              }
             </Hidden>
-            <Hidden smUp={true}>
+            <Hidden mdUp={true}>
                <span className={ classes.flex } />
                 {
                   !usersStore.isSignedIn() &&

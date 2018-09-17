@@ -13,6 +13,7 @@ import { observer } from 'mobx-react'
 import { bookmarksStore } from '../stores/bookmarks'
 import { getCategory } from '../commons/categories'
 import PostActions from './PostActions'
+import { openURL } from '../commons/utils'
 
 @observer
 class PostCard extends React.Component {
@@ -86,7 +87,7 @@ class PostCard extends React.Component {
             </Grid>
           </Grid>
           <Grid item>
-            <ButtonBase className={ classes.image }>
+            <ButtonBase onClick={() => openURL('/posts/' + post.id)} className={ classes.image }>
               { image(post) }
             </ButtonBase>
           </Grid>
