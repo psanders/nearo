@@ -29,6 +29,10 @@ class NavStore {
       })
     }
 
+    setNavInfo = (navInfo) => {
+      this.navInfo = navInfo
+    }
+
     isLoaded = () => this.loaded
 }
 

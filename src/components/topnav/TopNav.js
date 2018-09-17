@@ -26,18 +26,22 @@ class Topnav extends React.Component {
 
   handleChange = name => event => {
     const searchTerm = event.target.value
-    this.props.postsStore.updateBySearch({
+    const navInfo = {
       locInfo: this.state.locInfo,
       searchTerm: searchTerm
-    })
+    }
+    this.props.postsStore.updateBySearch(navInfo)
+    this.props.navStore.setNavInfo(navInfo)
     this.setState({searchTerm: searchTerm})
   }
 
   handleOnChangeLocation = locInfo => {
-    this.props.postsStore.updateBySearch({
+    const navInfo = {
       locInfo: locInfo,
       searchTerm: this.state.searchTerm
-    })
+    }
+    this.props.postsStore.updateBySearch(navInfo)
+    this.props.navStore.setNavInfo(navInfo)
     this.setState({locInfo: locInfo})
   }
 
@@ -73,7 +77,7 @@ class Topnav extends React.Component {
            <Hidden xsDown={true}>
             <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
            </Hidden>
- 
+
            <Hidden smDown={true}>
              <span className={ classes.flex } />
               {

@@ -55,6 +55,7 @@ class MainContainer extends Component {
         <Topnav
           usersStore={ usersStore }
           postsStore={ postsStore }
+          navStore={ navStore }
           className={ classes.appBar } />
 
         <main className={ classes.content }>
