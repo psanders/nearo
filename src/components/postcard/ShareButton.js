@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import Popover from '@material-ui/core/Popover'
-import MenuItem from '@material-ui/core/MenuItem'
 import ShareIcon from '@material-ui/icons/Link'
 import Typography from '@material-ui/core/Typography';
 import blue from '@material-ui/core/colors/blue'
@@ -11,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import {
   FacebookShareButton,
   TwitterShareButton,
-  WhatsappShareButton,
 } from 'react-share'
 
 import { styles } from './PostCardStyles'

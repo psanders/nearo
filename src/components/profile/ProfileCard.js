@@ -20,7 +20,7 @@ const styles = {
   },
   avatar: {
     margin: 10,
-    border: '2px solid ' + blue[500]
+    border: '2px solid ' + blue[700]
   },
   bigAvatar: {
     width: 80,
@@ -30,7 +30,7 @@ const styles = {
     fontSize: 18,
     marginTop: 3,
     marginRight: 5,
-    color: blue[500]
+    color: blue[700]
   },
   phone:{
     display: 'flex',

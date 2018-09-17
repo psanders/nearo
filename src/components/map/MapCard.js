@@ -16,7 +16,7 @@ const styles = {
     height: 270
   },
   marker: {
-    color: blue[500],
+    color: blue[700],
     fontSize: 40
   }
 }
