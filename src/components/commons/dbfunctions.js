@@ -1,8 +1,9 @@
 import localforage from 'localforage';
 
-export const storeUserInfo = (key, value) => {
+export const storeUserInfo = (key, value, callback) => {
   localforage.setItem(key, value)
   .then(() => {
+    if (callback) callback()
     return localforage.getItem(key);
   }).catch(err => {
     console.error(err);

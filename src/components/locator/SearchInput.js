@@ -25,14 +25,6 @@ const styles = theme => ({
       outline: 'none !important',
       border: '1px solid #444',
     },
-  },
-  anywhereBtn: {
-    backgroundColor: '#fff',
-    cursor: 'pointer',
-    '&:hover': {
-      backgroundColor: '#fafafa',
-      cursor: 'pointer'
-    },
   }
 })
 
@@ -41,13 +33,7 @@ class LocationSearchInput extends React.Component {
 
   handleChange = address => this.setState({ address })
 
-  handleSelect = (fullAddress) => {
-    if (fullAddress.target) {
-      this.props.onSelect('Anywhere')
-    } else {
-      this.props.onSelect(fullAddress)
-    }
-  }
+  handleSelect = address => this.props.onSelect(address)
 
   getInputItems = (getSuggestionItemProps, suggestions) => {
     return suggestions.map(suggestion => {
@@ -75,18 +61,6 @@ class LocationSearchInput extends React.Component {
     })
   }
 
-  getDefaultItem = () => {
-      return (
-        <ListItem
-          onClick={this.handleSelect}
-          className={this.props.classes.anywhereBtn}
-          key="Anywhere"
-          button>
-          <ListItemText primary={"Anywhere"} />
-        </ListItem>
-      )
-  }
-
   render() {
     const { classes, showDefaultItem } = this.props
     return (
@@ -106,7 +80,6 @@ class LocationSearchInput extends React.Component {
             />
             <List dense={true} className="autocomplete-dropdown-container">
               {loading && <p style={{fontSize: 12, marginLeft: 20}}>Loading...</p>}
-              {showDefaultItem && this.getDefaultItem()}
               {this.getInputItems(getSuggestionItemProps, suggestions)}
               <div style={{width: '100%', height: '12px'}}>
                 <img alt="Powered by Google" style={{float: 'right', marginRight: 12}} height="10px" src="/powered_by_google_default.png"/>

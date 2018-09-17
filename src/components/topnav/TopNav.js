@@ -70,7 +70,7 @@ class Topnav extends React.Component {
              }}
            />
             <Hidden xsDown={true}>
-              <Locator name="topnav-locator" onChangeLocation={ this.handleOnChangeLocation } />
+              <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
                <span className={ classes.flex } />
                 {
                   !usersStore.isSignedIn() &&

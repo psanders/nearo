@@ -18,7 +18,7 @@ import SearchInput from './SearchInput'
 class Locator extends Component {
   state = {
     expanded: false,
-    address: 'Anywhere'
+    address: 'USA'
   }
 
   componentDidMount = () => {
@@ -49,26 +49,16 @@ class Locator extends Component {
   }
 
   handleSelect = address => {
-    if (address === 'Anywhere') {
+    geocodeByAddress(address)
+    .then(results => getLatLng(results[0]))
+    .then(latLng => {
       const locInfo = {
-        address: 'Anywhere',
-        latLng: null
+        address: address,
+        latLng: latLng
       }
-      this.props.onChangeLocation(locInfo)
       storeUserInfo(this.props.name, locInfo)
-    } else {
-      geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => {
-        const locInfo = {
-          address: address,
-          latLng: latLng
-        }
-        this.props.onChangeLocation(locInfo)
-        storeUserInfo(this.props.name, locInfo)
-      })
-      .catch(error => console.error('Error', error))
-    }
+    })
+    .catch(error => console.error('Error', error))
 
     this.setState({ address: address })
     this.setState({ expanded: false })
@@ -119,7 +109,6 @@ class Locator extends Component {
                 <Paper style={{width: 250}}>
                   <ClickAwayListener onClickAway={this.handleClose} >
                     <SearchInput
-                      showDefaultItem={address !== "Anywhere"}
                       onSelect={this.handleSelect}/>
                   </ClickAwayListener>
                 </Paper>
