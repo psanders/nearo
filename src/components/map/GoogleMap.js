@@ -24,7 +24,10 @@ class GMap extends Component {
           defaultZoom={ this.props.zoom }
           center={ this.props.navStore.navInfo.latLng }
         >
-          { this.props.postsStore.posts.map(post => <Marker key={ post.id } latLng={ post._geoloc } />) }
+          {
+            this.props.postsStore.posts.map(post =>
+            <Marker post={post} key={ post.id } latLng={ post._geoloc } />)
+          }
         </GoogleMapReact>
       </div>
     )

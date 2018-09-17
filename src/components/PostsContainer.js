@@ -6,7 +6,6 @@ import { observer } from 'mobx-react'
 import SubBar from './subbar/SubBar'
 import GoogleMap from './map/GoogleMap'
 import PostCard from './postcard/PostCard'
-import { openURL } from './commons/utils'
 
 @observer
 class PostsContainer extends Component {
