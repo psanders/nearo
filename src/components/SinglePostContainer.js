@@ -31,7 +31,7 @@ class SinglePostContainer extends Component {
         // throw 404
       }
     }).catch(error => {
-      console.error(error)
+      console.error('Unable to fetch post information', error)
     })
   }
 
@@ -43,7 +43,7 @@ class SinglePostContainer extends Component {
         this.setState({user: user.data()})
       }
     }).catch(error => {
-      console.error(error)
+      console.error('Unable to fetch user information', error)
     })
   }
 

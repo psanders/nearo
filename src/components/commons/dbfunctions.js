@@ -6,7 +6,7 @@ export const storeUserInfo = (key, value, callback) => {
     if (callback) callback()
     return localforage.getItem(key);
   }).catch(err => {
-    console.error(err);
+    console.error('Code 0001', err);
   });
 }
 

@@ -10,7 +10,7 @@ class UploaderButton extends Component {
 
   handleUploadError = error => {
     this.props.onError();
-    console.error(error);
+    console.error('Code 0002', error);
   };
 
   handleUploadSuccess = filename => {

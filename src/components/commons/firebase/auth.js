@@ -29,5 +29,5 @@ auth.getRedirectResult().then(function(result) {
       userRef.doc(profile.email).set(user);
   }
 }).catch(function(error) {
-  console.error(error);
+  console.error('Unable to authenticate', error);
 });

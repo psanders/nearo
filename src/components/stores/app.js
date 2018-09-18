@@ -11,9 +11,8 @@ class AppStore {
         () => usersStore.isStatusVerified()
               && bookmarksStore.isLoaded()
               && navStore.isLoaded(),
-        () => {
-          this.ready = true
-      })
+        () => this.ready = true
+      )
     }
 
     isReady = () => this.ready

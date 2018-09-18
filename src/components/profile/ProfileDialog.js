@@ -19,6 +19,7 @@ import NotificationBar from '../NotificationBar'
 import PhoneInput from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+
 import { db } from '../commons/firebase/firebase'
 import { storeUserInfo } from '../commons/dbfunctions'
 
@@ -148,7 +149,7 @@ class ProfileDialog extends React.Component {
         </MenuItem>
         <Dialog
           fullScreen
-          open={this.state.open || user.isNewUser}
+          open={this.state.open || (user.isNewUser)}
           onClose={this.handleClose}
           TransitionComponent={Transition}
         >

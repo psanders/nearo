@@ -21,7 +21,8 @@ class NavStore {
           this.navInfo.locInfo = info
           this.loaded = true
         } else {
-          storeUserInfo('locator', this.navInfo.locInfo, () => this.loaded = true )
+          storeUserInfo('locator', JSON.parse(JSON.stringify(this.navInfo.locInfo)),
+            () => this.loaded = true )
         }
       })
       .catch(error => {
