@@ -101,15 +101,6 @@ class Topnav extends React.Component {
                   </Button>
                 }
             </Hidden>
-            <Hidden smDown={true}>
-              {
-                usersStore.isSignedIn() &&
-                <Button onClick={ this.props.postsStore.openPostDialog } >
-                  <PostIcon style={{ color: '#FFEA00'}} className={ classes.newPostIcon } />
-                </Button>
-              }
-            </Hidden>
-
             {
               usersStore.isSignedIn() && <ProfileMenu usersStore={ usersStore }/>
             }

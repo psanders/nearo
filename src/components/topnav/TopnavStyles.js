@@ -59,15 +59,6 @@ export const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
-  newPostBtn: {
-    backgroundColor: theme.palette.accent.main,
-    textTransform: 'capitalize',
-    '&:hover': {
-      backgroundColor: theme.palette.accent.light
-    },
-    height: 42,
-    fontSize: 16
-  },
   newPostIcon: {
     fontSize: 25,
   },
@@ -85,6 +76,6 @@ export const styles = theme => ({
     borderColor: theme.palette.accent.main,
     '&:hover': {
       backgroundColor: theme.palette.accent.light
-    },    
+    },
   },
 });
