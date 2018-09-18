@@ -28,7 +28,7 @@ class PostPanel extends React.Component {
     body: '',
     loading: false,
     expanded: false,
-    category: 'general',
+    category: 'news',
     imageURL: ''
   }
 
@@ -46,7 +46,7 @@ class PostPanel extends React.Component {
       }
     }
 
-    return results.length > 0 ? results[results.length - 1] : 'general'
+    return results.length > 0 ? results[results.length - 1] : 'news'
   }
 
   getPrice = (text) => {

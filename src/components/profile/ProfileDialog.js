@@ -99,11 +99,13 @@ class ProfileDialog extends React.Component {
   }
 
   reallySave = (user) => {
-    const u = JSON.parse(JSON.stringify(user))
+    const jsonUser = JSON.parse(JSON.stringify(user))
     const userRef = db.collection("users").doc(user.email)
-    user.isNewUser = false
-    userRef.set(u)
-    storeUserInfo('user-info', u)
+    jsonUser.isNewUser = false
+    userRef.set(jsonUser)
+    storeUserInfo('user-info', jsonUser)
+    this.setState({user: jsonUser})
+    this.props.usersStore.setCurrentUser(jsonUser)
   }
 
   isInvalidUser = user => {
@@ -141,7 +143,7 @@ class ProfileDialog extends React.Component {
     const { user } = this.state
 
     return (
-      <div style={{backgroundColor: 'red'}}>
+      <div>
         <MenuItem onClick={this.handleClickOpen}>
           <ListItemIcon>
             <SettingsIcon />
@@ -149,7 +151,6 @@ class ProfileDialog extends React.Component {
           Profile Settings
         </MenuItem>
         <Dialog
-          style={{backgroundColor: 'red'}}
           fullScreen
           open={this.state.open || (user.isNewUser)}
           onClose={this.handleClose}

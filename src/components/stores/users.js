@@ -39,17 +39,12 @@ class UsersStore {
       const userRef = db.collection('users').doc(user.email)
       userRef.get()
       .then(userInfo => {
-        console.log('DBG001')
         if(userInfo.exists) {
-          console.log('DBG002')
           this.currentUser = userInfo.data()
           storeUserInfo('user-info', JSON.parse(JSON.stringify(this.currentUser)))
-          console.log('DBG003')
         } else {
-          console.log('DBG004')
           removeUserInfo('user-info')
         }
-        console.log('DBG005')
         this.statusVerified = true
       })
       .catch(error => {
@@ -61,6 +56,9 @@ class UsersStore {
 
     isSignedIn = () => this.currentUser? true : false
 
+    setCurrentUser(user) {
+      this.currentUser = user
+    }
 }
 
 export const usersStore = new UsersStore()

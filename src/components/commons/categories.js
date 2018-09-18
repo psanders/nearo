@@ -1,8 +1,8 @@
 
 const categories = [
   {
-    "ref": "general",
-    "name": "General",
+    "ref": "news",
+    "name": "News",
     "description": "",
     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqmECOtI2rA3V0vgwNFhdT8G68BzNOERtLgiCY9guBklcDtsXy"
   },
