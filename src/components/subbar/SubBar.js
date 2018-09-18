@@ -17,7 +17,7 @@ class SubBar extends Component {
     return (
       <Toolbar className={classes.filters}>
         <Typography className={classes.title} variant="body1" color="inherit">
-          { this.props.postsStore.nbHits } results nearby {'"'}<EllipsisText text={ navInfo.locInfo.address } length={30} />{'"'}
+          { this.props.postsStore.posts.length } results nearby {'"'}<EllipsisText text={ navInfo.locInfo.address } length={30} />{'"'}
         </Typography>
         <span className={ classes.flex } />
         <Button onClick={  this.props.postsStore.openPostDialog } variant="outlined" className={classes.button}>
