@@ -20,6 +20,8 @@ class BookmarksStore {
       )
     }
 
+    isBookmarked = (post) => this.bookmarks.includes(post.id)
+
     loadBookmarks(user) {
       db.collection("bookmarks")
       .where("user", "==", user.email)
@@ -46,6 +48,7 @@ class BookmarksStore {
         user: usersStore.currentUser.email
       }, { merge: true }).then(() => {
         notificationsStore.showNotification('Noted!')
+        this.bookmarks.push(post.id)
       }).catch(error => {
         // Revert change in UI
         callback()
@@ -57,9 +60,9 @@ class BookmarksStore {
       const bookmarksRef = db.collection('bookmarks').doc(post.id)
       bookmarksRef.delete()
       .then(() => {
+        this.bookmarks.pop(post.id)
         notificationsStore.showNotification('Unliked')
       }).catch(error => {
-
         console.error("Error writing document: ", error)
       })
     }

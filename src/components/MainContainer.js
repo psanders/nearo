@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
+import { bookmarksStore } from './stores/bookmarks'
 import { usersStore } from './stores/users'
 import { postsStore } from './stores/posts'
 import { navStore } from './stores/navigation'
@@ -76,7 +77,7 @@ class MainContainer extends Component {
             <Route
               path='/posts/:postId'
               render={(props) =>
-                <SinglePostContainer />
+                <SinglePostContainer bookmarksStore={bookmarksStore} notificationsStore={ notificationsStore }/>
               }
             />
             <Route component={NoMatch} />

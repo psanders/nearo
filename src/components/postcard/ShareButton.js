@@ -41,7 +41,7 @@ class ShareButton extends React.Component {
           className={ classes.actionBtn }
         >
           <ShareIcon className={ classes.actionIcon }/>
-          <Typography variant="caption" color="textSecondary">Share</Typography>
+          <Typography variant="caption" color="secondary">Share</Typography>
         </Button>
         <Popover
           elevation={2}

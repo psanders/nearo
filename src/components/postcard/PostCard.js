@@ -21,23 +21,6 @@ class PostCard extends React.Component {
     post: this.props.post
   }
 
-  handleBookmark = (e) => {
-    e.stopPropagation()
-    this.uiRefreshForBookmark()
-    // I know it looks backwards...
-    if(this.state.post.bookmarked) {
-      bookmarksStore.addToBookmarks(this.state.post, this.uiRefreshForBookmark)
-    } else {
-      bookmarksStore.removeFromBookmarks(this.state.post)
-    }
-  }
-
-  uiRefreshForBookmark = () => {
-    const post = this.state.post
-    post.bookmarked = !post.bookmarked
-    this.setState({post: post})
-  }
-
   isOwner = (user, author) => {
     return user && user.username === author
       ? true
@@ -77,11 +60,11 @@ class PostCard extends React.Component {
               </Grid>
               <Grid item>
                 <PostActions post={ post }
+                  bookmarksStore={bookmarksStore}
                   isOwner={ this.isOwner() }
                   onDelete={ this.props.onDelete }
                   onMarkSold = { this.props.onMarkSold}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
-                  onChangeBookmark={ this.handleBookmark }
                 />
               </Grid>
             </Grid>

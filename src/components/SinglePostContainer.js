@@ -8,13 +8,16 @@ import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Moment from 'react-moment'
+import { observer } from 'mobx-react'
 
+import PostActions from './postcard/PostActions'
 import MapCard from './map/MapCard'
 import ProfileCard from './profile/ProfileCard'
 import About from './About'
 import Ads from './Ads'
 import { db } from './commons/firebase/firebase'
 
+@observer
 class SinglePostContainer extends Component {
   state = {
     post: {},
@@ -26,10 +29,12 @@ class SinglePostContainer extends Component {
   componentDidMount () {
     const postRef = db.collection('posts').doc(this.currentPath())
     postRef.get()
-    .then(post => {
-      if (post.exists && !post.data().deleted) {
-        this.loadUser(post.data().userId)
-        this.setState({post: post.data()})
+    .then(result => {
+      if (result.exists && !result.data().deleted) {
+        const post = result.data()
+        post.id = result.id
+        this.setState({post: post})
+        this.loadUser(post.userId)
       } else {
         // throw 404
       }
@@ -75,7 +80,6 @@ class SinglePostContainer extends Component {
                       label={post.price}
                       className={classes.chip}
                       color="secondary"
-                      variant="contained"
                     />
                   }
                   <div style={{ width: 130, height: 210, borderRadius: 2}} />
@@ -87,16 +91,30 @@ class SinglePostContainer extends Component {
               <Typography variant="body1" gutterBottom>
                 { post.body }
               </Typography>
-              <Typography variant="caption" gutterBottom>
+              <Typography variant="caption" gutterBottom className={classes.bottom10}>
                 Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment> nearby { "\"" + post.locText + "\""}
               </Typography>
+
+              {
+                post.id &&
+                <PostActions post={ post }
+                  className={classes.top20}
+                  bookmarksStore={this.props.bookmarksStore}
+                  isOwner={ true }
+                  onDelete={ this.props.onDelete }
+                  onMarkSold = { this.props.onMarkSold}
+                  url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
+                  onChangeBookmark={ this.handleBookmark }
+                />
+              }
+
             </div>
           </Grid>
           <Grid item sm={8} md={3} xs={10} >
             <ProfileCard user={ user }/>
             <br />
             {
-              post._geoloc &&
+              false && post._geoloc &&
               <MapCard center={ post._geoloc } className={classes.top10}/>
             }
             <br />
