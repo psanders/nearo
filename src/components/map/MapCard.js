@@ -4,10 +4,9 @@ import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import MarkerIcon from '@material-ui/icons/Place'
-import blue from '@material-ui/core/colors/blue'
 import GoogleMapReact from 'google-map-react'
 
-const styles = {
+const styles = theme => ({
   card: {
     height: 270
   },
@@ -16,10 +15,10 @@ const styles = {
     height: 270
   },
   marker: {
-    color: blue[700],
+    color: theme.palette.secondary.main,
     fontSize: 40
   }
-}
+})
 
 function MapCard(props) {
   const { classes, center } = props

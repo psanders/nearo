@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent'
 import classNames from 'classnames'
 import Avatar from '@material-ui/core/Avatar'
 import PhoneIcon from '@material-ui/icons/ContactPhone'
-import blue from '@material-ui/core/colors/blue'
 
 function ProfileCard(props) {
   const { classes, user } = props
@@ -54,7 +53,7 @@ ProfileCard.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-const styles = {
+const styles = theme => ({
   content: {
     paddingTop: 10
   },
@@ -64,7 +63,7 @@ const styles = {
   },
   avatar: {
     margin: 10,
-    border: '2px solid ' + blue[700],
+    border: '2px solid ' + theme.palette.secondary.main,
     width: 80,
     height: 80,
   },
@@ -72,12 +71,12 @@ const styles = {
     fontSize: 18,
     marginTop: 3,
     marginRight: 5,
-    color: blue[700]
+    color: theme.palette.secondary.main
   },
   phone:{
     display: 'flex',
     marginTop: 4
   }
-}
+})
 
 export default withStyles(styles)(ProfileCard)

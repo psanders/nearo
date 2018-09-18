@@ -74,7 +74,7 @@ class SinglePostContainer extends Component {
                       avatar={<Avatar><MoneyIcon className={classes.moneyIcon}></MoneyIcon></Avatar>}
                       label={post.price}
                       className={classes.chip}
-                      color="primary"
+                      color="secondary"
                       variant="contained"
                     />
                   }
@@ -102,7 +102,8 @@ class SinglePostContainer extends Component {
             <br />
             <Ads className={classes.bottom20}/>
             <br />
-            <About className={classes.top10} />
+            <About className={classes.top10}/>
+            <br />
           </Grid>
       </Grid>
     )
