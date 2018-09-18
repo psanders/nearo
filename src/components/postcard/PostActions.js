@@ -8,7 +8,6 @@ import FavIcon from '@material-ui/icons/Favorite'
 import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import SoldOutIcon from '@material-ui/icons/AttachMoney'
 import ShareButton from './ShareButton'
-import MoreButton from './MoreButton'
 import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
 import { computed } from 'mobx'
@@ -74,7 +73,9 @@ class PostActions extends Component {
         }
         {
           this.isOwner(post) &&
-          <Button className={classes.actionBtn}>
+          <Button onClick={() => this.props.postsStore.handlePostDelete(post, this.props.onDelete)}
+            className={classes.actionBtn}
+          >
             <DeleteIcon className={classes.actionIcon } />
             <Typography variant="caption" color="secondary">
               Remove

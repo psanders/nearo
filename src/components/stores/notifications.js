@@ -22,6 +22,7 @@ class NotificationsStore {
 
       if (undoCallback) {
         state.showUndo = true
+        state.undoCallback = undoCallback
       }
       this.state = state
     }

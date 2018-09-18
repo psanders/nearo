@@ -13,6 +13,7 @@ class PostsStore {
     @observable postDialogOpen = false
     @observable posts = []
     @observable nbHits = 0
+    @observable deletedPost
 
     constructor () {
       when(
@@ -81,44 +82,39 @@ class PostsStore {
 
     addNewPost = post => this.posts.unshift(post)
 
-    removePostFromArray = postId => {
-      const posts = this.state.posts.filter(post => post.id !== postId)
-      // I do this to prevent the "show more button" from showing up
-      this.setState({nbHits: (this.state.nbHits - 1)})
-      this.setState({posts: posts})
-    }
 
-    getPost = postId => this.state.posts.filter(post => post.id === postId)[0]
-
-    /*handlePostDelete = (post) => {
-      this.setState({deletedPost: this.getPost(post.id)})
+    handlePostDelete = (post, callback) => {
+      this.deletedPost = post
       const postRef = db.collection('posts').doc(post.id)
       postRef.set({
         deleted: true,
         deletedTimestamp: Date.now()
       }, { merge: true }).then(() => {
-        this.removePostFromArray(post.id)
-        this.handleNotify("Post deleted", this.handleUndeletePost)
+        this.posts = this.posts.filter(p => p.id !== post.id)
+        if (callback) {
+          callback()
+        } else {
+          notificationsStore.showNotification('Post deleted', 0, this.handleUndeletePost)
+        }
       }).catch((error) => {
+        notificationsStore.showNotification('Something when wrong :( Please try again later')
         console.log(error)
-        this.handleNotify("Something when wrong. Please try again later")
       })
-    }*/
+    }
 
-    /*handleUndeletePost = () => {
-      const postRef = db.collection('posts').doc(this.state.deletedPost.id)
+    handleUndeletePost = () => {
+      const postRef = db.collection('posts').doc(this.deletedPost.id)
       postRef.set({
         deleted: false,
         deletedTimestamp: Date.now()
       }, { merge: true }).then(() => {
-        const posts = this.state.posts
-        const deletedPost = this.state.deletedPost
-        deletedPost.deleted = false
-        posts.push(deletedPost)
-        this.setState({posts: posts})
+        this.deletedPost.deleted = false
+        this.posts.unshift(this.deletedPost)
+      }).catch(error => {
+        console.log(error)
+        notificationsStore.showNotification('Something when wrong :( Please try again later')
       })
-      this.setState({ notificationBarOpen: false })
-    }*/
+    }
 
     markSold = (post) => {
       const postRef = db.collection('posts').doc(post.id)

@@ -11,7 +11,6 @@ import PostCard from './postcard/PostCard'
 class PostsContainer extends Component {
 
   render() {
-    const user = this.props.user
     const posts = this.props.postsStore.posts
 
     return (

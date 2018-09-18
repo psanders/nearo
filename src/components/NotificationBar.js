@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { observer } from 'mobx-react'
 import { notificationsStore } from './stores/notifications'
@@ -16,33 +15,26 @@ const styles = theme => ({
 });
 
 @observer
-class NotificationBar extends React.Component {
+class NotificationBar extends Component {
 
   render() {
-    const { classes } = this.props;
     const store = notificationsStore
 
     const action = [
-      <IconButton
-        key="close"
-        aria-label="Close"
-        color="inherit"
-        className={ classes.close }
-        onClick={ store.hideNotification }
-      >
+      <Button key="close" color="secondary" size="small" onClick={ store.hideNotification }>
         <CloseIcon />
-      </IconButton>
+      </Button>
     ];
 
     if (store.state.showUndo) {
-      const closeAction = action.pop()
+      //const closeAction = action.pop()
       action.push(
         <Button key="undo" disabled={ !store.state.showUndo } color="secondary" size="small"
-          onClick={ store.state.undoCallback }>
+          onClick={ ()=> store.state.undoCallback()}>
             UNDO
           </Button>
         );
-      action.push(closeAction);
+      //action.push(closeAction);
     }
 
     return (
@@ -59,7 +51,7 @@ class NotificationBar extends React.Component {
             'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">{ store.state.message }</span>}
-          action={ store.state.undoCallback }
+          action={ action }
         />
       </div>
     );

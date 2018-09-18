@@ -60,6 +60,7 @@ class PostCard extends React.Component {
               <Grid item>
                 <PostActions post={ post }
                   handleSold={() => { /* NOP */}}
+                  onDelete={() => { /* NOP */}}
                   bookmarksStore={this.props.bookmarksStore}
                   postsStore={this.props.postsStore}
                   usersStore={this.props.usersStore}

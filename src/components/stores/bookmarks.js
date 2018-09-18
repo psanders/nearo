@@ -1,4 +1,4 @@
-import { observable, when, computed } from "mobx"
+import { observable, when } from "mobx"
 import { usersStore } from './users'
 import { notificationsStore } from './notifications'
 import { db } from '../commons/firebase/firebase'

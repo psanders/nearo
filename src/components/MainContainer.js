@@ -71,7 +71,6 @@ class MainContainer extends Component {
                 <PostsContainer
                   postsStore={ postsStore }
                   navStore={ navStore }
-                  postsStore={ postsStore }
                   usersStore={ usersStore }
                   bookmarksStore={ bookmarksStore }
                   notificationsStore={ notificationsStore }
