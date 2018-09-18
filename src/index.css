@@ -5,7 +5,7 @@ html, body {
   height: 100%;
   /*overflow: hidden; this does not work for the post detail page*/
   overscroll-behavior: none; /* This might not work in all browsers */
-  background-color: #dae0e6
+  background-color: #fff
 }
 
 .Linkify a {
