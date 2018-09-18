@@ -55,6 +55,12 @@ class SinglePostContainer extends Component {
     })
   }
 
+  handleSold = (sold) => {
+    const post = this.state.post
+    post.sold = sold
+    this.setState({post: post})
+  }
+
   render() {
     const { classes } = this.props
     const { post, user } = this.state
@@ -77,7 +83,7 @@ class SinglePostContainer extends Component {
                     post.category === 'forsale' && post.price &&
                     <Chip
                       avatar={<Avatar><MoneyIcon className={classes.moneyIcon}></MoneyIcon></Avatar>}
-                      label={post.price}
+                      label={ post.sold ? 'Sold' : post.price }
                       className={classes.chip}
                       color="secondary"
                     />
@@ -100,9 +106,9 @@ class SinglePostContainer extends Component {
                 <PostActions post={ post }
                   className={classes.top20}
                   bookmarksStore={this.props.bookmarksStore}
-                  isOwner={ true }
-                  onDelete={ this.props.onDelete }
-                  onMarkSold = { this.props.onMarkSold}
+                  postsStore={this.props.postsStore}
+                  usersStore={this.props.usersStore}
+                  handleSold={this.handleSold}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
                   onChangeBookmark={ this.handleBookmark }
                 />

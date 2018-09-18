@@ -71,13 +71,21 @@ class MainContainer extends Component {
                 <PostsContainer
                   postsStore={ postsStore }
                   navStore={ navStore }
+                  postsStore={ postsStore }
+                  usersStore={ usersStore }
+                  bookmarksStore={ bookmarksStore }
+                  notificationsStore={ notificationsStore }
                 />
               }
             />
             <Route
               path='/posts/:postId'
               render={(props) =>
-                <SinglePostContainer bookmarksStore={bookmarksStore} notificationsStore={ notificationsStore }/>
+                <SinglePostContainer
+                  usersStore={ usersStore }
+                  postsStore={ postsStore }
+                  bookmarksStore={ bookmarksStore }
+                  notificationsStore={ notificationsStore }/>
               }
             />
             <Route component={NoMatch} />

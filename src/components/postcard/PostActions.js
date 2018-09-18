@@ -24,7 +24,6 @@ class PostActions extends Component {
   }
 
   handleBookmark = () => {
-    //this.uiRefreshForBookmark()
     // I know it looks backwards...
     if(!this.bookmarked) {
       this.props.bookmarksStore.addToBookmarks(this.state.post)
@@ -33,8 +32,23 @@ class PostActions extends Component {
     }
   }
 
+  handleSold = () => {
+    this.props.postsStore.markSold(this.state.post)
+    this.props.handleSold(this.state.post.sold)
+    const chpost = this.state.post
+    chpost.sold = !chpost.sold
+    this.setState(chpost:post)
+  }
+
+  isOwner = (post) => {
+    const currentUser = this.props.usersStore.currentUser
+    return currentUser && currentUser.username === post.author
+      ? true
+      : false
+  }
+
   render() {
-    const { classes, isOwner, url } = this.props
+    const { classes, url } = this.props
     const { post } = this.state
 
     return (
@@ -49,17 +63,17 @@ class PostActions extends Component {
         </Button>
         <ShareButton url={ url } post={ post }/>
         {
-          isOwner &&
-          <Button className={classes.actionBtn}>
+          this.isOwner(post) &&
+          this.state.post.category === 'forsale' &&
+          <Button onClick={ this.handleSold } className={classes.actionBtn} >
             <SoldOutIcon className={classes.actionIcon } />
             <Typography variant="caption" color="secondary">
-              Mark Sold
+              { post.sold? "Mark Available" : "Mark Sold" }
             </Typography>
-            {post.bookmarked}
           </Button>
         }
         {
-          isOwner &&
+          this.isOwner(post) &&
           <Button className={classes.actionBtn}>
             <DeleteIcon className={classes.actionIcon } />
             <Typography variant="caption" color="secondary">

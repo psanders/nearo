@@ -1,4 +1,5 @@
 import { observable, when } from "mobx"
+import { db } from '../commons/firebase/firebase'
 import { usersStore } from './users'
 import { bookmarksStore } from './bookmarks'
 import { notificationsStore } from './notifications'
@@ -119,28 +120,20 @@ class PostsStore {
       this.setState({ notificationBarOpen: false })
     }*/
 
-    /*markSold = (post) => {
+    markSold = (post) => {
       const postRef = db.collection('posts').doc(post.id)
-      const sold = !post.sold ? true : false
-
-      // Update post
-      post.sold = sold
-      this.setState({post: post})
-
       postRef.set({
-         sold: !sold
+         sold: !post.sold
       }, { merge: true }).then(() => {
-        if(sold) {
-          this.handleNotify('Post marked as sold')
+        if(!post.sold) {
+          notificationsStore.showNotification('Post marked as sold')
         } else {
-          this.handleNotify('Post marked as unsold')
+          notificationsStore.showNotification('Post marked as available')
         }
       }).catch(error => {
-        post.sold = !sold
-        this.setState({post: post})
         console.error("Error writing document: ", error)
       })
-    }*/
+    }
 }
 
 export const postsStore = new PostsStore()

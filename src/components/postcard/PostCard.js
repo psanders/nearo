@@ -11,7 +11,6 @@ import LinkIcon from '@material-ui/icons/Link'
 import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
 
-import { bookmarksStore } from '../stores/bookmarks'
 import { getCategory } from '../commons/categories'
 import PostActions from './PostActions'
 
@@ -60,10 +59,10 @@ class PostCard extends React.Component {
               </Grid>
               <Grid item>
                 <PostActions post={ post }
-                  bookmarksStore={bookmarksStore}
-                  isOwner={ this.isOwner(this.props.usersStore, post.author) }
-                  onDelete={ this.props.onDelete }
-                  onMarkSold = { this.props.onMarkSold}
+                  handleSold={() => { /* NOP */}}
+                  bookmarksStore={this.props.bookmarksStore}
+                  postsStore={this.props.postsStore}
+                  usersStore={this.props.usersStore}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
                 />
               </Grid>
