@@ -56,18 +56,18 @@ class SinglePostContainer extends Component {
         container
         direction="row"
         justify="center"
+        className={classes.top20}
         spacing={32}>
           <Grid item sm={8} md={5} xs={10}>
-            <br />
             <div style={{backgroundColor: '#fff', padding: 10}}>
               { post.image &&
                 <CardMedia
                   image={ post.image }
+                  className={classes.gutterBottom}
                 >
                   <div style={{ width: 130, height: 210, borderRadius: 2}} />
                 </CardMedia>
               }
-              <br />
               <Typography className={ classes.capitalize } variant="title" gutterBottom>
                 { post.category }
               </Typography>
@@ -79,20 +79,15 @@ class SinglePostContainer extends Component {
               </Typography>
             </div>
           </Grid>
-          <Grid item sm={8} md={3} xs={10}>
-            <br />
-            <ProfileCard user={ user }/>
-            <br />
-            { post._geoloc &&
-              <MapCard center={ post._geoloc } />
+          <Grid item sm={8} md={3} xs={10} >
+            <ProfileCard user={ user } className={classes.top10}/>
+            {
+              post._geoloc &&
+              <MapCard center={ post._geoloc } className={classes.top10}/>
             }
-            <br />
-            <Ads />
-            <br />
-            <About />
-            <br />
+            <Ads className={classes.bottom20}/>
+            <About className={classes.top10} />
           </Grid>
-          <br />
       </Grid>
     )
   }
@@ -108,6 +103,18 @@ const styles = {
   },
   capitalize: {
     textTransform: 'capitalize'
+  },
+  top10: {
+    marginTop: 10
+  },
+  top20: {
+    marginTop: 20
+  },
+  bottom10: {
+    marginBottom: 10
+  },
+  bottom20: {
+    marginBottom: 20
   }
 }
 

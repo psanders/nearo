@@ -15,12 +15,8 @@ class PostsContainer extends Component {
     const posts = this.props.postsStore.posts
 
     return (
-      <Grid
-        container
-        justify="flex-start"
-        alignItems="flex-start"
-        >
-          <Grid item xs={12} sm={12} md={6} style={{backgroundColor: '#fff', height: 'calc(100vh - 60px)', overflowY: 'scroll'}}>
+      <Grid container>
+          <Grid item xs={12} sm={12} md={6} style={{backgroundColor: '#fff', height: 'calc(100vh - 65px)', overflowY: 'scroll'}}>
             <div>
               <Grid item>
                 <SubBar postsStore={ this.props.postsStore } navStore={ this.props.navStore } />
@@ -28,7 +24,7 @@ class PostsContainer extends Component {
               {
                 posts.map(post => {
                   return (
-                     <Grid key={ post.id } item /*onClick={ () => openURL('/posts/' + post.id) }*/ >
+                     <Grid key={ post.id } item>
                        <PostCard
                         user={ user }
                         post={ post }
@@ -41,7 +37,7 @@ class PostsContainer extends Component {
           </Grid>
           <Hidden smDown={true}>
             <Grid item sm={6} xs={12}>
-              <GoogleMap navStore={ this.props.navStore }
+              <GoogleMap style={{width: '100%'}} navStore={ this.props.navStore }
                 postsStore={ this.props.postsStore }/>
             </Grid>
           </Hidden>

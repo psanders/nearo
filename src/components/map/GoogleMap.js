@@ -24,20 +24,20 @@ class GMap extends Component {
     const posts = this.props.postsStore.posts
 
     const getMapBounds = (map, maps, posts) => {
-      const bounds = new maps.LatLngBounds();
+      const bounds = new maps.LatLngBounds()
 
       posts.forEach((post) => {
         bounds.extend(new maps.LatLng(
           post._geoloc.lat,
           post._geoloc.lng,
-        ));
-      });
-      return bounds;
+        ))
+      })
+      return bounds
     }
 
     const centerMap = (map, maps, posts) => {
-      const bounds = getMapBounds(map, maps, posts);
-      map.fitBounds(bounds);
+      const bounds = getMapBounds(map, maps, posts)
+      map.fitBounds(bounds)
     }
 
     when(
@@ -49,23 +49,21 @@ class GMap extends Component {
     })
 
     return (
-      <div style={{ height: 'calc(100vh - 60px)', width: '100%' }}>
-        <GoogleMapReact
-          yesIWantToUseGoogleMapApiInternals={true}
-          bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
-          defaultCenter= { this.props.navStore.navInfo.locInfo.latLng }
-          defaultZoom={ this.props.zoom }
-          onGoogleApiLoaded={({ map, maps }) => {
-            this.setState({map: map})
-            this.setState({maps: maps})
-          }}
-        >
-          {
-            posts.map(post =>
-            <Marker post={post} key={ post.id } latLng={ post._geoloc } />)
-          }
-        </GoogleMapReact>
-      </div>
+      <GoogleMapReact
+        yesIWantToUseGoogleMapApiInternals={true}
+        bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
+        defaultCenter= { this.props.navStore.navInfo.locInfo.latLng }
+        defaultZoom={ this.props.zoom }
+        onGoogleApiLoaded={({ map, maps }) => {
+          this.setState({map: map})
+          this.setState({maps: maps})
+        }}
+      >
+        {
+          posts.map(post =>
+          <Marker post={post} key={ post.id } latLng={ post._geoloc } />)
+        }
+      </GoogleMapReact>
     )
   }
 }
