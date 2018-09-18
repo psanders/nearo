@@ -19,7 +19,9 @@ import Locator from '../locator/Locator'
 @observer
 class Topnav extends React.Component {
   state = {
-    locInfo: null,
+    locInfo: {
+      address: ''
+    },
     searchTerm: ""
   }
 
