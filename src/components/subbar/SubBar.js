@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import Hidden from '@material-ui/core/Hidden'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import EllipsisText  from 'react-ellipsis-text'
@@ -20,9 +21,16 @@ class SubBar extends Component {
           { this.props.postsStore.posts.length } results nearby {'"'}<EllipsisText text={ navInfo.locInfo.address } length={30} />{'"'}
         </Typography>
         <span className={ classes.flex } />
-        <Button onClick={  this.props.postsStore.openPostDialog } variant="outlined" className={classes.button}>
-          Add Post
-        </Button>
+        <Hidden xsDown={true}>
+          <Button onClick={  this.props.postsStore.openPostDialog } variant="outlined" className={classes.button}>
+            New Post
+          </Button>
+        </Hidden>
+        <Hidden smUp={true}>
+          <Button onClick={  this.props.postsStore.openPostDialog } variant="outlined" className={classes.button}>
+            Post
+          </Button>
+        </Hidden>
       </Toolbar>
     )
   }

@@ -14,7 +14,7 @@ function ProfileCard(props) {
     : "/images/default-avatar.png"
 
   return (
-    <Card elevation={0}>
+    <Card elevation={0} className={classes.card}>
       <CardContent>
         <div className={classes.row}>
           <Avatar
@@ -53,6 +53,9 @@ ProfileCard.propTypes = {
 }
 
 const styles = theme => ({
+  card: {
+    borderRadius: 0
+  },
   content: {
     paddingTop: 10
   },

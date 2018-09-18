@@ -8,7 +8,8 @@ import GoogleMapReact from 'google-map-react'
 
 const styles = theme => ({
   card: {
-    height: 270
+    height: 270,
+    borderRadius: 0
   },
   cardContent: {
     padding: 0,

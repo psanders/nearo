@@ -1,38 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import withMobileDialog from '@material-ui/core/withMobileDialog'
 
 class About extends React.Component {
 
   state = {
     open: false,
     scroll: 'paper',
-  };
+  }
 
   handleClickOpen = scroll => () => {
-    this.setState({ open: true, scroll });
-  };
+    this.setState({ open: true, scroll })
+  }
 
   handleClose = () => {
-    this.setState({ open: false });
-  };
+    this.setState({ open: false })
+  }
 
   render() {
-    const { fullScreen } = this.props;
+    const { fullScreen } = this.props
 
     return (
       <div>
-        <Card onClick={this.handleClickOpen('paper')} elevation={0}>
+        <Card onClick={this.handleClickOpen('paper')} elevation={0} style={{borderRadius: 0}}>
           <CardActionArea>
             <CardContent>
                 <Typography gutterBottom variant="headline" component="h2">
@@ -122,12 +122,12 @@ class About extends React.Component {
           </DialogActions>
         </Dialog>
       </div>
-    );
+    )
   }
 }
 
 About.propTypes = {
   fullScreen: PropTypes.bool.isRequired
-};
+}
 
 export default withMobileDialog()(About)

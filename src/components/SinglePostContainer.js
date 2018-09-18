@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import CardMedia from '@material-ui/core/CardMedia'
 import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
+import Hidden from '@material-ui/core/Hidden'
 import MoneyIcon from '@material-ui/icons/AttachMoney'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
+import EllipsisText  from 'react-ellipsis-text'
 import Moment from 'react-moment'
 import { observer } from 'mobx-react'
 
@@ -72,9 +74,10 @@ class SinglePostContainer extends Component {
         direction="row"
         justify="center"
         className={classes.top20}
-        spacing={32}>
-          <Grid item sm={8} md={5} xs={10}>
-            <div style={{backgroundColor: '#fff', padding: 10}}>
+        spacing={16}
+        >
+          <Grid item sm={10} md={5} xs={11}>
+            <Grid item style={{backgroundColor: '#fff', padding: 10}}>
               { post.image &&
                 <CardMedia
                   image={ post.image }
@@ -99,7 +102,8 @@ class SinglePostContainer extends Component {
                 { post.body }
               </Typography>
               <Typography variant="caption" gutterBottom className={classes.bottom10}>
-                Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment> nearby { "\"" + post.locText + "\""}
+                Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment>
+                nearby {"\""}<EllipsisText text={'' + post.locText} length={22} />{"\""}
               </Typography>
 
               {
@@ -115,21 +119,24 @@ class SinglePostContainer extends Component {
                   onChangeBookmark={ this.handleBookmark }
                 />
               }
-
-            </div>
+            </Grid>
           </Grid>
-          <Grid item sm={8} md={3} xs={10} >
+          <Grid item sm={10} md={3} xs={11}>
             <ProfileCard user={ user }/>
             <br />
             {
-              false && post._geoloc &&
-              <MapCard center={ post._geoloc } className={classes.top10}/>
+              post._geoloc &&
+              <div>
+                <MapCard center={ post._geoloc }/>
+                <br />
+              </div>
             }
-            <br />
-            <Ads className={classes.bottom20}/>
-            <br />
-            <About className={classes.top10}/>
-            <br />
+            <Hidden smDown={true}>
+              <Ads className={classes.bottom20}/>
+              <br />
+            </Hidden>
+            <About/>
+            <br/>
           </Grid>
       </Grid>
     )
