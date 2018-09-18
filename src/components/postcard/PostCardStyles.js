@@ -35,6 +35,11 @@ export const styles = theme => ({
     fontSize: 14,
     marginRight: 5
   },
+  liked: {
+    color: '#ff5959',
+    fontSize: 14,
+    marginRight: 5
+  },
   logoIcon: {
     width: '18px',
     marginRight: 5

@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CardMedia from '@material-ui/core/CardMedia'
+import Avatar from '@material-ui/core/Avatar'
+import Chip from '@material-ui/core/Chip'
+import MoneyIcon from '@material-ui/icons/AttachMoney'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -63,8 +66,18 @@ class SinglePostContainer extends Component {
               { post.image &&
                 <CardMedia
                   image={ post.image }
-                  className={classes.gutterBottom}
+                  className={classes.bottom10}
                 >
+                  {
+                    post.category === 'forsale' && post.price &&
+                    <Chip
+                      avatar={<Avatar><MoneyIcon className={classes.moneyIcon}></MoneyIcon></Avatar>}
+                      label={post.price}
+                      className={classes.chip}
+                      color="primary"
+                      variant="contained"
+                    />
+                  }
                   <div style={{ width: 130, height: 210, borderRadius: 2}} />
                 </CardMedia>
               }
@@ -80,12 +93,15 @@ class SinglePostContainer extends Component {
             </div>
           </Grid>
           <Grid item sm={8} md={3} xs={10} >
-            <ProfileCard user={ user } className={classes.top10}/>
+            <ProfileCard user={ user }/>
+            <br />
             {
               post._geoloc &&
               <MapCard center={ post._geoloc } className={classes.top10}/>
             }
+            <br />
             <Ads className={classes.bottom20}/>
+            <br />
             <About className={classes.top10} />
           </Grid>
       </Grid>
@@ -97,7 +113,7 @@ SinglePostContainer.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-const styles = {
+const styles = theme => ({
   root: {
     backgroundColor: '#fff'
   },
@@ -115,7 +131,14 @@ const styles = {
   },
   bottom20: {
     marginBottom: 20
-  }
-}
+  },
+  chip: {
+    margin: theme.spacing.unit,
+    color: '#fff'
+  },
+  moneyIcon: {
+    color: '#fff'
+  },
+})
 
 export default withStyles(styles)(SinglePostContainer)

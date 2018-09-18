@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button'
-import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
+import FavBorderIcon from '@material-ui/icons/FavoriteBorder'
+import FavIcon from '@material-ui/icons/Favorite'
 import ShareButton from './ShareButton'
 import MoreButton from './MoreButton'
 import { styles } from './PostCardStyles'
@@ -14,7 +15,8 @@ function PostActions(props) {
   return (
     <div>
       <Button className={classes.actionBtn} onClick={props.onChangeBookmark}>
-        <FavoriteIcon className={ classes.actionIcon } />
+        { !post.bookmarked && <FavBorderIcon className={classes.actionIcon } /> }
+        { post.bookmarked && <FavIcon className={classes.liked } /> }
         <Typography variant="caption" color="textSecondary">
           { post.bookmarked && "Unlike"  }
           { !post.bookmarked && "Like" }
