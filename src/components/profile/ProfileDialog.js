@@ -31,7 +31,8 @@ const styles = theme => ({
     flex: 1,
   },
   textField: {
-    width: 262 /* Why?? */
+    width: '292px', /* Why?? */
+    marginBottom: 15
   },
 })
 
@@ -140,7 +141,7 @@ class ProfileDialog extends React.Component {
     const { user } = this.state
 
     return (
-      <div>
+      <div style={{backgroundColor: 'red'}}>
         <MenuItem onClick={this.handleClickOpen}>
           <ListItemIcon>
             <SettingsIcon />
@@ -148,6 +149,7 @@ class ProfileDialog extends React.Component {
           Profile Settings
         </MenuItem>
         <Dialog
+          style={{backgroundColor: 'red'}}
           fullScreen
           open={this.state.open || (user.isNewUser)}
           onClose={this.handleClose}
@@ -172,9 +174,9 @@ class ProfileDialog extends React.Component {
               </IconButton>
             </Toolbar>
           </AppBar>
-          <div style={{backgroundColor: '#dae0e6', width: '100%', height: '100%'}}>
-            <div style={{margin: 'auto', width: '360px', height: 345}}>
-              <Paper style={{padding: 35, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
+          <div style={{backgroundColor: '#dae0e6', height: '100vh', width: '100vw'}}>
+            <div style={{margin: 'auto', height: '100vh', width: 360}}>
+              <Paper style={{padding: 20, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
                 <Typography variant="title" gutterBottom>
                   Settings
                 </Typography>
