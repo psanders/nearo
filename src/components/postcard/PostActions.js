@@ -11,6 +11,7 @@ import ShareButton from './ShareButton'
 import MoreButton from './MoreButton'
 import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
+import { computed } from 'mobx'
 
 @observer
 class PostActions extends Component {
@@ -18,30 +19,18 @@ class PostActions extends Component {
     post: this.props.post
   }
 
-  componentDidMount () {
-    // Check if post has been bookmarked
-    if(this.props.bookmarksStore.isBookmarked(this.state.post)) {
-      const post = this.state.post
-      post.bookmarked = true
-      this.setState(post: post)
-    }
+  @computed get bookmarked() {
+    return this.props.bookmarksStore.bookmarks.includes(this.state.post.id)
   }
 
-  handleBookmark = (e) => {
-    e.stopPropagation()
-    this.uiRefreshForBookmark()
+  handleBookmark = () => {
+    //this.uiRefreshForBookmark()
     // I know it looks backwards...
-    if(this.state.post.bookmarked) {
-      this.props.bookmarksStore.addToBookmarks(this.state.post, this.uiRefreshForBookmark)
+    if(!this.bookmarked) {
+      this.props.bookmarksStore.addToBookmarks(this.state.post)
     } else {
       this.props.bookmarksStore.removeFromBookmarks(this.state.post)
     }
-  }
-
-  uiRefreshForBookmark = () => {
-    const post = this.state.post
-    post.bookmarked = !post.bookmarked
-    this.setState({post: post})
   }
 
   render() {
@@ -51,14 +40,12 @@ class PostActions extends Component {
     return (
       <div>
         <Button className={classes.actionBtn} onClick={this.handleBookmark}>
-          { !post.bookmarked && <FavBorderIcon className={classes.actionIcon } /> }
-          { post.bookmarked && <FavIcon className={classes.liked } /> }
+          { !this.bookmarked && <FavBorderIcon className={classes.actionIcon } /> }
+          { this.bookmarked && <FavIcon className={classes.liked } /> }
           <Typography variant="caption" color="secondary">
-            { post.bookmarked && "Unlike"  }
-            { !post.bookmarked && "Like" }
+            { this.bookmarked && "Unlike"  }
+            { !this.bookmarked && "Like" }
           </Typography>
-
-          {post.bookmarked}
         </Button>
         <ShareButton url={ url } post={ post }/>
         {
@@ -78,7 +65,6 @@ class PostActions extends Component {
             <Typography variant="caption" color="secondary">
               Remove
             </Typography>
-            {post.bookmarked}
           </Button>
         }
       </div>

@@ -1,4 +1,4 @@
-import { observable, when } from "mobx"
+import { observable, when, computed } from "mobx"
 import { usersStore } from './users'
 import { notificationsStore } from './notifications'
 import { db } from '../commons/firebase/firebase'
@@ -20,8 +20,6 @@ class BookmarksStore {
       )
     }
 
-    isBookmarked = (post) => this.bookmarks.includes(post.id)
-
     loadBookmarks(user) {
       db.collection("bookmarks")
       .where("user", "==", user.email)
@@ -36,11 +34,9 @@ class BookmarksStore {
 
     isLoaded = () => this.loaded
 
-    addToBookmarks = (post, callback) => {
+    addToBookmarks = (post) => {
       if (!usersStore.isSignedIn()) {
         notificationsStore.showMustLogin()
-        // Revert change in UI
-        callback()
         return
       }
       const bookmarksRef = db.collection('bookmarks').doc(post.id)
@@ -51,7 +47,6 @@ class BookmarksStore {
         this.bookmarks.push(post.id)
       }).catch(error => {
         // Revert change in UI
-        callback()
         console.error("Error writing document: ", error)
       })
     }

@@ -26,9 +26,10 @@ class PostsContainer extends Component {
                   return (
                      <Grid key={ post.id } item>
                        <PostCard
+                        usersStore={this.props.usersStore}
                         user={ user }
                         post={ post }
-                        />
+                       />
                      </Grid>
                    )
                 })

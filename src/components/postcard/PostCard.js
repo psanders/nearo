@@ -61,7 +61,7 @@ class PostCard extends React.Component {
               <Grid item>
                 <PostActions post={ post }
                   bookmarksStore={bookmarksStore}
-                  isOwner={ this.isOwner() }
+                  isOwner={ this.isOwner(this.props.usersStore, post.author) }
                   onDelete={ this.props.onDelete }
                   onMarkSold = { this.props.onMarkSold}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
