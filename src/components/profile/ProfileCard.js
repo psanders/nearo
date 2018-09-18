@@ -9,35 +9,6 @@ import Avatar from '@material-ui/core/Avatar'
 import PhoneIcon from '@material-ui/icons/ContactPhone'
 import blue from '@material-ui/core/colors/blue'
 
-const styles = {
-  card: {
-  },
-  cardContent: {
-  },
-  row: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  avatar: {
-    margin: 10,
-    border: '2px solid ' + blue[700]
-  },
-  bigAvatar: {
-    width: 80,
-    height: 80,
-  },
-  phoneIcon: {
-    fontSize: 18,
-    marginTop: 3,
-    marginRight: 5,
-    color: blue[700]
-  },
-  phone:{
-    display: 'flex',
-    marginTop: 4
-  }
-}
-
 function ProfileCard(props) {
   const { classes, user } = props
   const avatar = user.picture
@@ -45,24 +16,24 @@ function ProfileCard(props) {
     : "/images/default-avatar.png"
 
   return (
-    <Card elevation={0} className={classes.card}>
-      <CardContent className={classes.cardContent}>
+    <Card elevation={0}>
+      <CardContent>
         <div className={classes.row}>
           <Avatar
             alt={ user.name }
             src={ avatar }
-            className={classNames(classes.avatar, classes.bigAvatar)}
+            className={classes.avatar}
           />
         </div>
-        <div>
-          <br/>
+        <div className={classes.content}>
           <Typography variant="title" gutterBottom>
             { user.name }
           </Typography>
           <Typography variant="body1" gutterBottom>
             { user.bio }
           </Typography>
-          { !user.keepPhonePrivate &&
+          {
+            !user.keepPhonePrivate &&
             <div className={classes.phone}>
               <PhoneIcon className={ classes.phoneIcon }/>
               <Typography variant="body2" gutterBottom>
@@ -81,6 +52,32 @@ function ProfileCard(props) {
 
 ProfileCard.propTypes = {
   classes: PropTypes.object.isRequired,
+}
+
+const styles = {
+  content: {
+    paddingTop: 10
+  },
+  row: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  avatar: {
+    margin: 10,
+    border: '2px solid ' + blue[700],
+    width: 80,
+    height: 80,
+  },
+  phoneIcon: {
+    fontSize: 18,
+    marginTop: 3,
+    marginRight: 5,
+    color: blue[700]
+  },
+  phone:{
+    display: 'flex',
+    marginTop: 4
+  }
 }
 
 export default withStyles(styles)(ProfileCard)
