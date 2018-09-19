@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import LocationIcon from '@material-ui/icons/LocationOn'
-import EllipsisText  from 'react-ellipsis-text'
+import ellipsize from 'ellipsize'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { storeUserInfo, fetchUserInfo } from '../commons/dbfunctions';
 
@@ -50,7 +50,10 @@ class Locator extends Component {
 
   handleSelect = address => {
     geocodeByAddress(address)
-    .then(results => getLatLng(results[0]))
+    .then(results => {
+      getLatLng(results[0])
+      console.log(results)
+    })
     .then(latLng => {
       const locInfo = {
         address: address,
@@ -87,7 +90,7 @@ class Locator extends Component {
               onMouseOut={this.handleClose}
                >
               <LocationIcon color="secondary" className={classes.leftIcon} />
-              <EllipsisText className={classes.iconText} text={'' + address} length={22} />
+              <span className={classes.iconText}>"{ ellipsize( address, 22, { truncate: false }) }"</span>
               <span className={classes.flex} />
               <ArrowDropDownIcon style={{color: 'black'}}/>
           </Button>

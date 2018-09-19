@@ -8,9 +8,9 @@ import MoneyIcon from '@material-ui/icons/AttachMoney'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import EllipsisText  from 'react-ellipsis-text'
 import Moment from 'react-moment'
 import { observer } from 'mobx-react'
+import ellipsize from 'ellipsize'
 
 import PostActions from './postcard/PostActions'
 import MapCard from './map/MapCard'
@@ -103,7 +103,7 @@ class SinglePostContainer extends Component {
               </Typography>
               <Typography variant="caption" gutterBottom className={classes.bottom10}>
                 Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment>
-                nearby {"\""}<EllipsisText text={'' + post.locText} length={22} />{"\""}
+                nearby "{ ellipsize(post.locText, 22, { truncate: true }) }" 
               </Typography>
 
               {

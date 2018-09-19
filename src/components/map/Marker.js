@@ -5,6 +5,7 @@ import Popover from '@material-ui/core/Popover'
 import CardMedia from '@material-ui/core/CardMedia';
 import blue from '@material-ui/core/colors/blue'
 import { withStyles } from '@material-ui/core/styles'
+import ellipsize from 'ellipsize'
 
 const styles = theme => ({
   media: {
@@ -95,7 +96,7 @@ class Marker extends Component {
             </div>
             <div className={classes.textContainer}>
               <Typography className={classes.textContent} style={{fontWeight: 'bold', textTransform: 'capitalize'}}>{post.category}</Typography>
-              <Typography className={classes.textContent}>Nearby {"\"" + post.locText + "\""}.</Typography>
+              <Typography className={classes.textContent}>Nearby "{ ellipsize(post.locText, 22, { truncate: true }) }".</Typography>
               <Typography className={classes.textContent} variant="caption">By {post.author} </Typography>
             </div>
           </div>

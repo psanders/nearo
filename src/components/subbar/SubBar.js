@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button'
 import Hidden from '@material-ui/core/Hidden'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import EllipsisText  from 'react-ellipsis-text'
 import { observer } from 'mobx-react'
+import ellipsize from 'ellipsize'
 
 @observer
 class SubBar extends Component {
@@ -18,7 +18,7 @@ class SubBar extends Component {
     return (
       <Toolbar className={classes.filters}>
         <Typography className={classes.title} variant="body1" color="inherit">
-          { this.props.postsStore.posts.length } results nearby {'"'}<EllipsisText text={ navInfo.locInfo.address } length={30} />{'"'}
+          { this.props.postsStore.posts.length } results nearby "{ ellipsize( navInfo.locInfo.address, 30, { truncate: true }) }"
         </Typography>
         <span className={ classes.flex } />
         <Hidden xsDown={true}>
@@ -69,7 +69,7 @@ const styles = theme => ({
     flex: 1
   },
   title: {
-    color: 'gray'
+    color: theme.palette.secondary.main
   }
 })
 
