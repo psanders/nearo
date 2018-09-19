@@ -85,6 +85,7 @@ class Locator extends Component {
               aria-haspopup="true"
               onClick={this.handleToggle}
               onMouseOut={this.handleClose}
+              aria-label="Select Address Button"
                >
               <LocationIcon color="secondary" className={classes.leftIcon} />
               <span className={classes.iconText}>{ ellipsize( address, 22, { chars: [','], truncate: false }) }</span>

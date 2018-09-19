@@ -20,7 +20,7 @@ class UploaderButton extends Component {
       .child(filename)
       .getDownloadURL()
       .then(url => {
-        this.props.onUploadSuccess(url);
+        this.props.onUploadSuccess(url, filename);
       });
   };
 
@@ -35,7 +35,10 @@ class UploaderButton extends Component {
       <div>
         <form>
           <Tooltip title="Add Photo">
-            <Button onClick={()=> this.triggerInputFile()} variant="outlined" style={{marginRight: 10}} color="secondary">
+            <Button onClick={()=> this.triggerInputFile()} variant="outlined"
+              style={{marginRight: 10}} color="secondary"
+              aria-label="Photo Uploader Button"
+            >
               <AddPhotoIcon />
             </Button>
           </Tooltip>

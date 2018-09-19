@@ -116,7 +116,9 @@ class About extends React.Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="secondary">
+            <Button onClick={this.handleClose} color="secondary"
+              aria-label="Close About Window"
+            >
               Close
             </Button>
           </DialogActions>

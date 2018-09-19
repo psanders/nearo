@@ -89,10 +89,14 @@ class Topnav extends React.Component {
               {
                 !usersStore.isSignedIn() &&
                 <div>
-                  <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.loginBtn}>
+                  <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.loginBtn}
+                    aria-label="Authenticate with Google"
+                  >
                     Login
                   </Button>
-                  <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.signupBtn}>
+                  <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.signupBtn}
+                    aria-label="Sign Up with Google"
+                  >
                     Sign Up
                   </Button>
                 </div>
@@ -102,7 +106,9 @@ class Topnav extends React.Component {
                <span className={ classes.flex } />
                 {
                   !usersStore.isSignedIn() &&
-                  <Button onClick={ doSignInWithGoogle } >
+                  <Button onClick={ doSignInWithGoogle }
+                    aria-label="Open Authentication Window"
+                  >
                     <AuthIcon style={{ color: '#FFEA00'}} className={ classes.newPostIcon } />
                   </Button>
                 }

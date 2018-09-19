@@ -22,12 +22,18 @@ class SubBar extends Component {
         </Typography>
         <span className={ classes.flex } />
         <Hidden xsDown={true}>
-          <Button onClick={  this.props.postsStore.openPostDialog } variant="outlined" className={classes.button}>
+          <Button onClick={  this.props.postsStore.openPostDialog }
+            variant="outlined" className={classes.button}
+            aria-label="Add New Publication" 
+          >
             New Post
           </Button>
         </Hidden>
         <Hidden smUp={true}>
-          <Button onClick={  this.props.postsStore.openPostDialog } variant="outlined" className={classes.button}>
+          <Button onClick={  this.props.postsStore.openPostDialog }
+            variant="outlined" className={classes.button}
+            aria-label="Add New Publication"
+          >
             Post
           </Button>
         </Hidden>

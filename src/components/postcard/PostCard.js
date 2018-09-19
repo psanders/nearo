@@ -71,7 +71,9 @@ class PostCard extends React.Component {
           </Grid>
           <Grid item>
             <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
-              <ButtonBase className={ classes.image }>
+              <ButtonBase className={ classes.image }
+                aria-label="Open Publication Details"
+              >
                 { image(post) }
               </ButtonBase>
             </Link>

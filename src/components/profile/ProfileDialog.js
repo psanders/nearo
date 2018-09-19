@@ -247,7 +247,10 @@ class ProfileDialog extends React.Component {
                   value={ user.bio }
                 />
 
-                <Button disabled={ this.isInvalid(user) } onClick={ this.save } size="small" variant="contained" color="secondary">
+                <Button disabled={ this.isInvalid(user) } onClick={ this.save }
+                  size="small" variant="contained" color="secondary"
+                  aria-label="Save Profile"
+                >
                   Save
                 </Button>
               </Paper>

@@ -30,7 +30,8 @@ class PostPanel extends React.Component {
     loading: false,
     expanded: false,
     category: 'news',
-    imageURL: ''
+    imageURL: '',
+    filename: ''
   }
 
   updateBody = e => this.setState({body: e.target.value})
@@ -86,7 +87,7 @@ class PostPanel extends React.Component {
       timestamp: Date.now(),
       _geoloc: latLng,
       deleted: false,
-      image: this.state.imageURL
+      image: this.state.filename
     }
 
     db.collection('posts')
@@ -177,9 +178,10 @@ class PostPanel extends React.Component {
           <DialogActions style={{ padding: 12, paddingRight: 20 }}>
             <UploaderButton
               onUploadStart={this.handleOnUploadStart}
-              onUploadSuccess={(url) => {
+              onUploadSuccess={(url, filename) => {
                 this.setState({loading: false})
                 this.setState({imageURL: url})
+                this.setState({filename: filename})
               }}
               onError={() => {
                   this.props.notificationsStore.showNotification('Unable to upload image. Try again later')
