@@ -18,7 +18,7 @@ class SubBar extends Component {
     return (
       <Toolbar className={classes.filters}>
         <Typography className={classes.title} variant="body1" color="inherit">
-          { this.props.postsStore.posts.length } results nearby "{ ellipsize( navInfo.locInfo.address, 30, { truncate: true }) }"
+          { this.props.postsStore.posts.length } results nearby "{ ellipsize(navInfo.locInfo.address, 30, { truncate: false }) }"
         </Typography>
         <span className={ classes.flex } />
         <Hidden xsDown={true}>

@@ -103,7 +103,7 @@ class SinglePostContainer extends Component {
               </Typography>
               <Typography variant="caption" gutterBottom className={classes.bottom10}>
                 Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment>
-                nearby "{ ellipsize(post.locText, 22, { truncate: true }) }" 
+                nearby "{ ellipsize(post.locText, 22, { truncate: false }) }" 
               </Typography>
 
               {

@@ -5,7 +5,7 @@ import PlacesAutocomplete from 'react-places-autocomplete'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import EllipsisText  from 'react-ellipsis-text'
+import ellipsize from 'ellipsize'
 
 const styles = theme => ({
   root: {
@@ -54,7 +54,7 @@ class LocationSearchInput extends React.Component {
           key={suggestion.description} button>
 
           <ListItemText
-            primary={<EllipsisText text={suggestion.description} length={30} />}
+            primary={ellipsize(suggestion.description, 28, { truncate: false }) }
             />
         </ListItem>
       )

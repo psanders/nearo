@@ -96,7 +96,7 @@ class Marker extends Component {
             </div>
             <div className={classes.textContainer}>
               <Typography className={classes.textContent} style={{fontWeight: 'bold', textTransform: 'capitalize'}}>{post.category}</Typography>
-              <Typography className={classes.textContent}>Nearby "{ ellipsize(post.locText, 22, { truncate: true }) }".</Typography>
+              <Typography className={classes.textContent}>Nearby "{ ellipsize(post.locText, 22, { truncate: false }) }".</Typography>
               <Typography className={classes.textContent} variant="caption">By {post.author} </Typography>
             </div>
           </div>

@@ -15,7 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import EllipsisText  from 'react-ellipsis-text'
+import ellipsize from 'ellipsize'
 import { observer } from 'mobx-react'
 
 import { getCategories } from '../commons/categories'
@@ -187,7 +187,7 @@ class PostPanel extends React.Component {
               }}
               />
             <Typography variant="caption">
-               Near <EllipsisText text={ this.props.navStore.navInfo.locInfo.address } length={19} />
+               Nearby {ellipsize(this.props.navStore.navInfo.locInfo.address, 19, { truncate: false }) }
             </Typography>
             <span className={ classes.flex }/>
             <Button onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}
