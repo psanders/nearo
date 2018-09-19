@@ -38,6 +38,7 @@ class SinglePostContainer extends Component {
         post.id = result.id
         this.setState({post: post})
         this.loadUser(post.userId)
+
       } else {
         // throw 404
       }

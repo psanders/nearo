@@ -11,11 +11,13 @@ import ProfileMenu from './ProfileMenu'
 import Hidden from '@material-ui/core/Hidden'
 import { Link } from 'react-router-dom'
 import { observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 
 import { doSignInWithGoogle } from '../commons/firebase/auth'
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
 
+@withRouter
 @observer
 class Topnav extends React.Component {
   state = {
@@ -34,6 +36,8 @@ class Topnav extends React.Component {
     this.props.postsStore.updateBySearch(navInfo)
     this.props.navStore.setNavInfo(navInfo)
     this.setState({searchTerm: searchTerm})
+    // This is kind of magic. Keep and eye on it!
+    this.props.history.push('/')
   }
 
   handleOnChangeLocation = locInfo => {
@@ -44,6 +48,7 @@ class Topnav extends React.Component {
     this.props.postsStore.updateBySearch(navInfo)
     this.props.navStore.setNavInfo(navInfo)
     this.setState({locInfo: locInfo})
+    this.props.history.push('/')
   }
 
   render() {

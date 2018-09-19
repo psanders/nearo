@@ -186,8 +186,8 @@ class PostPanel extends React.Component {
                   this.setState({loading: false})
               }}
               />
-            <Typography variant="caption">
-               Nearby {ellipsize(this.props.navStore.navInfo.locInfo.address, 19, { truncate: false }) }
+            <Typography variant="caption" style={{textTransform: 'capitalize'}}>
+               Nearby "{ ellipsize(this.props.navStore.navInfo.locInfo.address, 20, { truncate: false }) }"
             </Typography>
             <span className={ classes.flex }/>
             <Button onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}

@@ -50,10 +50,7 @@ class Locator extends Component {
 
   handleSelect = address => {
     geocodeByAddress(address)
-    .then(results => {
-      getLatLng(results[0])
-      console.log(results)
-    })
+    .then(results => getLatLng(results[0]))
     .then(latLng => {
       const locInfo = {
         address: address,
@@ -90,7 +87,7 @@ class Locator extends Component {
               onMouseOut={this.handleClose}
                >
               <LocationIcon color="secondary" className={classes.leftIcon} />
-              <span className={classes.iconText}>"{ ellipsize( address, 22, { truncate: false }) }"</span>
+              <span className={classes.iconText}>{ ellipsize( address, 22, { chars: [','], truncate: false }) }</span>
               <span className={classes.flex} />
               <ArrowDropDownIcon style={{color: 'black'}}/>
           </Button>
