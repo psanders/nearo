@@ -20,7 +20,7 @@ class UploaderButton extends Component {
       .child(filename)
       .getDownloadURL()
       .then(url => {
-        this.props.onUploadSuccess(url, filename);
+        this.props.onUploadSuccess(filename);
       });
   };
 

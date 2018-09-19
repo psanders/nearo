@@ -27,6 +27,12 @@ class SinglePostContainer extends Component {
     user: {}
   }
 
+  static defaultProps = {
+    baseUrl: 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/images'
+  }
+
+  getImage = () => this.props.baseUrl + '%2F' + this.state.post.media[0].filename + '?alt=media'
+
   currentPath = () =>  window.location.pathname.split('/')[2]
 
   componentDidMount () {
@@ -79,9 +85,9 @@ class SinglePostContainer extends Component {
         >
           <Grid item sm={10} md={5} xs={11}>
             <Grid item style={{backgroundColor: '#fff', padding: 10}}>
-              { post.image &&
+              { post.media && post.media.length > 0 &&
                 <CardMedia
-                  image={ post.image }
+                  image={ this.getImage() }
                   className={classes.bottom10}
                 >
                   {

@@ -30,8 +30,11 @@ class PostPanel extends React.Component {
     loading: false,
     expanded: false,
     category: 'news',
-    imageURL: '',
-    filename: ''
+    media: [],
+  }
+
+  static defaultProps = {
+    baseUrl: 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/images'
   }
 
   updateBody = e => this.setState({body: e.target.value})
@@ -62,7 +65,7 @@ class PostPanel extends React.Component {
     this.setState({body: ''})
     this.setState({loading: false})
     this.setState({expanded: false})
-    this.setState({imageURL: ""})
+    this.setState({media: []})
   }
 
   createPost = (self, body) => {
@@ -87,7 +90,7 @@ class PostPanel extends React.Component {
       timestamp: Date.now(),
       _geoloc: latLng,
       deleted: false,
-      image: this.state.filename
+      media: this.state.media
     }
 
     db.collection('posts')
@@ -105,6 +108,8 @@ class PostPanel extends React.Component {
   }
 
   handleOnUploadStart = () => this.setState({loading: true})
+
+  getImage = () => this.props.baseUrl + '%2F' + this.state.media[0].filename + '?alt=media'
 
   render() {
     const { classes, fullScreen } = this.props
@@ -147,13 +152,13 @@ class PostPanel extends React.Component {
             />
           </DialogContent>
 
-          { this.state.imageURL &&
+          { this.state.media.length > 0 &&
             <div>
               <Hidden xsDown={true}>
                 <div style={{ padding: 10, paddingBottom: 0 }}>
-                  <img alt="Post media" style={{ width: 100 }} src={ this.state.imageURL }/>
+                  <img alt="Post media" style={{ width: 100 }} src={ this.getImage ()}/>
                   <div/>
-                  <Button onClick={() => this.setState({imageURL: ""})}
+                  <Button onClick={() => this.setState({image: ""})}
                     style={{width: 100, borderRadius: 0}}
                     className={classes.button} size="small">Remove</Button>
                 </div>
@@ -161,9 +166,9 @@ class PostPanel extends React.Component {
               <Hidden smUp={true}>
                 <div style={{ padding: 10 }}>
                   <Chip
-                    avatar={<Avatar src={ this.state.imageURL } />}
+                    avatar={<Avatar src={ this.getImage() } />}
                     label="Remove"
-                    onDelete={ () => this.setState({imageURL: ""}) }
+                    onDelete={ () => this.setState({media: []}) }
                     variant="outlined"
                   />
                 </div>
@@ -178,10 +183,13 @@ class PostPanel extends React.Component {
           <DialogActions style={{ padding: 12, paddingRight: 20 }}>
             <UploaderButton
               onUploadStart={this.handleOnUploadStart}
-              onUploadSuccess={(url, filename) => {
+              onUploadSuccess={(filename) => {
                 this.setState({loading: false})
-                this.setState({imageURL: url})
-                this.setState({filename: filename})
+                // This will later serve as a way to add multiple resources
+                const media = [{
+                  filename: filename
+                }]
+                this.setState({media: media})
               }}
               onError={() => {
                   this.props.notificationsStore.showNotification('Unable to upload image. Try again later')
