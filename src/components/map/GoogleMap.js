@@ -22,6 +22,7 @@ class GMap extends Component {
   render() {
 
     const posts = this.props.postsStore.posts
+    const { center, zoom } = this.props
 
     const getMapBounds = (map, maps, posts) => {
       const bounds = new maps.LatLngBounds()
@@ -52,8 +53,8 @@ class GMap extends Component {
       <GoogleMapReact
         yesIWantToUseGoogleMapApiInternals={true}
         bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
-        defaultCenter= { this.props.navStore.navInfo.locInfo.latLng }
-        defaultZoom={ this.props.zoom }
+        defaultCenter={ center }
+        defaultZoom={ zoom }
         onGoogleApiLoaded={({ map, maps }) => {
           this.setState({map: map})
           this.setState({maps: maps})
