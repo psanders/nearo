@@ -27,10 +27,13 @@ class NotificationBar extends Component {
     ];
 
     if (store.state.showUndo) {
-      //const closeAction = action.pop()
+      action.pop()
       action.push(
         <Button key="undo" disabled={ !store.state.showUndo } color="secondary" size="small"
-          onClick={ ()=> store.state.undoCallback()}>
+          onClick={ ()=> {
+            store.state.undoCallback()
+            store.hideNotification()
+          }}>
             UNDO
           </Button>
         );

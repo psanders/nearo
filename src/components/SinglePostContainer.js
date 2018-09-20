@@ -18,7 +18,6 @@ import ProfileCard from './profile/ProfileCard'
 import About from './About'
 import Ads from './Ads'
 import { db } from './commons/firebase/firebase'
-import { openURL } from './commons/utils'
 import { imageURL } from './commons/utils'
 
 @observer
@@ -116,7 +115,6 @@ class SinglePostContainer extends Component {
                   postsStore={this.props.postsStore}
                   usersStore={this.props.usersStore}
                   handleSold={this.handleSold}
-                  onDelete={() => openURL('/')}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
                   onChangeBookmark={ this.handleBookmark }
                 />

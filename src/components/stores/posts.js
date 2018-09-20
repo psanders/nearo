@@ -82,8 +82,7 @@ class PostsStore {
 
     addNewPost = post => this.posts.unshift(post)
 
-
-    handlePostDelete = (post, callback) => {
+    handlePostDelete = (post) => {
       this.deletedPost = post
       const postRef = db.collection('posts').doc(post.id)
       postRef.set({
@@ -91,11 +90,7 @@ class PostsStore {
         deletedTimestamp: Date.now()
       }, { merge: true }).then(() => {
         this.posts = this.posts.filter(p => p.id !== post.id)
-        if (callback) {
-          callback()
-        } else {
-          notificationsStore.showNotification('Post deleted', 0, this.handleUndeletePost)
-        }
+        notificationsStore.showNotification('Post deleted', 0, this.handleUndeletePost)
       }).catch((error) => {
         notificationsStore.showNotification('Something when wrong :( Please try again later')
         console.log(error)

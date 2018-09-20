@@ -11,7 +11,9 @@ import ShareButton from './ShareButton'
 import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
 import { computed } from 'mobx'
+import { withRouter } from 'react-router-dom'
 
+@withRouter
 @observer
 class PostActions extends Component {
   state = {
@@ -73,7 +75,10 @@ class PostActions extends Component {
         }
         {
           this.isOwner(post) &&
-          <Button onClick={() => this.props.postsStore.handlePostDelete(post, this.props.onDelete)}
+          <Button onClick={() => {
+            this.props.postsStore.handlePostDelete(post)
+            this.props.history.push('/')
+          }}
             className={classes.actionBtn}
           >
             <DeleteIcon className={classes.actionIcon } />
