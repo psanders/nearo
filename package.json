@@ -32,6 +32,7 @@
     "firebase": "^5.5.0",
     "fs-extra": "3.0.1",
     "google-map-react": "^1.0.6",
+    "google-maps": "^3.3.0",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "latlon-geohash": "^1.1.0",

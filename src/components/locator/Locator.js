@@ -11,6 +11,7 @@ import LocationIcon from '@material-ui/icons/LocationOn'
 import ellipsize from 'ellipsize'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { storeUserInfo, fetchUserInfo } from '../commons/dbfunctions';
+import GoogleMapsLoader from 'google-maps'
 
 import { styles } from './LocatorStyles'
 import SearchInput from './SearchInput'
@@ -19,6 +20,14 @@ class Locator extends Component {
   state = {
     expanded: false,
     address: 'USA'
+  }
+
+  constructor () {
+    super()
+    GoogleMapsLoader.KEY = 'AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y'
+    GoogleMapsLoader.VERSION = '3.34'
+    GoogleMapsLoader.LIBRARIES = ['places'];
+    GoogleMapsLoader.load()
   }
 
   componentDidMount = () => {
