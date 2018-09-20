@@ -8,8 +8,7 @@ export const styles = theme => ({
     }
   },
   image: {
-    width: 128,
-    height: 128,
+    width: '100%',
   },
   img: {
     margin: 'auto',
