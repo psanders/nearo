@@ -6,23 +6,11 @@ import CardContent from '@material-ui/core/CardContent'
 import MarkerIcon from '@material-ui/icons/Place'
 import GoogleMapReact from 'google-map-react'
 
-const styles = theme => ({
-  card: {
-    height: 270,
-    borderRadius: 0
-  },
-  cardContent: {
-    padding: 0,
-    height: 270
-  },
-  marker: {
-    color: theme.palette.secondary.main,
-    fontSize: 40
-  }
-})
-
 function MapCard(props) {
   const { classes, center } = props
+
+  const MapMarker = () => <MarkerIcon className={classes.marker} />
+
   const defaultCenter = {
     lat: 37.09024,
     lng: -95.71289100000001
@@ -37,7 +25,7 @@ function MapCard(props) {
           center={center}
           defaultZoom={8}
         >
-          <MarkerIcon className={classes.marker} lat={center.lat} lng={center.lng}/>
+          <MapMarker lat={center.lat} lng={center.lng} />
         </GoogleMapReact>
       </CardContent>
     </Card>
@@ -47,5 +35,20 @@ function MapCard(props) {
 MapCard.propTypes = {
   classes: PropTypes.object.isRequired,
 }
+
+const styles = theme => ({
+  card: {
+    height: 270,
+    borderRadius: 0
+  },
+  cardContent: {
+    padding: 0,
+    height: 270
+  },
+  marker: {
+    color: theme.palette.secondary.main,
+    fontSize: 40
+  }
+})
 
 export default withStyles(styles)(MapCard)

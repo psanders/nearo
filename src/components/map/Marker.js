@@ -7,37 +7,6 @@ import blue from '@material-ui/core/colors/blue'
 import { withStyles } from '@material-ui/core/styles'
 import { imageURL, ellip } from '../commons/utils'
 
-const styles = theme => ({
-  media: {
-    height: 42,
-    width: 45
-  },
-  popover: {
-    pointerEvents: 'none',
-  },
-  paper: {
-    padding: theme.spacing.unit,
-  },
-  marker: {
-    backgroundColor: blue[500],
-    border: '0.3em solid #fff',
-    width: 10,
-    height: 10,
-    borderRadius: '50%',
-    position: 'absolute',
-    boxShadow: '0 0 0 0.02em ' + blue[500]
-  },
-  markerContainer: {
-    display: 'flex'
-  },
-  textContainer: {
-    padding: 2
-  },
-  textContent: {
-    fontSize: 10,
-  }
-})
-
 class Marker extends Component {
   state = {
     anchorEl: null,
@@ -109,5 +78,36 @@ class Marker extends Component {
 Marker.propTypes = {
   classes: PropTypes.object.isRequired,
 }
+
+const styles = theme => ({
+  media: {
+    height: 42,
+    width: 45
+  },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing.unit,
+  },
+  marker: {
+    backgroundColor: blue[500],
+    border: '0.3em solid #fff',
+    width: 10,
+    height: 10,
+    borderRadius: '50%',
+    position: 'absolute',
+    boxShadow: '0 0 0 0.02em ' + blue[500]
+  },
+  markerContainer: {
+    display: 'flex'
+  },
+  textContainer: {
+    padding: 2
+  },
+  textContent: {
+    fontSize: 10,
+  }
+})
 
 export default withStyles(styles)(Marker)
