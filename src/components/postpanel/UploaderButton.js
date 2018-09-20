@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // FIXME: This is causing a warning in the console
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 import FileUploader from 'react-firebase-file-uploader';
 import AddPhotoIcon from '@material-ui/icons/AddAPhoto';
 import Button from '@material-ui/core/Button';
