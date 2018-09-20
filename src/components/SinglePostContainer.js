@@ -6,6 +6,7 @@ import Chip from '@material-ui/core/Chip'
 import Hidden from '@material-ui/core/Hidden'
 import MoneyIcon from '@material-ui/icons/AttachMoney'
 import Typography from '@material-ui/core/Typography'
+import Linkify from 'react-linkify'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Moment from 'react-moment'
@@ -99,7 +100,7 @@ class SinglePostContainer extends Component {
                 { post.category }
               </Typography>
               <Typography variant="body1" gutterBottom>
-                { post.body }
+                <Linkify>{ post.body }</Linkify>
               </Typography>
               <Typography variant="caption" gutterBottom className={classes.bottom10}>
                 Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment>

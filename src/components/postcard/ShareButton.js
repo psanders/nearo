@@ -5,7 +5,6 @@ import ShareIcon from '@material-ui/icons/Link'
 import Typography from '@material-ui/core/Typography';
 import blue from '@material-ui/core/colors/blue'
 import { withStyles } from '@material-ui/core/styles'
-import Ionicon from 'react-ionicons'
 import TextField from '@material-ui/core/TextField';
 import {
   FacebookShareButton,
@@ -83,7 +82,7 @@ class ShareButton extends React.Component {
               <FacebookShareButton
                 children={
                   <Button className={classes.button}>
-                    <Ionicon icon="logo-facebook" className={classes.logoIcon} color={blue[700]}/>
+                    {/*<Ionicon icon="logo-facebook" className={classes.logoIcon} color={blue[700]}/>*/}
                      Facebook
                   </Button>
                 }
@@ -92,7 +91,7 @@ class ShareButton extends React.Component {
               <TwitterShareButton
                 children={
                   <Button className={classes.button}>
-                    <Ionicon icon="logo-twitter" className={classes.logoIcon} color={blue[500]}/>
+                    {/*<Ionicon icon="logo-twitter" className={classes.logoIcon} color={blue[500]}/>*/}
                      Twitter
                   </Button>
                 }

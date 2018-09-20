@@ -9,6 +9,7 @@ import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
 import LinkIcon from '@material-ui/icons/Link'
 import Hidden from '@material-ui/core/Hidden'
+import Linkify from 'react-linkify'
 import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
 
@@ -75,7 +76,9 @@ class PostCard extends React.Component {
                 <Typography gutterBottom variant="subheading">
                    { post.category && getCategory(post.category).name }
                 </Typography>
-                <Typography gutterBottom>{ post.body }</Typography>
+                <Typography gutterBottom>
+                  <Linkify>{ post.body }</Linkify>
+                </Typography>
                 <Typography variant="caption" color="textSecondary">By { post.author } <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment></Typography>
               </Grid>
               <Grid item>
