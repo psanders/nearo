@@ -5,28 +5,7 @@ import PlacesAutocomplete from 'react-places-autocomplete'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import ellipsize from 'ellipsize'
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-  searchInput: {
-    fontSize: 12,
-    width: 'calc(100% - 40px)',
-    marginLeft: 15,
-    marginTop: 10,
-    marginBottom: 5,
-    padding: 5,
-    border: '1px solid #cdcdcd',
-    '&:focus': {
-      outline: 'none !important',
-      border: '1px solid #444',
-    },
-  }
-})
+import { ellip } from '../commons/utils'
 
 class LocationSearchInput extends React.Component {
   state = { address: '' }
@@ -54,7 +33,7 @@ class LocationSearchInput extends React.Component {
           key={suggestion.description} button>
 
           <ListItemText
-            primary={ellipsize(suggestion.description, 28, { truncate: false }) }
+            primary={ ellip(suggestion.description, 28) }
             />
         </ListItem>
       )
@@ -95,5 +74,26 @@ class LocationSearchInput extends React.Component {
 LocationSearchInput.propTypes = {
   classes: PropTypes.object.isRequired,
 }
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  searchInput: {
+    fontSize: 12,
+    width: 'calc(100% - 40px)',
+    marginLeft: 15,
+    marginTop: 10,
+    marginBottom: 5,
+    padding: 5,
+    border: '1px solid #cdcdcd',
+    '&:focus': {
+      outline: 'none !important',
+      border: '1px solid #444',
+    },
+  }
+})
 
 export default withStyles(styles)(LocationSearchInput)

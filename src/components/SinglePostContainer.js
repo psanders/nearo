@@ -10,7 +10,6 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Moment from 'react-moment'
 import { observer } from 'mobx-react'
-import ellipsize from 'ellipsize'
 
 import PostActions from './postcard/PostActions'
 import MapCard from './map/MapCard'
@@ -18,7 +17,7 @@ import ProfileCard from './profile/ProfileCard'
 import About from './About'
 import Ads from './Ads'
 import { db } from './commons/firebase/firebase'
-import { imageURL } from './commons/utils'
+import { imageURL, ellip} from './commons/utils'
 
 @observer
 class SinglePostContainer extends Component {
@@ -85,7 +84,7 @@ class SinglePostContainer extends Component {
                   className={classes.bottom10}
                 >
                   {
-                    post.category === 'forsale' && post.price &&
+                    post.category === 'forsale' && post.price > 0 &&
                     <Chip
                       avatar={<Avatar><MoneyIcon className={classes.moneyIcon}></MoneyIcon></Avatar>}
                       label={ post.sold ? 'Sold' : post.price }
@@ -104,7 +103,7 @@ class SinglePostContainer extends Component {
               </Typography>
               <Typography variant="caption" gutterBottom className={classes.bottom10}>
                 Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment>
-                nearby "{ ellipsize(post.locText, 22, { truncate: false }) }"
+                nearby "{ ellip(post.locText, 22) }"
               </Typography>
 
               {

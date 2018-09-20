@@ -6,7 +6,7 @@ import Hidden from '@material-ui/core/Hidden'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { observer } from 'mobx-react'
-import ellipsize from 'ellipsize'
+import { ellip } from '../commons/utils'
 
 @observer
 class SubBar extends Component {
@@ -18,13 +18,13 @@ class SubBar extends Component {
     return (
       <Toolbar className={classes.filters}>
         <Typography className={classes.title} variant="body1" color="inherit">
-          { this.props.postsStore.posts.length } results nearby "{ ellipsize(navInfo.locInfo.address, 30, { truncate: false }) }"
+          { this.props.postsStore.posts.length } results nearby "{ ellip(navInfo.locInfo.address, 30) }"
         </Typography>
         <span className={ classes.flex } />
         <Hidden xsDown={true}>
           <Button onClick={  this.props.postsStore.openPostDialog }
             variant="outlined" className={classes.button}
-            aria-label="Add New Publication" 
+            aria-label="Add New Publication"
           >
             New Post
           </Button>

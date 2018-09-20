@@ -15,14 +15,13 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import ellipsize from 'ellipsize'
 import { observer } from 'mobx-react'
 
 import { getCategories } from '../commons/categories'
 import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
 import { styles } from './PostPanelStyles'
-import { imageURL } from '../commons/utils'
+import { imageURL, ellip } from '../commons/utils'
 
 @observer
 class PostPanel extends React.Component {
@@ -192,7 +191,7 @@ class PostPanel extends React.Component {
               }}
               />
             <Typography variant="caption" style={{textTransform: 'capitalize'}}>
-               Nearby "{ ellipsize(this.props.navStore.navInfo.locInfo.address, 20, { truncate: false }) }"
+               Nearby  "{ ellip(this.props.navStore.navInfo.locInfo.address, 20) }"
             </Typography>
             <span className={ classes.flex }/>
             <Button onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}

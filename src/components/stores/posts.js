@@ -116,7 +116,7 @@ class PostsStore {
       postRef.set({
          sold: !post.sold
       }, { merge: true }).then(() => {
-        if(!post.sold) {
+        if(post.sold) {
           notificationsStore.showNotification('Post marked as sold')
         } else {
           notificationsStore.showNotification('Post marked as available')
