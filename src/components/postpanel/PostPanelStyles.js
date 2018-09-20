@@ -50,4 +50,11 @@ export const styles = theme => ({
   chip: {
     margin: theme.spacing.unit,
   },
+  couter: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    marginTop: 67,
+    marginRight: 5
+  }
 })

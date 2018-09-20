@@ -109,6 +109,13 @@ class PostPanel extends React.Component {
     const { classes, fullScreen } = this.props
     this.updateBody = this.updateBody.bind(this)
 
+    const showCounter = () => {
+      if (254 - this.state.body.length < 20) {
+        return true
+      }
+      return false
+    }
+
     return (
       <div>
         <Dialog
@@ -118,9 +125,7 @@ class PostPanel extends React.Component {
           aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle id="responsive-dialog-title">New Post</DialogTitle>
-
           <Divider />
-
           <DialogContent className={ classes.details }>
             <TextField
               value={ this.state.body }
@@ -144,6 +149,19 @@ class PostPanel extends React.Component {
                 className: classes.customTFLabel,
               }}
             />
+            <div className={classes.counter} style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              marginTop: 67,
+              marginRight: 5
+            }}>
+              { showCounter() &&
+                <Typography variant="caption">
+                  {254 - this.state.body.length}
+                </Typography>
+              }
+            </div>
           </DialogContent>
 
           { this.state.media.length > 0 &&
