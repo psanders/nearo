@@ -14,13 +14,9 @@ import PostCard from './postcard/PostCard'
 @observer
 class PostsContainer extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   @computed get keepScrolling () {
     const pStore = this.props.postsStore
-    return !pStore.loadingPosts && pStore.posts.length !=  pStore.nbHits ? true : false
+    return !pStore.loadingPosts && pStore.posts.length !== pStore.nbHits ? true : false
   }
 
   handleScroll = (scrollArea) => {
