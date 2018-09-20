@@ -14,6 +14,7 @@ class PostsStore {
     @observable posts = []
     @observable nbHits = 0
     @observable deletedPost
+    @observable loadingPosts
 
     constructor () {
       when(
@@ -40,6 +41,7 @@ class PostsStore {
     hidePostDialog = () => this.postDialogOpen = false
 
     updateBySearch = (navInfo, offset = 0) => {
+      this.loadingPosts = true
       let query = {
         query: navInfo.searchTerm,
         offset: offset,
@@ -76,9 +78,10 @@ class PostsStore {
         posts = this.posts.concat(posts)
       }
       this.posts = posts
+      this.loadingPosts = false
     }
 
-    showMoreResults = () => this.updateBySearch(this.state.navInfo, this.state.posts.length)
+    showMoreResults = () => this.updateBySearch(navStore.navInfo, this.posts.length)
 
     addNewPost = post => this.posts.unshift(post)
 

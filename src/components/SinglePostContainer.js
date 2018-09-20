@@ -38,7 +38,6 @@ class SinglePostContainer extends Component {
         post.id = result.id
         this.setState({post: post})
         this.loadUser(post.userId)
-
       } else {
         // throw 404
       }
@@ -85,7 +84,7 @@ class SinglePostContainer extends Component {
                   className={classes.bottom10}
                 >
                   {
-                    post.category === 'forsale' && post.price > 0 &&
+                    post.category === 'forsale' && (post.price > 0 || post.sold) &&
                     <Chip
                       avatar={<Avatar><MoneyIcon className={classes.moneyIcon}></MoneyIcon></Avatar>}
                       label={ post.sold ? 'Sold' : post.price }

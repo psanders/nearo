@@ -33,7 +33,7 @@ class PostCard extends React.Component {
     const { classes, post } = this.props
 
     const holdover = () =>
-      <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 2}}>
+      <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 3}}>
         <LinkIcon color="primary" style={{
           width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
       </div>
@@ -84,7 +84,6 @@ class PostCard extends React.Component {
               <Grid item>
                 <PostActions post={ post }
                   handleSold={() => { /* NOP */}}
-                  onDelete={() => { /* NOP */}}
                   bookmarksStore={this.props.bookmarksStore}
                   postsStore={this.props.postsStore}
                   usersStore={this.props.usersStore}
@@ -94,7 +93,7 @@ class PostCard extends React.Component {
             </Grid>
           </Grid>
           <Hidden xsDown={true}>
-            <Grid item>
+            <Grid item style={{paddingTop: 35}}>
               <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
                 <ButtonBase className={classes.image} aria-label="Open Publication Details">
                   { image(post, imageDesktop) }
