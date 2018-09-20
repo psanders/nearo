@@ -22,6 +22,7 @@ import { getCategories } from '../commons/categories'
 import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
 import { styles } from './PostPanelStyles'
+import { imageURL } from '../commons/utils'
 
 @observer
 class PostPanel extends React.Component {
@@ -31,10 +32,6 @@ class PostPanel extends React.Component {
     expanded: false,
     category: 'news',
     media: [],
-  }
-
-  static defaultProps = {
-    baseUrl: 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/images'
   }
 
   updateBody = e => this.setState({body: e.target.value})
@@ -109,8 +106,6 @@ class PostPanel extends React.Component {
 
   handleOnUploadStart = () => this.setState({loading: true})
 
-  getImage = () => this.props.baseUrl + '%2F' + this.state.media[0].filename + '?alt=media'
-
   render() {
     const { classes, fullScreen } = this.props
     this.updateBody = this.updateBody.bind(this)
@@ -156,7 +151,7 @@ class PostPanel extends React.Component {
             <div>
               <Hidden xsDown={true}>
                 <div style={{ padding: 10, paddingBottom: 0 }}>
-                  <img alt="Post media" style={{ width: 100 }} src={ this.getImage ()}/>
+                  <img alt="Post media" style={{ width: 100 }} src={ imageURL({media: this.state.media}) }/>
                   <div/>
                   <Button onClick={() => this.setState({image: ""})}
                     style={{width: 100, borderRadius: 0}}
@@ -166,7 +161,7 @@ class PostPanel extends React.Component {
               <Hidden smUp={true}>
                 <div style={{ padding: 10 }}>
                   <Chip
-                    avatar={<Avatar src={ this.getImage() } />}
+                    avatar={<Avatar src={ imageURL({media: this.state.media}) } />}
                     label="Remove"
                     onDelete={ () => this.setState({media: []}) }
                     variant="outlined"

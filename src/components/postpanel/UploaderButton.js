@@ -21,7 +21,9 @@ class UploaderButton extends Component {
       .getDownloadURL()
       .then(url => {
         this.props.onUploadSuccess(filename);
-      });
+      }).catch(error => {
+        console.error(error)
+      })
   };
 
   triggerInputFile = () => {
@@ -46,7 +48,7 @@ class UploaderButton extends Component {
             id="uploaderInput"
             hidden
             accept="image/png,image/jpg,image/gif"
-            storageRef={firebase.storage().ref('images')}
+            storageRef={firebase.storage().ref('imgs')}
             onUploadStart={this.props.onUploadStart}
             onUploadError={this.handleUploadError}
             onUploadSuccess={this.handleUploadSuccess}
