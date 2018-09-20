@@ -19,6 +19,7 @@ import About from './About'
 import Ads from './Ads'
 import { db } from './commons/firebase/firebase'
 import { openURL } from './commons/utils'
+import { imageURL } from './commons/utils'
 
 @observer
 class SinglePostContainer extends Component {
@@ -26,12 +27,6 @@ class SinglePostContainer extends Component {
     post: {},
     user: {}
   }
-
-  static defaultProps = {
-    baseUrl: 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/images'
-  }
-
-  getImage = () => this.props.baseUrl + '%2F' + this.state.post.media[0].filename + '?alt=media'
 
   currentPath = () =>  window.location.pathname.split('/')[2]
 
@@ -87,7 +82,7 @@ class SinglePostContainer extends Component {
             <Grid item style={{backgroundColor: '#fff', padding: 10}}>
               { post.media && post.media.length > 0 &&
                 <CardMedia
-                  image={ this.getImage() }
+                  image={ imageURL(post, 'md') }
                   className={classes.bottom10}
                 >
                   {

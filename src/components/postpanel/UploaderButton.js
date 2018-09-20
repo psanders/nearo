@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// Warning: This is causing a warning in the console
+// FIXME: This is causing a warning in the console
 import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import AddPhotoIcon from '@material-ui/icons/AddAPhoto';
@@ -16,7 +16,7 @@ class UploaderButton extends Component {
   handleUploadSuccess = filename => {
     firebase
       .storage()
-      .ref("images")
+      .ref("imgs")
       .child(filename)
       .getDownloadURL()
       .then(url => {
@@ -50,6 +50,7 @@ class UploaderButton extends Component {
             onUploadStart={this.props.onUploadStart}
             onUploadError={this.handleUploadError}
             onUploadSuccess={this.handleUploadSuccess}
+            randomizeFilename={true}
           />
         </form>
       </div>

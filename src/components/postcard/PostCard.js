@@ -12,16 +12,13 @@ import { styles } from './PostCardStyles'
 import { observer } from 'mobx-react'
 
 import { getCategory } from '../commons/categories'
+import { imageURL } from '../commons/utils'
 import PostActions from './PostActions'
 
 @observer
 class PostCard extends React.Component {
   state = {
     post: this.props.post
-  }
-
-  static defaultProps = {
-    baseUrl: 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/images'
   }
 
   isOwner = (user, author) => {
@@ -31,12 +28,10 @@ class PostCard extends React.Component {
   }
 
   render() {
-    const { classes, post, baseUrl } = this.props
-
-    const getImage = () => baseUrl + '%2Fthumb_' + post.media[0].filename + '?alt=media'
+    const { classes, post } = this.props
 
     function image(post) {
-      if (!post.media || post.media.length == 0) {
+      if (!post.media || post.media.length === 0) {
         return <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 2}}>
           <LinkIcon color="primary" style={{
             width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
@@ -45,7 +40,7 @@ class PostCard extends React.Component {
 
       return  <CardMedia
                 className={ classes.cover }
-                image={ getImage() }
+                image={ imageURL(post, 'sm') }
               >
                 <div style={{ width: 130, height: 110, borderRadius: 2}} />
               </CardMedia>

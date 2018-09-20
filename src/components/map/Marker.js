@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import blue from '@material-ui/core/colors/blue'
 import { withStyles } from '@material-ui/core/styles'
 import ellipsize from 'ellipsize'
+import { imageURL } from '../commons/utils'
 
 const styles = theme => ({
   media: {
@@ -87,10 +88,10 @@ class Marker extends Component {
           <div className={classes.markerContainer}>
             <div style={{padding: 2}}>
               {
-                post.image &&
+                post.media.length > 0 &&
                 <CardMedia
                   className={classes.media}
-                  image={post.image}
+                  image={ imageURL(post, 'sm') }
                 />
               }
             </div>
