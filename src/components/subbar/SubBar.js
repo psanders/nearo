@@ -19,7 +19,7 @@ class SubBar extends Component {
     return (
       <Toolbar className={classes.filters}>
         <Typography className={classes.title} variant="body1" color="inherit">
-           { postsStore.posts.length } {postsStore.posts.length == 1 ? "result" : "results"} nearby "{ ellip(navInfo.locInfo.address, 30) }"
+           { postsStore.nbHits } {postsStore.nbHits == 1 ? "result" : "results"} nearby "{ ellip(navInfo.locInfo.address, 30) }"
         </Typography>
         <span className={ classes.flex } />
         <Hidden xsDown={true}>
