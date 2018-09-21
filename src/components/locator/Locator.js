@@ -8,7 +8,6 @@ import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import LocationIcon from '@material-ui/icons/LocationOn'
-import GoogleMapsLoader from 'google-maps'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { storeUserInfo, fetchUserInfo } from '../commons/dbfunctions';
 import { ellip } from '../commons/utils'
@@ -23,13 +22,6 @@ class Locator extends Component {
   }
 
   componentDidMount = () => {
-    GoogleMapsLoader.KEY = 'AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y'
-    GoogleMapsLoader.VERSION = '3.34'
-    GoogleMapsLoader.LIBRARIES = ['places'];
-    GoogleMapsLoader.load(function(google) {
-      console.log('STEP 1.X')
-    })
-
     fetchUserInfo(this.props.name)
     .then(locInfo => {
       if (locInfo) {

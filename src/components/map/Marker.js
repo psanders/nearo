@@ -5,6 +5,7 @@ import Popover from '@material-ui/core/Popover'
 import CardMedia from '@material-ui/core/CardMedia';
 import blue from '@material-ui/core/colors/blue'
 import { withStyles } from '@material-ui/core/styles'
+import classnames from 'classnames'
 import { imageURL, ellip } from '../commons/utils'
 
 class Marker extends Component {
@@ -12,13 +13,9 @@ class Marker extends Component {
     anchorEl: null,
   }
 
-  handlePopoverOpen = event => {
-    this.setState({ anchorEl: event.currentTarget })
-  }
+  handlePopoverOpen = event => this.setState({ anchorEl: event.currentTarget })
 
-  handlePopoverClose = () => {
-    this.setState({ anchorEl: null })
-  }
+  handlePopoverClose = () => this.setState({ anchorEl: null })
 
   render() {
     const { classes, latLng, post } = this.props
@@ -54,17 +51,15 @@ class Marker extends Component {
           disableRestoreFocus
         >
           <div className={classes.markerContainer}>
-            <div style={{padding: 2}}>
-              {
-                post.media.length > 0 &&
-                <CardMedia
-                  className={classes.media}
-                  image={ imageURL(post, 'sm') }
-                />
-              }
-            </div>
+            {
+              post.media.length > 0 &&
+              <CardMedia
+                className={classes.media}
+                image={ imageURL(post, 'sm') }
+              />
+            }
             <div className={classes.textContainer}>
-              <Typography className={classes.textContent} style={{fontWeight: 'bold', textTransform: 'capitalize'}}>{post.category}</Typography>
+              <Typography className={classnames(classes.textContent, classes.textCategory)} >{post.category}</Typography>
               <Typography className={classes.textContent}>Nearby "{ ellip(post.locText, 22) }".</Typography>
               <Typography className={classes.textContent} variant="caption">By {post.author} </Typography>
             </div>
@@ -103,10 +98,14 @@ const styles = theme => ({
     display: 'flex'
   },
   textContainer: {
-    padding: 2
+    paddingLeft: 4
   },
   textContent: {
     fontSize: 10,
+  },
+  textCategory: {
+    fontWeight: 'bold',
+    textTransform: 'capitalize'
   }
 })
 

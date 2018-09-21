@@ -35,18 +35,17 @@ class PostsContainer extends Component {
   }
 
   render() {
-    const posts = this.props.postsStore.posts
+    const { postsStore, classes }= this.props
+    const posts = postsStore.posts
 
     return (
       <Grid container>
         <Grid item xs={12} sm={12} md={6} style={{backgroundColor: '#fff', }}>
           <ScrollArea
-            style={{height: 'calc(100vh - 65px)', overflowY: 'scroll'}}
+            className={classes.scrollArea}
             speed={0.8}
             smoothScrolling={true}
             verticalScrollbarStyle={{backgroundColor: '#c4c4c4'}}
-            className="area"
-            contentClassName="content"
             onScroll={this.handleScroll}
             horizontal={false}
           >
@@ -84,6 +83,9 @@ const styles = theme => ({
   progress: {
     margin: theme.spacing.unit * 2,
   },
+  scrollArea: {
+    height: 'calc(100vh - 65px)',
+  }
 });
 
 export default withStyles(styles)(PostsContainer)
