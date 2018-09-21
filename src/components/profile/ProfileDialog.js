@@ -15,6 +15,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
 import SettingsIcon from '@material-ui/icons/Settings'
+import { observer, inject } from 'mobx-react'
 import NotificationBar from '../NotificationBar'
 import PhoneInput from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -40,6 +41,9 @@ function Transition(props) {
   return <Slide direction="up" {...props} />
 }
 
+@inject('usersStore')
+@inject('notificationsStore')
+@observer
 class ProfileDialog extends React.Component {
   state = {
     open: this.props.open,

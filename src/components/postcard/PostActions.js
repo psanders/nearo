@@ -9,10 +9,13 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import SoldOutIcon from '@material-ui/icons/AttachMoney'
 import ShareButton from './ShareButton'
 import { styles } from './PostCardStyles'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 import { withRouter } from 'react-router-dom'
 
+@inject('bookmarksStore')
+@inject('postsStore')
+@inject('usersStore')
 @withRouter
 @observer
 class PostActions extends Component {

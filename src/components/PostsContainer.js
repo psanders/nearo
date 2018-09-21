@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 import ScrollArea from 'react-scrollbar'
 
@@ -11,6 +11,11 @@ import SubBar from './subbar/SubBar'
 import GoogleMap from './map/GoogleMap'
 import PostCard from './postcard/PostCard'
 
+@inject('postsStore')
+@inject('navStore')
+@inject('usersStore')
+@inject('bookmarksStore')
+@inject('notificationsStore')
 @observer
 class PostsContainer extends Component {
 
@@ -46,18 +51,13 @@ class PostsContainer extends Component {
             horizontal={false}
           >
             <Grid item>
-              <SubBar postsStore={ this.props.postsStore } navStore={ this.props.navStore } />
+              <SubBar />
             </Grid>
             {
               posts.map(post => {
                 return (
                    <Grid key={ post.id } item>
-                     <PostCard
-                      notificationsStore={ this.props.notificationsStore }
-                      usersStore={ this.props.usersStore }
-                      postsStore={ this.props.postsStore }
-                      bookmarksStore={ this.props.bookmarksStore }
-                      post={ post }
+                     <PostCard post={ post }
                      />
                    </Grid>
                  )

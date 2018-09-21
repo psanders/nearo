@@ -10,13 +10,16 @@ import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
 import Hidden from '@material-ui/core/Hidden'
 import { Link } from 'react-router-dom'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
 import { doSignInWithGoogle } from '../commons/firebase/auth'
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
 
+@inject('postsStore')
+@inject('navStore')
+@inject('usersStore')
 @withRouter
 @observer
 class Topnav extends React.Component {

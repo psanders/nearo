@@ -15,7 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 import { getCategories } from '../commons/categories'
 import { db } from '../commons/firebase/firebase'
@@ -23,6 +23,10 @@ import UploaderButton from './UploaderButton'
 import { styles } from './PostPanelStyles'
 import { imageURL, ellip } from '../commons/utils'
 
+@inject('notificationsStore')
+@inject('postsStore')
+@inject('navStore')
+@inject('usersStore')
 @observer
 class PostPanel extends React.Component {
   state = {

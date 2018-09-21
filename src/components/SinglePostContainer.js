@@ -10,7 +10,7 @@ import Linkify from 'react-linkify'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Moment from 'react-moment'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
 import PostActions from './postcard/PostActions'
 import MapCard from './map/MapCard'
@@ -20,6 +20,10 @@ import Ads from './Ads'
 import { db } from './commons/firebase/firebase'
 import { imageURL, ellip} from './commons/utils'
 
+@inject('usersStore')
+@inject('postsStore')
+@inject('bookmarksStore')
+@inject('notificationsStore')
 @observer
 class SinglePostContainer extends Component {
   state = {
@@ -109,12 +113,9 @@ class SinglePostContainer extends Component {
                 post.id &&
                 <PostActions post={ post }
                   className={classes.top20}
-                  bookmarksStore={this.props.bookmarksStore}
-                  postsStore={this.props.postsStore}
-                  usersStore={this.props.usersStore}
+                  onChangeBookmark={ this.handleBookmark }
                   handleSold={this.handleSold}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
-                  onChangeBookmark={ this.handleBookmark }
                 />
               }
             </Grid>

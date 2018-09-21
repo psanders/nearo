@@ -11,13 +11,11 @@ import LinkIcon from '@material-ui/icons/Link'
 import Hidden from '@material-ui/core/Hidden'
 import Linkify from 'react-linkify'
 import { styles } from './PostCardStyles'
-import { observer } from 'mobx-react'
 
 import { getCategory } from '../commons/categories'
 import { imageURL } from '../commons/utils'
 import PostActions from './PostActions'
 
-@observer
 class PostCard extends React.Component {
   state = {
     post: this.props.post
@@ -84,9 +82,6 @@ class PostCard extends React.Component {
               <Grid item>
                 <PostActions post={ post }
                   handleSold={() => { /* NOP */}}
-                  bookmarksStore={this.props.bookmarksStore}
-                  postsStore={this.props.postsStore}
-                  usersStore={this.props.usersStore}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
                 />
               </Grid>

@@ -4,8 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
-import { observer } from 'mobx-react'
-import { notificationsStore } from './stores/notifications'
+import { observer, inject } from 'mobx-react'
 
 const styles = theme => ({
   close: {
@@ -14,11 +13,12 @@ const styles = theme => ({
   },
 });
 
+@inject('notificationsStore')
 @observer
 class NotificationBar extends Component {
 
   render() {
-    const store = notificationsStore
+    const store = this.props.notificationsStore
 
     const action = [
       <Button key="close" color="secondary" size="small" onClick={ store.hideNotification }>

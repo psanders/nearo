@@ -2,13 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
-import { bookmarksStore } from './stores/bookmarks'
-import { usersStore } from './stores/users'
-import { postsStore } from './stores/posts'
-import { navStore } from './stores/navigation'
-import { notificationsStore } from './stores/notifications'
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
 import ProfileDialog from './profile/ProfileDialog'
@@ -16,6 +11,7 @@ import PostsContainer from './PostsContainer'
 import SinglePostContainer from './SinglePostContainer'
 import PostPanel from './postpanel/PostPanel'
 
+@inject('usersStore')
 @withRouter
 @observer
 class MainContainer extends Component {
@@ -28,7 +24,7 @@ class MainContainer extends Component {
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, usersStore } = this.props
 
     const NoMatch = ({ location }) => (
       <div style={{margin: 20}}>
@@ -38,11 +34,7 @@ class MainContainer extends Component {
 
     return(
       <div className={ classes.root }>
-        <Topnav
-          usersStore={ usersStore }
-          postsStore={ postsStore }
-          navStore={ navStore }
-          className={ classes.appBar } />
+        <Topnav className={ classes.appBar } />
 
         <main className={ classes.content }>
           <div className={ classes.toolbar } />
@@ -50,38 +42,23 @@ class MainContainer extends Component {
             <Route
               exact path='/'
               render={(props) =>
-                <PostsContainer
-                  postsStore={ postsStore }
-                  navStore={ navStore }
-                  usersStore={ usersStore }
-                  bookmarksStore={ bookmarksStore }
-                  notificationsStore={ notificationsStore }
-                />
+                <PostsContainer />
               }
             />
             <Route
               path='/posts/:postId'
               render={(props) =>
-                <SinglePostContainer
-                  usersStore={ usersStore }
-                  postsStore={ postsStore }
-                  bookmarksStore={ bookmarksStore }
-                  notificationsStore={ notificationsStore }/>
+                <SinglePostContainer />
               }
             />
             <Route component={NoMatch} />
           </Switch>
         </main>
-        <NotificationBar notificationsStore={ notificationsStore }/>
-        <PostPanel
-          notificationsStore={ notificationsStore }
-          postsStore={ postsStore }
-          navStore={ navStore }
-          usersStore={ usersStore }
-        />
+        <NotificationBar />
+        <PostPanel />
         { usersStore.currentUser &&
           usersStore.currentUser.isNewUser &&
-          <ProfileDialog usersStore={usersStore} notificationsStore={notificationsStore} />
+          <ProfileDialog  />
         }
       </div>
     )
