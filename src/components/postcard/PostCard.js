@@ -17,9 +17,6 @@ import { imageURL } from '../commons/utils'
 import PostActions from './PostActions'
 
 class PostCard extends React.Component {
-  state = {
-    post: this.props.post
-  }
 
   isOwner = (user, author) => {
     return user && user.username === author

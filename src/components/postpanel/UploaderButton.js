@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// FIXME: This is causing a warning in the console
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import FileUploader from 'react-firebase-file-uploader';

@@ -19,41 +19,38 @@ import { withRouter } from 'react-router-dom'
 @withRouter
 @observer
 class PostActions extends Component {
-  state = {
-    post: this.props.post
-  }
 
   @computed get bookmarked() {
-    return this.props.bookmarksStore.bookmarks.includes(this.state.post.id)
+    return this.props.bookmarksStore.bookmarks.includes(this.props.post.id)
   }
 
   handleBookmark = () => {
-    // I know it looks backwards...
     if(!this.bookmarked) {
-      this.props.bookmarksStore.addToBookmarks(this.state.post)
+      this.props.bookmarksStore.addToBookmarks(this.props.post)
     } else {
-      this.props.bookmarksStore.removeFromBookmarks(this.state.post)
+      this.props.bookmarksStore.removeFromBookmarks(this.props.post)
     }
   }
 
   handleSold = () => {
-    this.props.postsStore.markSold(this.state.post)
+    this.props.postsStore.markSold(this.props.post)
     this.props.handleSold(this.state.post.sold)
-    const chpost = this.state.post
-    chpost.sold = !chpost.sold
-    this.setState(chpost:post)
   }
 
-  isOwner = (post) => {
+  handleRemove = () => {
+    this.props.postsStore.handlePostDelete(this.props.post)
+    this.props.history.push('/')
+  }
+
+  isOwner = () => {
     const currentUser = this.props.usersStore.currentUser
-    return currentUser && currentUser.username === post.author
+    return currentUser && currentUser.username === this.props.post.author
       ? true
       : false
   }
 
   render() {
-    const { classes, url } = this.props
-    const { post } = this.state
+    const { classes, url, post } = this.props
 
     return (
       <div>
@@ -67,7 +64,7 @@ class PostActions extends Component {
         </Button>
         <ShareButton url={ url } post={ post }/>
         {
-          this.isOwner(post) &&
+          this.isOwner() &&
           this.state.post.category === 'forsale' &&
           <Button onClick={ this.handleSold } className={classes.actionBtn} >
             <SoldOutIcon className={classes.actionIcon } />
@@ -77,13 +74,8 @@ class PostActions extends Component {
           </Button>
         }
         {
-          this.isOwner(post) &&
-          <Button onClick={() => {
-            this.props.postsStore.handlePostDelete(post)
-            this.props.history.push('/')
-          }}
-            className={classes.actionBtn}
-          >
+          this.isOwner() &&
+          <Button onClick={this.handleRemove} className={classes.actionBtn}>
             <DeleteIcon className={classes.actionIcon } />
             <Typography variant="caption" color="secondary">
               Remove

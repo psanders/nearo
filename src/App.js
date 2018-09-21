@@ -27,15 +27,6 @@ const theme = createMuiTheme({
 })
 
 class App extends Component {
-
-  constructor(props){
-    super(props)
-    this.state = {
-      loading: false,
-      userInfo: null
-    }
-  }
-
   render() {
     return (
       <div className="App">

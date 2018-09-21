@@ -34,7 +34,6 @@ TextMaskCustom.propTypes = {
 }
 
 class PhoneInput extends React.Component {
-  state = { value: this.props.value }
 
   handleChange = name => event => {
     this.setState({[name]: event.target.value})
@@ -52,6 +51,7 @@ class PhoneInput extends React.Component {
   }
 
   render() {
+    const { value } = this.props
 
     return (
       <TextField

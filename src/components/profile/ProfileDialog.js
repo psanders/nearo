@@ -45,17 +45,13 @@ function Transition(props) {
 @inject('notificationsStore')
 @observer
 class ProfileDialog extends React.Component {
-  state = {
-    open: this.props.open,
-    user: this.props.usersStore.currentUser,
-  }
 
   handleClickOpen = () => this.setState({ open: true })
 
   handleClose = () => this.setState({ open: false })
 
   handleChange = event => {
-    const user = this.state.user
+    const user = this.props.usersStore.currentUser
     if (event.target.id === 'user-name') {
       user.name = event.target.value
     } else if (event.target.id === 'user-phone') {
@@ -74,7 +70,7 @@ class ProfileDialog extends React.Component {
 
   save = () => {
     // Close it first to make it feel faster
-    const user = this.state.user
+    const user = this.props.usersStore.currentUser
     if (!user.isNewUser) {
       this.handleClose()
     }
@@ -144,7 +140,7 @@ class ProfileDialog extends React.Component {
 
   render() {
     const { classes } = this.props
-    const { user } = this.state
+    const user = this.props.usersStore.currentUser
 
     return (
       <div>
