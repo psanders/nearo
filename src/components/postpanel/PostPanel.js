@@ -158,7 +158,7 @@ class PostPanel extends React.Component {
             }}>
               { showCounter() &&
                 <Typography variant="caption">
-                  {254 - this.state.body.length}
+                  {this.state.body.length - 254}
                 </Typography>
               }
             </div>
