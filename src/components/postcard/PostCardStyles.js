@@ -31,7 +31,7 @@ export const styles = theme => ({
   },
   actionIcon: {
     color: '#5d5c5c',
-    fontSize: 14,
+    fontSize: 16,
     marginRight: 5
   },
   liked: {

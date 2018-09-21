@@ -14,15 +14,16 @@ class SubBar extends Component {
   render() {
     const { classes } = this.props
     const navInfo = this.props.navStore.navInfo
+    const postsStore = this.props.postsStore
 
     return (
       <Toolbar className={classes.filters}>
         <Typography className={classes.title} variant="body1" color="inherit">
-           { this.props.postsStore.posts.length } results nearby "{ ellip(navInfo.locInfo.address, 30) }"
+           { postsStore.posts.length } {postsStore.posts.length == 1 ? "result" : "results"} nearby "{ ellip(navInfo.locInfo.address, 30) }"
         </Typography>
         <span className={ classes.flex } />
         <Hidden xsDown={true}>
-          <Button onClick={  this.props.postsStore.openPostDialog }
+          <Button onClick={ postsStore.openPostDialog }
             variant="outlined" className={classes.button}
             aria-label="Add New Publication"
           >
@@ -30,7 +31,7 @@ class SubBar extends Component {
           </Button>
         </Hidden>
         <Hidden smUp={true}>
-          <Button onClick={  this.props.postsStore.openPostDialog }
+          <Button onClick={ postsStore.openPostDialog }
             variant="outlined" className={classes.button}
             aria-label="Add New Publication"
           >

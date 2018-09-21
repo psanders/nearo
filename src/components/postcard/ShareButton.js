@@ -38,7 +38,7 @@ class ShareButton extends React.Component {
           onClick={ this.handlePopoverOpen }
           className={ classes.actionBtn }
         >
-          <ShareIcon className={ classes.actionIcon }/>
+          <ShareIcon style={{transform: 'rotate(45deg)'}} className={ classes.actionIcon }/>
           <Typography variant="caption" color="secondary">Share</Typography>
         </Button>
         <Popover
