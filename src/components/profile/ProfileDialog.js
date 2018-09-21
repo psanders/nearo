@@ -45,6 +45,9 @@ function Transition(props) {
 @inject('notificationsStore')
 @observer
 class ProfileDialog extends React.Component {
+  state = {
+    open: false
+  }
 
   handleClickOpen = () => this.setState({ open: true })
 
@@ -56,13 +59,11 @@ class ProfileDialog extends React.Component {
       user.name = event.target.value
     } else if (event.target.id === 'user-phone') {
       user.phone = event.target.value.trim()
-      console.log('event.target.value.trim()', event.target.value.trim())
     } else if (event.target.id === 'user-username') {
       user.username = event.target.value
     } else if (event.target.id === 'user-bio') {
       user.bio = event.target.value
     } else if (event.target.id === 'user-phone-private') {
-      console.log('CB', event.target.checked)
       user.keepPhonePrivate = event.target.checked
     }
     this.setState({ user: user})

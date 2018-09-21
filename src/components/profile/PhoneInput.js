@@ -34,6 +34,9 @@ TextMaskCustom.propTypes = {
 }
 
 class PhoneInput extends React.Component {
+  state = {
+    value: this.props.value
+  }
 
   handleChange = name => event => {
     this.setState({[name]: event.target.value})
@@ -51,7 +54,7 @@ class PhoneInput extends React.Component {
   }
 
   render() {
-    const { value } = this.props
+    const { value } = this.state
 
     return (
       <TextField
@@ -60,10 +63,10 @@ class PhoneInput extends React.Component {
         label="Phone"
         fullWidth
         margin="normal"
-        error={!this.isValidNumber(this.state.value)}
+        error={!this.isValidNumber(value)}
         InputProps={{
           inputComponent: TextMaskCustom,
-          value: this.state.value,
+          value: value,
           onChange: this.handleChange('value'),
         }}
       />
