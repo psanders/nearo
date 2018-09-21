@@ -1,4 +1,18 @@
 export const styles = theme => ({
+  avatar: {
+    width: 30,
+    height: 30,
+  },  
+  left: {
+    marginLeft: theme.spacing.unit
+  },
+  right: {
+    marginRight: theme.spacing.unit
+  },
+  logo: {
+    color: '#fff',
+    textDecoration: 'none'
+  },
   row: {
     display: 'flex',
     justifyContent: 'center',
@@ -59,8 +73,9 @@ export const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
-  newPostIcon: {
+  authIcon: {
     fontSize: 25,
+    color: '#FFEA00'
   },
   loginBtn: {
     textTransform: 'capitalize',

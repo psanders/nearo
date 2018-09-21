@@ -1,4 +1,4 @@
-import { observable, when } from "mobx"
+import { observable, when, autorun } from "mobx"
 import { db } from '../commons/firebase/firebase'
 import { usersStore } from './users'
 import { bookmarksStore } from './bookmarks'
@@ -26,6 +26,8 @@ class PostsStore {
         () => appStore.isReady() && !usersStore.isSignedIn(),
         () => this.updateBySearch(navStore.navInfo)
       )
+
+      autorun(() => this.updateBySearch(navStore.navInfo))
     }
 
     isPostDialogOpen = () => this.postDialogOpen

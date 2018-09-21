@@ -8,10 +8,10 @@ import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import LocationIcon from '@material-ui/icons/LocationOn'
-import ellipsize from 'ellipsize'
+import GoogleMapsLoader from 'google-maps'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { storeUserInfo, fetchUserInfo } from '../commons/dbfunctions';
-import GoogleMapsLoader from 'google-maps'
+import { ellip } from '../commons/utils'
 
 import { styles } from './LocatorStyles'
 import SearchInput from './SearchInput'
@@ -22,15 +22,14 @@ class Locator extends Component {
     address: 'USA'
   }
 
-  constructor () {
-    super()
+  componentDidMount = () => {
     GoogleMapsLoader.KEY = 'AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y'
     GoogleMapsLoader.VERSION = '3.34'
     GoogleMapsLoader.LIBRARIES = ['places'];
-    GoogleMapsLoader.load()
-  }
+    GoogleMapsLoader.load(function(google) {
+      console.log('STEP 1.X')
+    })
 
-  componentDidMount = () => {
     fetchUserInfo(this.props.name)
     .then(locInfo => {
       if (locInfo) {
@@ -83,23 +82,23 @@ class Locator extends Component {
       <div className={classes.root}>
         <div>
           <Button
-              color="secondary"
-              className={this.state.expanded? classes.locButtonOpen: classes.locButton}
-              id='location-button'
-              ref={this.myButton}
-              buttonRef={node => {
-                this.anchorEl = node
-              }}
-              aria-owns={expanded ? 'menu-list-grow' : null}
-              aria-haspopup="true"
-              onClick={this.handleToggle}
-              onMouseOut={this.handleClose}
-              aria-label="Select Address Button"
-               >
-              <LocationIcon color="secondary" className={classes.leftIcon} />
-              <span className={classes.iconText}>{ ellipsize( address, 22, { chars: [','], truncate: false }) }</span>
-              <span className={classes.flex} />
-              <ArrowDropDownIcon style={{color: 'black'}}/>
+            color="secondary"
+            className={this.state.expanded? classes.locButtonOpen: classes.locButton}
+            id='location-button'
+            ref={this.myButton}
+            buttonRef={node => {
+              this.anchorEl = node
+            }}
+            aria-owns={expanded ? 'menu-list-grow' : null}
+            aria-haspopup="true"
+            onClick={this.handleToggle}
+            onMouseOut={this.handleClose}
+            aria-label="Select Address Button"
+             >
+            <LocationIcon color="secondary" className={classes.leftIcon} />
+            <span className={classes.iconText}>{ ellip( address, 22) }</span>
+            <span className={classes.flex} />
+            <ArrowDropDownIcon/>
           </Button>
           <Popper
             style={{zIndex: 2000}}

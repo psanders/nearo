@@ -16,7 +16,6 @@ class AppStore {
     }
 
     isReady = () => this.ready
-
 }
 
 export const appStore = new AppStore()
