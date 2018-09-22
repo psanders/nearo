@@ -34,6 +34,9 @@ export const styles = theme => ({
     fontSize: 16,
     marginRight: 5
   },
+  shareIcon: {
+    transform: 'rotate(45deg)'
+  },
   liked: {
     color: '#ff5959',
     fontSize: 14,

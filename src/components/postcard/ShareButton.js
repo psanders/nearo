@@ -5,6 +5,7 @@ import ShareIcon from '@material-ui/icons/Link'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import classnames from 'classnames'
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -38,7 +39,7 @@ class ShareButton extends React.Component {
           onClick={ this.handlePopoverOpen }
           className={ classes.actionBtn }
         >
-          <ShareIcon style={{transform: 'rotate(45deg)'}} className={ classes.actionIcon }/>
+          <ShareIcon className={ classnames(classes.actionIcon, classes.shareIcon) }/>
           <Typography variant="caption" color="secondary">Share</Typography>
         </Button>
         <Popover

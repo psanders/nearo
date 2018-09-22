@@ -62,9 +62,7 @@ class SinglePostContainer extends Component {
     })
   }
 
-  handleSold = (sold) => {
-    const post = this.state.post
-    post.sold = sold
+  handleSold = (post) => {
     this.setState({post: post})
   }
 
@@ -111,10 +109,8 @@ class SinglePostContainer extends Component {
 
               {
                 post.id &&
-                <PostActions post={ post }
+                <PostActions post={ this.state.post }
                   className={classes.top20}
-                  onChangeBookmark={ this.handleBookmark }
-                  handleSold={this.handleSold}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
                 />
               }

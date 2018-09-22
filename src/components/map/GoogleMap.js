@@ -1,16 +1,13 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import GoogleMapReact from 'google-map-react'
 import Marker from './Marker'
-import { observer } from 'mobx-react'
-import { when } from "mobx"
+import {observer, inject} from 'mobx-react'
+import {when} from "mobx"
 
+@inject('navStore')
+@inject('postsStore')
 @observer
 class GMap extends Component {
-  state = {
-    map: null,
-    maps: null
-  }
-
   static defaultProps = {
     center: {
       lat: 37.09024,
@@ -19,19 +16,19 @@ class GMap extends Component {
     zoom: 11
   }
 
-  render() {
+  state = {
+    map: null,
+    maps: null
+  }
 
+  render() {
     const posts = this.props.postsStore.posts
-    const { center, zoom } = this.props
+    const {center, zoom} = this.props
 
     const getMapBounds = (map, maps, posts) => {
       const bounds = new maps.LatLngBounds()
-
       posts.forEach((post) => {
-        bounds.extend(new maps.LatLng(
-          post._geoloc.lat,
-          post._geoloc.lng,
-        ))
+        bounds.extend(new maps.LatLng(post._geoloc.lat, post._geoloc.lng,))
       })
       return bounds
     }
@@ -41,31 +38,18 @@ class GMap extends Component {
       map.fitBounds(bounds)
     }
 
-    when(
-      () => this.state.map
-            && this.state.maps
-            && this.props.postsStore.posts,
-      () => {
-        centerMap(this.state.map, this.state.maps, posts.slice(0, 10))
+    when(() => this.state.map && this.state.maps && this.props.postsStore.posts, () => {
+      centerMap(this.state.map, this.state.maps, posts.slice(0, 10))
     })
 
-    return (
-      <GoogleMapReact
-        yesIWantToUseGoogleMapApiInternals={true}
-        bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}
-        defaultCenter={ center }
-        defaultZoom={ zoom }
-        onGoogleApiLoaded={({ map, maps }) => {
-          this.setState({map: map})
-          this.setState({maps: maps})
-        }}
-      >
-        {
-          posts.map(post =>
-          <Marker post={post} key={ post.id } latLng={ post._geoloc } />)
-        }
-      </GoogleMapReact>
-    )
+    return (<GoogleMapReact yesIWantToUseGoogleMapApiInternals={true} bootstrapURLKeys={{
+        key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y"
+      }} defaultCenter={center} defaultZoom={zoom} onGoogleApiLoaded={({map, maps}) => {
+        this.setState({map: map})
+        this.setState({maps: maps})
+      }}>
+      {posts.map(post => <Marker post={post} key={post.id} latLng={post._geoloc}/>)}
+    </GoogleMapReact>)
   }
 }
 

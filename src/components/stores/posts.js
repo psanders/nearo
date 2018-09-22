@@ -12,6 +12,7 @@ const maxItemperPage = 20
 class PostsStore {
     @observable postDialogOpen = false
     @observable posts = []
+    @observable currentPost = null
     @observable nbHits = 0
     @observable deletedPost
     @observable loadingPosts
@@ -118,8 +119,10 @@ class PostsStore {
 
     markSold = (post) => {
       const postRef = db.collection('posts').doc(post.id)
+      post.sold = !post.sold
+      this.findAndReplace(post)
       postRef.set({
-         sold: !post.sold
+         sold: post.sold
       }, { merge: true }).then(() => {
         if(post.sold) {
           notificationsStore.showNotification('Post marked as sold')
@@ -129,6 +132,13 @@ class PostsStore {
       }).catch(error => {
         console.error("Error writing document: ", error)
       })
+    }
+
+    findAndReplace = post => {
+      const index = this.posts.findIndex(currentPost => {
+        return currentPost.id === post.id
+      })
+      this.posts[index] = post
     }
 }
 

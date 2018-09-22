@@ -101,7 +101,7 @@ class PostPanel extends React.Component {
       this.props.postsStore.hidePostDialog()
       this.clearUI()
     })
-    .catch(function(error) {
+    .catch(error => {
       console.error("Error adding document: ", error)
       this.clearUI()
     })
@@ -174,7 +174,7 @@ class PostPanel extends React.Component {
                 <div style={{ padding: 10, paddingBottom: 0 }}>
                   <img alt="Post media" style={{ width: 100 }} src={ imageURL({media: this.state.media}) }/>
                   <div/>
-                  <Button onClick={() => this.setState({image: ""})}
+                  <Button onClick={ () => this.setState({media: []}) }
                     style={{width: 100, borderRadius: 0}}
                     className={classes.button} size="small">Remove</Button>
                 </div>

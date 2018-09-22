@@ -24,6 +24,10 @@ class PostActions extends Component {
     return this.props.bookmarksStore.bookmarks.includes(this.props.post.id)
   }
 
+  @computed get sold() {
+    return this.props.postsStore.posts.filter(post => post.id === this.props.post.id)[0].sold
+  }
+
   handleBookmark = () => {
     if(!this.bookmarked) {
       this.props.bookmarksStore.addToBookmarks(this.props.post)
@@ -34,7 +38,6 @@ class PostActions extends Component {
 
   handleSold = () => {
     this.props.postsStore.markSold(this.props.post)
-    this.props.handleSold(this.state.post.sold)
   }
 
   handleRemove = () => {
@@ -65,11 +68,11 @@ class PostActions extends Component {
         <ShareButton url={ url } post={ post }/>
         {
           this.isOwner() &&
-          this.state.post.category === 'forsale' &&
+          this.props.post.category === 'forsale' &&
           <Button onClick={ this.handleSold } className={classes.actionBtn} >
             <SoldOutIcon className={classes.actionIcon } />
             <Typography variant="caption" color="secondary">
-              { post.sold? "Mark Available" : "Mark Sold" }
+              { this.sold? "Mark Available" : "Mark Sold" }
             </Typography>
           </Button>
         }

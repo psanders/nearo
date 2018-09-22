@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { withStyles } from '@material-ui/core/styles'
-import { observer, inject } from 'mobx-react'
-import { computed } from 'mobx'
+import {withStyles} from '@material-ui/core/styles'
+import {observer, inject} from 'mobx-react'
+import {computed} from 'mobx'
 import ScrollArea from 'react-scrollbar'
 
 import SubBar from './subbar/SubBar'
@@ -18,73 +18,61 @@ import PostCard from './postcard/PostCard'
 @inject('notificationsStore')
 @observer
 class PostsContainer extends Component {
-
-  @computed get keepScrolling () {
+  @computed get keepScrolling() {
     const pStore = this.props.postsStore
-    return !pStore.loadingPosts && pStore.posts.length !== pStore.nbHits ? true : false
+    return !pStore.loadingPosts && pStore.posts.length !== pStore.nbHits
+      ? true
+      : false
   }
 
   handleScroll = (scrollArea) => {
     if (!this.keepScrolling) {
       return
     }
-
     if (scrollArea.containerHeight + scrollArea.topPosition === scrollArea.realHeight) {
       this.props.postsStore.showMoreResults()
     }
   }
 
   render() {
-    const { postsStore, classes }= this.props
+    const {postsStore, classes} = this.props
     const posts = postsStore.posts
 
-    return (
-      <Grid container>
-        <Grid item xs={12} sm={12} md={6} style={{backgroundColor: '#fff', }}>
-          <ScrollArea
-            className={classes.scrollArea}
-            speed={0.8}
-            smoothScrolling={true}
-            verticalScrollbarStyle={{backgroundColor: '#c4c4c4'}}
-            onScroll={this.handleScroll}
-            horizontal={false}
-          >
-            <Grid item>
-              <SubBar />
-            </Grid>
-            {
-              posts.map(post => {
-                return (
-                   <Grid key={ post.id } item>
-                     <PostCard post={ post }
-                     />
-                   </Grid>
-                 )
-              })
-            }
-            {
-              this.props.postsStore.loadingPosts &&
-              this.props.postsStore.posts > 10 && <LinearProgress />
-            }
-          </ScrollArea>
-        </Grid>
-        <Hidden smDown={true}>
-          <Grid item sm={6} xs={12}>
-            <GoogleMap style={{width: '100%'}} navStore={ this.props.navStore }
-              postsStore={ this.props.postsStore }/>
+    return (<Grid container>
+      <Grid item xs={12} sm={12} md={6} style={{
+          backgroundColor: '#fff'
+        }}>
+        <ScrollArea smoothScrolling={false} className={classes.scrollArea} verticalScrollbarStyle={{
+            backgroundColor: '#c4c4c4'
+          }} onScroll={this.handleScroll} horizontal={false}>
+          <Grid item>
+            <SubBar/>
           </Grid>
-        </Hidden>
+          {
+            posts.map(post => {
+              return (<Grid key={post.id} item>
+                <PostCard post={post}/>
+              </Grid>)
+            })
+          }
+          {this.props.postsStore.loadingPosts && this.props.postsStore.posts > 10 && <LinearProgress/>}
+        </ScrollArea>
       </Grid>
-    )
+      <Hidden smDown={true}>
+        <Grid item sm={6} xs={12}>
+          <GoogleMap style={{width: '100%'}}/>
+        </Grid>
+      </Hidden>
+    </Grid>)
   }
 }
 
 const styles = theme => ({
   progress: {
-    margin: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2
   },
   scrollArea: {
-    height: 'calc(100vh - 65px)',
+    height: 'calc(100vh - 65px)'
   }
 });
 

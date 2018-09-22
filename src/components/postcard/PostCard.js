@@ -29,7 +29,7 @@ class PostCard extends React.Component {
 
     const holdover = () =>
       <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 3}}>
-        <LinkIcon color="primary" style={{
+        <LinkIcon className={classes.shareIcon} color="primary" style={{
           width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
       </div>
 
@@ -78,7 +78,6 @@ class PostCard extends React.Component {
               </Grid>
               <Grid item>
                 <PostActions post={ post }
-                  handleSold={() => { /* NOP */}}
                   url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
                 />
               </Grid>
