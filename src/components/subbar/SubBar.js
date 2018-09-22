@@ -24,22 +24,13 @@ class SubBar extends Component {
            { postsStore.nbHits } {postsStore.nbHits === 1 ? "result" : "results"} nearby "{ ellip(navInfo.locInfo.address, 30) }"
         </Typography>
         <span className={ classes.flex } />
-        <Hidden xsDown={true}>
-          <Button onClick={ postsStore.openPostDialog }
-            variant="outlined" className={classes.button}
-            aria-label="Add New Publication"
-          >
-            New Post
-          </Button>
-        </Hidden>
-        <Hidden smUp={true}>
-          <Button onClick={ postsStore.openPostDialog }
-            variant="outlined" className={classes.button}
-            aria-label="Add New Publication"
-          >
-            Post
-          </Button>
-        </Hidden>
+        <Button onClick={ postsStore.openPostDialog }
+          variant="flat" className={classes.button}
+          size="small"
+          aria-label="Add New Publication"
+        >
+          New Post
+        </Button>
       </Toolbar>
     )
   }
