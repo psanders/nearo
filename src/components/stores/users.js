@@ -25,7 +25,7 @@ class UsersStore {
     loadUser (user) {
       fetchUserInfo('user-info')
       .then(userInfo => {
-        if (userInfo) {
+        if (userInfo && userInfo.email === user.email) {
           this.currentUser = userInfo
           this.statusVerified = true
         } else {
@@ -36,7 +36,8 @@ class UsersStore {
     }
 
     fetchUserInfoFromDB (user) {
-      const userRef = db.collection('users').doc(user.email)
+      const email = user.email ? user.email : user.providerData[0].email
+      const userRef = db.collection('users').doc(email)
       userRef.get()
       .then(userInfo => {
         if(userInfo.exists) {
