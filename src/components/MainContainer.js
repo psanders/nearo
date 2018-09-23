@@ -10,6 +10,7 @@ import ProfileDialog from './profile/ProfileDialog'
 import PostsContainer from './PostsContainer'
 import SinglePostContainer from './SinglePostContainer'
 import PostPanel from './postpanel/PostPanel'
+import NoMatch from './404'
 
 @inject('usersStore')
 @withRouter
@@ -25,12 +26,6 @@ class MainContainer extends Component {
 
   render () {
     const { classes, usersStore } = this.props
-
-    const NoMatch = ({ location }) => (
-      <div style={{margin: 20}}>
-        <h3>Ups! No match was found for <code>{location.pathname}</code></h3>
-      </div>
-    )
 
     return(
       <div className={ classes.root }>

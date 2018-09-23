@@ -2,7 +2,7 @@ export const styles = theme => ({
   avatar: {
     width: 30,
     height: 30,
-  },  
+  },
   left: {
     marginLeft: theme.spacing.unit
   },
@@ -72,25 +72,5 @@ export const styles = theme => ({
   },
   bootstrapFormLabel: {
     fontSize: 18,
-  },
-  authIcon: {
-    fontSize: 25,
-    color: '#FFEA00'
-  },
-  loginBtn: {
-    textTransform: 'capitalize',
-    marginLeft: 8,
-    color: '#fff',
-    border: '1px solid #fff'
-  },
-  signupBtn: {
-    textTransform: 'capitalize',
-    marginLeft: 8,
-    color: '#000',
-    backgroundColor: theme.palette.accent.main,
-    borderColor: theme.palette.accent.main,
-    '&:hover': {
-      backgroundColor: theme.palette.accent.light
-    },
   },
 });

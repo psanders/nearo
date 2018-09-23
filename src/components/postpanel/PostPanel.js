@@ -32,7 +32,6 @@ class PostPanel extends React.Component {
   state = {
     body: '',
     loading: false,
-    expanded: false,
     category: 'news',
     media: [],
   }

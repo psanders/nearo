@@ -14,7 +14,6 @@ function doRedirectSignIn(provider) {
   auth.signInWithRedirect(provider)
   .catch(function(error) {
   if (error.code === 'auth/account-exists-with-different-credential') {
-    console.log('Holly Cow')
     const pendingCred = error.credential
     const email = error.email
     auth.fetchSignInMethodsForEmail(email).then(function(methods) {

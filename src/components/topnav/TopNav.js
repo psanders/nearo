@@ -4,8 +4,6 @@ import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import TextField from '@material-ui/core/TextField'
-import AuthIcon from '@material-ui/icons/Fingerprint'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
 import Hidden from '@material-ui/core/Hidden'
@@ -14,9 +12,9 @@ import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import classnames from 'classnames'
 
-import { doSignInWithGoogle } from '../commons/firebase/auth'
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
+import AuthDialog from '../profile/AuthDialog'
 
 @inject('postsStore')
 @inject('navStore')
@@ -44,7 +42,7 @@ class Topnav extends React.Component {
 
     return (
       <div>
-        <AppBar color="primary">
+        <AppBar>
           <Toolbar>
             <Typography variant="title" color="inherit">
               <Link to="/" className={classes.logo}>Nearo</Link>
@@ -66,40 +64,16 @@ class Topnav extends React.Component {
                className: classes.bootstrapFormLabel,
              }}
            />
-
             <Hidden xsDown={true}>
               <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
             </Hidden>
-
-            <Hidden smDown={true}>
-             <span className={ classes.flex } />
-              {
-                !usersStore.isSignedIn() &&
-                <div>
-                  <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.loginBtn}
-                    aria-label="Authenticate with Google"
-                  >
-                    Login
-                  </Button>
-                  <Button onClick={ doSignInWithGoogle } variant="outlined" className={classes.signupBtn}
-                    aria-label="Sign Up with Google"
-                  >
-                    Sign Up
-                  </Button>
-                </div>
-              }
-            </Hidden>
-            <Hidden mdUp={true}>
             <span className={ classes.flex } />
-              {
-                !usersStore.isSignedIn() &&
-                <Button onClick={ doSignInWithGoogle }
-                  aria-label="Open Authentication Window"
-                >
-                  <AuthIcon className={ classes.authIcon } />
-                </Button>
-              }
-            </Hidden>
+            <span className={ classes.flex } />
+            {
+              !usersStore.isSignedIn() &&
+              <AuthDialog />
+            }
+
             {
               usersStore.isSignedIn() && <ProfileMenu/>
             }
