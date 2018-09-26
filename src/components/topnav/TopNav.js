@@ -45,7 +45,7 @@ class Topnav extends React.Component {
         <AppBar>
           <Toolbar>
             <Typography variant="title" color="inherit">
-              <Link to="/" className={classes.logo}>Nearo</Link>
+              <Link to="/" className={classes.logo}>ListQ</Link>
             </Typography>
             <TextField
              className={classnames(classes.right, classes.left)}
@@ -67,7 +67,6 @@ class Topnav extends React.Component {
             <Hidden xsDown={true}>
               <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
             </Hidden>
-            <span className={ classes.flex } />
             <span className={ classes.flex } />
             {
               !usersStore.isSignedIn() &&

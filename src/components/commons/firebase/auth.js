@@ -4,6 +4,7 @@ import {
   fbProvider,
   db
 } from './firebase'
+import { notificationsStore } from '../../stores/notifications'
 
 function getProvider (pId) {
   return pId === 'facebook' ? fbProvider : googleProvider
@@ -32,6 +33,12 @@ function doRedirectSignIn(provider) {
 export const doSignInWithGoogle = () => doRedirectSignIn(fbProvider)
 
 export const doSignInWithFacebook = () => doRedirectSignIn(fbProvider)
+
+export const doSignInWithEmail = (email, password) => {
+  auth.signInWithEmailAndPassword(email, password).catch(error => {
+    notificationsStore.showNotification(error.message)
+  });
+}
 
 export const doSignOut = () => auth.signOut()
 

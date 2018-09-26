@@ -4,20 +4,23 @@ import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Hidden from '@material-ui/core/Hidden'
-import Divider from '@material-ui/core/Divider'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogTitle from '@material-ui/core/DialogTitle'
+import TextField from '@material-ui/core/TextField'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
 import AuthIcon from '@material-ui/icons/Fingerprint'
+import SignUp from './SignUp'
 import blue from '@material-ui/core/colors/blue'
 import red from '@material-ui/core/colors/red'
 import classnames from 'classnames'
+
 import { observer, inject } from 'mobx-react'
 
-import {doSignInWithGoogle, doSignInWithFacebook} from '../commons/firebase/auth'
+import {
+  doSignInWithGoogle,
+  doSignInWithFacebook,
+  doSignInWithEmail
+} from '../commons/firebase/auth'
 
 @inject('notificationsStore')
 @inject('usersStore')
@@ -31,6 +34,19 @@ class PostPanel extends React.Component {
 
   handleClose = () => this.setState({open: false})
 
+  handleChange = (event) => {
+    if (event.target.id === 'user-email') {
+      this.setState({email: event.target.value})
+    } else if (event.target.id === 'user-password') {
+      this.setState({password: event.target.value})
+    }
+  }
+
+  handleLogin = () => {
+    this.setState({open: false})
+    doSignInWithEmail(this.state.email, this.state.password)
+  }
+
   render() {
     const { classes, fullScreen, usersStore } = this.props
     const { open } = this.state
@@ -43,11 +59,7 @@ class PostPanel extends React.Component {
           >
             Login
           </Button>
-          <Button onClick={ this.handleOpen } variant="outlined" className={classes.signupBtn}
-            aria-label="Sign Up"
-          >
-            Sign Up
-          </Button>
+          <SignUp />
         </Hidden>
         <Hidden mdUp={true}>
           {
@@ -66,24 +78,59 @@ class PostPanel extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">Nearo</DialogTitle>
+          <Typography variant="title" className={classes.title}>Sign into your account</Typography>
 
           <DialogContent className={ classes.details }>
-            <div >
-              <Button onClick={ doSignInWithFacebook } variant="flat"
-                aria-label="Sign Up with Facebook"
-                className={classnames(classes.button, classes.fbButton)}
-              >
-                Connect with Facebook
-              </Button>
+            <TextField
+              id="user-email"
+              className={classes.textField}
+              type="email"
+              margin="dense"
+              placeholder="Email"
+              fullWidth
+              variant="outlined"
+              onChange={this.handleChange}
+              value={this.state.email}
+            />
+            <TextField
+              id="user-password"
+              className={classes.textField}
+              type="password"
+              margin="dense"
+              placeholder="Password"
+              onChange={this.handleChange}
+              value={this.state.password}
+              autoComplete="current-password"
+              variant="outlined"
+              fullWidth
+            />
 
-            <Button onClick={ doSignInWithGoogle } variant="flat"
+            <Button onClick={ this.handleLogin } size="large"
+              aria-label="Sign Up with Facebook"
+              variant="flat"
+              className={classnames(classes.button)}
+            >
+              Sign In
+            </Button>
+
+            <div className="wrap">
+              <p className="centre-line"><span>Or</span></p>
+            </div>
+
+            <Button onClick={ doSignInWithFacebook } size="large"
+              aria-label="Sign Up with Facebook"
+              className={classnames(classes.button, classes.fbButton)}
+            >
+              Sign In with Facebook
+            </Button>
+
+            <Button onClick={ doSignInWithGoogle }
+              size="large"
               aria-label="Authenticate with Google"
               className={classnames(classes.button, classes.goolButton)}
             >
-              Connect with Google
+              Sign In with Google
             </Button>
-            </div>
           </DialogContent>
         </Dialog>
       </div>
@@ -97,13 +144,21 @@ PostPanel.propTypes = {
 }
 
 const styles = theme => ({
+  title: {
+    margin: theme.spacing.unit * 2,
+    fontWeight: 400
+  },
+  details: {
+    width: 300
+  },
   button: {
     textTransform: 'capitalize',
-    width: 200
+    width: '100%',
+    backgroundColor: '#f4f4f4',
   },
   fbButton: {
     color: '#fff',
-    width: 200,
+    marginTop: theme.spacing.unit,
     backgroundColor: blue[700],
     '&:hover': {
       backgroundColor: blue[600]
@@ -111,6 +166,7 @@ const styles = theme => ({
   },
   goolButton: {
     color: '#fff',
+    marginTop: theme.spacing.unit,
     backgroundColor: red[500],
     '&:hover': {
       backgroundColor: red[400]
@@ -126,15 +182,8 @@ const styles = theme => ({
     color: '#fff',
     border: '1px solid #fff'
   },
-  signupBtn: {
-    textTransform: 'capitalize',
-    marginLeft: 8,
-    color: '#000',
-    backgroundColor: theme.palette.accent.main,
-    borderColor: theme.palette.accent.main,
-    '&:hover': {
-      backgroundColor: theme.palette.accent.light
-    },
+  textField: {
+    marginRight: theme.spacing.unit,
   },
 })
 

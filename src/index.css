@@ -12,7 +12,30 @@ html, body {
   color: #0075DB;
 }
 
-::-webkit-scrollbar {
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
+.wrap {
+  height: 50px;
+  position: relative;
+}
+p.centre-line {
+  text-align: center;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 98%;
+  transform: translate(-50%, -50%);
+}
+p.centre-line:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  top: 50%;
+  left: 0;
+  z-index: -1;
+  background: gray;
+}
+p.centre-line span {
+  background-color: #fff;
+  padding: 1rem;
+  display: inline-block;
 }

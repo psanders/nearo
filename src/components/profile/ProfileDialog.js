@@ -153,7 +153,7 @@ class ProfileDialog extends React.Component {
         </MenuItem>
         <Dialog
           fullScreen
-          open={this.state.open || (user.isNewUser)}
+          open={this.state.open || user.isNewUser}
           onClose={this.handleClose}
           TransitionComponent={Transition}
         >
@@ -166,7 +166,7 @@ class ProfileDialog extends React.Component {
                 </IconButton>
               }
               <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
-                Nearo
+                ListQ
               </Typography>
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
               <Avatar className={classes.avatar}

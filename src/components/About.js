@@ -39,7 +39,7 @@ class About extends React.Component {
                   About
                 </Typography>
                 <Typography variant="caption" gutterBottom align="center">
-                Content Policy | Privacy Policy User Agreement | Mod Policy © 2018 Nearo, Inc. All rights reserved
+                Content Policy | Privacy Policy User Agreement | Mod Policy © 2018 ListQ, Inc. All rights reserved
                 </Typography>
             </CardContent>
           </CardActionArea>
