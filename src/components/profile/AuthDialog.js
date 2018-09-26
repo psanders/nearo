@@ -27,7 +27,9 @@ import {
 @observer
 class PostPanel extends React.Component {
   state = {
-    open: false
+    open: false,
+    email: '',
+    password: ''
   }
 
   handleOpen = () => this.setState({open: true})
@@ -82,6 +84,7 @@ class PostPanel extends React.Component {
 
           <DialogContent className={ classes.details }>
             <TextField
+              autoFocus
               id="user-email"
               className={classes.textField}
               type="email"

@@ -6,7 +6,6 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-import Slide from '@material-ui/core/Slide'
 import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Avatar from '@material-ui/core/Avatar'
@@ -18,22 +17,16 @@ import NotificationBar from '../NotificationBar'
 import PhoneInput from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import { db } from '../commons/firebase/firebase'
+import { db, auth } from '../commons/firebase/firebase'
 import { storeUserInfo } from '../commons/dbfunctions'
 
 @inject('usersStore')
 @inject('notificationsStore')
 @withRouter
 @observer
-class ProfileDialog extends Component {
+class Profile extends Component {
   state = {
-    open: false,
-  }
-
-  handleClickOpen = () => this.setState({ open: true })
-
-  handleClose = () => {
-    this.setState({ open: false })
+    password: ''
   }
 
   handleChange = event => {
@@ -52,16 +45,17 @@ class ProfileDialog extends Component {
     } else if (event.target.id === 'user-email') {
       user.email = event.target.value
     } else if (event.target.id === 'user-password') {
-      user.password = event.target.value
+      this.setState({password: event.target.value})
     }
   }
 
   save = () => {
     // Close it first to make it feel faster
     const user = this.props.usersStore.currentUser
-    if (!user.isNewUser) {
-      this.handleClose()
+    if (this.props.mode === "CREATE") {
+      user.isNewUser = true
     }
+
     user.phone = user.phone
       .replace("(","")
       .replace(")","")
@@ -75,7 +69,6 @@ class ProfileDialog extends Component {
         .then(querySnapshot => {
           if(querySnapshot.empty) {
             this.reallySave(user)
-            this.handleClose()
           } else {
             this.props.notificationsStore
               .showNotification('Sorry, this username is taken. Try a different one')
@@ -88,12 +81,21 @@ class ProfileDialog extends Component {
 
   reallySave = (user) => {
     const jsonUser = JSON.parse(JSON.stringify(user))
-    const userRef = db.collection("users").doc(user.email)
-    jsonUser.isNewUser = false
-    userRef.set(jsonUser)
-    storeUserInfo('user-info', jsonUser)
-    this.setState({user: jsonUser})
-    this.props.usersStore.setCurrentUser(jsonUser)
+
+    auth.createUserWithEmailAndPassword(user.email, this.state.password)
+    .then(() => {
+      const userRef = db.collection("users").doc(user.email)
+      jsonUser.isNewUser = false
+      userRef.set(jsonUser)
+      storeUserInfo('user-info', jsonUser)
+      this.setState({user: jsonUser})
+      this.props.usersStore.setCurrentUser(jsonUser)
+      this.props.notificationsStore.showNotification('All set.')
+      this.props.history.push('/')
+    })
+    .catch(error => {
+      this.props.notificationsStore.showNotification(error.message)
+    })
   }
 
   isInvalidUser = user => {
@@ -130,13 +132,16 @@ class ProfileDialog extends Component {
     const { classes, mode, usersStore } = this.props
     const user = usersStore.currentUser
     const creating = mode === "CREATE" ? true : false
+    const showArrowBack = () => {
+      return (!user.isNewUser && !creating) || creating
+    }
 
     return (
       <div>
         <AppBar className={classes.appBar} >
           <Toolbar color="secondary" >
             {
-              !user.isNewUser &&
+              showArrowBack &&
               <IconButton color="inherit" onClick={() => this.props.history.push('/')} aria-label="Close">
                 <ArrowBackIcon style={{ color: '#fff' }} />
               </IconButton>
@@ -157,11 +162,10 @@ class ProfileDialog extends Component {
             <Paper style={{padding: 20, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
               <form className={classes.container} noValidate autoComplete="off">
                 <Typography variant="title" gutterBottom>
-                  Settings
+                  User Profile
                 </Typography>
                 <TextField
                   autoFocus
-                  tabIndex="1"
                   variant="outlined"
                   id="user-name"
                   label="Display Name"
@@ -176,7 +180,6 @@ class ProfileDialog extends Component {
                   margin="dense"
                 />
                 {creating && <TextField
-
                   variant="outlined"
                   id="user-email"
                   label="Email"
@@ -198,8 +201,8 @@ class ProfileDialog extends Component {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  value={ user.password }
-                  error={ user.password.length < 7 }
+                  value={ this.state.password }
+                  error={ this.state.password.length < 7 }
                   placeholder="Password"
                   fullWidth
                   margin="dense"
@@ -271,12 +274,16 @@ class ProfileDialog extends Component {
           </div>
         </div>
         <NotificationBar />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
       </div>
     )
   }
 }
 
-ProfileDialog.propTypes = {
+Profile.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
@@ -290,4 +297,4 @@ const styles = theme => ({
   },
 })
 
-export default withStyles(styles)(ProfileDialog)
+export default withStyles(styles)(Profile)
