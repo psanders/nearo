@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import MaskedInput from 'react-text-mask'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -33,14 +33,16 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired,
 }
 
-class PhoneInput extends React.Component {
+class PhoneInput extends Component {
   state = {
-    value: this.props.value
+    pristine: true,
+    value: this.props.value ? this.props.value : " "
   }
 
   handleChange = name => event => {
     this.setState({[name]: event.target.value})
     this.props.onChange(event)
+    this.setState({pristine: false})
   }
 
   isValidNumber = (number) => {
@@ -61,13 +63,14 @@ class PhoneInput extends React.Component {
         variant="outlined"
         id="user-phone"
         label="Phone"
+
         fullWidth
         margin="dense"
-        error={!this.isValidNumber(value)}
+        error={!this.state.pristine && !this.isValidNumber(value)}
         InputProps={{
           inputComponent: TextMaskCustom,
-          value: value,
           onChange: this.handleChange('value'),
+          value: value,
         }}
       />
     )

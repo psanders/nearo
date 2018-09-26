@@ -10,8 +10,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import { observer, inject } from 'mobx-react'
 import { styles } from './TopnavStyles'
 
-import { doSignOut } from '../commons/firebase/auth'
-
 @inject('usersStore')
 @observer
 class ProfileMenu extends React.Component {
@@ -47,7 +45,7 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={() => doSignOut()}>
+          <MenuItem onClick={usersStore.doSignOut}>
             <ListItemIcon className={classes.icon}>
               <ExitIcon />
             </ListItemIcon>

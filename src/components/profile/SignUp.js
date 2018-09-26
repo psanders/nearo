@@ -50,7 +50,7 @@ class SignUp extends React.Component {
           </MenuItem>
           <Divider />
           <MenuItem onClick={() => this.props.history.push('/newaccount')}>
-            Profile Settings
+            Sign Up with Email
           </MenuItem>
         </Menu>
       </span>

@@ -10,6 +10,7 @@ import PostsContainer from './PostsContainer'
 import SinglePostContainer from './SinglePostContainer'
 import PostPanel from './postpanel/PostPanel'
 import Profile from './profile/Profile'
+import PasswordPrompt from './profile/PasswordPrompt'
 import NoMatch from './404'
 
 @withRouter
@@ -66,6 +67,7 @@ class MainContainer extends Component {
         </main>
         <NotificationBar />
         <PostPanel />
+        <PasswordPrompt />
       </div>
     )
   }

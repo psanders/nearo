@@ -1,14 +1,18 @@
 import { observable } from "mobx"
 import { auth, db } from '../commons/firebase/firebase'
+import { doSignOut } from '../commons/firebase/auth'
 import {
   fetchUserInfo,
   storeUserInfo,
   removeUserInfo
 } from '../commons/dbfunctions'
 
+const initUser = {username: '', password: '', name: '', email: ''}
+
 class UsersStore {
-    @observable currentUser = {username: '', password: '', name: '', email: ''}
+    @observable currentUser = initUser
     @observable statusVerified = false
+    @observable signedIn = false
 
     constructor() {
       auth.onAuthStateChanged(user => {
@@ -27,6 +31,7 @@ class UsersStore {
         if (userInfo && userInfo.email === user.email) {
           this.currentUser = userInfo
           this.statusVerified = true
+          this.signedIn = true
         } else {
           // Fallback
           this.fetchUserInfoFromDB(user)
@@ -42,6 +47,7 @@ class UsersStore {
         if(userInfo.exists) {
           this.currentUser = userInfo.data()
           storeUserInfo('user-info', JSON.parse(JSON.stringify(this.currentUser)))
+          this.signedIn = true
         } else {
           removeUserInfo('user-info')
         }
@@ -54,7 +60,14 @@ class UsersStore {
 
     isStatusVerified = () => this.statusVerified
 
-    isSignedIn = () => false
+    isSignedIn = () => this.signedIn
+
+    doSignOut = () => {
+      doSignOut()
+      removeUserInfo('user-info')
+      this.signedIn = false
+      this.setCurrentUser(initUser)
+    }
 
     setCurrentUser(user) {
       this.currentUser = user

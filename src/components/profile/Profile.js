@@ -26,7 +26,8 @@ import { storeUserInfo } from '../commons/dbfunctions'
 @observer
 class Profile extends Component {
   state = {
-    password: ''
+    password: '',
+    noPristine: new Map()
   }
 
   handleChange = event => {
@@ -47,6 +48,8 @@ class Profile extends Component {
     } else if (event.target.id === 'user-password') {
       this.setState({password: event.target.value})
     }
+
+    this.setNoPristine(event.target.id)
   }
 
   save = () => {
@@ -121,11 +124,25 @@ class Profile extends Component {
     || user.name.length <= 5
     || !this.isValidNumber(user.phone)
     || this.isInvalidUser(user)
+    || !this.validEmail(user.email)
   }
 
   alphanumeric = (text) => {
     const letters = /^[0-9a-zA-Z]+$/
     return text.match(letters) ? true : false
+  }
+
+  isNoPristine = (field) => this.state.noPristine.get(field)
+
+  setNoPristine = (field) => {
+    const noPristine = this.state.noPristine
+    noPristine.set(field, true)
+    this.setState({noPristine: noPristine})
+  }
+
+  validEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
   }
 
   render() {
@@ -174,7 +191,7 @@ class Profile extends Component {
                     shrink: true,
                   }}
                   value={ user.name }
-                  error={user.name.length < 3 }
+                  error={this.isNoPristine('user-name') && user.name.length < 3 }
                   placeholder="Name"
                   fullWidth
                   margin="dense"
@@ -188,6 +205,7 @@ class Profile extends Component {
                     shrink: true,
                   }}
                   value={ user.email }
+                  error={ this.isNoPristine('user-email') && !this.validEmail(user.email) }
                   placeholder="Email"
                   fullWidth
                   margin="dense"
@@ -202,7 +220,7 @@ class Profile extends Component {
                     shrink: true,
                   }}
                   value={ this.state.password }
-                  error={ this.state.password.length < 7 }
+                  error={ this.isNoPristine('user-password') && this.state.password.length < 7 }
                   placeholder="Password"
                   fullWidth
                   margin="dense"
@@ -219,9 +237,9 @@ class Profile extends Component {
                       shrink: true,
                     }}
                     value={user.username}
-                    error={this.isInvalidUser(user)}
+                    error={this.isNoPristine('user-username') && this.isInvalidUser(user)}
                     fullWidth
-                    helperText="Must be alphanumeric"
+                    placeholder="Must be alphanumeric"
                     margin="dense"
                   />
                 }
