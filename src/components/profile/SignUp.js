@@ -5,12 +5,17 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
+import { observer, inject } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
 
 import {
   doSignInWithGoogle,
   doSignInWithFacebook,
 } from '../commons/firebase/auth'
 
+@inject('usersStore')
+@withRouter
+@observer
 class SignUp extends React.Component {
   state = {
     anchorEl: null,
@@ -44,8 +49,8 @@ class SignUp extends React.Component {
             Continue With Google
           </MenuItem>
           <Divider />
-          <MenuItem>
-            Sign Up With Email
+          <MenuItem onClick={() => this.props.history.push('/newaccount')}>
+            Profile Settings
           </MenuItem>
         </Menu>
       </span>

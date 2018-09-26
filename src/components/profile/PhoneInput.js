@@ -62,7 +62,7 @@ class PhoneInput extends React.Component {
         id="user-phone"
         label="Phone"
         fullWidth
-        margin="normal"
+        margin="dense"
         error={!this.isValidNumber(value)}
         InputProps={{
           inputComponent: TextMaskCustom,

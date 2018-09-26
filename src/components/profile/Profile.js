@@ -1,72 +1,59 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import Slide from '@material-ui/core/Slide'
-import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
-import SettingsIcon from '@material-ui/icons/Settings'
 import { observer, inject } from 'mobx-react'
+import { withRouter } from 'react-router-dom'
+
 import NotificationBar from '../NotificationBar'
 import PhoneInput from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-
 import { db } from '../commons/firebase/firebase'
 import { storeUserInfo } from '../commons/dbfunctions'
 
-const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
-  flex: {
-    flex: 1,
-  },
-  textField: {
-    width: '292px', /* Why?? */
-    marginBottom: 15
-  },
-})
-
-function Transition(props) {
-  return <Slide direction="up" {...props} />
-}
-
 @inject('usersStore')
 @inject('notificationsStore')
+@withRouter
 @observer
-class ProfileDialog extends React.Component {
+class ProfileDialog extends Component {
   state = {
-    open: false
+    open: false,
   }
 
   handleClickOpen = () => this.setState({ open: true })
 
-  handleClose = () => this.setState({ open: false })
+  handleClose = () => {
+    this.setState({ open: false })
+  }
 
   handleChange = event => {
     const user = this.props.usersStore.currentUser
+
     if (event.target.id === 'user-name') {
       user.name = event.target.value
-    } else if (event.target.id === 'user-phone') {
-      user.phone = event.target.value.trim()
     } else if (event.target.id === 'user-username') {
       user.username = event.target.value
-    } else if (event.target.id === 'user-bio') {
+    } else if (event.target.id === 'user-phone') {
+      user.phone = event.target.value.trim()
+    }  else if (event.target.id === 'user-bio') {
       user.bio = event.target.value
     } else if (event.target.id === 'user-phone-private') {
       user.keepPhonePrivate = event.target.checked
+    } else if (event.target.id === 'user-email') {
+      user.email = event.target.value
+    } else if (event.target.id === 'user-password') {
+      user.password = event.target.value
     }
-    this.setState({ user: user})
   }
 
   save = () => {
@@ -140,49 +127,41 @@ class ProfileDialog extends React.Component {
   }
 
   render() {
-    const { classes } = this.props
-    const user = this.props.usersStore.currentUser
+    const { classes, mode, usersStore } = this.props
+    const user = usersStore.currentUser
+    const creating = mode === "CREATE" ? true : false
 
     return (
       <div>
-        <MenuItem onClick={this.handleClickOpen}>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          Profile Settings
-        </MenuItem>
-        <Dialog
-          fullScreen
-          open={this.state.open || user.isNewUser}
-          onClose={this.handleClose}
-          TransitionComponent={Transition}
-        >
-          <AppBar className={classes.appBar} >
-            <Toolbar color="secondary" >
-              {
-                !user.isNewUser &&
-                <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-                  <ArrowBackIcon style={{ color: '#fff' }} />
-                </IconButton>
-              }
-              <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
-                ListQ
-              </Typography>
-              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-              <Avatar className={classes.avatar}
-                style={{height: 35, width: 35}}
-                alt={user.name}
-                src={user.picture}  />
+        <AppBar className={classes.appBar} >
+          <Toolbar color="secondary" >
+            {
+              !user.isNewUser &&
+              <IconButton color="inherit" onClick={() => this.props.history.push('/')} aria-label="Close">
+                <ArrowBackIcon style={{ color: '#fff' }} />
               </IconButton>
-            </Toolbar>
-          </AppBar>
-          <div style={{backgroundColor: '#dae0e6', height: '100vh', width: '100vw'}}>
-            <div style={{margin: 'auto', height: '100vh', width: 360}}>
-              <Paper style={{padding: 20, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
+            }
+            <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
+              ListQ
+            </Typography>
+            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+            <Avatar className={classes.avatar}
+              style={{height: 35, width: 35}}
+              alt={user.name}
+              src={user.picture}  />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <div style={{backgroundColor: '#dae0e6', height: '100vh', width: '100vw'}}>
+          <div style={{margin: 'auto', height: '100vh', width: 360}}>
+            <Paper style={{padding: 20, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
+              <form className={classes.container} noValidate autoComplete="off">
                 <Typography variant="title" gutterBottom>
                   Settings
                 </Typography>
                 <TextField
+                  autoFocus
+                  tabIndex="1"
                   variant="outlined"
                   id="user-name"
                   label="Display Name"
@@ -191,18 +170,47 @@ class ProfileDialog extends React.Component {
                     shrink: true,
                   }}
                   value={ user.name }
-                  error={ user.name.length < 3 }
+                  error={user.name.length < 3 }
                   placeholder="Name"
                   fullWidth
-                  margin="normal"
+                  margin="dense"
                 />
+                {creating && <TextField
+
+                  variant="outlined"
+                  id="user-email"
+                  label="Email"
+                  onChange={this.handleChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={ user.email }
+                  placeholder="Email"
+                  fullWidth
+                  margin="dense"
+                />}
+                {creating && <TextField
+                  variant="outlined"
+                  id="user-password"
+                  type="password"
+                  label="Password"
+                  onChange={this.handleChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={ user.password }
+                  error={ user.password.length < 7 }
+                  placeholder="Password"
+                  fullWidth
+                  margin="dense"
+                />}
                 {
-                  user.isNewUser &&
+                  (user.isNewUser || creating) &&
                   <TextField
                     variant="outlined"
                     id="user-username"
                     label="Username"
-                    disabled={!user.isNewUser}
+                    disabled={!user.isNewUser && !creating}
                     onChange={this.handleChange}
                     InputLabelProps={{
                       shrink: true,
@@ -211,7 +219,7 @@ class ProfileDialog extends React.Component {
                     error={this.isInvalidUser(user)}
                     fullWidth
                     helperText="Must be alphanumeric"
-                    margin="normal"
+                    margin="dense"
                   />
                 }
                 <PhoneInput
@@ -237,7 +245,7 @@ class ProfileDialog extends React.Component {
                   label="About"
                   multiline
                   rows="4"
-                  margin="normal"
+                  margin="dense"
                   variant="outlined"
                   fullWidth
                   inputProps= {{
@@ -254,15 +262,15 @@ class ProfileDialog extends React.Component {
                 >
                   Save
                 </Button>
-              </Paper>
-              <Typography variant="caption" style={{marginTop: 5}} align="center">
-                We will not annoy you with push notification if you are currently online via web/desktop.
-                We also throttle noisy conversation.
-              </Typography>
-            </div>
+              </form>
+            </Paper>
+            <Typography variant="caption" style={{marginTop: 5}} align="center">
+              We will not annoy you with push notification if you are currently online via web/desktop.
+              We also throttle noisy conversation.
+            </Typography>
           </div>
-          <NotificationBar />
-        </Dialog>
+        </div>
+        <NotificationBar />
       </div>
     )
   }
@@ -271,5 +279,15 @@ class ProfileDialog extends React.Component {
 ProfileDialog.propTypes = {
   classes: PropTypes.object.isRequired,
 }
+
+const styles = theme => ({
+  flex: {
+    flex: 1,
+  },
+  textField: {
+    width: '292px', /* Why?? */
+    marginBottom: 15
+  },
+})
 
 export default withStyles(styles)(ProfileDialog)

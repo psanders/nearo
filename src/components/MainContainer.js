@@ -2,17 +2,16 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import { observer, inject } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
-import ProfileDialog from './profile/ProfileDialog'
 import PostsContainer from './PostsContainer'
 import SinglePostContainer from './SinglePostContainer'
 import PostPanel from './postpanel/PostPanel'
+import Profile from './profile/Profile'
 import NoMatch from './404'
 
-@inject('usersStore')
 @withRouter
 @observer
 class MainContainer extends Component {
@@ -25,25 +24,41 @@ class MainContainer extends Component {
   }
 
   render () {
-    const { classes, usersStore } = this.props
+    const { classes } = this.props
 
     return(
       <div className={ classes.root }>
-        <Topnav className={ classes.appBar } />
-
         <main className={ classes.content }>
           <div className={ classes.toolbar } />
           <Switch>
             <Route
               exact path='/'
               render={(props) =>
-                <PostsContainer />
+                <div>
+                  <Topnav className={ classes.appBar } />
+                  <PostsContainer />
+                </div>
               }
             />
             <Route
               path='/posts/:postId'
               render={(props) =>
-                <SinglePostContainer />
+                <div>
+                  <Topnav className={ classes.appBar } />
+                  <SinglePostContainer />
+                </div>
+              }
+            />
+            <Route
+              path='/newaccount'
+              render={(props) =>
+                <Profile mode="CREATE"/>
+              }
+            />
+            <Route
+              path='/profile'
+              render={(props) =>
+                <Profile />
               }
             />
             <Route component={NoMatch} />
@@ -51,10 +66,6 @@ class MainContainer extends Component {
         </main>
         <NotificationBar />
         <PostPanel />
-        { usersStore.currentUser &&
-          usersStore.currentUser.isNewUser &&
-          <ProfileDialog  />
-        }
       </div>
     )
   }

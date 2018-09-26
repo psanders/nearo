@@ -7,7 +7,7 @@ import {
 } from '../commons/dbfunctions'
 
 class UsersStore {
-    @observable currentUser = null
+    @observable currentUser = {username: '', password: '', name: '', email: ''}
     @observable statusVerified = false
 
     constructor() {
@@ -15,7 +15,6 @@ class UsersStore {
         if (user) {
           this.loadUser(user)
         } else {
-          this.currentUser = null
           this.statusVerified = true
           removeUserInfo('user-info')
         }
@@ -55,7 +54,7 @@ class UsersStore {
 
     isStatusVerified = () => this.statusVerified
 
-    isSignedIn = () => this.currentUser? true : false
+    isSignedIn = () => false
 
     setCurrentUser(user) {
       this.currentUser = user
