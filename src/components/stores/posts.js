@@ -28,7 +28,7 @@ class PostsStore {
         () => this.updateBySearch(navStore.navInfo)
       )
 
-      autorun(() => this.updateBySearch(navStore.navInfo))
+      autorun(() => appStore.isReady() && this.updateBySearch(navStore.navInfo))
     }
 
     isPostDialogOpen = () => this.postDialogOpen
@@ -66,9 +66,7 @@ class PostsStore {
     updatePosts = (posts, doConcact) => {
       if (!posts) return
 
-      const bookmarks = usersStore.isSignedIn()
-        ? bookmarksStore.bookmarks
-        : []
+      const bookmarks = bookmarksStore.bookmarks
 
       posts.forEach(post => {
         bookmarks.forEach(x => {

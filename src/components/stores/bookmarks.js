@@ -41,7 +41,7 @@ class BookmarksStore {
       }
       const bookmarksRef = db.collection('bookmarks').doc(post.id)
       bookmarksRef.set({
-        user: usersStore.currentUser.email
+        user: usersStore.currentUser.id
       }, { merge: true }).then(() => {
         notificationsStore.showNotification('Noted!')
         this.bookmarks.push(post.id)

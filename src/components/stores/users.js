@@ -86,7 +86,12 @@ class UsersStore {
 
     isSignedIn = () => this.signedIn
 
-    doSignOut = () => auth.signOut()
+    doSignOut = () => {
+      auth.signOut()
+      this.setCurrentUser(initUser)
+      this.signedIn = false
+      removeUserInfo('user-info')
+    }
 
     setCurrentUser(user) {
       this.currentUser = user
