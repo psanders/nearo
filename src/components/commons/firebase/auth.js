@@ -1,15 +1,16 @@
 import {
   auth,
-  googleProvider,
-  fbProvider,
   db
 } from './firebase'
 
 auth.getRedirectResult().then(function(result) {
   if (result.user && result.additionalUserInfo.isNewUser) {
+    window.alert('WTF')
+    const picture = result.user.photoUrl
+
     const user = {
       name: result.user.name,
-      picture: result.user.photoUrl,
+      picture: picture,
       isNewUser: true
     }
     const userRef = db.collection('users')

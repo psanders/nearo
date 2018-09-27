@@ -22,7 +22,7 @@ class BookmarksStore {
 
     loadBookmarks(user) {
       db.collection("bookmarks")
-      .where("user", "==", user.email)
+      .where("user", "==", user.id)
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {

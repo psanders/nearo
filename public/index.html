@@ -21,6 +21,11 @@
     </noscript>
     <div id="root"></div>
     <script async defer type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y"></script>
-    <script src="https://smartlock.google.com/client"></script>
+    <script async defer type="text/javascript" src="https://smartlock.google.com/client"></script>
+    <script>
+      window.onGoogleYoloLoad = (googleyolo) => {
+        window.googleyolo = googleyolo
+      }
+    </script>
   </body>
 </html>

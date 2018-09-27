@@ -1,7 +1,6 @@
 import { observable, when } from "mobx"
 import { auth, db } from '../commons/firebase/firebase'
-import { doSignOut } from '../commons/firebase/auth'
-import { openURL } from '../commons/utils'
+import firebase from 'firebase/app'
 import {
   fetchUserInfo,
   storeUserInfo,
@@ -26,22 +25,26 @@ class UsersStore {
       })
 
       when(
-        () => this.statusVerified && !this.isSignedIn,
+        () => this.isStatusVerified() && !this.isSignedIn() && window.googleyolo,
         () => {
-          console.log("Test xxxx")
-          window.onGoogleYoloLoad = (googleyolo) => {
-            const hintPromise = googleyolo.hint({
-              supportedAuthMethods: [
-                "https://accounts.google.com"
-              ],
-              supportedIdTokenProviders: [
-                {
-                  uri: "https://accounts.google.com",
-                  clientId: "225376231981-m0a8otu93ha2btftd05vku6kob7nidr4"
-                }
-              ]
+          const hintPromise = window.googleyolo.hint({
+            supportedAuthMethods: [
+              "https://accounts.google.com"
+            ],
+            supportedIdTokenProviders: [
+              {
+                uri: "https://accounts.google.com",
+                clientId: "225376231981-m0a8otu93ha2btftd05vku6kob7nidr4"
+              }
+            ]
+          });
+
+          hintPromise.then(credential => {
+            const key = firebase.auth.GoogleAuthProvider.credential(credential.idToken);
+            auth.signInAndRetrieveDataWithCredential(key).catch(function(error) {
+              console.error(error)
             });
-          }
+          })
         }
       )
     }
@@ -51,8 +54,8 @@ class UsersStore {
       .then(userInfo => {
         if (userInfo && userInfo.email === user.email) {
           this.currentUser = userInfo
-          this.statusVerified = true
           this.signedIn = true
+          this.statusVerified = true
         } else {
           // Fallback
           this.fetchUserInfoFromDB(user)

@@ -37,6 +37,10 @@ class Topnav extends React.Component {
     this.props.history.push('/')
   }
 
+  goToLogin = () => {
+    this.props.history.push('/login')
+  }
+
   render() {
     const { classes, usersStore } = this.props
 
@@ -71,18 +75,20 @@ class Topnav extends React.Component {
             {
               !usersStore.isSignedIn() &&
               <div>
-              <Button onClick={ this.handleOpen } variant="outlined" className={classes.loginBtn}
+              <Button onClick={ this.goToLogin } variant="outlined" className={classes.loginBtn}
                 aria-label="Sign Up"
               >
                 Login
               </Button>
-              <Button onClick={ this.handleClick } variant="outlined" className={classes.signupBtn}
+              <Button onClick={ this.goToLogin } variant="outlined" className={classes.signupBtn}
                 aria-label="Sign Up"
               >
                 Sign Up
               </Button>
               </div>
             }
+
+            {usersStore.isSignedIn()}
 
             {
               usersStore.isSignedIn() && <ProfileMenu/>
