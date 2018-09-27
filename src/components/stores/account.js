@@ -16,10 +16,8 @@ class AccountStore {
     linkAccounts = (password) => {
       const email = this.email
       const pendingCred = this.pendingCred
-
-      auth.signInWithEmailAndPassword(email, password).then(user => {
-        console.log('user', user)
-        user.linkWithCredential(pendingCred)
+      auth.signInWithEmailAndPassword(email, password).then(result => {
+        result.user.linkWithCredential(pendingCred)
         notificationsStore.showNotification("Accounts linked")
       }).catch(error => {
         notificationsStore.showNotification(error.message)

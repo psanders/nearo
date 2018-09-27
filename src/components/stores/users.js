@@ -34,6 +34,7 @@ class UsersStore {
     mustCompleteProfile = () => this.currentUser.isNewUser
       && this.statusVerified
       && window.location.pathname !== "/profile"
+      && window.location.pathname !== "/newaccount"
 
     loadUser (user) {
       fetchUserInfo('user-info')
