@@ -189,7 +189,7 @@ class Profile extends Component {
 
     return (
       <div>
-        <AppBar className={classes.appBar} >
+        <AppBar>
           <Toolbar color="secondary" >
             <IconButton color="inherit" onClick={ this.handleGoBack } aria-label="Close">
               <ArrowBackIcon style={{ color: '#fff' }} />

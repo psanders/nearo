@@ -1,6 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import Typography from '@material-ui/core/Typography'
+import Toolbar from '@material-ui/core/Toolbar'
+import AppBar from '@material-ui/core/AppBar'
 import 'firebase/auth';
 import {
   db
@@ -49,10 +55,21 @@ const uiConfig = {
   }
 };
 
+@withRouter
 class LoginScreen extends Component {
   render() {
     return (
       <div style={{height: '100vh'}}>
+      <AppBar  >
+          <Toolbar color="secondary" >
+            <IconButton color="inherit" onClick={ () => this.props.history.push('/') } aria-label="Close">
+              <ArrowBackIcon style={{ color: '#fff' }} />
+            </IconButton>
+            <Typography variant="title" style={{ color: '#fff' }}>
+              ListQ
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
       </div>
     );
