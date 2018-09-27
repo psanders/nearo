@@ -10,6 +10,9 @@ import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Visibility from '@material-ui/icons/Visibility'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
@@ -27,7 +30,8 @@ import { storeUserInfo } from '../commons/dbfunctions'
 class Profile extends Component {
   state = {
     password: '',
-    noPristine: new Map()
+    noPristine: new Map(),
+    showPassword: false
   }
 
   handleChange = event => {
@@ -150,8 +154,8 @@ class Profile extends Component {
   }
 
   validEmail = (email) => {
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
+    const re = /\S+@\S+\.\S+/
+    return re.test(email)
   }
 
   handleGoBack= () => {
@@ -161,6 +165,10 @@ class Profile extends Component {
     }
     this.props.history.push('/')
   }
+
+  handleClickShowPassword = () => {
+    this.setState(state => ({ showPassword: !state.showPassword }));
+  };
 
   render() {
     const { classes, mode, usersStore } = this.props
@@ -221,20 +229,33 @@ class Profile extends Component {
                   fullWidth
                   margin="dense"
                 />}
-                {creating && <TextField
+                { <TextField
+                  className={classes.passwordField}
                   variant="outlined"
                   id="user-password"
-                  type="password"
+                  type={this.state.showPassword ? 'text' : 'password'}
                   label="Password"
                   onChange={this.handleChange}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
                   value={ this.state.password }
                   error={ this.isNoPristine('user-password') && this.state.password.length < 7 }
                   placeholder="Password"
                   fullWidth
                   margin="dense"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="Toggle password visibility"
+                          onClick={this.handleClickShowPassword}
+                        >
+                          {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />}
                 {
                   (user.isNewUser || creating) &&
@@ -324,6 +345,9 @@ const styles = theme => ({
     width: '292px', /* Why?? */
     marginBottom: 15
   },
+  passwordField :{
+    width: '305px', /* Why?? */
+  }
 })
 
 export default withStyles(styles)(Profile)
