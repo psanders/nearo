@@ -36,7 +36,6 @@ TextMaskCustom.propTypes = {
 class PhoneInput extends Component {
   state = {
     pristine: true,
-    value: this.props.value ? this.props.value : " "
   }
 
   handleChange = name => event => {
@@ -56,21 +55,20 @@ class PhoneInput extends Component {
   }
 
   render() {
-    const { value } = this.state
+    const { value } = this.props
 
     return (
       <TextField
         variant="outlined"
         id="user-phone"
         label="Phone"
-
         fullWidth
         margin="dense"
         error={!this.state.pristine && !this.isValidNumber(value)}
         InputProps={{
           inputComponent: TextMaskCustom,
           onChange: this.handleChange('value'),
-          value: value,
+          value: value? value : " ",
         }}
       />
     )

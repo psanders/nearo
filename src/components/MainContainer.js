@@ -57,9 +57,9 @@ class MainContainer extends Component {
               }
             />
             <Route
-              path='/completeprofile'
+              path='/profile'
               render={(props) =>
-                <Profile mode="COMPLETE"/>
+                <Profile />
               }
             />
             <Route component={NoMatch} />

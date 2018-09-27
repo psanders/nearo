@@ -83,22 +83,31 @@ class Profile extends Component {
   }
 
   reallySave = (user) => {
-    const jsonUser = JSON.parse(JSON.stringify(user))
+    if (this.props.mode === "CREATE") {
+      auth.createUserWithEmailAndPassword(user.email, this.state.password)
+      .then(() => {
+        this.reallyReallySave(user)
+      })
+      .catch(error => {
+        this.props.notificationsStore.showNotification(error.message)
+      })
+    } else {
+      this.reallyReallySave(user)
+    }
+  }
 
-    auth.createUserWithEmailAndPassword(user.email, this.state.password)
-    .then(() => {
-      const userRef = db.collection("users").doc(user.email)
-      jsonUser.isNewUser = false
-      userRef.set(jsonUser)
-      storeUserInfo('user-info', jsonUser)
-      this.setState({user: jsonUser})
-      this.props.usersStore.setCurrentUser(jsonUser)
-      this.props.notificationsStore.showNotification('All set.')
-      this.props.history.push('/')
-    })
-    .catch(error => {
-      this.props.notificationsStore.showNotification(error.message)
-    })
+  reallyReallySave = user => {
+    const jsonUser = JSON.parse(JSON.stringify(user))
+    // Update remote DB
+    const userRef = db.collection("users").doc(user.email)
+    jsonUser.isNewUser = false
+    userRef.set(jsonUser)
+
+    // Update local DB
+    storeUserInfo('user-info', jsonUser)
+    this.props.usersStore.setCurrentUser(jsonUser)
+    this.props.notificationsStore.showNotification('All set.')
+    this.props.history.push('/')
   }
 
   isInvalidUser = user => {
@@ -145,24 +154,26 @@ class Profile extends Component {
     return re.test(email);
   }
 
+  handleGoBack= () => {
+    if (this.props.usersStore.currentUser.isNewUser) {
+      this.props.usersStore.doSignOut()
+      this.props.notificationsStore.showNotification("Please complete your profile to enjoy all the features.")
+    }
+    this.props.history.push('/')
+  }
+
   render() {
     const { classes, mode, usersStore } = this.props
     const user = usersStore.currentUser
     const creating = mode === "CREATE" ? true : false
-    const showArrowBack = () => {
-      return (!user.isNewUser && !creating) || creating
-    }
 
     return (
       <div>
         <AppBar className={classes.appBar} >
           <Toolbar color="secondary" >
-            {
-              showArrowBack &&
-              <IconButton color="inherit" onClick={() => this.props.history.push('/')} aria-label="Close">
-                <ArrowBackIcon style={{ color: '#fff' }} />
-              </IconButton>
-            }
+            <IconButton color="inherit" onClick={ this.handleGoBack } aria-label="Close">
+              <ArrowBackIcon style={{ color: '#fff' }} />
+            </IconButton>
             <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
               ListQ
             </Typography>
@@ -243,11 +254,11 @@ class Profile extends Component {
                     margin="dense"
                   />
                 }
-                <PhoneInput
+                {user && <PhoneInput
                   id="user-phone"
                   value={user.phone}
                   onChange={this.handleChange}
-                />
+                />}
 
                 <FormControlLabel
                   control={
