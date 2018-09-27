@@ -50,6 +50,7 @@
     "react-dev-utils": "^5.0.2",
     "react-dom": "^16.5.1",
     "react-firebase-file-uploader": "^2.4.2",
+    "react-firebaseui": "^3.0.7",
     "react-linkify": "^0.2.2",
     "react-moment": "^0.7.9",
     "react-places-autocomplete": "^7.2.0",

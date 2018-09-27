@@ -69,6 +69,7 @@ class Profile extends Component {
       .replace("-","")
       .replace(" ","")
 
+    // Ensure this username is not taken
     if (user.isNewUser) {
       db.collection("users")
         .where("username", "==", user.username)
@@ -87,15 +88,26 @@ class Profile extends Component {
   }
 
   reallySave = (user) => {
-    if (this.props.mode === "CREATE") {
+    if (user.isNewUser) {
       auth.createUserWithEmailAndPassword(user.email, this.state.password)
       .then(() => {
         this.reallyReallySave(user)
       })
       .catch(error => {
+        console.log(error)
         this.props.notificationsStore.showNotification(error.message)
       })
     } else {
+
+      if (this.state.password !== "") {
+        user.updatePassword(this.state.password).then(function() {
+          console.log("Password updated")
+          this.notificationsStore.showNotification("Password updated")
+        }).catch(error => {
+          this.notificationsStore.showNotification(error.message)
+        });
+      }
+
       this.reallyReallySave(user)
     }
   }

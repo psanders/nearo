@@ -9,8 +9,8 @@ import NotificationBar from './NotificationBar'
 import PostsContainer from './PostsContainer'
 import SinglePostContainer from './SinglePostContainer'
 import PostPanel from './postpanel/PostPanel'
+import LoginScreen from './profile/LoginScreen'
 import Profile from './profile/Profile'
-import PasswordPrompt from './profile/PasswordPrompt'
 import NoMatch from './404'
 
 @withRouter
@@ -51,9 +51,9 @@ class MainContainer extends Component {
               }
             />
             <Route
-              path='/newaccount'
+              path='/login'
               render={(props) =>
-                <Profile mode="CREATE"/>
+                <LoginScreen />
               }
             />
             <Route
@@ -67,7 +67,6 @@ class MainContainer extends Component {
         </main>
         <NotificationBar />
         <PostPanel />
-        <PasswordPrompt />
       </div>
     )
   }

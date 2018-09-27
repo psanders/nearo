@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
 import Hidden from '@material-ui/core/Hidden'
+import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
@@ -14,7 +15,6 @@ import classnames from 'classnames'
 
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
-import AuthDialog from '../profile/AuthDialog'
 
 @inject('postsStore')
 @inject('navStore')
@@ -70,7 +70,18 @@ class Topnav extends React.Component {
             <span className={ classes.flex } />
             {
               !usersStore.isSignedIn() &&
-              <AuthDialog />
+              <div>
+              <Button onClick={ this.handleOpen } variant="outlined" className={classes.loginBtn}
+                aria-label="Sign Up"
+              >
+                Login
+              </Button>
+              <Button onClick={ this.handleClick } variant="outlined" className={classes.signupBtn}
+                aria-label="Sign Up"
+              >
+                Sign Up
+              </Button>
+              </div>
             }
 
             {

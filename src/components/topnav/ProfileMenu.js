@@ -45,8 +45,8 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={usersStore.doSignOut}>
-            <ListItemIcon className={classes.icon}>
+          <MenuItem onClick={usersStore.doSignOut} >
+            <ListItemIcon className={classes.icon} >
               <ExitIcon />
             </ListItemIcon>
             Logout

@@ -63,16 +63,7 @@ SignUp.propTypes = {
 }
 
 const styles = theme => ({
-  signupBtn: {
-    textTransform: 'capitalize',
-    marginLeft: 8,
-    color: '#000',
-    backgroundColor: theme.palette.accent.main,
-    borderColor: theme.palette.accent.main,
-    '&:hover': {
-      backgroundColor: theme.palette.accent.light
-    },
-  },
+
 })
 
 export default withStyles(styles)(SignUp)

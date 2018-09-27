@@ -26,15 +26,25 @@ class UsersStore {
       })
 
       when(
-        () => this.mustCompleteProfile(),
-        () => openURL('/profile')
+        () => this.statusVerified && !this.isSignedIn,
+        () => {
+          console.log("Test xxxx")
+          window.onGoogleYoloLoad = (googleyolo) => {
+            const hintPromise = googleyolo.hint({
+              supportedAuthMethods: [
+                "https://accounts.google.com"
+              ],
+              supportedIdTokenProviders: [
+                {
+                  uri: "https://accounts.google.com",
+                  clientId: "225376231981-m0a8otu93ha2btftd05vku6kob7nidr4"
+                }
+              ]
+            });
+          }
+        }
       )
     }
-
-    mustCompleteProfile = () => this.currentUser.isNewUser
-      && this.statusVerified
-      && window.location.pathname !== "/profile"
-      && window.location.pathname !== "/newaccount"
 
     loadUser (user) {
       fetchUserInfo('user-info')
@@ -73,12 +83,7 @@ class UsersStore {
 
     isSignedIn = () => this.signedIn
 
-    doSignOut = () => {
-      doSignOut()
-      removeUserInfo('user-info')
-      this.signedIn = false
-      this.setCurrentUser(initUser)
-    }
+    doSignOut = () => auth.signOut()
 
     setCurrentUser(user) {
       this.currentUser = user

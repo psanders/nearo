@@ -73,4 +73,20 @@ export const styles = theme => ({
   bootstrapFormLabel: {
     fontSize: 18,
   },
+  signupBtn: {
+    textTransform: 'capitalize',
+    marginLeft: 8,
+    color: '#000',
+    backgroundColor: theme.palette.accent.main,
+    borderColor: theme.palette.accent.main,
+    '&:hover': {
+      backgroundColor: theme.palette.accent.light
+    },
+  },
+  loginBtn: {
+    textTransform: 'capitalize',
+    marginLeft: 8,
+    color: '#fff',
+    border: '1px solid #fff'
+  },    
 });
