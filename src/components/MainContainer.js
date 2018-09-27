@@ -18,7 +18,7 @@ import NoMatch from './404'
 class MainContainer extends Component {
   state = {
     bookmarks: [],
-    posts: [{id: '1'}],
+    posts: [],
     nbHits: 0,
     lastDeletedPostId: null,
     maxItemPerPage: 20,
@@ -57,9 +57,9 @@ class MainContainer extends Component {
               }
             />
             <Route
-              path='/profile'
+              path='/completeprofile'
               render={(props) =>
-                <Profile />
+                <Profile mode="COMPLETE"/>
               }
             />
             <Route component={NoMatch} />

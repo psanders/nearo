@@ -16,7 +16,8 @@ export default class PasswordPrompt extends Component {
   }
 
   linkAccounts = () => {
-    this.props.accountStore.linkAccounts()
+    console.log('Linking accounts')
+    this.props.accountStore.linkAccounts(this.state.password)
   }
 
   handleClose = () => {

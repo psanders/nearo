@@ -1,5 +1,6 @@
 import { observable } from "mobx"
 import { auth } from '../commons/firebase/firebase'
+import { notificationsStore } from './notifications'
 
 class AccountStore {
     @observable email = null
@@ -17,10 +18,11 @@ class AccountStore {
       const pendingCred = this.pendingCred
 
       auth.signInWithEmailAndPassword(email, password).then(user => {
-        user.link(pendingCred)
-        // Notify
+        console.log('user', user)
+        user.linkWithCredential(pendingCred)
+        notificationsStore.showNotification("Accounts linked")
       }).catch(error => {
-        //Notify
+        notificationsStore.showNotification(error.message)
       })
       this.openDialog = false
       this.email = null

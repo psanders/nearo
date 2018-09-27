@@ -1,6 +1,7 @@
-import { observable } from "mobx"
+import { observable, when } from "mobx"
 import { auth, db } from '../commons/firebase/firebase'
 import { doSignOut } from '../commons/firebase/auth'
+import { openURL } from '../commons/utils'
 import {
   fetchUserInfo,
   storeUserInfo,
@@ -23,7 +24,16 @@ class UsersStore {
           removeUserInfo('user-info')
         }
       })
+
+      when(
+        () => this.mustCompleteProfile(),
+        () => openURL('/completeprofile')
+      )
     }
+
+    mustCompleteProfile = () => this.currentUser.isNewUser
+      && this.statusVerified
+      && window.location.pathname !== "/completeprofile"
 
     loadUser (user) {
       fetchUserInfo('user-info')

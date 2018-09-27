@@ -4,12 +4,8 @@ import {
   fbProvider,
   db
 } from './firebase'
-import {
-  notificationsStore
-} from '../../stores/notifications'
-import {
-  accountStore
-} from '../../stores/account'
+import { notificationsStore } from '../../stores/notifications'
+import { accountStore } from '../../stores/account'
 
 function getProvider(pId) {
   return pId === 'facebook' ? fbProvider : googleProvider
@@ -17,21 +13,20 @@ function getProvider(pId) {
 
 // Sign In
 function doRedirectSignIn(provider) {
-  auth.signInWithRedirect(provider)
-    .catch(function(error) {
-      if (error.code === 'auth/account-exists-with-different-credential') {
-        const pendingCred = error.credential
-        const email = error.email
-        auth.fetchSignInMethodsForEmail(email).then(function(methods) {
-          const provider = getProvider(methods[0])
-          auth.signInWithRedirect(provider).then(function(result) {
-            result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function(usercred) {
-              // No-op
-            })
+  auth.signInWithRedirect(provider).catch(function(error) {
+    if (error.code === 'auth/account-exists-with-different-credential') {
+      const pendingCred = error.credential
+      const email = error.email
+      auth.fetchSignInMethodsForEmail(email).then(function(methods) {
+        const provider = getProvider(methods[0])
+        auth.signInWithRedirect(provider).then(function(result) {
+          result.user.linkAndRetrieveDataWithCredential(pendingCred).then(function(usercred) {
+            // No-op
           })
         })
-      }
-    })
+      })
+    }
+  })
 }
 
 export const doSignInWithGoogle = () => doRedirectSignIn(fbProvider)
