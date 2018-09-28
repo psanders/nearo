@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Moment from 'react-moment'
 import { observer, inject } from 'mobx-react'
+import ContentLoader from 'react-content-loader'
 
 import PostActions from './postcard/PostActions'
 import MapCard from './map/MapCard'
@@ -70,6 +71,47 @@ class SinglePostContainer extends Component {
     const { classes } = this.props
     const { post, user } = this.state
 
+    const realContent = (post, classes) => {
+      return <div>
+        { post.media && post.media.length > 0 &&
+          <CardMedia
+            image={ imageURL(post, 'md') }
+            className={classes.bottom10}
+          >
+            {
+              post.category === 'forsale' && (post.price > 0 || post.sold) &&
+              <Chip
+                avatar={<Avatar><MoneyIcon className={classes.moneyIcon}></MoneyIcon></Avatar>}
+                label={ post.sold ? 'Sold' : post.price }
+                className={classes.chip}
+                color="secondary"
+              />
+            }
+            <div style={{ width: 130, height: 210, borderRadius: 2}} />
+          </CardMedia>
+        }
+        <Typography className={ classes.capitalize } variant="title" gutterBottom>
+          { post.category }
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          <Linkify>{ post.body }</Linkify>
+        </Typography>
+        <Typography variant="caption" gutterBottom className={classes.bottom10}>
+          Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment> nearby "{ ellip(post.locText, 22) }"
+        </Typography>
+      </div>
+    }
+
+    const mockContent = () => {
+      return <ContentLoader height={250} preserveAspectRatio={"xMidYMid meet"}>
+      <rect x="0" y="0" rx="0" ry="0" width="400" height="180" />
+      <rect x="0" y="190" rx="0" ry="0" width="100" height="15" />
+      <rect x="0" y="210" rx="0" ry="0" width="400" height="10" />
+      <rect x="0" y="225" rx="0" ry="0" width="380" height="10" />
+      <rect x="0" y="240" rx="0" ry="0" width="100" height="10" />
+    </ContentLoader>
+    }
+
     return (
       <Grid
         container
@@ -80,32 +122,7 @@ class SinglePostContainer extends Component {
         >
           <Grid item sm={10} md={5} xs={11}>
             <Grid item style={{backgroundColor: '#fff', padding: 10}}>
-              { post.media && post.media.length > 0 &&
-                <CardMedia
-                  image={ imageURL(post, 'md') }
-                  className={classes.bottom10}
-                >
-                  {
-                    post.category === 'forsale' && (post.price > 0 || post.sold) &&
-                    <Chip
-                      avatar={<Avatar><MoneyIcon className={classes.moneyIcon}></MoneyIcon></Avatar>}
-                      label={ post.sold ? 'Sold' : post.price }
-                      className={classes.chip}
-                      color="secondary"
-                    />
-                  }
-                  <div style={{ width: 130, height: 210, borderRadius: 2}} />
-                </CardMedia>
-              }
-              <Typography className={ classes.capitalize } variant="title" gutterBottom>
-                { post.category }
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                <Linkify>{ post.body }</Linkify>
-              </Typography>
-              <Typography variant="caption" gutterBottom className={classes.bottom10}>
-                Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment> nearby "{ ellip(post.locText, 22) }"
-              </Typography>
+              { post.id ? realContent(post, classes) : mockContent() }
 
               {
                 post.id &&

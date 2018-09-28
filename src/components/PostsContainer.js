@@ -39,7 +39,7 @@ class PostsContainer extends Component {
   }
 
   render() {
-    const {postsStore, classes} = this.props
+    const { classes } = this.props
 
     return (<Grid container>
       <Grid item xs={12} sm={12} md={6} style={{
@@ -52,13 +52,13 @@ class PostsContainer extends Component {
             <SubBar/>
           </Grid>
           {
-            this.posts.map(post => {
+           this.posts.map(post => {
               return (<Grid key={post.id} item>
                 <PostCard post={post}/>
               </Grid>)
             })
           }
-          {this.props.postsStore.loadingPosts && this.props.postsStore.posts > 10 && <LinearProgress/>}
+          { this.props.postsStore.loadingPosts && this.props.postsStore.posts > 10 && <LinearProgress/> }
         </ScrollArea>
       </Grid>
       <Hidden smDown={true}>

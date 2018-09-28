@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import 'firebase/auth';
-import firebaseui from 'firebaseui';
+//import firebaseui from 'firebaseui';
 
 import { createUser } from '../commons/firebase/newaccount'
 
@@ -47,7 +47,7 @@ class LoginScreen extends Component {
   render() {
     return (
       <div style={{height: '100vh'}}>
-      <AppBar  >
+        <AppBar>
           <Toolbar color="secondary" >
             <IconButton color="inherit" onClick={ () => this.props.history.push('/') } aria-label="Close">
               <ArrowBackIcon style={{ color: '#fff' }} />

@@ -1,13 +1,13 @@
-import { observable, when } from "mobx"
+import { observable } from "mobx"
 import { auth, db } from '../commons/firebase/firebase'
-import firebase from 'firebase/app'
+//import firebase from 'firebase/app'
 import {
   fetchUserInfo,
   storeUserInfo,
   removeUserInfo
 } from '../commons/dbfunctions'
-import { openURL } from '../commons/utils'
-import { createUser } from '../commons/firebase/newaccount'
+//import { openURL } from '../commons/utils'
+//import { createUser } from '../commons/firebase/newaccount'
 
 const initUser = {username: '', password: '', name: '', email: ''}
 

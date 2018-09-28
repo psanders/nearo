@@ -15,7 +15,7 @@ class PostsStore {
     @observable currentPost = null
     @observable nbHits = 0
     @observable deletedPost
-    @observable loadingPosts
+    @observable loading
 
     constructor () {
       when(
@@ -44,7 +44,7 @@ class PostsStore {
     hidePostDialog = () => this.postDialogOpen = false
 
     updateBySearch = (navInfo, offset = 0) => {
-      this.loadingPosts = true
+      this.loading = true
       let query = {
         query: navInfo.searchTerm,
         offset: offset,
@@ -60,6 +60,7 @@ class PostsStore {
       doSearchAlgolia(query, (results, nbHits) => {
         this.updatePosts(results, offset)
         this.nbHits = nbHits
+        this.loading = false
       })
     }
 
@@ -79,7 +80,6 @@ class PostsStore {
         posts = this.posts.concat(posts)
       }
       this.posts = posts
-      this.loadingPosts = false
     }
 
     showMoreResults = () => this.updateBySearch(navStore.navInfo, this.posts.length)

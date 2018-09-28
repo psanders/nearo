@@ -15,7 +15,10 @@ class BookmarksStore {
 
       when(
         () => usersStore.isStatusVerified() && !usersStore.isSignedIn(),
-        () => this.bookmarks = []
+        () => {
+          this.bookmarks = []
+          this.loaded = true
+        }
       )
     }
 
@@ -42,7 +45,7 @@ class BookmarksStore {
       bookmarksRef.set({
         user: usersStore.currentUser.id
       }, { merge: true }).then(() => {
-        notificationsStore.showNotification('Noted!')
+        notificationsStore.showNotification('Added to your liked posts')
         this.bookmarks.push(post.id)
       }).catch(error => {
         // Revert change in UI
@@ -55,7 +58,7 @@ class BookmarksStore {
       bookmarksRef.delete()
       .then(() => {
         this.bookmarks.pop(post.id)
-        notificationsStore.showNotification('Unliked')
+        notificationsStore.showNotification('Removed from your liked posts')
       }).catch(error => {
         console.error("Error writing document: ", error)
       })
