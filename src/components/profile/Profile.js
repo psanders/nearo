@@ -139,8 +139,7 @@ class Profile extends Component {
 
   handleGoBack= () => {
     if (this.props.usersStore.currentUser.isNewUser) {
-      this.props.usersStore.doSignOut()
-      this.props.notificationsStore.showNotification("Please complete your profile to enjoy all the features.")
+      this.props.notificationsStore.showCompleteProfile()
     }
     this.props.history.push('/')
   }

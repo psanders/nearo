@@ -1,28 +1,33 @@
 import { observable } from "mobx"
+import { openURL } from '../commons/utils'
 
 class NotificationsStore {
     @observable state = {
       open: false,
       message: "",
-      showUndo: false,
-      timeout: 0
+      timeout: 4000
     }
 
     showMustLogin = () => {
       this.showNotification('Sorry! You must login first')
     }
 
-    showNotification = (message, timeout = 0, undoCallback = null) => {
+    showCompleteProfile = () => {
+      notificationsStore.showNotification('You must complete your profile before creating a post',
+        5000, () => openURL('/profile'), 'Go to profile')
+    }
+
+    showNotification = (message, timeout = 4000, callback = null, callbackLabel = "Undo") => {
       const state = {
         open: true,
         message: message,
         timeout: timeout,
-        showUndo: false
+        showUndo: false,
       }
 
-      if (undoCallback) {
-        state.showUndo = true
-        state.undoCallback = undoCallback
+      if (callback) {
+        state.callback = callback
+        state.callbackLabel = callbackLabel
       }
       this.state = state
     }

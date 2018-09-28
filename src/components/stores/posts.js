@@ -37,6 +37,9 @@ class PostsStore {
       if(!usersStore.isSignedIn()) {
         notificationsStore.showMustLogin()
         return
+      } else if (usersStore.currentUser.isNewUser) {
+        notificationsStore.showCompleteProfile()
+        return
       }
       this.postDialogOpen = true
     }

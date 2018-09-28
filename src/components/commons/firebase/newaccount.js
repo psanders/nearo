@@ -11,7 +11,7 @@ export const createUser = authResult => {
     name: authResult.user.displayName,
     picture: picture,
     isNewUser: true,
-    username: authResult.user.displayName.replace(/\W/g, '').toLowerCase()
+    //username: authResult.user.displayName.replace(/\W/g, '').toLowerCase()
   }
 
   const userRef = db.collection('users')

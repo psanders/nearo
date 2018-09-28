@@ -26,15 +26,15 @@ class NotificationBar extends Component {
       </Button>
     ];
 
-    if (store.state.showUndo) {
+    if (store.state.callback) {
       action.pop()
       action.push(
-        <Button key="undo" disabled={ !store.state.showUndo } color="secondary" size="small"
+        <Button key="callback" disabled={ !store.state.callback } color="secondary" size="small"
           onClick={ ()=> {
-            store.state.undoCallback()
+            store.state.callback()
             store.hideNotification()
           }}>
-            UNDO
+            {store.state.callbackLabel}
           </Button>
         );
       //action.push(closeAction);
@@ -48,7 +48,7 @@ class NotificationBar extends Component {
             horizontal: 'left',
           }}
           open={ store.state.open }
-          autoHideDuration={4000}
+          autoHideDuration={store.state.timeout}
           onClose={ store.hideNotification }
           ContentProps={{
             'aria-describedby': 'message-id',
