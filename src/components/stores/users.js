@@ -7,6 +7,7 @@ import {
   removeUserInfo
 } from '../commons/dbfunctions'
 import { openURL } from '../commons/utils'
+import { createUser } from '../commons/firebase/newaccount'
 
 const initUser = {username: '', password: '', name: '', email: ''}
 
@@ -28,6 +29,7 @@ class UsersStore {
       when(
         () => this.isStatusVerified() && !this.isSignedIn() && window.googleyolo,
         () => {
+          window.googleyolo.setTimeouts(25000)
           const hintPromise = window.googleyolo.hint({
             supportedAuthMethods: [
               "https://accounts.google.com"
@@ -41,8 +43,15 @@ class UsersStore {
           });
 
           hintPromise.then(credential => {
+            console.log('crendential', credential)
             const key = firebase.auth.GoogleAuthProvider.credential(credential.idToken);
-            auth.signInAndRetrieveDataWithCredential(key).catch(function(error) {
+            auth.signInAndRetrieveDataWithCredential(key).then(authResult => {
+              if (authResult.user && authResult.additionalUserInfo.isNewUser) {
+                createUser(authResult)
+              } else {
+                openURL('/')
+              }
+            }).catch(function(error) {
               console.error(error)
             });
           })

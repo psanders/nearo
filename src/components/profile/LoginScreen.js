@@ -8,12 +8,9 @@ import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import 'firebase/auth';
-import {
-  db
-} from '../commons/firebase/firebase'
 import firebaseui from 'firebaseui';
 
-import { openURL } from '../commons/utils'
+import { createUser } from '../commons/firebase/newaccount'
 
 const uiConfig = {
   signInFlow: 'redirect',
@@ -32,26 +29,9 @@ const uiConfig = {
     // Avoid redirects after sign-in.
     signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
       if (authResult.user && authResult.additionalUserInfo.isNewUser) {
-        const picture = authResult.user.photoURL !== null
-          ? authResult.user.photoURL
-          : "/images/default-avatar.png"
-
-        const user = {
-          id: authResult.user.email,
-          name: authResult.user.displayName,
-          picture: picture,
-          isNewUser: true,
-          username: authResult.user.displayName.replace(/\W/g, '').toLowerCase()
-        }
-
-        const userRef = db.collection('users')
-        userRef.doc(user.id).set(user).then(() =>{
-          openURL('/profile')
-        }).catch(error => {
-          console.log(error)
-        })
+        return createUser(authResult)
       } else {
-          return true
+        return true
       }
     },
     signInFailure: function(error) {
