@@ -83,6 +83,7 @@ class UsersStore {
           storeUserInfo('user-info', JSON.parse(JSON.stringify(this.currentUser)))
           this.signedIn = true
         } else {
+          this.signedIn = false
           removeUserInfo('user-info')
         }
         this.statusVerified = true

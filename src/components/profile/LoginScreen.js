@@ -12,42 +12,55 @@ import 'firebase/auth';
 
 import { createUser } from '../commons/firebase/newaccount'
 
-const uiConfig = (props) => {
+const uiConfig = (self) => {
 
   return {
-  signInFlow: 'redirect',
-  signInSuccessUrl: '/',
-  signInOptions: [
-    {
-      provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      authMethod: 'https://accounts.google.com',
-      clientId: '225376231981-m0a8otu93ha2btftd05vku6kob7nidr4.apps.googleusercontent.com'
-    },
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  ],
-  //credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
-  callbacks: {
-    // Avoid redirects after sign-in.
-    signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
-      if (authResult.user && authResult.additionalUserInfo.isNewUser) {
-        return createUser(authResult)
-      }
-      props.history.push('/')
-      return false
-    },
-    signInFailure: function(error) {
-      console.error(error.message)
+    signInFlow: 'redirect',
+    signInSuccessUrl: '/',
+    signInOptions: [
+      {
+        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        authMethod: 'https://accounts.google.com',
+        clientId: '225376231981-m0a8otu93ha2btftd05vku6kob7nidr4.apps.googleusercontent.com'
+      },
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    ],
+    //credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
+    callbacks: {
+      uiShown: function() {
+        console.log('DBG001')
+        self.setState({loading: false})
+      },
+      signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
+        console.log('DBG002')
+        if (authResult.user && authResult.additionalUserInfo.isNewUser) {
+          return createUser(authResult)
+        }
+        self.props.history.push('/')
+        return false
+      },
+      signInFailure: function(error) {
+        console.error(error.message)
     },
   }
 }}
 
 @withRouter
 class LoginScreen extends Component {
+
+  state = {
+    loading: true
+  }
+
   render() {
+    const hideBar = () => document.getElementsByClassName("firebaseui-idp-list").length > 0
+      ? false
+      : true
+
     return (
       <div style={{height: '100vh'}}>
-        <AppBar>
+        { !hideBar() && <AppBar>
           <Toolbar color="secondary" >
             <IconButton color="inherit" onClick={ () => this.props.history.push('/') } aria-label="Close">
               <ArrowBackIcon style={{ color: '#fff' }} />
@@ -57,7 +70,11 @@ class LoginScreen extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig(this.props)} firebaseAuth={firebase.auth()}/>
+        }
+        <br />
+        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig(this)} firebaseAuth={firebase.auth()}>
+          <p>Test</p>
+        </StyledFirebaseAuth>
       </div>
     );
   }

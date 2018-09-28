@@ -25,10 +25,14 @@ class PostsStore {
 
       when(
         () => appStore.isReady() && !usersStore.isSignedIn(),
-        () => this.updateBySearch(navStore.navInfo)
+        () => {
+          console.log('appStore.isReady()', appStore.isReady())
+          console.log('usersStore.isSignedIn()', usersStore.isSignedIn())
+          this.updateBySearch(navStore.navInfo)
+        }
       )
 
-      autorun(() => appStore.isReady() && this.updateBySearch(navStore.navInfo))
+      autorun(() => this.updateBySearch(navStore.navInfo))
     }
 
     isPostDialogOpen = () => this.postDialogOpen

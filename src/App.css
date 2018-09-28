@@ -6,3 +6,23 @@
 .App-logo {
   height: 40px;
 }
+
+.mdl-shadow--2dp {
+    box-shadow: none;
+}
+
+.firebaseui-info-bar {
+    margin-top: 20px;
+}
+
+div.mdl-progress::after {
+    display: block;
+    color: black;
+    content: "Preparing the content...";
+    margin: 20px auto;
+    text-align: center;
+}
+
+.mdl-progress {
+    height: 5px;
+}
