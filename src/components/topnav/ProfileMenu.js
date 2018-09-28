@@ -1,16 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/IconButton'
 import Avatar from '@material-ui/core/Avatar'
 import ExitIcon from '@material-ui/icons/ExitToApp'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import { withStyles } from '@material-ui/core/styles'
+import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { styles } from './TopnavStyles'
 
 @inject('usersStore')
+@withRouter
 @observer
 class ProfileMenu extends React.Component {
   state = {
@@ -45,6 +47,12 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
+          <MenuItem onClick={ () => this.props.history.push('/profile') } >
+            <ListItemIcon className={classes.icon} >
+              <ExitIcon />
+            </ListItemIcon>
+            Profile Settings
+          </MenuItem>
           <MenuItem onClick={usersStore.doSignOut} >
             <ListItemIcon className={classes.icon} >
               <ExitIcon />

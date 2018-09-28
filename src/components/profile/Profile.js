@@ -48,9 +48,7 @@ class Profile extends Component {
     } else if (event.target.id === 'user-phone-private') {
       user.keepPhonePrivate = event.target.checked
     } else if (event.target.id === 'user-email') {
-      user.email = event.target.value
-    } else if (event.target.id === 'user-password') {
-      this.setState({password: event.target.value})
+      user.id = event.target.value
     }
 
     this.setNoPristine(event.target.id)
@@ -88,34 +86,9 @@ class Profile extends Component {
   }
 
   reallySave = (user) => {
-    if (user.isNewUser) {
-      auth.createUserWithEmailAndPassword(user.email, this.state.password)
-      .then(() => {
-        this.reallyReallySave(user)
-      })
-      .catch(error => {
-        console.log(error)
-        this.props.notificationsStore.showNotification(error.message)
-      })
-    } else {
-
-      if (this.state.password !== "") {
-        user.updatePassword(this.state.password).then(function() {
-          console.log("Password updated")
-          this.notificationsStore.showNotification("Password updated")
-        }).catch(error => {
-          this.notificationsStore.showNotification(error.message)
-        });
-      }
-
-      this.reallyReallySave(user)
-    }
-  }
-
-  reallyReallySave = user => {
     const jsonUser = JSON.parse(JSON.stringify(user))
     // Update remote DB
-    const userRef = db.collection("users").doc(user.email)
+    const userRef = db.collection("users").doc(user.id)
     jsonUser.isNewUser = false
     userRef.set(jsonUser)
 
@@ -144,12 +117,14 @@ class Profile extends Component {
   }
 
   isInvalid = user => {
+    console.log('user', JSON.stringify(user))
+
     return !user.name
     || !user.phone
     || user.name.length <= 5
     || !this.isValidNumber(user.phone)
     || this.isInvalidUser(user)
-    || !this.validEmail(user.email)
+    || !this.validEmail(user.id)
   }
 
   alphanumeric = (text) => {
@@ -178,14 +153,9 @@ class Profile extends Component {
     this.props.history.push('/')
   }
 
-  handleClickShowPassword = () => {
-    this.setState(state => ({ showPassword: !state.showPassword }));
-  };
-
   render() {
     const { classes, mode, usersStore } = this.props
     const user = usersStore.currentUser
-    const creating = mode === "CREATE" ? true : false
 
     return (
       <div>
@@ -227,55 +197,12 @@ class Profile extends Component {
                   fullWidth
                   margin="dense"
                 />
-                {creating && <TextField
-                  variant="outlined"
-                  id="user-email"
-                  label="Email"
-                  onChange={this.handleChange}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  value={ user.email }
-                  error={ this.isNoPristine('user-email') && !this.validEmail(user.email) }
-                  placeholder="Email"
-                  fullWidth
-                  margin="dense"
-                />}
-                { <TextField
-                  className={classes.passwordField}
-                  variant="outlined"
-                  id="user-password"
-                  type={this.state.showPassword ? 'text' : 'password'}
-                  label="Password"
-                  onChange={this.handleChange}
-                  value={ this.state.password }
-                  error={ this.isNoPristine('user-password') && this.state.password.length < 7 }
-                  placeholder="Password"
-                  fullWidth
-                  margin="dense"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="Toggle password visibility"
-                          onClick={this.handleClickShowPassword}
-                        >
-                          {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />}
                 {
-                  (user.isNewUser || creating) &&
+                  user.isNewUser &&
                   <TextField
                     variant="outlined"
                     id="user-username"
                     label="Username"
-                    disabled={!user.isNewUser && !creating}
                     onChange={this.handleChange}
                     InputLabelProps={{
                       shrink: true,
