@@ -10,9 +10,6 @@ import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import Visibility from '@material-ui/icons/Visibility'
-import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
@@ -20,7 +17,7 @@ import NotificationBar from '../NotificationBar'
 import PhoneInput from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import { db, auth } from '../commons/firebase/firebase'
+import { db } from '../commons/firebase/firebase'
 import { storeUserInfo } from '../commons/dbfunctions'
 
 @inject('usersStore')
@@ -57,9 +54,6 @@ class Profile extends Component {
   save = () => {
     // Close it first to make it feel faster
     const user = this.props.usersStore.currentUser
-    if (this.props.mode === "CREATE") {
-      user.isNewUser = true
-    }
 
     user.phone = user.phone
       .replace("(","")
@@ -154,7 +148,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { classes, mode, usersStore } = this.props
+    const { classes, usersStore } = this.props
     const user = usersStore.currentUser
 
     return (
