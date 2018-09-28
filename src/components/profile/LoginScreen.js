@@ -21,9 +21,6 @@ const uiConfig = {
     {
       provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       authMethod: 'https://accounts.google.com',
-      // Required to enable ID token credentials for this provider.
-      // This can be obtained from the Credentials page of the Google APIs
-      // console.
       clientId: '225376231981-m0a8otu93ha2btftd05vku6kob7nidr4.apps.googleusercontent.com'
     },
     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -35,7 +32,7 @@ const uiConfig = {
     // Avoid redirects after sign-in.
     signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
       if (authResult.user && authResult.additionalUserInfo.isNewUser) {
-        console.log('user', JSON.stringify(authResult.user))
+
         const picture = authResult.user.photoURL !== null
           ? authResult.user.photoURL
           : "/images/default-avatar.png"
@@ -44,16 +41,22 @@ const uiConfig = {
           id: authResult.user.email,
           name: authResult.user.displayName,
           picture: picture,
-          isNewUser: true
+          isNewUser: true,
+          username: authResult.user.displayName.replace(/\W/g, '').toLowerCase()
         }
 
         const userRef = db.collection('users')
-        userRef.doc(user.id).set(user)
+        userRef.doc(user.id).set(user).catch(error => {
+          console.error(error)
+        })
       }
       return true
-    }
+    },
+    signInFailure: function(error) {
+      console.log(error.message)
+    },
   }
-};
+}
 
 @withRouter
 class LoginScreen extends Component {
