@@ -88,5 +88,8 @@ export const styles = theme => ({
     marginLeft: 8,
     color: '#fff',
     border: '1px solid #fff'
-  },    
+  },
+  fingerPrint: {
+    color: theme.palette.accent.light
+  },
 });

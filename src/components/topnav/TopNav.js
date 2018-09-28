@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
 import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import LoginIcon from '@material-ui/icons/Fingerprint'
 import { Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
@@ -75,21 +77,25 @@ class Topnav extends React.Component {
             {
               !usersStore.isSignedIn() &&
               <div>
-              <Button onClick={ this.goToLogin } variant="outlined" className={classes.loginBtn}
-                aria-label="Sign Up"
-              >
-                Login
-              </Button>
-              <Button onClick={ this.goToLogin } variant="outlined" className={classes.signupBtn}
-                aria-label="Sign Up"
-              >
-                Sign Up
-              </Button>
+                <Hidden smDown={true}>
+                  <Button onClick={ this.goToLogin } variant="outlined" className={classes.loginBtn}
+                    aria-label="Sign Up"
+                  >
+                    Login
+                  </Button>
+                  <Button onClick={ this.goToLogin } variant="outlined" className={classes.signupBtn}
+                    aria-label="Sign Up"
+                  >
+                    Sign Up
+                  </Button>
+                </Hidden>
+                <Hidden mdUp={true}>
+                  <IconButton onClick={ this.goToLogin } variant="outlined" className={classes.fingerPrint} aria-label="Login">
+                    <LoginIcon />
+                  </IconButton>
+                </Hidden>
               </div>
             }
-
-            {usersStore.isSignedIn()}
-
             {
               usersStore.isSignedIn() && <ProfileMenu/>
             }

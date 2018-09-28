@@ -4,8 +4,9 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/IconButton'
 import Avatar from '@material-ui/core/Avatar'
-import ExitIcon from '@material-ui/icons/ExitToApp'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ExitIcon from '@material-ui/icons/ExitToApp'
+import SettingsIcon from '@material-ui/icons/Settings'
 import { withStyles } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
@@ -49,7 +50,7 @@ class ProfileMenu extends React.Component {
         >
           <MenuItem onClick={ () => this.props.history.push('/profile') } >
             <ListItemIcon className={classes.icon} >
-              <ExitIcon />
+              <SettingsIcon />
             </ListItemIcon>
             Profile Settings
           </MenuItem>

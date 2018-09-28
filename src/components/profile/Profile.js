@@ -180,8 +180,9 @@ class Profile extends Component {
             <Paper style={{padding: 20, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
               <form className={classes.container} noValidate autoComplete="off">
                 <Typography variant="title" gutterBottom>
-                  User Profile
+                  {user.isNewUser ? "Complete Profile" : "User Preferences"}
                 </Typography>
+                <br />
                 <TextField
                   autoFocus
                   variant="outlined"

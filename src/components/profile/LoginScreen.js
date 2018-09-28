@@ -31,7 +31,6 @@ const uiConfig = {
   callbacks: {
     // Avoid redirects after sign-in.
     signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
-      console.log(authResult)
       if (authResult.user && authResult.additionalUserInfo.isNewUser) {
         const picture = authResult.user.photoURL !== null
           ? authResult.user.photoURL
@@ -48,8 +47,7 @@ const uiConfig = {
         const userRef = db.collection('users')
         userRef.doc(user.id).set(user).then(() =>{
           openURL('/profile')
-        })
-        .catch(error => {
+        }).catch(error => {
           console.log(error)
         })
       } else {
