@@ -9,14 +9,13 @@ class BookmarksStore {
 
     constructor() {
       when(
-        () => usersStore.isStatusVerified(),
-        () => {
-          if (usersStore.isSignedIn()) {
-            this.loadBookmarks(usersStore.currentUser)
-          } else {
-            this.loaded = true
-          }
-        }
+        () => usersStore.isStatusVerified() && usersStore.isSignedIn(),
+        () => this.loadBookmarks(usersStore.currentUser)
+      )
+
+      when(
+        () => usersStore.isStatusVerified() && !usersStore.isSignedIn(),
+        () => this.bookmarks = []
       )
     }
 

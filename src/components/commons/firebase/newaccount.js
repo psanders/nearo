@@ -18,6 +18,6 @@ export const createUser = authResult => {
   userRef.doc(user.id).set(user).then(() =>{
     openURL('/profile')
   }).catch(error => {
-    console.log(error)
+    console.error(error)
   })
 }

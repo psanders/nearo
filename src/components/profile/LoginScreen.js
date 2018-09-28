@@ -12,7 +12,9 @@ import firebaseui from 'firebaseui';
 
 import { createUser } from '../commons/firebase/newaccount'
 
-const uiConfig = {
+const uiConfig = (props) => {
+
+  return {
   signInFlow: 'redirect',
   signInSuccessUrl: '/',
   signInOptions: [
@@ -24,21 +26,21 @@ const uiConfig = {
     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
   ],
-  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
+  //credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
   callbacks: {
     // Avoid redirects after sign-in.
     signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
       if (authResult.user && authResult.additionalUserInfo.isNewUser) {
         return createUser(authResult)
-      } else {
-        return true
       }
+      props.history.push('/')
+      return false
     },
     signInFailure: function(error) {
-      console.log(error.message)
+      console.error(error.message)
     },
   }
-}
+}}
 
 @withRouter
 class LoginScreen extends Component {
@@ -55,7 +57,7 @@ class LoginScreen extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig(this.props)} firebaseAuth={firebase.auth()}/>
       </div>
     );
   }

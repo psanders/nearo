@@ -34,9 +34,12 @@ class PostsContainer extends Component {
     }
   }
 
+  @computed get posts() {
+    return this.props.postsStore.posts
+  }
+
   render() {
     const {postsStore, classes} = this.props
-    const posts = postsStore.posts
 
     return (<Grid container>
       <Grid item xs={12} sm={12} md={6} style={{
@@ -49,7 +52,7 @@ class PostsContainer extends Component {
             <SubBar/>
           </Grid>
           {
-            posts.map(post => {
+            this.posts.map(post => {
               return (<Grid key={post.id} item>
                 <PostCard post={post}/>
               </Grid>)

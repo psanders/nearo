@@ -111,8 +111,6 @@ class Profile extends Component {
   }
 
   isInvalid = user => {
-    console.log('user', JSON.stringify(user))
-
     return !user.name
     || !user.phone
     || user.name.length <= 5

@@ -26,8 +26,8 @@ class UsersStore {
         }
       })
 
-      when(
-        () => this.isStatusVerified() && !this.isSignedIn() && window.googleyolo,
+      /*when(
+        () => this.statusVerified && !this.signedIn && window.googleyolo,
         () => {
           window.googleyolo.setTimeouts(25000)
           const hintPromise = window.googleyolo.hint({
@@ -43,26 +43,26 @@ class UsersStore {
           });
 
           hintPromise.then(credential => {
-            console.log('crendential', credential)
             const key = firebase.auth.GoogleAuthProvider.credential(credential.idToken);
             auth.signInAndRetrieveDataWithCredential(key).then(authResult => {
               if (authResult.user && authResult.additionalUserInfo.isNewUser) {
                 createUser(authResult)
               } else {
                 openURL('/')
+                this.loadUser(authResult.user)
               }
             }).catch(function(error) {
               console.error(error)
             });
           })
         }
-      )
+      )*/
     }
 
     loadUser (user) {
       fetchUserInfo('user-info')
       .then(userInfo => {
-        if (userInfo && userInfo.email === user.email) {
+        if (userInfo && userInfo.id === user.email) {
           this.currentUser = userInfo
           this.signedIn = true
           this.statusVerified = true
@@ -88,7 +88,7 @@ class UsersStore {
         this.statusVerified = true
       })
       .catch(error => {
-        console.log('Unable to complete operation', error)
+        console.error('Unable to complete operation', error)
       })
     }
 
@@ -101,7 +101,6 @@ class UsersStore {
       this.setCurrentUser(initUser)
       this.signedIn = false
       removeUserInfo('user-info')
-      openURL('/')
     }
 
     setCurrentUser(user) {

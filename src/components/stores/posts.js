@@ -95,9 +95,9 @@ class PostsStore {
       }, { merge: true }).then(() => {
         this.posts = this.posts.filter(p => p.id !== post.id)
         notificationsStore.showNotification('Post deleted', 0, this.handleUndeletePost)
-      }).catch((error) => {
+      }).catch(error => {
         notificationsStore.showNotification('Something when wrong :( Please try again later')
-        console.log(error)
+        console.error(error)
       })
     }
 
@@ -110,7 +110,7 @@ class PostsStore {
         this.deletedPost.deleted = false
         this.posts.unshift(this.deletedPost)
       }).catch(error => {
-        console.log(error)
+        console.error(error)
         notificationsStore.showNotification('Something when wrong :( Please try again later')
       })
     }
