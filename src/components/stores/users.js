@@ -6,6 +6,7 @@ import {
   storeUserInfo,
   removeUserInfo
 } from '../commons/dbfunctions'
+import { openURL } from '../commons/utils'
 
 const initUser = {username: '', password: '', name: '', email: ''}
 
@@ -91,6 +92,7 @@ class UsersStore {
       this.setCurrentUser(initUser)
       this.signedIn = false
       removeUserInfo('user-info')
+      openURL('/')
     }
 
     setCurrentUser(user) {

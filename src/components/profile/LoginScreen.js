@@ -11,8 +11,9 @@ import 'firebase/auth';
 import {
   db
 } from '../commons/firebase/firebase'
-
 import firebaseui from 'firebaseui';
+
+import { openURL } from '../commons/utils'
 
 const uiConfig = {
   signInFlow: 'redirect',
@@ -31,8 +32,8 @@ const uiConfig = {
   callbacks: {
     // Avoid redirects after sign-in.
     signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
+      console.log(authResult)
       if (authResult.user && authResult.additionalUserInfo.isNewUser) {
-
         const picture = authResult.user.photoURL !== null
           ? authResult.user.photoURL
           : "/images/default-avatar.png"
@@ -46,11 +47,15 @@ const uiConfig = {
         }
 
         const userRef = db.collection('users')
-        userRef.doc(user.id).set(user).catch(error => {
-          console.error(error)
+        userRef.doc(user.id).set(user).then(() =>{
+          openURL('/profile')
         })
+        .catch(error => {
+          console.log(error)
+        })
+      } else {
+          return true
       }
-      return true
     },
     signInFailure: function(error) {
       console.log(error.message)
