@@ -86,11 +86,16 @@ export const styles = theme => ({
   },
   loginBtn: {
     textTransform: 'capitalize',
+    marginLeft: 8,
+  },
+  searchBtn: {
+    textTransform: 'capitalize',
     marginLeft: theme.spacing.unit,
     color: '#fff',
-    border: '1px solid #fff'
-  },
-  fingerPrint: {
-    color: theme.palette.accent.light
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light
+    },
   },
 });

@@ -18,7 +18,6 @@ import classnames from 'classnames'
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
 
-@inject('postsStore')
 @inject('navStore')
 @inject('usersStore')
 @withRouter
@@ -29,14 +28,14 @@ class Topnav extends React.Component {
     const navInfo = this.props.navStore.navInfo
     navInfo.searchTerm = event.target.value
     this.props.navStore.setNavInfo(navInfo)
-    this.props.history.push('/')
+    this.props.history.push('/explore')
   }
 
   handleOnChangeLocation = locInfo => {
     const navInfo = this.props.navStore.navInfo
     navInfo.locInfo = locInfo
     this.props.navStore.setNavInfo(navInfo)
-    this.props.history.push('/')
+    this.props.history.push('/explore')
   }
 
   goToLogin = () => {
@@ -57,11 +56,11 @@ class Topnav extends React.Component {
              className={classnames(classes.right, classes.left)}
              placeholder="Search"
              id="searchInput"
+             value={this.props.navStore.navInfo.searchTerm}
              onChange={this.handleChange('searchInput')}
              InputProps={{
                disableUnderline: true,
                classes: {
-                 root: classes.bootstrapRoot,
                  input: classes.bootstrapInput,
                }
              }}

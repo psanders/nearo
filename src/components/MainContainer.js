@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 
+import Home from './home/Home'
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
 import PostsContainer from './PostsContainer'
@@ -13,6 +14,11 @@ import LoginScreen from './profile/LoginScreen'
 import Profile from './profile/Profile'
 import NoMatch from './404'
 
+@inject('postsStore')
+@inject('navStore')
+@inject('usersStore')
+@inject('bookmarksStore')
+@inject('notificationsStore')
 @withRouter
 @observer
 class MainContainer extends Component {
@@ -27,13 +33,24 @@ class MainContainer extends Component {
     return(
       <div className={ classes.root }>
         <main className={ classes.content }>
-          <div className={ classes.toolbar } />
+
           <Switch>
             <Route
               exact path='/'
               render={(props) => {
                 scrollTop()
                 return <div>
+                  <div className={ classes.toolbar } />
+                  <Home />
+                </div>
+              }}
+            />
+            <Route
+              exact path='/explore'
+              render={(props) => {
+                scrollTop()
+                return <div>
+                  <div className={ classes.toolbar } />
                   <Topnav className={ classes.appBar } />
                   <PostsContainer />
                 </div>
@@ -44,6 +61,7 @@ class MainContainer extends Component {
               render={(props) => {
                 scrollTop()
                 return <div>
+                  <div className={ classes.toolbar } />
                   <Topnav className={ classes.appBar } />
                   <SinglePostContainer />
                 </div>
@@ -53,7 +71,11 @@ class MainContainer extends Component {
               path='/login'
               render={(props) => {
                 scrollTop()
-                return <LoginScreen />
+
+                return <div>
+                  <div className={ classes.toolbar } />
+                  <LoginScreen />
+                </div>
               }}
             />
             <Route

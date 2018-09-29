@@ -28,22 +28,32 @@ class About extends React.Component {
   }
 
   render() {
-    const { fullScreen } = this.props
+    const { fullScreen, showAsLink } = this.props
 
     return (
       <div>
-        <Card onClick={this.handleClickOpen('paper')} elevation={0} style={{borderRadius: 0}}>
+        {!showAsLink
+          && <Card onClick={this.handleClickOpen('paper')} elevation={0} style={{borderRadius: 0}}>
           <CardActionArea>
             <CardContent>
                 <Typography gutterBottom variant="headline" component="h2">
                   About
                 </Typography>
                 <Typography variant="caption" gutterBottom align="center">
-                Content Policy | Privacy Policy User Agreement | Mod Policy © 2018 Nearo, Inc. All rights reserved
+                Content Policy | Privacy Policy User Agreement © 2018 Nearo, Inc. All rights reserved
                 </Typography>
             </CardContent>
           </CardActionArea>
         </Card>
+        }
+
+        { showAsLink
+          && <div onClick={this.handleClickOpen('paper')} style={{cursor: 'pointer'}}>
+            <Typography  align="center">
+              Content and Privacy Policies
+            </Typography>
+          </div>
+        }
 
         <Dialog
           fullScreen={fullScreen}

@@ -4,7 +4,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from "mobx-react";
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker'
+import { appStore } from './components/stores/app'
 import { navStore } from './components/stores/navigation'
 import { postsStore } from './components/stores/posts'
 import { bookmarksStore } from './components/stores/bookmarks'
@@ -13,7 +14,9 @@ import { notificationsStore } from './components/stores/notifications'
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider navStore={navStore}
+    <Provider
+      appStore={appStore}
+      navStore={navStore}
       postsStore={postsStore}
       notificationsStore={notificationsStore}
       usersStore={usersStore}

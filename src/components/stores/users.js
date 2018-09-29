@@ -48,7 +48,7 @@ class UsersStore {
               if (authResult.user && authResult.additionalUserInfo.isNewUser) {
                 createUser(authResult)
               } else {
-                openURL('/')
+                openURL('/authResult')
                 this.loadUser(authResult.user)
               }
             }).catch(function(error) {
@@ -63,6 +63,7 @@ class UsersStore {
       fetchUserInfo('user-info')
       .then(userInfo => {
         if (userInfo && userInfo.id === user.email) {
+          console.log("WTF")
           this.currentUser = userInfo
           this.signedIn = true
           this.statusVerified = true

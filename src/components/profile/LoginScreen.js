@@ -16,7 +16,7 @@ const uiConfig = (self) => {
 
   return {
     signInFlow: 'redirect',
-    signInSuccessUrl: '/',
+    signInSuccessUrl: '/explore',
     signInOptions: [
       {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -32,12 +32,12 @@ const uiConfig = (self) => {
         console.log('DBG001')
         self.setState({loading: false})
       },
-      signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
+      signInSuccessWithAuthResult: (authResult, redirectUrl = "/explore") => {
         console.log('DBG002')
         if (authResult.user && authResult.additionalUserInfo.isNewUser) {
           return createUser(authResult)
         }
-        self.props.history.push('/')
+        self.props.history.push('/explore')
         return false
       },
       signInFailure: function(error) {
