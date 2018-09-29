@@ -78,7 +78,7 @@ class PostCard extends React.Component {
               </Grid>
               <Grid item>
                 <PostActions post={ post }
-                  url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
+                  url={ "https://nearo.co/posts/" + post.id }
                 />
               </Grid>
             </Grid>

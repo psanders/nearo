@@ -128,7 +128,7 @@ class SinglePostContainer extends Component {
                 post.id &&
                 <PostActions post={ this.state.post }
                   className={classes.top20}
-                  url={ "https://locally-57510.firebaseapp.com/posts/" + post.id }
+                  url={ "https://nearo.co/posts/" + post.id }
                 />
               }
             </Grid>

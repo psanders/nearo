@@ -16,14 +16,6 @@ import NoMatch from './404'
 @withRouter
 @observer
 class MainContainer extends Component {
-  state = {
-    bookmarks: [],
-    posts: [],
-    nbHits: 0,
-    lastDeletedPostId: null,
-    maxItemPerPage: 20,
-  }
-
   render () {
     const { classes } = this.props
 
