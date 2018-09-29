@@ -4,7 +4,7 @@ import 'firebase/firestore';
 
 const prodConfig = {
   apiKey: "AIzaSyDaARZuHxu8oLnIxCHXUmAfwSSD9hiAvtY",
-  authDomain: "locally-57510.firebaseapp.com",
+  authDomain: "nearo.co",
   databaseURL: "https://locally-57510.firebaseio.com",
   projectId: "locally-57510",
   storageBucket: "locally-57510.appspot.com",
@@ -13,7 +13,7 @@ const prodConfig = {
 
 const devConfig = {
   apiKey: "AIzaSyDaARZuHxu8oLnIxCHXUmAfwSSD9hiAvtY",
-  authDomain: "locally-57510.firebaseapp.com",
+  authDomain: "nearo.co",
   databaseURL: "https://locally-57510.firebaseio.com",
   projectId: "locally-57510",
   storageBucket: "locally-57510.appspot.com",

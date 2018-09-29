@@ -19,6 +19,11 @@ class MainContainer extends Component {
   render () {
     const { classes } = this.props
 
+    const scrollTop = () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+
     return(
       <div className={ classes.root }>
         <main className={ classes.content }>
@@ -26,21 +31,25 @@ class MainContainer extends Component {
           <Switch>
             <Route
               exact path='/'
-              render={(props) =>
-                <div>
+              render={(props) => {
+                scrollTop()
+
+                return <div>
                   <Topnav className={ classes.appBar } />
                   <PostsContainer />
                 </div>
-              }
+              }}
             />
             <Route
               path='/posts/:postId'
-              render={(props) =>
-                <div>
+              render={(props) => {
+                scrollTop()
+
+                return <div>
                   <Topnav className={ classes.appBar } />
                   <SinglePostContainer />
                 </div>
-              }
+              }}
             />
             <Route
               path='/login'
@@ -50,9 +59,7 @@ class MainContainer extends Component {
             />
             <Route
               path='/profile'
-              render={(props) =>
-                <Profile />
-              }
+              render={(props) => <Profile />}
             />
             <Route component={NoMatch} />
           </Switch>

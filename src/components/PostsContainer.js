@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
-import LinearProgress from '@material-ui/core/LinearProgress';
 import {withStyles} from '@material-ui/core/styles'
 import {observer, inject} from 'mobx-react'
 import {computed} from 'mobx'
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroller'
 
 import SubBar from './subbar/SubBar'
 import GoogleMap from './map/GoogleMap'
