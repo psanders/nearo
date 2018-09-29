@@ -70,14 +70,14 @@ class Home extends Component {
       </AppBar>
       <div className={ classes.toolbar }/>
       <div style={{height: 'calc(100vh - 65px)', width: '100vw', backgroundColor: '#fff'}}>
-        <div style={{position:'relative', top: 'calc(50% - 65px)', margin: 'auto', width: 600}}>
+        <div style={{position:'relative', top: 'calc(50% - 100px)', margin: 'auto', maxWidth: 600,}}>
+          <Typography variant="display1" color="primary" >
+            Nearo
+          </Typography>
           <div style={{display: 'flex', width: '100%', padding: 20, backgroundColor: 'rgb(243, 243, 243)'}}>
-            <Typography variant="headline" color="inherit" style={{marginTop: 5}}>
-              Nearo
-            </Typography>
             <TextField
              className={classnames(classes.right, classes.left)}
-             placeholder="Search"
+             placeholder="Search Nearo"
              id="searchInput"
              onKeyPress={(ev) => {
                 if (ev.key === 'Enter') {
