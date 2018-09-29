@@ -33,7 +33,6 @@ class MainContainer extends Component {
               exact path='/'
               render={(props) => {
                 scrollTop()
-
                 return <div>
                   <Topnav className={ classes.appBar } />
                   <PostsContainer />
@@ -44,7 +43,6 @@ class MainContainer extends Component {
               path='/posts/:postId'
               render={(props) => {
                 scrollTop()
-
                 return <div>
                   <Topnav className={ classes.appBar } />
                   <SinglePostContainer />
@@ -53,13 +51,17 @@ class MainContainer extends Component {
             />
             <Route
               path='/login'
-              render={(props) =>
-                <LoginScreen />
-              }
+              render={(props) => {
+                scrollTop()
+                return <LoginScreen />
+              }}
             />
             <Route
               path='/profile'
-              render={(props) => <Profile />}
+              render={(props) => {
+                scrollTop()
+                return <Profile />
+            }}
             />
             <Route component={NoMatch} />
           </Switch>
