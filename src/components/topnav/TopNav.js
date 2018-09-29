@@ -51,7 +51,7 @@ class Topnav extends React.Component {
         <AppBar>
           <Toolbar>
             <Typography variant="title" color="inherit">
-              <Link to="/" className={classes.logo}>ListQ</Link>
+              <Link to="/" className={classes.logo}>Nearo</Link>
             </Typography>
             <TextField
              className={classnames(classes.right, classes.left)}

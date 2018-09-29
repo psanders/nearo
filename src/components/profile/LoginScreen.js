@@ -66,7 +66,7 @@ class LoginScreen extends Component {
               <ArrowBackIcon style={{ color: '#fff' }} />
             </IconButton>
             <Typography variant="title" style={{ color: '#fff' }}>
-              ListQ
+              Nearo
             </Typography>
           </Toolbar>
         </AppBar>

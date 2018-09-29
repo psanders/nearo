@@ -156,7 +156,7 @@ class Profile extends Component {
               <ArrowBackIcon style={{ color: '#fff' }} />
             </IconButton>
             <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
-              ListQ
+              Nearo
             </Typography>
             <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
             <Avatar className={classes.avatar}
