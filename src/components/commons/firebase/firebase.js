@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 const prodConfig = {
-  apiKey: "AIzaSyDaARZuHxu8oLnIxCHXUmAfwSSD9hiAvtY",
+  apiKey: "AIzaSyAshRmJgF-p3IesZfmeLzhB-n705ePUAFA",
   authDomain: "nearo.co",
   databaseURL: "https://locally-57510.firebaseio.com",
   projectId: "locally-57510",
@@ -12,7 +12,7 @@ const prodConfig = {
 };
 
 const devConfig = {
-  apiKey: "AIzaSyDaARZuHxu8oLnIxCHXUmAfwSSD9hiAvtY",
+  apiKey: "AIzaSyAshRmJgF-p3IesZfmeLzhB-n705ePUAFA",
   authDomain: "nearo.co",
   databaseURL: "https://locally-57510.firebaseio.com",
   projectId: "locally-57510",
