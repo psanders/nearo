@@ -89,6 +89,7 @@ export const styles = theme => ({
     marginLeft: 8,
   },
   searchBtn: {
+    width: 100,
     textTransform: 'capitalize',
     marginLeft: theme.spacing.unit,
     color: '#fff',

@@ -63,7 +63,6 @@ class UsersStore {
       fetchUserInfo('user-info')
       .then(userInfo => {
         if (userInfo && userInfo.id === user.email) {
-          console.log("WTF")
           this.currentUser = userInfo
           this.signedIn = true
           this.statusVerified = true

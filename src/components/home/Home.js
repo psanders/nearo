@@ -77,7 +77,7 @@ class Home extends Component {
           <div style={{display: 'flex', width: '100%', padding: 20, backgroundColor: 'rgb(243, 243, 243)'}}>
             <TextField
              className={classnames(classes.right, classes.left)}
-             placeholder="Search Nearo"
+             placeholder="jobs, realstate, services"
              id="searchInput"
              onKeyPress={(ev) => {
                 if (ev.key === 'Enter') {
