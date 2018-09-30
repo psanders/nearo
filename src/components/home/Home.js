@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import SearchIcon from '@material-ui/icons/Search'
 import { withRouter } from 'react-router-dom'
 import classnames from 'classnames'
 
@@ -69,16 +71,17 @@ class Home extends Component {
         </Toolbar>
       </AppBar>
       <div className={ classes.toolbar }/>
-      <div style={{height: 'calc(100vh - 65px)', width: '100vw', backgroundColor: '#fff'}}>
-        <div style={{position:'relative', top: 'calc(50% - 100px)', margin: 'auto', maxWidth: 600,}}>
+      <div style={{display: 'flex', alignContent: 'center', alignItems:'center', height: 'calc(100vh - 200px)',  backgroundColor: '#fff'}}>
+        <div style={{margin: '0 auto', maxWidth: 650}}>
           <Typography variant="display1" color="primary" >
             Nearo
           </Typography>
-          <div style={{borderTopRightRadius: 10, borderBottomLeftRadius: 10, display: 'flex', width: '100%', padding: 10, backgroundColor: 'rgb(243, 243, 243)'}}>
+          <div style={{borderTopRightRadius: 10, borderBottomLeftRadius: 10, display: 'flex', padding: 10, backgroundColor: 'rgb(243, 243, 243)'}}>
             <TextField
              className={classnames(classes.right, classes.left)}
              placeholder="jobs, realstate, services"
              id="searchInput"
+             autoFocus={true}
              onKeyPress={(ev) => {
                 if (ev.key === 'Enter') {
                   // Do code here
@@ -101,13 +104,21 @@ class Home extends Component {
            />
             <Hidden xsDown={true}>
               <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
+              <Button onClick={ () => this.props.history.push('/explore') } className={classes.searchBtn}
+                variant="flat"
+                aria-label="Sign Up"
+              >
+                Search
+              </Button>
             </Hidden>
-            <Button onClick={ () => this.props.history.push('/explore') } className={classes.searchBtn}
-              variant="flat"
-              aria-label="Sign Up"
-            >
-              Search
-            </Button>
+            <Hidden smUp={true}>
+              <IconButton onClick={ () => this.props.history.push('/explore') }
+                variant="flat"
+                aria-label="Sign Up"
+              >
+                <SearchIcon />
+              </IconButton>
+            </Hidden>
           </div>
           <Typography variant="caption" style={{marginTop: 3}}>
             News and classfied content relevant to you

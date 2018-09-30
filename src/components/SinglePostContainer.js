@@ -17,7 +17,7 @@ import PostActions from './postcard/PostActions'
 import MapCard from './map/MapCard'
 import ProfileCard from './profile/ProfileCard'
 import About from './About'
-import Ads from './Ads'
+//import Ads from './Ads'
 import { db } from './commons/firebase/firebase'
 import { imageURL, ellip} from './commons/utils'
 
@@ -143,10 +143,10 @@ class SinglePostContainer extends Component {
                 <br />
               </div>
             }
-            <Hidden smDown={true}>
+            {/*<Hidden smDown={true}>
               <Ads className={classes.bottom20}/>
               <br />
-            </Hidden>
+            </Hidden>*/}
             <About/>
             <br/>
           </Grid>
