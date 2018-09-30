@@ -74,7 +74,7 @@ class Home extends Component {
           <Typography variant="display1" color="primary" >
             Nearo
           </Typography>
-          <div style={{display: 'flex', width: '100%', padding: 20, backgroundColor: 'rgb(243, 243, 243)'}}>
+          <div style={{borderTopRightRadius: 10, borderBottomLeftRadius: 10, display: 'flex', width: '100%', padding: 10, backgroundColor: 'rgb(243, 243, 243)'}}>
             <TextField
              className={classnames(classes.right, classes.left)}
              placeholder="jobs, realstate, services"
