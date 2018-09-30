@@ -4,11 +4,6 @@ export const styles = theme => ({
   },
   button: {
     textTransform: 'capitalize',
-    border: '0',
-    backgroundColor: theme.palette.accent.main,
-    '&:hover': {
-      backgroundColor: theme.palette.accent.light
-    },
   },
   flex: {
     flex: 1
