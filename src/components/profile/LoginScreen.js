@@ -60,7 +60,7 @@ class LoginScreen extends Component {
       <div style={{height: '100vh'}}>
         { !hideBar() && <AppBar>
           <Toolbar color="secondary" >
-            <IconButton color="inherit" onClick={ () => this.props.history.push('/') } aria-label="Close">
+            <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
               <ArrowBackIcon style={{ color: '#fff' }} />
             </IconButton>
             <Typography variant="title" style={{ color: '#fff' }}>
