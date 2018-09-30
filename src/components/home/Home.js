@@ -71,7 +71,7 @@ class Home extends Component {
         </Toolbar>
       </AppBar>
       <div className={ classes.toolbar }/>
-      <div style={{display: 'flex', alignContent: 'center', alignItems:'center', height: 'calc(100vh - 200px)',  backgroundColor: '#fff'}}>
+      <div style={{display: 'flex', alignContent: 'center', alignItems:'center', height: 'calc(100vh - 65px)',  backgroundColor: '#fff'}}>
         <div style={{margin: '0 auto', maxWidth: 650}}>
           <Typography variant="display1" color="primary" >
             Nearo
