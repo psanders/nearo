@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar'
 import AppBar from '@material-ui/core/AppBar'
 import 'firebase/auth';
-//import firebaseui from 'firebaseui';
+import firebaseui from 'firebaseui';
 
 import { createUser } from '../commons/firebase/newaccount'
 
@@ -26,14 +26,12 @@ const uiConfig = (self) => {
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
-    //credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
+    credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
     callbacks: {
       uiShown: function() {
-        console.log('DBG001')
         self.setState({loading: false})
       },
       signInSuccessWithAuthResult: (authResult, redirectUrl = "/explore") => {
-        console.log('DBG002')
         if (authResult.user && authResult.additionalUserInfo.isNewUser) {
           return createUser(authResult)
         }
