@@ -35,7 +35,7 @@ class PostsContainer extends Component {
   render() {
     const { classes } = this.props
 
-    return (<Grid container>
+    return (<Grid container style={{backgroundColor: '#fff', height: '100vw'}}>
       <Grid item xs={12} sm={12} md={6} style={{
           backgroundColor: '#fff'
         }}>
