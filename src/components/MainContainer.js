@@ -33,7 +33,6 @@ class MainContainer extends Component {
     return(
       <div className={ classes.root }>
         <main className={ classes.content }>
-
           <Switch>
             <Route
               exact path='/'
@@ -85,7 +84,13 @@ class MainContainer extends Component {
                 return <Profile />
             }}
             />
-            <Route component={NoMatch} />
+            <Route render={ (props) => {
+              return <div>
+                <div className={ classes.toolbar } />
+                <NoMatch />
+              </div>
+            }}
+            />
           </Switch>
         </main>
         <NotificationBar />
@@ -106,6 +111,7 @@ const styles = theme => ({
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
+    backgroundColor: '#dae0e6'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1
