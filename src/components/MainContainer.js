@@ -81,7 +81,10 @@ class MainContainer extends Component {
               path='/profile'
               render={(props) => {
                 scrollTop()
-                return <Profile />
+                return <div>
+                  <div className={ classes.toolbar } />
+                  <Profile />
+                </div>
             }}
             />
             <Route render={ (props) => {
