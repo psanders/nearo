@@ -121,7 +121,7 @@ class Home extends Component {
             </Hidden>
           </div>
           <Typography variant="caption" style={{marginTop: 3}}>
-            News and classfied content relevant to you
+            News and classified content relevant to you
           </Typography>
         </div>
       </div>
