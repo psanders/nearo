@@ -38,6 +38,11 @@ const categories = [
     "name": "Real Estate",
     "description": "",
   },
+  {
+    "ref": "events",
+    "name": "Events",
+    "description": "",
+  },
 ];
 
 export const getCategories = () => {

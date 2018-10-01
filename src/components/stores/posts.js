@@ -26,8 +26,6 @@ class PostsStore {
       when(
         () => appStore.isReady() && !usersStore.isSignedIn(),
         () => {
-          console.log('appStore.isReady()', appStore.isReady())
-          console.log('usersStore.isSignedIn()', usersStore.isSignedIn())
           this.updateBySearch(navStore.navInfo)
         }
       )

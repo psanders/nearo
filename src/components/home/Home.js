@@ -79,7 +79,7 @@ class Home extends Component {
           <div style={{borderTopRightRadius: 10, borderBottomLeftRadius: 10, display: 'flex', padding: 10, backgroundColor: 'rgb(243, 243, 243)'}}>
             <TextField
              className={classnames(classes.right, classes.left)}
-             placeholder="jobs, realstate, services"
+             placeholder="community, offers, services"
              id="searchInput"
              autoFocus={true}
              onKeyPress={(ev) => {
