@@ -5,6 +5,9 @@ const path = require('path')
 const os = require('os')
 const fs = require('fs')
 const algoliasearch = require('algoliasearch')
+const admin = require("firebase-admin");
+
+admin.initializeApp(functions.config().firebase);
 
 // Configuration
 const ALGOLIA_ID = "IVUNNPL7J8"
@@ -12,6 +15,7 @@ const ALGOLIA_ADMIN_KEY = "4aa8f3c9e739c7bd4f8e63f07dc84e09"
 const ALGOLIA_SEARCH_KEY = "c7a59a9ddbe2354bf0d9a1cdfc7f5fe3"
 const ALGOLIA_INDEX_NAME = 'posts'
 const client = algoliasearch(ALGOLIA_ID, ALGOLIA_ADMIN_KEY)
+const fbAppId = '1637247183064443'
 
 exports.onPostCreated = functions.firestore.document('posts/{postId}').onCreate((snap, context) => {
   const post = snap.data()
@@ -83,3 +87,70 @@ exports.optimizeImages= functions.storage.object().onFinalize((object) => {
     })
   })
 })
+
+exports.host = functions.https.onRequest((req, res) => {
+	const userAgent = req.headers['user-agent'].toLowerCase()
+	let indexHTML = fs.readFileSync('./index.html').toString()
+	const path = req.path ? req.path.split('/') : req.path
+	const ogPlaceholder = '<meta name="functions-insert-dynamic-og">'
+	const metaPlaceholder = '<meta name="functions-insert-dynamic-meta">'
+
+	const isBot = userAgent.includes('googlebot') ||
+		userAgent.includes('yahoou') ||
+		userAgent.includes('bingbot') ||
+		userAgent.includes('baiduspider') ||
+		userAgent.includes('yandex') ||
+		userAgent.includes('yeti') ||
+		userAgent.includes('yodaobot') ||
+		userAgent.includes('gigabot') ||
+		userAgent.includes('ia_archiver') ||
+		userAgent.includes('facebookexternalhit') ||
+		userAgent.includes('twitterbot') ||
+		userAgent.includes('developers.google.com') ? true : false
+
+	if (isBot && (path && path.length > 1 && path[1] === 'posts')) {
+		const id = path[2]
+		admin.firestore().collection('posts').doc(id).get().then(snapshot => {
+			const post = snapshot.data()
+			if (post) {
+				post.id = id
+			}
+			indexHTML = indexHTML.replace(metaPlaceholder, getMeta(post))
+			indexHTML = indexHTML.replace(ogPlaceholder, getOpenGraph(post))
+			res.status(200).send(indexHTML)
+      return
+		}).catch(error => {
+      console.error(error)
+    })
+		return
+	}
+
+	indexHTML = indexHTML.replace(metaPlaceholder, getMeta())
+	indexHTML = indexHTML.replace(ogPlaceholder, getOpenGraph())
+	res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
+	res.status(200).send(indexHTML)
+})
+
+const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
+
+const imageURL = (post, size) => {
+  return size
+    ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
+    : bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
+}
+
+const getOpenGraph = post => {
+	let og = `<meta property="fb:app_id" content="${fbAppId}" />`
+	og += `<meta property="og:type" content="website" />`
+	og += `<meta property="og:title" content="${post.category}" />`
+	og += `<meta property="og:description" content="${post.body}" />`
+
+  if (post.media.length > 0) {
+	   og += `<meta property="og:image" content="${imageURL(post, 'sm')}" />`
+  }
+
+	og += `<meta property="og:url" content="https://nearo.co/posts/${post.id}" />`
+	return og
+}
+
+const getMeta = () => `<meta name="twitter:card" content="summary"></meta>`

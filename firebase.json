@@ -6,12 +6,10 @@
          "**/.*",
          "**/node_modules/**"
       ],
-      "rewrites":[
-         {
-            "source":"**",
-            "destination":"/index.html"
-         }
-      ],
+      "rewrites": [{
+          "source": "/**",
+          "function": "host"
+      }],
       "headers": [ {
         "source" : "**/*.@(eot|otf|ttf|ttc|woff|font.css)",
         "headers" : [ {
