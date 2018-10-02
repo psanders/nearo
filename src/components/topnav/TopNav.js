@@ -40,7 +40,7 @@ class Topnav extends React.Component {
 
   goToLogin = () => this.props.history.push('/login')
 
-  handleNav = () => this.props.history.push(currentPath()? '/explore' : '/')
+  handleNav = () => this.props.history.push(currentPath(1) === 'explore'? '/' : '/explore')
 
   render() {
     const { classes, usersStore } = this.props

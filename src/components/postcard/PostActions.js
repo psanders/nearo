@@ -12,6 +12,7 @@ import { styles } from './PostCardStyles'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 import { withRouter } from 'react-router-dom'
+import { currentPath } from '../commons/utils'
 
 @inject('bookmarksStore')
 @inject('postsStore')
@@ -36,13 +37,13 @@ class PostActions extends Component {
     }
   }
 
-  handleSold = () => {
-    this.props.postsStore.markSold(this.props.post)
-  }
+  handleSold = () => this.props.postsStore.markSold(this.props.post)
 
   handleRemove = () => {
     this.props.postsStore.handlePostDelete(this.props.post)
-    this.props.history.push('/')
+    if (currentPath(1) === 'posts') {
+      this.props.history.push('/explore')
+    }
   }
 
   isOwner = () => {

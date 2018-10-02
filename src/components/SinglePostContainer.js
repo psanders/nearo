@@ -33,7 +33,7 @@ class SinglePostContainer extends Component {
 
 
   componentDidMount () {
-    const postRef = db.collection('posts').doc(currentPath())
+    const postRef = db.collection('posts').doc(currentPath(2))
     postRef.get()
     .then(result => {
       if (result.exists && !result.data().deleted) {
