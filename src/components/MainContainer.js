@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
+import Helmet from 'react-helmet-async';
 
 import Home from './home/Home'
 import Topnav from './topnav/Topnav'
@@ -39,6 +40,9 @@ class MainContainer extends Component {
               render={(props) => {
                 scrollTop()
                 return <div>
+                  <Helmet>
+                    <title>Nearo</title>
+                  </Helmet>
                   <div className={ classes.toolbar } />
                   <Home />
                 </div>
@@ -49,6 +53,9 @@ class MainContainer extends Component {
               render={(props) => {
                 scrollTop()
                 return <div>
+                  <Helmet>
+                    <title>Nearo - Explore</title>
+                  </Helmet>
                   <div className={ classes.toolbar } />
                   <Topnav className={ classes.appBar } />
                   <PostsContainer />

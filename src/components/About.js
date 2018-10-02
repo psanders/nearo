@@ -17,19 +17,14 @@ import { privacyContent } from '../privacy_policy'
 import { terms } from '../terms_and_conditions'
 
 class About extends React.Component {
-
   state = {
     open: false,
     scroll: 'paper',
   }
 
-  handleClickOpen = scroll => () => {
-    this.setState({ open: true, scroll })
-  }
+  handleClickOpen = scroll => () => this.setState({ open: true, scroll })
 
-  handleClose = () => {
-    this.setState({ open: false })
-  }
+  handleClose = () => this.setState({ open: false })
 
   render() {
     const { fullScreen, showAsLink } = this.props
@@ -38,7 +33,7 @@ class About extends React.Component {
       <div>
         {!showAsLink
           && <Card onClick={this.handleClickOpen('paper')} elevation={0} style={{borderRadius: 0}}>
-          <CardActionArea>
+          <CardActionArea style={{width: '100%'}}>
             <CardContent>
                 <Typography gutterBottom variant="headline" component="h2">
                   About

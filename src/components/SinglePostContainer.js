@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid'
 import Moment from 'react-moment'
 import { observer, inject } from 'mobx-react'
 import ContentLoader from 'react-content-loader'
+import { Helmet } from "react-helmet"
 
 import PostActions from './postcard/PostActions'
 import MapCard from './map/MapCard'
@@ -30,7 +31,6 @@ class SinglePostContainer extends Component {
     post: {},
     user: {}
   }
-
 
   componentDidMount () {
     const postRef = db.collection('posts').doc(currentPath(2))
@@ -65,13 +65,15 @@ class SinglePostContainer extends Component {
     this.setState({post: post})
   }
 
+  hasMedia = (post) => post.media && post.media.length > 0
+
   render() {
     const { classes } = this.props
     const { post, user } = this.state
 
     const realContent = (post, classes) => {
       return <div>
-        { post.media && post.media.length > 0 &&
+        { this.hasMedia(post) &&
           <CardMedia
             image={ imageURL(post, 'md') }
             className={classes.bottom10}
@@ -110,6 +112,10 @@ class SinglePostContainer extends Component {
     </ContentLoader>
     }
 
+    const upper = (lower) => {
+      return lower ? "- " + lower.replace(/^\w/, c => c.toUpperCase()) : ""
+    }
+
     return (
       <Grid
         container
@@ -118,6 +124,9 @@ class SinglePostContainer extends Component {
         className={classes.top20}
         spacing={16}
         >
+          <Helmet>
+            <title>Nearo {upper(post.category)}</title>
+          </Helmet>
           <Grid item sm={10} md={5} xs={11}>
             <Grid item style={{backgroundColor: '#fff', padding: 10}}>
               { post.id ? realContent(post, classes) : mockContent() }

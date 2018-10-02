@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from "mobx-react";
 import './index.css';
 import App from './App';
@@ -13,17 +14,19 @@ import { usersStore } from './components/stores/users'
 import { notificationsStore } from './components/stores/notifications'
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider
-      appStore={appStore}
-      navStore={navStore}
-      postsStore={postsStore}
-      notificationsStore={notificationsStore}
-      usersStore={usersStore}
-      bookmarksStore={bookmarksStore}
-      >
-      <App />
-    </Provider>
-  </BrowserRouter>,
+  <HelmetProvider>
+    <BrowserRouter>
+      <Provider
+        appStore={appStore}
+        navStore={navStore}
+        postsStore={postsStore}
+        notificationsStore={notificationsStore}
+        usersStore={usersStore}
+        bookmarksStore={bookmarksStore}
+        >
+        <App />
+      </Provider>
+      </BrowserRouter>
+  </HelmetProvider>,
 document.getElementById('root'));
 registerServiceWorker();
