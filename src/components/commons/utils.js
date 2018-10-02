@@ -7,6 +7,8 @@ export const openURL = (url, blank = false) => {
   win.focus();
 }
 
+export const currentPath = () =>  window.location.pathname.split('/')[2]
+
 const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
 
 export const imageURL = (post, size) => {

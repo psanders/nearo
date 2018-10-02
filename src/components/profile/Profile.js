@@ -90,7 +90,7 @@ class Profile extends Component {
     storeUserInfo('user-info', jsonUser)
     this.props.usersStore.setCurrentUser(jsonUser)
     this.props.notificationsStore.showNotification('All set.')
-    this.props.history.push('/')
+    this.props.history.goBack()
   }
 
   isInvalidUser = user => {
@@ -141,7 +141,7 @@ class Profile extends Component {
     if (this.props.usersStore.currentUser.isNewUser) {
       this.props.notificationsStore.showCompleteProfile()
     }
-    this.props.history.push('/')
+    this.props.history.goBack()
   }
 
   render() {
@@ -158,12 +158,10 @@ class Profile extends Component {
             <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
               Nearo
             </Typography>
-            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
             <Avatar className={classes.avatar}
               style={{height: 35, width: 35}}
               alt={user.name}
               src={user.picture}  />
-            </IconButton>
           </Toolbar>
         </AppBar>
         <div style={{backgroundColor: '#dae0e6', height: '100vh', width: '100vw'}}>

@@ -10,11 +10,11 @@ import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import LoginIcon from '@material-ui/icons/Fingerprint'
-import { Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 import classnames from 'classnames'
 
+import { currentPath } from '../commons/utils'
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
 
@@ -38,9 +38,9 @@ class Topnav extends React.Component {
     this.props.history.push('/explore')
   }
 
-  goToLogin = () => {
-    this.props.history.push('/login')
-  }
+  goToLogin = () => this.props.history.push('/login')
+
+  handleNav = () => this.props.history.push(currentPath()? '/explore' : '/')
 
   render() {
     const { classes, usersStore } = this.props
@@ -49,8 +49,8 @@ class Topnav extends React.Component {
       <div>
         <AppBar>
           <Toolbar>
-            <Typography variant="title" color="inherit">
-              <Link to="/explore" className={classes.logo}>Nearo</Link>
+            <Typography variant="title" color="inherit" onClick={this.handleNav}>
+              <span className={classes.logo}>Nearo</span>
             </Typography>
             <TextField
              className={classnames(classes.right, classes.left)}

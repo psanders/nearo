@@ -18,7 +18,7 @@ import ProfileCard from './profile/ProfileCard'
 import About from './About'
 //import Ads from './Ads'
 import { db } from './commons/firebase/firebase'
-import { imageURL, ellip} from './commons/utils'
+import { imageURL, ellip, currentPath} from './commons/utils'
 
 @inject('usersStore')
 @inject('postsStore')
@@ -31,10 +31,9 @@ class SinglePostContainer extends Component {
     user: {}
   }
 
-  currentPath = () =>  window.location.pathname.split('/')[2]
 
   componentDidMount () {
-    const postRef = db.collection('posts').doc(this.currentPath())
+    const postRef = db.collection('posts').doc(currentPath())
     postRef.get()
     .then(result => {
       if (result.exists && !result.data().deleted) {

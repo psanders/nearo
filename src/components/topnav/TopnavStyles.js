@@ -11,7 +11,7 @@ export const styles = theme => ({
   },
   logo: {
     color: '#fff',
-    textDecoration: 'none',
+    cursor: 'pointer',
     marginRight: theme.spacing.unit
   },
   row: {
