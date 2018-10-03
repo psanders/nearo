@@ -38,7 +38,7 @@ class PostCard extends React.Component {
         border: '1px solid #fff',
         padding: 2,
         background: 'rgb(0,0,0,.4)',
-        color: '#fff', height: 10, width: 10, position: 'absolute', right: 2, bottom: 3}} />
+        color: '#fff', height: 8, width: 8, position: 'absolute', right: 3, bottom: 3}} />
 
     const imageMobile = () =>
       <CardMedia

@@ -129,9 +129,7 @@ class SinglePostContainer extends Component {
     </ContentLoader>
     }
 
-    const upper = (lower) => {
-      return lower ? "- " + lower.replace(/^\w/, c => c.toUpperCase()) : ""
-    }
+    const toUpper = (lower) => lower ? "- " + lower.replace(/^\w/, c => c.toUpperCase()) : ""
 
     return (
       <div>

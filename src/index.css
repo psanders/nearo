@@ -54,20 +54,19 @@ div.pnlm-compass {
 
 div.pnlm-sprite {
   background-image: url(/images/sprites.svg);
-  background-color: rgba(0,0,0,0.2);
 }
 
 div.pnlm-control:hover {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.4);
 }
 
 div.pnlm-zoom-controls.pnlm-controls {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.4);
   border: none;
 }
 
 div.pnlm-fullscreen-toggle-button.pnlm-sprite.pnlm-fullscreen-toggle-button-inactive.pnlm-controls.pnlm-control {
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.4);
   border: none;
 }
 
