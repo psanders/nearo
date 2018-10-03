@@ -21,7 +21,7 @@ class Viewer360 extends Component {
           type="info"
           pitch={11}
           yaw={-167}
-          text="Kitchen cabinets"
+          text="Kitchen Cabinets"
           URL="https://nearo.co"
         />
       </Pannellum>
