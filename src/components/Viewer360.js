@@ -21,16 +21,8 @@ class Viewer360 extends Component {
           type="info"
           pitch={11}
           yaw={-167}
-          text="Info Hotspot Text 3"
-          URL="https://github.com/farminf"
-        />
-
-        <Pannellum.Hotspot
-          type="info"
-          pitch={31}
-          yaw={-107}
-          text="Info Hotspot Text 4"
-          URL="https://github.com/farminf"
+          text="Kitchen cabinets"
+          URL="https://nearo.co"
         />
       </Pannellum>
   }
