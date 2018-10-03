@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid'
 import Moment from 'react-moment'
 import { observer, inject } from 'mobx-react'
 import ContentLoader from 'react-content-loader'
-import { Helmet } from "react-helmet"
+//import { Helmet } from "react-helmet"
 
 import PostActions from './postcard/PostActions'
 import MapCard from './map/MapCard'
@@ -19,7 +19,14 @@ import ProfileCard from './profile/ProfileCard'
 import About from './About'
 //import Ads from './Ads'
 import { db } from './commons/firebase/firebase'
-import { imageURL, ellip, currentPath} from './commons/utils'
+import {
+  imageURL,
+  ellip,
+  currentPath,
+  hasPanorama,
+  hasMedia,
+} from './commons/utils'
+import Viewer360 from './Viewer360'
 
 @inject('usersStore')
 @inject('postsStore')
@@ -65,15 +72,14 @@ class SinglePostContainer extends Component {
     this.setState({post: post})
   }
 
-  hasMedia = (post) => post.media && post.media.length > 0
-
   render() {
     const { classes } = this.props
     const { post, user } = this.state
 
     const realContent = (post, classes) => {
       return <div>
-        { this.hasMedia(post) &&
+        { hasMedia(post)  &&
+          !hasPanorama(post) &&
           <CardMedia
             image={ imageURL(post, 'md') }
             className={classes.bottom10}
@@ -87,8 +93,16 @@ class SinglePostContainer extends Component {
                 color="secondary"
               />
             }
-            <div style={{ width: 130, height: 210, borderRadius: 2}} />
+            <div style={{ width: 130, height: 300, borderRadius: 2}} />
           </CardMedia>
+        }
+        { hasMedia(post)  &&
+          hasPanorama(post) &&
+          <div className={classes.bottom10}>
+            <Viewer360 height="300px"
+              imageURL={imageURL(post, 'panorama')}
+              />
+          </div>
         }
         <Typography className={ classes.capitalize } variant="title" gutterBottom>
           { post.category }
@@ -103,12 +117,15 @@ class SinglePostContainer extends Component {
     }
 
     const mockContent = () => {
-      return <ContentLoader height={250} preserveAspectRatio={"xMidYMid meet"}>
-      <rect x="0" y="0" rx="0" ry="0" width="400" height="180" />
-      <rect x="0" y="190" rx="0" ry="0" width="100" height="15" />
-      <rect x="0" y="210" rx="0" ry="0" width="400" height="10" />
-      <rect x="0" y="225" rx="0" ry="0" width="380" height="10" />
+      return <ContentLoader height={345}
+      preserveAspectRatio={"xMidYMid meet"}>
+      <rect x="0" y="0" rx="0" ry="0" width="400" height="230" />
       <rect x="0" y="240" rx="0" ry="0" width="100" height="10" />
+      <rect x="0" y="260" rx="0" ry="0" width="380" height="6.4" />
+      <rect x="0" y="270" rx="0" ry="0" width="350" height="6.4" />
+      <rect x="0" y="280" rx="0" ry="0" width="360" height="6.4" />
+      <rect x="0" y="290" rx="0" ry="0" width="350" height="6.4" />
+      <rect x="0" y="300" rx="0" ry="0" width="370" height="6.4" />
     </ContentLoader>
     }
 
@@ -117,47 +134,49 @@ class SinglePostContainer extends Component {
     }
 
     return (
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        className={classes.top20}
-        spacing={16}
-        >
-          <Helmet>
-            <title>Nearo {upper(post.category)}</title>
-          </Helmet>
-          <Grid item sm={10} md={5} xs={11}>
-            <Grid item style={{backgroundColor: '#fff', padding: 10}}>
-              { post.id ? realContent(post, classes) : mockContent() }
+      <div>
+        {/*<Helmet>
+        <title>Nearo {upper(post.category)}</title>
+      </Helmet>*/}
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          className={classes.top20}
+          spacing={16}
+          >
+            <Grid item sm={10} md={5} xs={11}>
+              <Grid item style={{backgroundColor: '#fff', padding: 10}}>
+                { post.id ? realContent(post, classes) : mockContent() }
 
-              {
-                post.id &&
-                <PostActions post={ this.state.post }
-                  className={classes.top20}
-                  url={ "https://nearo.co/posts/" + post.id }
-                />
-              }
+                {
+                  post.id &&
+                  <PostActions post={ this.state.post }
+                    className={classes.top20}
+                    url={ "https://nearo.co/posts/" + post.id }
+                  />
+                }
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid item sm={10} md={3} xs={11}>
-            <ProfileCard user={ user }/>
-            <br />
-            {
-              post._geoloc &&
-              <div>
-                <MapCard center={ post._geoloc }/>
-                <br />
-              </div>
-            }
-            {/*<Hidden smDown={true}>
-              <Ads className={classes.bottom20}/>
+            <Grid item sm={10} md={3} xs={11}>
+              <ProfileCard user={ user }/>
               <br />
-            </Hidden>*/}
-            <About/>
-            <br/>
-          </Grid>
-      </Grid>
+              {
+                post._geoloc &&
+                <div>
+                  <MapCard center={ post._geoloc }/>
+                  <br />
+                </div>
+              }
+              {/*<Hidden smDown={true}>
+                <Ads className={classes.bottom20}/>
+                <br />
+              </Hidden>*/}
+              <About/>
+              <br/>
+            </Grid>
+        </Grid>
+      </div>
     )
   }
 }

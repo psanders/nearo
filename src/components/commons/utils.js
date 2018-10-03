@@ -12,9 +12,10 @@ export const currentPath = (level = 1) =>  window.location.pathname.split('/')[l
 const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
 
 export const imageURL = (post, size) => {
-  return size
-    ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
-    : bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
+  const s = size === 'panorama' ? 1 : 0
+  return size !== 'panorama'
+    ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[s].filename + '?alt=media'
+    : bucketBaseUrl + '%2F' + post.media[s].filename + '?alt=media'
 }
 
 export const ellip = (str, len, c1 = ',', c2 = '') => {
@@ -22,3 +23,8 @@ export const ellip = (str, len, c1 = ',', c2 = '') => {
   const pos = result.lastIndexOf(c1);
   return result.substring(0, pos) + c2 + result.substring(pos + 1)
 }
+
+
+export const hasMedia = (post) => post.media && post.media.length > 0
+
+export const hasPanorama = (post) => post.media && post.media.length > 1

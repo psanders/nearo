@@ -8,12 +8,13 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
 import LinkIcon from '@material-ui/icons/Link'
+import Icon360 from '@material-ui/icons/CompassCalibration'
 import Hidden from '@material-ui/core/Hidden'
 import Linkify from 'react-linkify'
 
 import { styles } from './PostCardStyles'
 import { getCategory } from '../commons/categories'
-import { imageURL } from '../commons/utils'
+import { imageURL, hasPanorama } from '../commons/utils'
 import PostActions from './PostActions'
 
 class PostCard extends React.Component {
@@ -33,11 +34,18 @@ class PostCard extends React.Component {
           width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
       </div>
 
+    const panoramaIcon = <Icon360 style={{borderRadius: 25, borderColor: '#fff',
+        border: '1px solid #fff',
+        padding: 2,
+        background: 'rgb(0,0,0,.4)',
+        color: '#fff', height: 10, width: 10, position: 'absolute', right: 2, bottom: 3}} />
+
     const imageMobile = () =>
       <CardMedia
          className={ classes.cover }
          image={ imageURL(post, 'md') }
       >
+       { hasPanorama(post) && panoramaIcon }
        <div style={{ width: 'calc(100vw - 33px)', height: 320}} />
       </CardMedia>
 
@@ -46,6 +54,7 @@ class PostCard extends React.Component {
          className={ classes.cover }
          image={ imageURL(post, 'sm') }
       >
+       { hasPanorama(post) && panoramaIcon }
        <div style={{ width: 130, height: 110, borderRadius: 2}} />
       </CardMedia>
 

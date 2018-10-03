@@ -34,7 +34,7 @@ const categories = [
     "description": "",
   },
   {
-    "ref": "realstate",
+    "ref": "realestate",
     "name": "Real Estate",
     "description": "",
   },

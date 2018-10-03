@@ -40,6 +40,7 @@
     "moment": "^2.22.2",
     "node-geocoder": "^3.22.0",
     "object-assign": "4.1.1",
+    "pannellum-react": "^0.2.6",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",

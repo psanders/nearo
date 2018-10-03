@@ -15,14 +15,12 @@ function ProfileCard(props) {
     : "/images/default-avatar.png"
 
   const mockContent = () => {
-    return <ContentLoader height={140}>
+    return <ContentLoader height={150}>
     <rect x="0" y="10" rx="0" ry="0" width="200" height="25" />
-    <rect x="0" y="55" rx="0" ry="0" width="380" height="15" />
-    <rect x="0" y="80" rx="0" ry="0" width="400" height="15" />
-    <rect x="0" y="105" rx="0" ry="0" width="340" height="15" />
-    <rect x="0" y="130" rx="0" ry="0" width="380" height="15" />
-    <rect x="0" y="166" rx="0" ry="0" width="150" height="20" />
-    <rect x="0" y="200" rx="0" ry="0" width="100" height="15" />
+    <rect x="0" y="50" rx="0" ry="0" width="380" height="10" />
+    <rect x="0" y="70" rx="0" ry="0" width="400" height="10" />
+    <rect x="0" y="90" rx="0" ry="0" width="340" height="10" />
+    <rect x="0" y="110" rx="0" ry="0" width="380" height="10" />
   </ContentLoader>
   }
 

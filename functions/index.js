@@ -125,8 +125,8 @@ exports.host = functions.https.onRequest((req, res) => {
 		return
 	}
 
-	indexHTML = indexHTML.replace(metaPlaceholder, getMeta())
-	indexHTML = indexHTML.replace(ogPlaceholder, getOpenGraph())
+	//indexHTML = indexHTML.replace(metaPlaceholder, getMeta())
+	//indexHTML = indexHTML.replace(ogPlaceholder, getOpenGraph())
 	res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
 	res.status(200).send(indexHTML)
 })

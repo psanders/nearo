@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import CloseIcon from '@material-ui/icons/Close';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import Snackbar from '@material-ui/core/Snackbar'
+import CloseIcon from '@material-ui/icons/Close'
 import { observer, inject } from 'mobx-react'
 
 const styles = theme => ({
@@ -11,7 +11,7 @@ const styles = theme => ({
     width: theme.spacing.unit * 4,
     height: theme.spacing.unit * 4,
   },
-});
+})
 
 @inject('notificationsStore')
 @observer
@@ -24,7 +24,7 @@ class NotificationBar extends Component {
       <Button key="close" color="secondary" size="small" onClick={ store.hideNotification }>
         <CloseIcon />
       </Button>
-    ];
+    ]
 
     if (store.state.callback) {
       action.pop()
@@ -36,8 +36,8 @@ class NotificationBar extends Component {
           }}>
             {store.state.callbackLabel}
           </Button>
-        );
-      //action.push(closeAction);
+        )
+      //action.push(closeAction)
     }
 
     return (
@@ -57,12 +57,12 @@ class NotificationBar extends Component {
           action={ action }
         />
       </div>
-    );
+    )
   }
 }
 
 NotificationBar.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(NotificationBar);
+export default withStyles(styles)(NotificationBar)

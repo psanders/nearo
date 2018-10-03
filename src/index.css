@@ -42,3 +42,47 @@ p.centre-line span {
   padding: 1rem;
   display: inline-block;
 }
+
+div.pnlm-compass {
+  width: 24px;
+  height: 24px;
+  border-color: #f4f4f4;
+  background-image: url(/images/compass.svg);
+  background-position: 5px 2px;
+  background-repeat: no-repeat;
+}
+
+div.pnlm-sprite {
+  background-image: url(/images/sprites.svg);
+  background-color: rgba(0,0,0,0.2);
+}
+
+div.pnlm-control:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+div.pnlm-zoom-controls.pnlm-controls {
+  background-color: rgba(0,0,0,0.2);
+  border: none;
+}
+
+div.pnlm-fullscreen-toggle-button.pnlm-sprite.pnlm-fullscreen-toggle-button-inactive.pnlm-controls.pnlm-control {
+  background-color: rgba(0,0,0,0.2);
+  border: none;
+}
+
+div.pnlm-compass.pnlm-controls.pnlm-control {
+  background-color: rgba(0,0,0,0.4);
+}
+
+div.pnlm-orientation-button-inactive {
+  background-color: rgba(0,0,0,0.4);
+}
+
+div.pnlm-orientation-button-active {
+  background-color: rgba(0,0,0,0.4);
+}
+
+.pnlm-about-msg{
+  display:none !important;
+}
