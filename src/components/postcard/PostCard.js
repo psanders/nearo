@@ -19,12 +19,6 @@ import PostActions from './PostActions'
 
 class PostCard extends React.Component {
 
-  isOwner = (user, author) => {
-    return user && user.username === author
-      ? true
-      : false
-  }
-
   render() {
     const { classes, post } = this.props
 

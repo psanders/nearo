@@ -48,7 +48,7 @@ class PostActions extends Component {
 
   isOwner = () => {
     const currentUser = this.props.usersStore.currentUser
-    return currentUser && currentUser.username === this.props.post.author
+    return currentUser && currentUser.id === this.props.post.userId
       ? true
       : false
   }
