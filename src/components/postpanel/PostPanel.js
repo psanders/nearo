@@ -87,7 +87,7 @@ class PostPanel extends React.Component {
       likes: 0,
       locText: address,
       price: this.getPrice(this.state.body),
-      timestamp: firebase.firestore.Timestamp.fromDate(new Date),
+      timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
       _geoloc: latLng,
       deleted: false,
       media: this.state.media

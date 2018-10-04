@@ -1,5 +1,4 @@
 import { observable } from "mobx"
-import { openURL } from '../commons/utils'
 
 class NotificationsStore {
     @observable state = {

@@ -11,7 +11,7 @@ export const createUser = authResult => {
     name: authResult.user.displayName,
     picture: picture,
     isNewUser: true,
-    joined: firebase.firestore.Timestamp.fromDate(new Date)
+    joined: firebase.firestore.Timestamp.fromDate(new Date())
   }
 
   const userRef = db.collection('users')
