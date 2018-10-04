@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography'
 import Linkify from 'react-linkify'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
+import Hidden from '@material-ui/core/Hidden'
+import Divider from '@material-ui/core/Divider'
 import Moment from 'react-moment'
 import { observer, inject } from 'mobx-react'
 import ContentLoader from 'react-content-loader'
@@ -104,15 +106,17 @@ class SinglePostContainer extends Component {
               />
           </div>
         }
-        <Typography className={ classes.capitalize } variant="title" gutterBottom>
-          { post.category }
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          <Linkify>{ post.body }</Linkify>
-        </Typography>
-        <Typography variant="caption" gutterBottom className={classes.bottom10}>
-          Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment> nearby "{ ellip(post.locText, 22) }"
-        </Typography>
+        <div>
+          <Typography className={ classes.capitalize } variant="title" gutterBottom>
+            { post.category }
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            <Linkify>{ post.body }</Linkify>
+          </Typography>
+          <Typography variant="caption" gutterBottom className={classes.bottom10}>
+            Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment> nearby "{ ellip(post.locText, 22) }"
+          </Typography>
+        </div>
       </div>
     }
 
@@ -129,22 +133,47 @@ class SinglePostContainer extends Component {
     </ContentLoader>
     }
 
+    const rightColumn = (post) => <div>
+      <ProfileCard user={ user }/>
+      <Hidden xsDown={true}>
+        <br />
+      </Hidden>
+      {
+        post._geoloc &&
+        <div>
+          <MapCard center={ post._geoloc }/>
+          <Hidden xsDown={true}>
+            <br />
+          </Hidden>
+        </div>
+      }
+      {/*<Hidden smDown={true}>
+        <Ads className={classes.bottom20}/>
+        <br />
+      </Hidden>*/}
+      <About/>
+      <Hidden xsDown={true}>
+        <br />
+      </Hidden>
+    </div>
+
     return (
       <div>
         {/*<Helmet>
         <title>Nearo {upper(post.category)}</title>
       </Helmet>*/}
+        <Hidden xsDown={true}>
+          <div className={classes.top20} />
+        </Hidden>
         <Grid
           container
           direction="row"
           justify="center"
-          className={classes.top20}
           spacing={16}
           >
-            <Grid item sm={10} md={5} xs={11}>
+            <Grid item sm={10} md={5} xs={12}>
               <Grid item style={{backgroundColor: '#fff', padding: 10}}>
                 { post.id ? realContent(post, classes) : mockContent() }
-
                 {
                   post.id &&
                   <PostActions post={ this.state.post }
@@ -153,24 +182,16 @@ class SinglePostContainer extends Component {
                   />
                 }
               </Grid>
+              <Hidden smUp={true}>
+                <Divider />
+                { rightColumn(post) }
+              </Hidden>
             </Grid>
-            <Grid item sm={10} md={3} xs={11}>
-              <ProfileCard user={ user }/>
-              <br />
-              {
-                post._geoloc &&
-                <div>
-                  <MapCard center={ post._geoloc }/>
-                  <br />
-                </div>
-              }
-              {/*<Hidden smDown={true}>
-                <Ads className={classes.bottom20}/>
-                <br />
-              </Hidden>*/}
-              <About/>
-              <br/>
-            </Grid>
+            <Hidden xsDown={true}>
+              <Grid item sm={10} md={3} xs={12} spacing={16}>
+                { rightColumn(post) }
+              </Grid>
+            </Hidden>
         </Grid>
       </div>
     )
@@ -188,17 +209,11 @@ const styles = theme => ({
   capitalize: {
     textTransform: 'capitalize'
   },
-  top10: {
-    marginTop: 10
-  },
   top20: {
     marginTop: 20
   },
   bottom10: {
     marginBottom: 10
-  },
-  bottom20: {
-    marginBottom: 20
   },
   chip: {
     margin: theme.spacing.unit,
