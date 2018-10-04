@@ -29,6 +29,16 @@ function TextMaskCustom(props) {
   )
 }
 
+export const isValidNumber = (number) => {
+  if (!number) return true
+  const digits = number
+    .replace("(","")
+    .replace(")","")
+    .replace("-","")
+    .replace(" ","").trim().length
+  return digits === 0 || digits === 10 ? true : false
+}
+
 TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired,
 }
@@ -44,16 +54,6 @@ class PhoneInput extends Component {
     this.setState({pristine: false})
   }
 
-  isValidNumber = (number) => {
-    if (!number) return false
-
-    return number
-      .replace("(","")
-      .replace(")","")
-      .replace("-","")
-      .replace(" ","").trim().length === 10
-  }
-
   render() {
     const { value } = this.props
 
@@ -64,7 +64,7 @@ class PhoneInput extends Component {
         label="Phone"
         fullWidth
         margin="dense"
-        error={!this.state.pristine && !this.isValidNumber(value)}
+        error={!this.state.pristine && !isValidNumber(value)}
         InputProps={{
           inputComponent: TextMaskCustom,
           onChange: this.handleChange('value'),

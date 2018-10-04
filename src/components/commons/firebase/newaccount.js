@@ -1,5 +1,5 @@
 import { db } from '../firebase/firebase'
-import { openURL } from '../utils'
+import firebase from 'firebase/app';
 
 export const createUser = authResult => {
   const picture = authResult.user.photoURL !== null
@@ -11,13 +11,11 @@ export const createUser = authResult => {
     name: authResult.user.displayName,
     picture: picture,
     isNewUser: true,
-    //username: authResult.user.displayName.replace(/\W/g, '').toLowerCase()
+    joined: firebase.firestore.Timestamp.fromDate(new Date)
   }
 
   const userRef = db.collection('users')
-  userRef.doc(user.id).set(user).then(() =>{
-    openURL('/profile')
-  }).catch(error => {
+  userRef.doc(user.id).set(user).catch(error => {
     console.error(error)
   })
 }

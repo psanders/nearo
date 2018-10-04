@@ -33,8 +33,11 @@ const uiConfig = (self) => {
       },
       signInSuccessWithAuthResult: (authResult, redirectUrl = "/explore") => {
         if (authResult.user && authResult.additionalUserInfo.isNewUser) {
-          return createUser(authResult)
+          createUser(authResult)
+          // I don't like this because is hard to debug if something went wrong
+          self.props.history.push('/explore')
         }
+        // Let Router take care of the navigation
         self.props.history.push('/explore')
         return false
       },

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import firebase from 'firebase/app'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -14,7 +15,7 @@ import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
 import NotificationBar from '../NotificationBar'
-import PhoneInput from './PhoneInput'
+import PhoneInput, { isValidNumber } from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { db } from '../commons/firebase/firebase'
@@ -36,8 +37,6 @@ class Profile extends Component {
 
     if (event.target.id === 'user-name') {
       user.name = event.target.value
-    } else if (event.target.id === 'user-username') {
-      user.username = event.target.value
     } else if (event.target.id === 'user-phone') {
       user.phone = event.target.value.trim()
     }  else if (event.target.id === 'user-bio') {
@@ -54,36 +53,20 @@ class Profile extends Component {
   save = () => {
     // Close it first to make it feel faster
     const user = this.props.usersStore.currentUser
-
-    user.phone = user.phone
-      .replace("(","")
-      .replace(")","")
-      .replace("-","")
-      .replace(" ","")
-
-    // Ensure this username is not taken
-    if (user.isNewUser) {
-      db.collection("users")
-        .where("username", "==", user.username)
-        .get()
-        .then(querySnapshot => {
-          if(querySnapshot.empty) {
-            this.reallySave(user)
-          } else {
-            this.props.notificationsStore
-              .showNotification('Sorry, this username is taken. Try a different one')
-          }
-      })
-    } else {
-      this.reallySave(user)
+    if(user.phone) {
+      user.phone = user.phone
+        .replace("(","")
+        .replace(")","")
+        .replace("-","")
+        .replace(" ","")
     }
-  }
 
-  reallySave = (user) => {
     const jsonUser = JSON.parse(JSON.stringify(user))
-    // Update remote DB
-    const userRef = db.collection("users").doc(user.id)
     jsonUser.isNewUser = false
+    jsonUser.joined = new
+      firebase.firestore.Timestamp(user.joined.seconds, user.joined.nanoseconds) // Keep as it is
+
+    const userRef = db.collection("users").doc(user.id)
     userRef.set(jsonUser)
 
     // Update local DB
@@ -93,29 +76,14 @@ class Profile extends Component {
     this.props.history.goBack()
   }
 
-  isInvalidUser = user => {
-    if (user.username.length <= 5 || !this.alphanumeric(user.username)){
-      return true
-    }
-    return false
-  }
+  reallySave = (user) => {
 
-  isValidNumber = (number) => {
-    if (!number) return false
-
-    return number
-      .replace("(","")
-      .replace(")","")
-      .replace("-","")
-      .replace(" ","").trim().length === 10
   }
 
   isInvalid = user => {
     return !user.name
-    || !user.phone
     || user.name.length <= 5
-    || !this.isValidNumber(user.phone)
-    || this.isInvalidUser(user)
+    || !isValidNumber(user.phone)
     || !this.validEmail(user.id)
   }
 
@@ -137,13 +105,6 @@ class Profile extends Component {
     return re.test(email)
   }
 
-  handleGoBack= () => {
-    if (this.props.usersStore.currentUser.isNewUser) {
-      this.props.notificationsStore.showCompleteProfile()
-    }
-    this.props.history.goBack()
-  }
-
   render() {
     const { classes, usersStore } = this.props
     const user = usersStore.currentUser
@@ -152,7 +113,7 @@ class Profile extends Component {
       <div>
         <AppBar>
           <Toolbar color="secondary" >
-            <IconButton color="inherit" onClick={ this.handleGoBack } aria-label="Close">
+            <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
               <ArrowBackIcon style={{ color: '#fff' }} />
             </IconButton>
             <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
@@ -169,7 +130,7 @@ class Profile extends Component {
             <Paper style={{padding: 20, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
               <form className={classes.container} noValidate autoComplete="off">
                 <Typography variant="title" gutterBottom>
-                  {user.isNewUser ? "Complete Profile" : "User Preferences"}
+                  User Preferences
                 </Typography>
                 <br />
                 <TextField
@@ -187,23 +148,6 @@ class Profile extends Component {
                   fullWidth
                   margin="dense"
                 />
-                {
-                  user.isNewUser &&
-                  <TextField
-                    variant="outlined"
-                    id="user-username"
-                    label="Username"
-                    onChange={this.handleChange}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    value={user.username}
-                    error={this.isNoPristine('user-username') && this.isInvalidUser(user)}
-                    fullWidth
-                    placeholder="Must be alphanumeric"
-                    margin="dense"
-                  />
-                }
                 {user && <PhoneInput
                   id="user-phone"
                   value={user.phone}

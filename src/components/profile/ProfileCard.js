@@ -26,16 +26,22 @@ function ProfileCard(props) {
 
   const joined = (date) => date.getUTCFullYear() + '/' + date.getUTCMonth()
 
+  const showPhone = (user) =>
+    user.phone &&
+    user.phone.trim().length > 0
+    && !user.keepPhonePrivate
+
   const realContent = (user, classes) => {
     return <div>
       <Typography variant="title" gutterBottom>
         { user.name }
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      {user.bio && <Typography variant="body1" gutterBottom>
         { user.bio }
       </Typography>
+      }
       {
-        !user.keepPhonePrivate &&
+        showPhone(user) &&
         <div className={classes.phone}>
           <PhoneIcon className={ classes.phoneIcon }/>
           <Typography variant="body2" gutterBottom>

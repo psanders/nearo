@@ -48,7 +48,6 @@ class UsersStore {
               if (authResult.user && authResult.additionalUserInfo.isNewUser) {
                 createUser(authResult)
               } else {
-                openURL('/authResult')
                 this.loadUser(authResult.user)
               }
             }).catch(function(error) {

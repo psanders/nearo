@@ -12,11 +12,6 @@ class NotificationsStore {
       this.showNotification('Sorry! You must login first')
     }
 
-    showCompleteProfile = () => {
-      notificationsStore.showNotification('You must complete your profile before creating a post',
-        5000, () => openURL('/profile'), 'Go to profile')
-    }
-
     showNotification = (message, timeout = 4000, callback = null, callbackLabel = "Undo") => {
       const state = {
         open: true,

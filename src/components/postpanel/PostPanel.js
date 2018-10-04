@@ -1,4 +1,5 @@
 import React from 'react'
+import firebase from 'firebase/app'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -86,7 +87,7 @@ class PostPanel extends React.Component {
       likes: 0,
       locText: address,
       price: this.getPrice(this.state.body),
-      timestamp: Date.now(),
+      timestamp: firebase.firestore.Timestamp.fromDate(new Date),
       _geoloc: latLng,
       deleted: false,
       media: this.state.media
