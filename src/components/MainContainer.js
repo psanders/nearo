@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Route, Switch, withRouter } from 'react-router-dom'
-import { observer, inject } from 'mobx-react'
+import { Route, Switch } from 'react-router-dom'
 import Helmet from 'react-helmet-async';
 
 import Home from './home/Home'
@@ -15,13 +14,6 @@ import LoginScreen from './profile/LoginScreen'
 import Profile from './profile/Profile'
 import NoMatch from './404'
 
-@inject('postsStore')
-@inject('navStore')
-@inject('usersStore')
-@inject('bookmarksStore')
-@inject('notificationsStore')
-@withRouter
-@observer
 class MainContainer extends Component {
   render () {
     const { classes } = this.props
@@ -34,6 +26,7 @@ class MainContainer extends Component {
     return(
       <div className={ classes.root }>
         <main className={ classes.content }>
+          <div className={ classes.toolbar } />
           <Switch>
             <Route
               exact path='/'
@@ -43,7 +36,6 @@ class MainContainer extends Component {
                   <Helmet>
                     <title>Nearo</title>
                   </Helmet>
-                  <div className={ classes.toolbar } />
                   <Home />
                 </div>
               }}
@@ -56,9 +48,8 @@ class MainContainer extends Component {
                   <Helmet>
                     <title>Nearo - Explore</title>
                   </Helmet>
-                  <div className={ classes.toolbar } />
                   <Topnav className={ classes.appBar } />
-                  <PostsContainer />
+                  <PostsContainer/>
                 </div>
               }}
             />
@@ -67,7 +58,6 @@ class MainContainer extends Component {
               render={(props) => {
                 scrollTop()
                 return <div>
-                  <div className={ classes.toolbar } />
                   <Topnav className={ classes.appBar } />
                   <SinglePostContainer />
                 </div>
@@ -77,11 +67,7 @@ class MainContainer extends Component {
               path='/login'
               render={(props) => {
                 scrollTop()
-
-                return <div>
-                  <div className={ classes.toolbar } />
-                  <LoginScreen />
-                </div>
+                return <LoginScreen />
               }}
             />
             <Route
@@ -89,18 +75,11 @@ class MainContainer extends Component {
               render={(props) => {
                 scrollTop()
                 return <div>
-                  <div className={ classes.toolbar } />
                   <Profile />
                 </div>
             }}
             />
-            <Route render={ (props) => {
-              return <div>
-                <div className={ classes.toolbar } />
-                <NoMatch />
-              </div>
-            }}
-            />
+            <Route render={ props =>  <NoMatch /> } />
           </Switch>
         </main>
         <NotificationBar />
@@ -111,7 +90,7 @@ class MainContainer extends Component {
 }
 
 MainContainer.propTypes = {
-    classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 const styles = theme => ({

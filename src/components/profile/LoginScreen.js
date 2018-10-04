@@ -26,16 +26,16 @@ const uiConfig = (self) => {
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
-    credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
+    //credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO, // Activating this is causing issues in mobiles
+    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     callbacks: {
       uiShown: function() {
+        // This is need but I don't know way
         self.setState({loading: false})
       },
       signInSuccessWithAuthResult: (authResult, redirectUrl = "/explore") => {
         if (authResult.user && authResult.additionalUserInfo.isNewUser) {
           createUser(authResult)
-          // I don't like this because is hard to debug if something went wrong
-          self.props.history.push('/explore')
         }
         // Let Router take care of the navigation
         self.props.history.push('/explore')
@@ -49,10 +49,6 @@ const uiConfig = (self) => {
 
 @withRouter
 class LoginScreen extends Component {
-
-  state = {
-    loading: true
-  }
 
   render() {
     const hideBar = () => document.getElementsByClassName("firebaseui-idp-list").length > 0
@@ -73,9 +69,7 @@ class LoginScreen extends Component {
         </AppBar>
         }
         <br />
-        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig(this)} firebaseAuth={firebase.auth()}>
-          <p>Test</p>
-        </StyledFirebaseAuth>
+        <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig(this)} firebaseAuth={firebase.auth()} />
       </div>
     );
   }

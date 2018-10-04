@@ -10,7 +10,7 @@ class Viewer360 extends Component {
           height={height}
           image={imageURL}
           autoLoad
-          autoRotate={true}
+          autoRotate={-2}
           compass={true}
           orientationOnByDefault={true}
           onLoad={() => {

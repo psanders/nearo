@@ -188,7 +188,7 @@ class SinglePostContainer extends Component {
               </Hidden>
             </Grid>
             <Hidden xsDown={true}>
-              <Grid item sm={10} md={3} xs={12} spacing={16}>
+              <Grid item sm={10} md={3} xs={12}>
                 { rightColumn(post) }
               </Grid>
             </Hidden>
