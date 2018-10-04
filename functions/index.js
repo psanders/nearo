@@ -37,6 +37,24 @@ exports.onPostUpdated = functions.firestore.document('posts/{postId}').onUpdate(
   }
 })
 
+exports.onUserUpdated = functions.firestore.document('users/{userId}').onUpdate((change, context) => {
+  if (change.before.data().name === change.after.data()) return
+
+  const postRef = admin.firestore().collection('posts')
+  const user = change.after.data()
+
+  return postRef.where("userId", "==", user.id).get()
+  .then(querySnapshot => {
+    return querySnapshot.forEach(doc => {
+      const curDoc = doc.data()
+      curDoc.author = user.name
+      postRef.doc(doc.id).set(curDoc)
+    })
+  }).catch(error => {
+    console.error(error)
+  })
+})
+
 exports.optimizeImages= functions.storage.object().onFinalize((object) => {
   const fileBucket = object.bucket // The Storage bucket that contains the file.
   const filePath = object.name // File path in the bucket.
@@ -125,8 +143,6 @@ exports.host = functions.https.onRequest((req, res) => {
 		return
 	}
 
-	//indexHTML = indexHTML.replace(metaPlaceholder, getMeta())
-	//indexHTML = indexHTML.replace(ogPlaceholder, getOpenGraph())
 	res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
 	res.status(200).send(indexHTML)
 })
