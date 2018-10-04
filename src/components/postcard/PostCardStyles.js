@@ -59,4 +59,23 @@ export const styles = theme => ({
     fontWeight: 200,
     color: '#2398c9'
   },
+  panoramaIcon: {
+    borderRadius: 25,
+    borderColor: '#fff',
+    padding: 3,
+    background: 'rgb(0,0,0,.4)',
+    color: '#fff',
+    height: 8,
+    width: 8,
+    position: 'absolute',
+    right: 3,
+    bottom: 3,
+    transform: 'rotate(-45deg)'
+  },
+  panoramaIconBig: {
+    height: 12,
+    width: 12,
+    padding: 5,
+    backgroundPosition: '5px -1px'
+  }
 });

@@ -11,6 +11,7 @@ import LinkIcon from '@material-ui/icons/Link'
 import Icon360 from '@material-ui/icons/CompassCalibration'
 import Hidden from '@material-ui/core/Hidden'
 import Linkify from 'react-linkify'
+import classnames from 'classnames'
 
 import { styles } from './PostCardStyles'
 import { getCategory } from '../commons/categories'
@@ -22,24 +23,24 @@ class PostCard extends React.Component {
   render() {
     const { classes, post } = this.props
 
-    const holdover = () =>
-      <div style={{ backgroundColor: '#f4f4f4', border: '1px solid #757ce8', width: 130, height: 110, borderRadius: 3}}>
-        <LinkIcon className={classes.shareIcon} color="primary" style={{
-          width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
-      </div>
+    const holdover = () => <div
+      style={{ backgroundColor: '#f4f4f4',
+      border: '1px solid #757ce8', width: 130,
+      height: 110, borderRadius: 3}}>
+      <LinkIcon className={classes.shareIcon} color="primary" style={{
+        width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
+    </div>
 
-    const panoramaIcon = <Icon360 style={{borderRadius: 25, borderColor: '#fff',
-        border: '1px solid #fff',
-        padding: 2,
-        background: 'rgb(0,0,0,.4)',
-        color: '#fff', height: 8, width: 8, position: 'absolute', right: 3, bottom: 3}} />
+    const panoramaIcon = <Icon360 className={classes.panoramaIcon} />
+
+    const panoramaIconMobile = <Icon360 className={classnames(classes.panoramaIcon, classes.panoramaIconBig)} />
 
     const imageMobile = () =>
       <CardMedia
          className={ classes.cover }
          image={ imageURL(post, 'md') }
       >
-       { hasPanorama(post) && panoramaIcon }
+       { hasPanorama(post) && panoramaIconMobile }
        <div style={{ width: 'calc(100vw - 33px)', height: 320}} />
       </CardMedia>
 
