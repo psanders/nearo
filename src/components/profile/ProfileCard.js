@@ -24,6 +24,8 @@ function ProfileCard(props) {
   </ContentLoader>
   }
 
+  const joined = (date) => date.getUTCFullYear() + '/' + date.getUTCMonth()
+
   const realContent = (user, classes) => {
     return <div>
       <Typography variant="title" gutterBottom>
@@ -42,7 +44,7 @@ function ProfileCard(props) {
         </div>
       }
       <Typography variant="caption">
-        { user.username }
+        Joined { joined(user.joined.toDate()) }
       </Typography>
     </div>
   }

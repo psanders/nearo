@@ -9,7 +9,7 @@ import {
 //import { openURL } from '../commons/utils'
 //import { createUser } from '../commons/firebase/newaccount'
 
-const initUser = {username: '', password: '', name: '', email: ''}
+const initUser = {password: '', name: '', email: ''}
 
 class UsersStore {
     @observable currentUser = initUser
