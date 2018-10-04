@@ -142,6 +142,9 @@ class Profile extends Component {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  inputProps= {{
+                    maxLength: 70,
+                  }}
                   value={ user.name }
                   error={this.isNoPristine('user-name') && user.name.length < 3 }
                   placeholder="Name"
