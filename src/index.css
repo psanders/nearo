@@ -56,8 +56,12 @@ div.pnlm-sprite {
   background-image: url(/images/sprites.svg);
 }
 
+div.pnlm-controls {
+  border-color: rgba(0,0,0,0.0);
+}
+
 div.pnlm-control:hover {
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.0);
 }
 
 div.pnlm-zoom-controls.pnlm-controls {
@@ -65,7 +69,7 @@ div.pnlm-zoom-controls.pnlm-controls {
   border: none;
 }
 
-div.pnlm-fullscreen-toggle-button.pnlm-sprite.pnlm-fullscreen-toggle-button-inactive.pnlm-controls.pnlm-control {
+div.pnlm-fullscreen-toggle-button.pnlm-sprite.pnlm-fullscreen-toggle-button-inactive {
   background-color: rgba(0,0,0,0.4);
   border: none;
 }
@@ -76,12 +80,22 @@ div.pnlm-compass.pnlm-controls.pnlm-control {
 
 div.pnlm-orientation-button-inactive {
   background-color: rgba(0,0,0,0.4);
+  border: none;
+}
+
+div.pnlm-orientation-button-inactive.pnlm-control:hover {
+  background-color: rgba(0,0,0,0.4);
 }
 
 div.pnlm-orientation-button-active {
   background-color: rgba(0,0,0,0.4);
+  border: none;
 }
 
 .pnlm-about-msg{
   display:none !important;
+}
+
+div.pnlm-load-button:hover {
+    background-color: rgba(0,0,0,.4);
 }

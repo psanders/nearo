@@ -100,7 +100,7 @@ class SinglePostContainer extends Component {
           hasPanorama(post) &&
           <div className={classes.bottom10}>
             <Viewer360 height="300px"
-              imageURL={imageURL(post, 'panorama')}
+              imageURL={/*"/images/image360.jpeg"*/imageURL(post, 'panorama')}
               />
           </div>
         }

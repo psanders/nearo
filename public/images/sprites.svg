@@ -1,14 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="26" height="208">
-<circle fill-opacity=".78" cy="117" cx="13" r="11" fill="#fff"/>
-<circle fill-opacity=".78" cy="143" cx="13" r="11" fill="#fff"/>
-<circle cy="169" cx="13" r="7" fill="none" stroke="#000" stroke-width="2"/>
-<circle cy="195" cx="13" r="7" fill="none" stroke="#fff" stroke-width="2"/>
-<circle  cx="13" cy="195" r="2.5" stroke="#fff"/>
-<path fill="#fff" d="m5 83v6h2v-4h4v-2zm10 0v2h4v4h2v-6zm-5 5v6h6v-6zm-5 5v6h6v-2h-4v-4zm14 0v4h-4v2h6v-6z"/>
-<path d="m13 110a7 7 0 0 0 -7 7 7 7 0 0 0 7 7 7 7 0 0 0 7 -7 7 7 0 0 0 -7 -7zm-1 3h2v2h-2zm0 3h2v5h-2z"/>
-<path fill="#fff" d="m5 57v6h2v-4h4v-2zm10 0v2h4v4h2v-6zm-10 10v6h6v-2h-4v-4zm14 0v4h-4v2h6v-6z"/>
-<path fill="#fff" d="m17 38v2h-8v-2z"/>
-<path fill="#fff" d="m12 9v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
-<path fill="#fff" d="m13 136-6.125 6.125h4.375v7.875h3.5v-7.875h4.375z"/>
-<path fill="#fff" d="m10.428 173.33v-5.77l5-2.89v5.77zm1-1.73 3-1.73-3.001-1.74z"/>
+<svg width="26" height="208" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="210" width="28" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <circle id="svg_1" fill="#fff" r="11" cx="13" cy="117" fill-opacity="0.78"/>
+  <circle opacity="0.5" id="svg_2" fill="#fff" r="11" cx="13" cy="143" fill-opacity="0.78"/>
+  <circle id="svg_3" stroke-width="2" stroke="#ffffff" fill="none" r="7" cx="13" cy="169"/>
+  <circle id="svg_4" stroke-width="2" stroke="#fff" fill="none" r="7" cx="13" cy="195"/>
+  <circle fill="none" stroke="#ffffff" id="svg_5" r="2.5" cy="195" cx="13"/>
+  <path stroke-width="0" id="svg_6" d="m5,83l0,6l2,0l0,-4l4,0l0,-2l-6,0zm10,0l0,2l4,0l0,4l2,0l0,-6l-6,0zm-5,5l0,6l6,0l0,-6l-6,0zm-5,5l0,6l6,0l0,-2l-4,0l0,-4l-2,0zm14,0l0,4l-4,0l0,2l6,0l0,-6l-2,0z" fill="#fff"/>
+  <path stroke="null" id="svg_7" d="m13,110a7,7 0 0 0 -7,7a7,7 0 0 0 7,7a7,7 0 0 0 7,-7a7,7 0 0 0 -7,-7zm-1,3l2,0l0,2l-2,0l0,-2zm0,3l2,0l0,5l-2,0l0,-5z"/>
+  <path id="svg_8" d="m5,57l0,6l2,0l0,-4l4,0l0,-2l-6,0zm10,0l0,2l4,0l0,4l2,0l0,-6l-6,0zm-10,10l0,6l6,0l0,-2l-4,0l0,-4l-2,0zm14,0l0,4l-4,0l0,2l6,0l0,-6l-2,0z" fill="#fff"/>
+  <path id="svg_9" d="m17,38l0,2l-8,0l0,-2l8,0z" fill="#fff"/>
+  <path id="svg_10" d="m12,9l0,3l-3,0l0,2l3,0l0,3l2,0l0,-3l3,0l0,-2l-3,0l0,-3l-2,0z" fill="#fff"/>
+  <path id="svg_11" d="m13,136l-6.125,6.125l4.375,0l0,7.875l3.5,0l0,-7.875l4.375,0l-6.125,-6.125z" fill="#fff"/>
+  <path id="svg_12" d="m10.428,173.33l0,-5.77l5,-2.89l0,5.77l-5,2.89zm1,-1.73l3,-1.73l-3.001,-1.74l0.001,3.47z" fill="#fff"/>
+ </g>
 </svg>
