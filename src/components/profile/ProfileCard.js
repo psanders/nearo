@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import Avatar from '@material-ui/core/Avatar'
 import PhoneIcon from '@material-ui/icons/ContactPhone'
+import Moment from 'react-moment'
 import ContentLoader from 'react-content-loader'
 
 function ProfileCard(props) {
@@ -23,8 +24,6 @@ function ProfileCard(props) {
     <rect x="0" y="110" rx="0" ry="0" width="380" height="10" />
   </ContentLoader>
   }
-
-  const joined = (date) => date.getUTCFullYear() + '/' + date.getUTCMonth()
 
   const showPhone = (user) =>
     user.phone &&
@@ -50,7 +49,7 @@ function ProfileCard(props) {
         </div>
       }
       <Typography variant="caption">
-        Joined { joined(user.joined.toDate()) }
+        Joined <Moment format="MMMM, YYYY" date={user.joined.toDate()} />
       </Typography>
     </div>
   }
