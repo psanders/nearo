@@ -57,46 +57,57 @@ class PostCard extends React.Component {
       ? holdover()
       : mord()
 
-    return (
-      <div className={classes.post}>
-        <Grid container spacing={16}>
-          <Hidden smUp={true}>
-            <Grid item>
-              <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
-                <ButtonBase aria-label="Open Publication Details">
-                  { image(post, imageMobile) }
-                </ButtonBase>
-              </Link>
-            </Grid>
-          </Hidden>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={16}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subheading">
-                   { post.category && getCategory(post.category).name }
-                </Typography>
-                <Typography gutterBottom>
-                  <Linkify>{ post.body }</Linkify>
-                </Typography>
-                <Typography variant="caption" color="textSecondary">By { post.author } <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment></Typography>
-              </Grid>
-              <Grid item>
-                <PostActions post={ post }
-                  url={ "https://nearo.co/posts/" + post.id }
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Hidden xsDown={true}>
-            <Grid item style={{paddingTop: 35}}>
-              <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
-                <ButtonBase className={classes.image} aria-label="Open Publication Details">
-                  { image(post, imageDesktop) }
-                </ButtonBase>
-              </Link>
-            </Grid>
-          </Hidden>
+    const card = (post) => <Grid container spacing={16}>
+      <Hidden smUp={true}>
+        <Grid item>
+          <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
+            <ButtonBase aria-label="Open Publication Details">
+              { image(post, imageMobile) }
+            </ButtonBase>
+          </Link>
         </Grid>
+      </Hidden>
+      <Grid item xs={12} sm container>
+        <Grid item xs container direction="column" spacing={16}>
+          <Grid item xs>
+            <Typography gutterBottom variant="subheading">
+               { post.category && getCategory(post.category).name }
+            </Typography>
+            <Typography gutterBottom>
+              <Linkify>{ post.body }</Linkify>
+            </Typography>
+            <Typography variant="caption" color="textSecondary">By { post.author } <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment></Typography>
+          </Grid>
+          <Grid item>
+            <PostActions post={ post }
+              url={ "https://nearo.co/posts/" + post.id }
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Hidden xsDown={true}>
+        <Grid item style={{paddingTop: 35}}>
+          <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
+            <ButtonBase className={classes.image} aria-label="Open Publication Details">
+              { image(post, imageDesktop) }
+            </ButtonBase>
+          </Link>
+        </Grid>
+      </Hidden>
+    </Grid>
+
+    return (
+      <div>
+        <Hidden mdUp={true}>
+          <div className={classes.post}>
+            { card(post)}
+          </div>
+        </Hidden>
+        <Hidden smDown={true} >
+        <div className={classnames(classes.post, classes.postDesktop)}>
+          { card(post)}
+        </div>
+        </Hidden>
       </div>
     )
   }

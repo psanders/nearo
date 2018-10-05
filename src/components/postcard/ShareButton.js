@@ -7,6 +7,9 @@ import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import classnames from 'classnames'
 import {
+  FacebookShareCount,
+} from 'react-share';
+import {
   FacebookShareButton,
   TwitterShareButton,
 } from 'react-share'
@@ -40,7 +43,13 @@ class ShareButton extends React.Component {
           className={ classes.actionBtn }
         >
           <ShareIcon className={ classnames(classes.actionIcon, classes.shareIcon) }/>
-          <Typography variant="caption" color="secondary">Share</Typography>
+          <FacebookShareCount url={url}>
+            {shareCount => (
+              <Typography variant="caption" color="secondary">
+                { shareCount > 0 ? shareCount : ""}
+              </Typography>
+            )}
+          </FacebookShareCount>
         </Button>
         <Popover
           elevation={2}

@@ -62,8 +62,7 @@ class PostActions extends Component {
           { !this.bookmarked && <FavBorderIcon className={classes.actionIcon } /> }
           { this.bookmarked && <FavIcon className={classes.liked } /> }
           <Typography variant="caption" color="secondary">
-            { this.bookmarked && "Unlike"  }
-            { !this.bookmarked && "Like" }
+            { post.likes > 0 && post.likes }
           </Typography>
         </Button>
         <ShareButton url={ url } post={ post }/>

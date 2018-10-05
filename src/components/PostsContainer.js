@@ -24,21 +24,19 @@ class PostsContainer extends Component {
       : false
   }
 
-  handleScroll = (scrollArea) => {
-    this.props.postsStore.showMoreResults()
-  }
-
   @computed get posts() {
     return this.props.postsStore.posts
+  }
+
+  handleScroll = (scrollArea) => {
+    this.props.postsStore.showMoreResults()
   }
 
   render() {
     const { classes } = this.props
 
-    return (<Grid container style={{backgroundColor: '#fff', height: '100%'}}>
-      <Grid item xs={12} sm={12} md={6} style={{
-          backgroundColor: '#fff'
-        }}>
+    return (<Grid container>
+      <Grid item xs={12} sm={12} md={6} className={classes.postArea}>
         <InfiniteScroll
           hasMore={this.keepScrolling}
           loadMore={this.handleScroll}
@@ -56,7 +54,7 @@ class PostsContainer extends Component {
         </InfiniteScroll>
       </Grid>
       <Hidden smDown={true}>
-        <Grid item sm={6} xs={12} className={classes.fixedArea}>
+        <Grid item sm={6} xs={12} className={classes.mapArea}>
           <GoogleMap />
         </Grid>
       </Hidden>
@@ -68,11 +66,16 @@ const styles = theme => ({
   progress: {
     margin: theme.spacing.unit * 2
   },
-  fixedArea: {
+  mapArea: {
     height: 'calc(100vh - 65px)',
     position: 'fixed',
     width: '50%',
-    left: '50%'
+    left: '50%',
+    backgroundColor: '#e5e3df'
+  },
+  postArea: {
+    backgroundColor: '#fff',
+    minHeight: 'calc(100vh - 65px)',
   }
 });
 

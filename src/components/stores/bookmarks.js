@@ -36,6 +36,18 @@ class BookmarksStore {
 
     isLoaded = () => this.loaded
 
+    updateLikes = (post, up = 1) => {
+      const postRef = db.collection('posts').doc(post.id)
+      post.likes = post.likes + up
+      postRef.set({
+        likes: post.likes
+      }, { merge: true }).then(() => {
+      }).catch(error => {
+        // Revert change in UI
+        console.error("Error writing document: ", error)
+      })
+    }
+
     addToBookmarks = (post) => {
       if (!usersStore.isSignedIn()) {
         notificationsStore.showMustLogin()
@@ -51,6 +63,8 @@ class BookmarksStore {
         // Revert change in UI
         console.error("Error writing document: ", error)
       })
+
+      this.updateLikes(post, 1)
     }
 
     removeFromBookmarks = (post) => {
@@ -62,6 +76,8 @@ class BookmarksStore {
       }).catch(error => {
         console.error("Error writing document: ", error)
       })
+
+      this.updateLikes(post, -1)
     }
 
     setData (bookmarks) {

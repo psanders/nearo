@@ -3,6 +3,9 @@ export const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 2,
     borderBottom: '1px solid #f4f4f4',
+  },
+  postDesktop: {
+    padding: theme.spacing.unit,
     '&:hover': {
       backgroundColor: theme.palette.primary.a50,
     }
