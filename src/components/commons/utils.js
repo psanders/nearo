@@ -24,7 +24,8 @@ export const ellip = (str, len, c1 = ',', c2 = '') => {
   return result.substring(0, pos) + c2 + result.substring(pos + 1)
 }
 
-
 export const hasMedia = (post) => post.media && post.media.length > 0
 
 export const hasPanorama = (post) => post.media && post.media.length > 1
+
+export const capitalize = (word) => word ? word.replace(/\w/, c => c.toUpperCase()) : ""

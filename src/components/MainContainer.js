@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route, Switch } from 'react-router-dom'
-import Helmet from 'react-helmet-async';
+import Helmet from 'react-helmet-async'
 
 import Home from './home/Home'
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
 import PostsContainer from './PostsContainer'
-import SinglePostContainer from './SinglePostContainer'
+import PostView from './postview/PostView'
 import PostPanel from './postpanel/PostPanel'
 import LoginScreen from './profile/LoginScreen'
 import Profile from './profile/Profile'
@@ -59,7 +59,7 @@ class MainContainer extends Component {
                 scrollTop()
                 return <div>
                   <Topnav className={ classes.appBar } />
-                  <SinglePostContainer />
+                  <PostView />
                 </div>
               }}
             />
