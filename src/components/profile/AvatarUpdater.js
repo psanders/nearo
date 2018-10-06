@@ -26,7 +26,7 @@ import { db } from '../commons/firebase/firebase'
 class AvatarUpdater extends Component {
   state = {
     open: false,
-    scale: 20,
+    scale: 40,
     loading: false
   }
 
@@ -133,8 +133,7 @@ class AvatarUpdater extends Component {
                 ref={this.setEditorRef}
                 image={this.state.imageURL || user.picture}
                 borderRadius={200}
-                width={300}
-                height={300}
+                style={{height: fullScreen ? '100%': 350, width: fullScreen ? '100%': 350}}
                 scale={1 + scale / 100}
               />
             </div>
@@ -156,10 +155,14 @@ class AvatarUpdater extends Component {
             onChange={this.handleChange} />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button className={classes.btn} onClick={this.handleClose}
+              size="small" color="secondary"
+            >
               Cancel
             </Button>
-            <Button onClick={this.onSave} color="primary">
+            <Button className={classes.btn} onClick={this.onSave}
+              size="small" variant="contained" color="secondary"
+            >
               Save
             </Button>
           </DialogActions>
@@ -170,6 +173,9 @@ class AvatarUpdater extends Component {
 }
 
 const styles = theme => ({
+  btn: {
+    textTransform: 'capitalize'
+  },
   uploaderContainer: {
     marginTop: theme.spacing.unit,
     width: '100%',
