@@ -131,16 +131,18 @@ class AvatarUpdater extends React.Component {
               />
             </div>
             { this.state.loading && <LinearProgress className={classes.loader}/> }
-            <br />
-            <FileUploader
-              id="uploaderInput"
-              accept="image/png,image/jpg,image/gif"
-              storageRef={firebase.storage().ref('imgs')}
-              onUploadStart={() => this.setState({loading: true})}
-              onUploadError={this.handleUploadError}
-              onUploadSuccess={this.handleUploadSuccess}
-              randomizeFilename={true}
-            />
+            <div className={classes.uploaderContainer}>
+              <FileUploader
+                style={{border: '1px solid red'}}
+                id="uploaderInput"
+                accept="image/png,image/jpg,image/gif"
+                storageRef={firebase.storage().ref('imgs')}
+                onUploadStart={() => this.setState({loading: true})}
+                onUploadError={this.handleUploadError}
+                onUploadSuccess={this.handleUploadSuccess}
+                randomizeFilename={true}
+              />
+            </div>
             <Slider className={classes.slider}
             min={1}
             value={scale} aria-labelledby="label"
@@ -161,9 +163,13 @@ class AvatarUpdater extends React.Component {
 }
 
 const styles = theme => ({
+  uploaderContainer: {
+    marginTop: theme.spacing.unit,
+    width: '100%',
+  },
   slider: {
     width: '100%',
-    marginLeft: '-9px'
+    marginLeft: '-8px'
   },
   button: {
     position: 'absolute',

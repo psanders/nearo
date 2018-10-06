@@ -19,7 +19,7 @@ import PhoneInput, { isValidNumber } from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import AvatarUpdater from './AvatarUpdater'
-import { db } from '../commons/firebase/firebase'
+import { db, auth } from '../commons/firebase/firebase'
 import { storeUserInfo } from '../commons/dbfunctions'
 
 @inject('usersStore')
@@ -100,6 +100,15 @@ class Profile extends Component {
   validEmail = (email) => {
     const re = /\S+@\S+\.\S+/
     return re.test(email)
+  }
+
+  handleEmailReset = (event) => {
+    const user = this.props.usersStore.currentUser
+    auth.sendPasswordResetEmail(user.id).then(() => {
+      this.props.notificationsStore.showNotification('We sent you an email you reset instructions')
+    }).catch(error => {
+      this.props.notificationsStore.showNotification('Something went wrong. Please try again')
+    });
   }
 
   render() {
@@ -184,12 +193,21 @@ class Profile extends Component {
                   className={classes.textField}
                   value={user.bio}
                 />
-                <Button disabled={ this.isInvalid(user) } onClick={ this.save }
-                  size="small" variant="contained" color="secondary"
-                  aria-label="Save Profile"
-                >
-                  Save
-                </Button>
+                <div className={classes.buttonContainer}>
+                  <span className={classes.flex}/>
+                  <Button onClick={this.handleEmailReset} className={classes.button}
+                    size="small" variant="flat" color="secondary"
+                    aria-label="Reset Password"
+                  >
+                    Password Reset
+                  </Button>
+                  <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
+                    size="small" variant="contained" color="secondary"
+                    aria-label="Save Profile"
+                  >
+                    Save
+                  </Button>
+                </div>
               </form>
             </Paper>
             <Typography variant="caption" style={{marginTop: 5}} align="center">
@@ -213,8 +231,16 @@ Profile.propTypes = {
 }
 
 const styles = theme => ({
+  button: {
+    textTransform: 'capitalize',
+    marginLeft: theme.spacing.unit
+  },
+  buttonContainer: {
+    display: 'flex'
+  },
   flex: {
     flex: 1,
+    flexGrow: 1
   },
   textField: {
     width: '292px', /* Why?? */
