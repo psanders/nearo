@@ -11,9 +11,10 @@ import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
+import classnames from 'classnames'
 
 import NotificationBar from '../NotificationBar'
 import PhoneInput, { isValidNumber } from './PhoneInput'
@@ -122,112 +123,104 @@ class Profile extends Component {
         <AppBar>
           <Toolbar color="secondary" >
             <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
-              <ArrowBackIcon style={{ color: '#fff' }} />
+              <ArrowBackIcon className={classes.arrawBack}/>
             </IconButton>
-            <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
+            <Typography variant="title" className={classnames(classes.flex, classes.logo)}>
               Nearo
             </Typography>
-            {
-              !this.props.appStore.loading &&<Avatar className={classes.avatar}
+            <Avatar className={classes.avatar}
               alt={user.name}
               src={user.picture} />
-            }
-            {
-              this.props.appStore.loading &&
-              <CircularProgress className={classes.progress} />
-            }
           </Toolbar>
+          {
+            this.props.appStore.loading &&
+            <LinearProgress />
+          }
         </AppBar>
-        <div style={{backgroundColor: '#dae0e6', height: '100vh', width: '100vw'}}>
-          <div style={{margin: 'auto', height: '100vh', width: 360}}>
-            <Paper style={{padding: 20, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
-              <Typography variant="title" gutterBottom>
-                User Preferences
-              </Typography>
-              <AvatarUpdater />
-              <form className={classes.container} noValidate autoComplete="off">
-                <TextField
-                  autoFocus
-                  variant="outlined"
-                  id="user-name"
-                  label="Display Name"
-                  onChange={this.handleChange}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps= {{
-                    maxLength: 70,
-                  }}
-                  value={ user.name }
-                  error={this.isNoPristine('user-name') && user.name.length < 3 }
-                  placeholder="Name"
-                  fullWidth
-                  margin="dense"
-                />
-                {user && <PhoneInput
-                  id="user-phone"
-                  value={user.phone}
-                  onChange={this.handleChange}
-                />}
-
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      id="user-phone-private"
-                      checked={user.keepPhonePrivate}
-                      onChange={this.handleChange}
-                      color="primary"
-                    />
-                  }
-                  label="Keep Phone Private"
-                />
-
-                <TextField
-                  id="user-bio"
-                  label="About"
-                  multiline
-                  rows="4"
-                  margin="dense"
-                  variant="outlined"
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps= {{
-                    maxLength: 128,
-                  }}
-                  onChange={this.handleChange}
-                  className={classes.textField}
-                  value={user.bio}
-                />
-                <div className={classes.buttonContainer}>
-                  <span className={classes.flex}/>
-                  <Button onClick={this.handleEmailReset} className={classes.button}
-                    size="small" variant="flat" color="secondary"
-                    aria-label="Reset Password"
-                  >
-                    Password Reset
-                  </Button>
-                  <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
-                    size="small" variant="contained" color="secondary"
-                    aria-label="Save Profile"
-                  >
-                    Save
-                  </Button>
-                </div>
-              </form>
-            </Paper>
-            <Typography variant="caption" style={{marginTop: 5}} align="center">
-              We will not annoy you with push notification if you are currently online.
-              We also throttle noisy conversation.
+        <div className={classes.container}>
+          <Paper className={classes.card}>
+            <Typography variant="title" gutterBottom>
+              User Preferences
             </Typography>
-          </div>
+            <AvatarUpdater />
+            <form className={classes.container} noValidate autoComplete="off">
+              <TextField
+                autoFocus
+                variant="outlined"
+                id="user-name"
+                label="Display Name"
+                onChange={this.handleChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps= {{
+                  maxLength: 70,
+                }}
+                value={ user.name }
+                error={this.isNoPristine('user-name') && user.name.length < 3 }
+                placeholder="Name"
+                fullWidth
+                margin="dense"
+              />
+              {user && <PhoneInput
+                id="user-phone"
+                value={user.phone}
+                onChange={this.handleChange}
+              />}
+
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="user-phone-private"
+                    checked={user.keepPhonePrivate}
+                    onChange={this.handleChange}
+                    color="primary"
+                  />
+                }
+                label="Keep Phone Private"
+              />
+
+              <TextField
+                id="user-bio"
+                label="About"
+                multiline
+                rows="4"
+                margin="dense"
+                variant="outlined"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps= {{
+                  maxLength: 128,
+                }}
+                onChange={this.handleChange}
+                className={classes.textField}
+                value={user.bio}
+              />
+              <div className={classes.buttonContainer}>
+                <span className={classes.flex}/>
+                <Button onClick={this.handleEmailReset} className={classes.button}
+                  size="small" variant="flat" color="secondary"
+                  aria-label="Reset Password"
+                >
+                  Password Reset
+                </Button>
+                <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
+                  size="small" variant="contained" color="secondary"
+                  aria-label="Save Profile"
+                >
+                  Save
+                </Button>
+              </div>
+            </form>
+          </Paper>
+          <Typography variant="caption" style={{marginTop: 5}} align="center">
+            We will not annoy you with push notification if you are currently online.
+            We also throttle noisy conversation.
+          </Typography>
         </div>
         <NotificationBar />
-        <br/>
-        <br/>
-        <br/>
-        <br/>
       </div>
     )
   }
@@ -238,8 +231,19 @@ Profile.propTypes = {
 }
 
 const styles = theme => ({
-  progress: {
-    color: theme.palette.accent.main,
+  arrawBack: {
+    color: '#fff'
+  },
+  logo: {
+    color: '#fff'
+  },
+  container: {
+    margin: 'auto',
+    maxWidth: 360
+  },
+  card: {
+    padding: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2
   },
   button: {
     textTransform: 'capitalize',
@@ -253,7 +257,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   textField: {
-    width: '292px', /* Why?? */
+    width: '285px', /* Why?? */
     marginBottom: 15
   },
   passwordField :{

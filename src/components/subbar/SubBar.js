@@ -33,7 +33,6 @@ class SubBar extends Component {
             New Post
           </Button>
         </Toolbar>
-        { postsStore.loading && <LinearProgress className={classes.progress} /> }
       </div>
     )
   }

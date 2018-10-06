@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import ProfileMenu from './ProfileMenu'
 import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import IconButton from '@material-ui/core/IconButton'
 import LoginIcon from '@material-ui/icons/Fingerprint'
 import { observer, inject } from 'mobx-react'
@@ -22,6 +22,7 @@ import Locator from '../locator/Locator'
 @inject('navStore')
 @inject('usersStore')
 @inject('appStore')
+@inject('postsStore')
 @withRouter
 @observer
 class Topnav extends React.Component {
@@ -45,7 +46,7 @@ class Topnav extends React.Component {
   handleNav = () => this.props.history.push(currentPath(1) === 'explore'? '/' : '/explore')
 
   render() {
-    const { classes, usersStore, appStore } = this.props
+    const { classes, usersStore, appStore, postsStore } = this.props
 
     return (
       <div>
@@ -101,11 +102,12 @@ class Topnav extends React.Component {
               !this.props.appStore.loading &&
               usersStore.isSignedIn() && <ProfileMenu/>
             }
-            {
-              this.props.appStore.loading &&
-              <CircularProgress className={classes.progress} />
-            }
+
           </Toolbar>
+          {
+            (this.props.appStore.loading || this.props.postsStore.loading) &&
+            <LinearProgress />
+          }
         </AppBar>
       </div>
     )

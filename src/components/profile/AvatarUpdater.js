@@ -182,8 +182,8 @@ const styles = theme => ({
     position: 'absolute',
     margin: '23px',
     zIndex: 10,
-    color: 'rgb(255,255,255,0.7)',
-    backgroundColor: 'rgb(0,0,0,0.2)'
+    color: '#fff',
+    backgroundColor: 'rgb(0,0,0,0.05)'
   },
   row: {
     display: 'flex',
