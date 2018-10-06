@@ -18,6 +18,7 @@ import NotificationBar from '../NotificationBar'
 import PhoneInput, { isValidNumber } from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import AvatarUpdater from './AvatarUpdater'
 import { db } from '../commons/firebase/firebase'
 import { storeUserInfo } from '../commons/dbfunctions'
 
@@ -76,10 +77,6 @@ class Profile extends Component {
     this.props.history.goBack()
   }
 
-  reallySave = (user) => {
-
-  }
-
   isInvalid = user => {
     return !user.name
     || user.name.length <= 5
@@ -128,11 +125,11 @@ class Profile extends Component {
         <div style={{backgroundColor: '#dae0e6', height: '100vh', width: '100vw'}}>
           <div style={{margin: 'auto', height: '100vh', width: 360}}>
             <Paper style={{padding: 20, borderTopRightRadius: 0, borderTopLeftRadius: 0}}>
+              <Typography variant="title" gutterBottom>
+                User Preferences
+              </Typography>
+              <AvatarUpdater />
               <form className={classes.container} noValidate autoComplete="off">
-                <Typography variant="title" gutterBottom>
-                  User Preferences
-                </Typography>
-                <br />
                 <TextField
                   autoFocus
                   variant="outlined"
@@ -177,14 +174,16 @@ class Profile extends Component {
                   margin="dense"
                   variant="outlined"
                   fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   inputProps= {{
                     maxLength: 128,
                   }}
                   onChange={this.handleChange}
                   className={classes.textField}
-                  value={ user.bio }
+                  value={user.bio}
                 />
-
                 <Button disabled={ this.isInvalid(user) } onClick={ this.save }
                   size="small" variant="contained" color="secondary"
                   aria-label="Save Profile"
@@ -194,7 +193,7 @@ class Profile extends Component {
               </form>
             </Paper>
             <Typography variant="caption" style={{marginTop: 5}} align="center">
-              We will not annoy you with push notification if you are currently online via web/desktop.
+              We will not annoy you with push notification if you are currently online.
               We also throttle noisy conversation.
             </Typography>
           </div>

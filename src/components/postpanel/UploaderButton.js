@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/storage';
-import FileUploader from 'react-firebase-file-uploader';
-import AddPhotoIcon from '@material-ui/icons/AddAPhoto';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
+import React, { Component } from 'react'
+import firebase from 'firebase/app'
+import 'firebase/storage'
+import FileUploader from 'react-firebase-file-uploader'
+import AddPhotoIcon from '@material-ui/icons/AddAPhoto'
+import Button from '@material-ui/core/Button'
+import Tooltip from '@material-ui/core/Tooltip'
 
 class UploaderButton extends Component {
 
   handleUploadError = error => {
-    this.props.onError();
-    console.error('Code 0002', error);
-  };
+    this.props.onError()
+    console.error('Code 0002', error)
+  }
 
   handleUploadSuccess = filename => {
     firebase
@@ -20,15 +20,15 @@ class UploaderButton extends Component {
       .child(filename)
       .getDownloadURL()
       .then(url => {
-        this.props.onUploadSuccess(filename);
+        this.props.onUploadSuccess(filename)
       }).catch(error => {
         console.error(error)
       })
-  };
+  }
 
   triggerInputFile = () => {
-    const fUploader= document.getElementById("uploaderInput");
-    fUploader.click();
+    const fUploader= document.getElementById("uploaderInput")
+    fUploader.click()
   }
 
   render() {
@@ -56,8 +56,8 @@ class UploaderButton extends Component {
           />
         </form>
       </div>
-    );
+    )
   }
 }
 
-export default UploaderButton;
+export default UploaderButton
