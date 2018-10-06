@@ -5,13 +5,17 @@ import { navStore } from './navigation'
 
 class AppStore {
     @observable ready = false
+    @observable loading = true
 
     constructor () {
       when(
         () => usersStore.isStatusVerified()
               && bookmarksStore.isLoaded()
               && navStore.isLoaded(),
-        () => this.ready = true
+        () => {
+          this.ready = true
+          this.loading = false
+        }
       )
     }
 

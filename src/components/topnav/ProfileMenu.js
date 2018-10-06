@@ -13,6 +13,7 @@ import { observer, inject } from 'mobx-react'
 import { styles } from './TopnavStyles'
 
 @inject('usersStore')
+@inject('appStore')
 @withRouter
 @observer
 class ProfileMenu extends React.Component {
@@ -37,10 +38,13 @@ class ProfileMenu extends React.Component {
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick} color="inherit" aria-label="Open Profile Menu">
-          { user && <Avatar className={classes.avatar}
+          { user &&
+            <Avatar className={classes.avatar}
             style={{height: 35, width: 35}}
             alt={user.name}
-            src={user.picture}  /> }
+            src={user.picture}
+            />
+          }
         </Button>
         <Menu
           id="simple-menu"

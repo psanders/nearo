@@ -1,4 +1,7 @@
 export const styles = theme => ({
+  progress: {
+    color: theme.palette.accent.main,
+  },
   avatar: {
     width: 30,
     height: 30,

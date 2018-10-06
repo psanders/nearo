@@ -71,7 +71,7 @@ class UsersStore {
     }
 
     fetchUserInfoFromDB (user) {
-      const email = user.email ? user.email : user.providerData[0].email
+      const email = user.id ? user.id : user.providerData[0].email
       const userRef = db.collection('users').doc(email)
       userRef.get()
       .then(userInfo => {

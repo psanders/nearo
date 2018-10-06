@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -20,9 +20,10 @@ import { observer, inject } from 'mobx-react'
 import { db } from '../commons/firebase/firebase'
 
 @inject('usersStore')
+@inject('appStore')
 @inject('notificationsStore')
 @observer
-class AvatarUpdater extends React.Component {
+class AvatarUpdater extends Component {
   state = {
     open: false,
     scale: 20,
@@ -59,6 +60,8 @@ class AvatarUpdater extends React.Component {
 
   // Holy shit!!!
   onSave = () => {
+    this.props.appStore.loading = true
+
     if (this.editor) {
       const canvas = this.editor.getImage().toDataURL()
       fetch(canvas)
@@ -79,14 +82,18 @@ class AvatarUpdater extends React.Component {
               picture: downloadURL
             }, { merge: true }).then(() => {
               this.props.usersStore.fetchUserInfoFromDB(user)
+              this.props.appStore.loading = false
             }).catch(error => {
-              console.error("Error writing document: ", error)
+              this.handleUploadError()
+              console.error(error)
             })
           })
         }).catch(error => {
+          this.handleUploadError()
           console.error(error)
         })
       }).catch(error => {
+        this.handleUploadError()
         console.error(error)
       })
     }
@@ -106,10 +113,11 @@ class AvatarUpdater extends React.Component {
             className={classes.button} component="span">
             <PhotoCamera />
           </IconButton>
-          <Avatar
-              src={user.picture}
-              className={classes.avatar}
-            />
+            { <Avatar
+                src={user.picture}
+                className={classes.avatar}
+              />
+            }
           </div>
         }
         <Dialog
@@ -133,7 +141,6 @@ class AvatarUpdater extends React.Component {
             { this.state.loading && <LinearProgress className={classes.loader}/> }
             <div className={classes.uploaderContainer}>
               <FileUploader
-                style={{border: '1px solid red'}}
                 id="uploaderInput"
                 accept="image/png,image/jpg,image/gif"
                 storageRef={firebase.storage().ref('imgs')}

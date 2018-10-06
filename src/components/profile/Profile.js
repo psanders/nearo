@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Avatar from '@material-ui/core/Avatar'
 import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
@@ -24,6 +25,7 @@ import { storeUserInfo } from '../commons/dbfunctions'
 
 @inject('usersStore')
 @inject('notificationsStore')
+@inject('appStore')
 @withRouter
 @observer
 class Profile extends Component {
@@ -125,10 +127,15 @@ class Profile extends Component {
             <Typography variant="title" style={{ color: '#fff' }} className={classes.flex}>
               Nearo
             </Typography>
-            <Avatar className={classes.avatar}
-              style={{height: 35, width: 35}}
+            {
+              !this.props.appStore.loading &&<Avatar className={classes.avatar}
               alt={user.name}
-              src={user.picture}  />
+              src={user.picture} />
+            }
+            {
+              this.props.appStore.loading &&
+              <CircularProgress className={classes.progress} />
+            }
           </Toolbar>
         </AppBar>
         <div style={{backgroundColor: '#dae0e6', height: '100vh', width: '100vw'}}>
@@ -231,6 +238,9 @@ Profile.propTypes = {
 }
 
 const styles = theme => ({
+  progress: {
+    color: theme.palette.accent.main,
+  },
   button: {
     textTransform: 'capitalize',
     marginLeft: theme.spacing.unit
