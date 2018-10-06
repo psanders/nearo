@@ -57,7 +57,7 @@ class LoginScreen extends Component {
       : true
 
     return (
-      <div style={{height: '100vh'}}>
+      <div>
         { !hideBar() && <AppBar>
           <Toolbar color="secondary" >
             <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
@@ -69,7 +69,6 @@ class LoginScreen extends Component {
           </Toolbar>
         </AppBar>
         }
-        <br />
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig(this)} firebaseAuth={firebase.auth()} />
       </div>
     )
