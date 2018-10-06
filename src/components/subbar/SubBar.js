@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { observer, inject } from 'mobx-react'
 import { ellip } from '../commons/utils'
 import { styles } from './SubBarStyles'
