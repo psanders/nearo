@@ -74,7 +74,7 @@ class Home extends Component {
       <div className={ classes.toolbar }/>
       <div style={{display: 'flex', alignContent: 'center', alignItems:'center', height: 'calc(100vh - 55px)',  backgroundColor: '#fff'}}>
         <div style={{position: 'relative', top: '-55px',margin: '0 auto', maxWidth: 650}}>
-          <Typography variant="title" style={{marginBottom: 10, color: 'rgb(136, 136, 136)'}}>
+          <Typography variant="title" color="secondary" style={{marginBottom: 10}}>
             Find classified information near you
           </Typography>
           <div style={{borderTopRightRadius: 10, borderBottomLeftRadius: 10, display: 'flex', padding: 10, backgroundColor: 'rgb(243, 243, 243)'}}>
