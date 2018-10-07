@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { Component } from 'react'
 import firebase from 'firebase/app'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
@@ -17,6 +16,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog'
 import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
 import { observer, inject } from 'mobx-react'
+import { withStyles } from '@material-ui/core/styles'
 
 import { getCategories } from '../commons/categories'
 import { db } from '../commons/firebase/firebase'
@@ -29,7 +29,7 @@ import { imageURL, ellip } from '../commons/utils'
 @inject('navStore')
 @inject('usersStore')
 @observer
-class PostPanel extends React.Component {
+class PostPanel extends Component {
   state = {
     body: '',
     loading: false,
