@@ -35,9 +35,9 @@ export const postContent = (post, classes) => {
         <div style={{ width: 130, height: 300, borderRadius: 2}} />
       </CardMedia>
     }
-    { /*post &&
+    {
       hasMedia(post) &&
-      hasPanorama(post) &&*/
+      hasPanorama(post) &&
       <div className={classes.bottom10}>
         <Viewer360 height="300px"
           imageURL={imageURL(post, 'panorama')}
