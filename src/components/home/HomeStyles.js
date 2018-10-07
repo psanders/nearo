@@ -99,4 +99,4 @@ export const styles = theme => ({
       backgroundColor: theme.palette.primary.light
     },
   },
-});
+})

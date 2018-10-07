@@ -8,8 +8,6 @@ import TextField from '@material-ui/core/TextField'
 import classnames from 'classnames'
 import {
   FacebookShareCount,
-} from 'react-share';
-import {
   FacebookShareButton,
   TwitterShareButton,
 } from 'react-share'
@@ -21,13 +19,9 @@ class ShareButton extends React.Component {
     anchorEl: null,
   }
 
-  handlePopoverOpen = event => {
-    this.setState({ anchorEl: event.currentTarget })
-  }
+  handlePopoverOpen = event => this.setState({ anchorEl: event.currentTarget })
 
-  handlePopoverClose = () => {
-    this.setState({ anchorEl: null })
-  }
+  handlePopoverClose = () => this.setState({ anchorEl: null })
 
   render() {
     const { anchorEl } = this.state

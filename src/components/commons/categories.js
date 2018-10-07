@@ -43,12 +43,8 @@ const categories = [
     "name": "Events",
     "description": "",
   },
-];
+]
 
-export const getCategories = () => {
-    return categories
-}
+export const getCategories = () => categories
 
-export const getCategory = (ref) => {
-    return categories.find(item => item.ref === ref)
-}
+export const getCategory = ref => categories.find(item => item.ref === ref)

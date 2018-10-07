@@ -77,6 +77,6 @@ const styles = theme => ({
     backgroundColor: '#fff',
     minHeight: 'calc(100vh - 65px)',
   }
-});
+})
 
 export default withStyles(styles)(PostsContainer)

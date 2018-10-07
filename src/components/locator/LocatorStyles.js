@@ -54,4 +54,4 @@ export const styles = theme => ({
   iconText: {
     textTransform: 'capitalize',
   },
-});
+})

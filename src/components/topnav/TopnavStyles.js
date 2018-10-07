@@ -96,4 +96,4 @@ export const styles = theme => ({
   fingerPrint: {
     color: theme.palette.accent.light
   },
-});
+})

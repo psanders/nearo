@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography'
 import DeleteIcon from '@material-ui/icons/Delete'
 import SoldOutIcon from '@material-ui/icons/MonetizationOn'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'

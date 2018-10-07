@@ -14,8 +14,8 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar'
+import Chip from '@material-ui/core/Chip'
 import { observer, inject } from 'mobx-react'
 
 import { getCategories } from '../commons/categories'

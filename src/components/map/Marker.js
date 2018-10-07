@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
 import Popover from '@material-ui/core/Popover'
-import CardMedia from '@material-ui/core/CardMedia';
+import CardMedia from '@material-ui/core/CardMedia'
 import blue from '@material-ui/core/colors/blue'
 import { withStyles } from '@material-ui/core/styles'
 import classnames from 'classnames'

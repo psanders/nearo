@@ -9,9 +9,9 @@ import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import LocationIcon from '@material-ui/icons/LocationOn'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-import { storeUserInfo, fetchUserInfo } from '../commons/dbfunctions';
-import { ellip } from '../commons/utils'
 
+import { storeUserInfo, fetchUserInfo } from '../commons/dbfunctions'
+import { ellip } from '../commons/utils'
 import { styles } from './LocatorStyles'
 import SearchInput from './SearchInput'
 
@@ -25,7 +25,7 @@ class Locator extends Component {
     fetchUserInfo(this.props.name)
     .then(locInfo => {
       if (locInfo) {
-        this.setState({address: locInfo.address});
+        this.setState({address: locInfo.address})
       }
     })
   }
@@ -42,9 +42,7 @@ class Locator extends Component {
   }
 
   handleClose = e => {
-    if (this.anchorEl.contains(e.target)) {
-      return
-    }
+    if (this.anchorEl.contains(e.target)) return
     this.setState({ expanded: false })
   }
 
@@ -74,19 +72,19 @@ class Locator extends Component {
       <div className={classes.root}>
         <div>
           <Button
-            color="secondary"
-            className={this.state.expanded? classes.locButtonOpen: classes.locButton}
             id='location-button'
             ref={this.myButton}
             buttonRef={node => {
               this.anchorEl = node
             }}
+            color="secondary"
+            className={this.state.expanded? classes.locButtonOpen: classes.locButton}
             aria-owns={expanded ? 'menu-list-grow' : null}
             aria-haspopup="true"
             onClick={this.handleToggle}
             onMouseOut={this.handleClose}
             aria-label="Select Address Button"
-             >
+           >
             <LocationIcon color="secondary" className={classes.leftIcon} />
             <span className={classes.iconText}>{ ellip( address, 22) }</span>
             <span className={classes.flex} />

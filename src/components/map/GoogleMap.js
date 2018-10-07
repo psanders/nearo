@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import GoogleMapReact from 'google-map-react'
 import Marker from './Marker'
-import {observer, inject} from 'mobx-react'
-import {when} from "mobx"
+import { observer, inject } from 'mobx-react'
+import { when } from "mobx"
 
 @inject('navStore')
 @inject('postsStore')

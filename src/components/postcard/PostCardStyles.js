@@ -81,4 +81,4 @@ export const styles = theme => ({
     padding: 5,
     backgroundPosition: '5px -1px'
   }
-});
+})

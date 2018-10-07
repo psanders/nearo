@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Pannellum } from "pannellum-react";
+import { Pannellum } from "pannellum-react"
 
 class Viewer360 extends Component {
   render() {
@@ -14,7 +14,7 @@ class Viewer360 extends Component {
         compass={true}
         orientationOnByDefault={true}
         onLoad={() => {
-          console.log("panorama loaded");
+          console.log("panorama loaded")
         }}
       >
         <Pannellum.Hotspot

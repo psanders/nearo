@@ -87,22 +87,16 @@ class Profile extends Component {
     || !this.validEmail(user.id)
   }
 
-  alphanumeric = (text) => {
-    const letters = /^[0-9a-zA-Z]+$/
-    return text.match(letters) ? true : false
-  }
+  alphanumeric = text => text.match(/^[0-9a-zA-Z]+$/) ? true : false
 
-  isNoPristine = (field) => this.state.noPristine.get(field)
+  validEmail = email => /\S+@\S+\.\S+/.test(email)
 
-  setNoPristine = (field) => {
+  isNoPristine = field => this.state.noPristine.get(field)
+
+  setNoPristine = field => {
     const noPristine = this.state.noPristine
     noPristine.set(field, true)
     this.setState({noPristine: noPristine})
-  }
-
-  validEmail = (email) => {
-    const re = /\S+@\S+\.\S+/
-    return re.test(email)
   }
 
   handleEmailReset = (event) => {
@@ -111,7 +105,7 @@ class Profile extends Component {
       this.props.notificationsStore.showNotification('We sent you an email you reset instructions')
     }).catch(error => {
       this.props.notificationsStore.showNotification('Something went wrong. Please try again')
-    });
+    })
   }
 
   render() {

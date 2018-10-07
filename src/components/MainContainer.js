@@ -13,40 +13,40 @@ const loading = <div style={{margin: 20}}>Loading...</div>
 const Profile = Loadable({
   loader: () => import('./profile/Profile'),
   loading: () => loading,
-});
+})
 
 const LoginScreen = Loadable({
   loader: () => import('./profile/LoginScreen'),
   loading: () => loading,
-});
+})
 
 const PostView = Loadable({
   loader: () => import('./postview/PostView'),
   loading: () => loading,
-});
+})
 
 const NoMatch = Loadable({
   loader: () => import('./404'),
   loading: () => loading,
-});
+})
 
 const Home = Loadable({
   loader: () => import('./home/Home'),
   loading: () => loading,
-});
+})
 
 const PostsContainer = Loadable({
   loader: () => import('./PostsContainer'),
   loading: () => loading,
-});
+})
 
 class MainContainer extends Component {
   render () {
     const { classes } = this.props
 
     const scrollTop = () => {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      document.body.scrollTop = 0 // For Safari
+      document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
     }
 
     return(

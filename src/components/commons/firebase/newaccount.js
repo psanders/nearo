@@ -1,5 +1,5 @@
 import { db } from '../firebase/firebase'
-import firebase from 'firebase/app';
+import firebase from 'firebase/app'
 
 export const createUser = authResult => {
   const picture = authResult.user.photoURL !== null

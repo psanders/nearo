@@ -85,7 +85,7 @@ class Home extends Component {
              onKeyPress={(ev) => {
                 if (ev.key === 'Enter') {
                   // Do code here
-                  ev.preventDefault();
+                  ev.preventDefault()
                   this.props.history.push('/explore')
                 }
               }}

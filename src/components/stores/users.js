@@ -38,10 +38,10 @@ class UsersStore {
                 clientId: "225376231981-m0a8otu93ha2btftd05vku6kob7nidr4"
               }
             ]
-          });
+          })
 
           hintPromise.then(credential => {
-            const key = firebase.auth.GoogleAuthProvider.credential(credential.idToken);
+            const key = firebase.auth.GoogleAuthProvider.credential(credential.idToken)
             auth.signInAndRetrieveDataWithCredential(key).then(authResult => {
               if (authResult.user && authResult.additionalUserInfo.isNewUser) {
                 createUser(authResult)
@@ -50,7 +50,7 @@ class UsersStore {
               }
             }).catch(function(error) {
               console.error(error)
-            });
+            })
           })
         }
       )*/

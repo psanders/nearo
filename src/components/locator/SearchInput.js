@@ -5,6 +5,7 @@ import PlacesAutocomplete from 'react-places-autocomplete'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+
 import { ellip } from '../commons/utils'
 
 class LocationSearchInput extends React.Component {
