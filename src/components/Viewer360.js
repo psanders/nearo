@@ -6,16 +6,16 @@ class Viewer360 extends Component {
     const { imageURL, height } = this.props
 
     return <Pannellum
-          width="100%"
-          height={height}
-          image={imageURL}
-          autoLoad
-          autoRotate={-3}
-          compass={true}
-          orientationOnByDefault={true}
-          onLoad={() => {
-            console.log("panorama loaded");
-          }}
+        width="100%"
+        height={height}
+        image={imageURL}
+        autoLoad
+        autoRotate={-3}
+        compass={true}
+        orientationOnByDefault={true}
+        onLoad={() => {
+          console.log("panorama loaded");
+        }}
       >
         <Pannellum.Hotspot
           type="info"

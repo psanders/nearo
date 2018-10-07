@@ -33,10 +33,7 @@ class SinglePostContainer extends Component {
     postRef.get()
     .then(result => {
       if (result.exists && !result.data().deleted) {
-        const post = result.data()
-        post.id = result.id
-        this.setState({post: post})
-        this.loadUser(post.userId)
+        this.loadUser(result)
       } else {
         // throw 404
       }
@@ -45,12 +42,16 @@ class SinglePostContainer extends Component {
     })
   }
 
-  loadUser = userId => {
-    const userRef = db.collection('users').doc(userId)
+  loadUser = postInfo => {
+    const post = postInfo.data()
+    post.id = postInfo.id
+    const userRef = db.collection('users').doc(post.userId)
     userRef.get()
     .then(user => {
       if (user.exists) {
+        // Load post and user here to avoid doble loading
         this.setState({user: user.data()})
+        this.setState({post: post})
       }
     }).catch(error => {
       console.error('Unable to fetch user information', error)
@@ -119,12 +120,12 @@ class SinglePostContainer extends Component {
             <Grid item sm={10} md={5} xs={12}>
               <Hidden smUp={true}>
                 <Grid item style={{backgroundColor: '#fff', padding: 15}}>
-                  { leftColumn(post)}
+                  { leftColumn(post) }
                 </Grid>
               </Hidden>
               <Hidden xsDown={true}>
                 <Grid item style={{backgroundColor: '#fff', padding: 10}}>
-                  { leftColumn(post)}
+                  { leftColumn(post) }
                 </Grid>
               </Hidden>
               <Hidden smUp={true}>
