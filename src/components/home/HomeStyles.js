@@ -86,7 +86,7 @@ export const styles = theme => ({
   },
   loginBtn: {
     textTransform: 'capitalize',
-    marginLeft: 8,
+    marginLeft: 15,
   },
   searchBtn: {
     width: 100,

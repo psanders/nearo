@@ -29,6 +29,8 @@ import About from '../About'
 @observer
 class Home extends Component {
 
+  goToLogin = () => this.props.history.push('/login')
+
   handleChange = name => event => {
     const navInfo = this.props.navStore.navInfo
     navInfo.searchTerm = event.target.value
@@ -41,10 +43,6 @@ class Home extends Component {
     this.props.navStore.setNavInfo(navInfo)
   }
 
-  goToLogin = () => {
-    this.props.history.push('/login')
-  }
-
   @computed get signed () {
     return this.props.usersStore.signedIn
   }
@@ -53,10 +51,13 @@ class Home extends Component {
     const { classes, usersStore } = this.props
 
     return <div>
-      <AppBar elevation={0} style={{backgroundColor: '#fff'}}>
+      <AppBar elevation={0} style={{backgroundColor: 'rgb(255,255,255)'}}>
         <Toolbar >
-          <About showAsLink={true} />
+          <Typography variant="title" color="primary" >
+            Nearo
+          </Typography>
           <span className={ classes.flex } />
+          <About showAsLink={true} />
           {
             !usersStore.isSignedIn() &&
             <Button onClick={ this.goToLogin } variant="outlined" className={classes.loginBtn}
@@ -73,8 +74,8 @@ class Home extends Component {
       <div className={ classes.toolbar }/>
       <div style={{display: 'flex', alignContent: 'center', alignItems:'center', height: 'calc(100vh - 55px)',  backgroundColor: '#fff'}}>
         <div style={{position: 'relative', top: '-55px',margin: '0 auto', maxWidth: 650}}>
-          <Typography variant="display1" color="primary" >
-            Nearo
+          <Typography variant="title" style={{marginBottom: 10, color: 'rgb(136, 136, 136)'}}>
+            Find classified information near you
           </Typography>
           <div style={{borderTopRightRadius: 10, borderBottomLeftRadius: 10, display: 'flex', padding: 10, backgroundColor: 'rgb(243, 243, 243)'}}>
             <TextField
@@ -120,9 +121,6 @@ class Home extends Component {
               </IconButton>
             </Hidden>
           </div>
-          <Typography variant="caption" style={{marginTop: 3}}>
-            News and classified content relevant to you
-          </Typography>
         </div>
       </div>
     </div>
