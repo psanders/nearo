@@ -36,10 +36,7 @@ class PostCard extends React.Component {
     const panoramaIconMobile = <Icon360 className={classnames(classes.panoramaIcon, classes.panoramaIconBig)} />
 
     const imageMobile = () =>
-      <CardMedia
-         className={ classes.cover }
-         image={ imageURL(post, 'md') }
-      >
+      <CardMedia image={ imageURL(post, 'md') } >
        { hasPanorama(post) && panoramaIconMobile }
        <div style={{ width: 'calc(100vw - 33px)', height: 320}} />
       </CardMedia>
