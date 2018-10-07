@@ -3,16 +3,42 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route, Switch } from 'react-router-dom'
 import Helmet from 'react-helmet-async'
-
-import Home from './home/Home'
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
-import PostsContainer from './PostsContainer'
-import PostView from './postview/PostView'
 import PostPanel from './postpanel/PostPanel'
-import LoginScreen from './profile/LoginScreen'
-import Profile from './profile/Profile'
-import NoMatch from './404'
+import Loadable from 'react-loadable'
+
+const loading = <div style={{margin: 20}}>Loading...</div>
+
+const Profile = Loadable({
+  loader: () => import('./profile/Profile'),
+  loading: () => loading,
+});
+
+const LoginScreen = Loadable({
+  loader: () => import('./profile/LoginScreen'),
+  loading: () => loading,
+});
+
+const PostView = Loadable({
+  loader: () => import('./postview/PostView'),
+  loading: () => loading,
+});
+
+const NoMatch = Loadable({
+  loader: () => import('./404'),
+  loading: () => loading,
+});
+
+const Home = Loadable({
+  loader: () => import('./home/Home'),
+  loading: () => loading,
+});
+
+const PostsContainer = Loadable({
+  loader: () => import('./PostsContainer'),
+  loading: () => loading,
+});
 
 class MainContainer extends Component {
   render () {
