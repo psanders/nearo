@@ -28,9 +28,7 @@ class PostsContainer extends Component {
     return this.props.postsStore.posts
   }
 
-  handleScroll = (scrollArea) => {
-    this.props.postsStore.showMoreResults()
-  }
+  handleScroll = (scrollArea) => this.props.postsStore.showMoreResults()
 
   render() {
     const { classes } = this.props
