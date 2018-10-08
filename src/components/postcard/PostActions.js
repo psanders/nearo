@@ -10,7 +10,7 @@ import SoldOutIcon from '@material-ui/icons/AttachMoney'
 import ShareButton from './ShareButton'
 import { styles } from './PostCardStyles'
 import { observer, inject } from 'mobx-react'
-import { computed } from 'mobx'
+import { computed, when } from 'mobx'
 import { withRouter } from 'react-router-dom'
 import { currentPath } from '../commons/utils'
 
@@ -20,9 +20,31 @@ import { currentPath } from '../commons/utils'
 @withRouter
 @observer
 class PostActions extends Component {
+  state = {
+    likeBtnDisable: false,
+    bookmarked: false
+  }
+
+  constructor() {
+    super()
+
+    // This is a huge hack to prevent users from adding multiple likes
+    when(
+      () => this.bookmarked,
+      () =>   this.setState({bookmarked: this.bookmarked})
+    )
+  }
 
   @computed get bookmarked() {
-    return this.props.bookmarksStore.bookmarks.includes(this.props.post.id)
+    return this.props && this.props.bookmarksStore.bookmarks.includes(this.props.post.id)
+  }
+
+  @computed get likes() {
+    return this.props.postsStore.posts.find(post => post.id === this.props.post.id).likes
+  }
+
+  @computed get post() {
+    return this.props.postsStore.posts.find(post => post.id === this.props.post.id)
   }
 
   @computed get sold() {
@@ -30,11 +52,22 @@ class PostActions extends Component {
   }
 
   handleBookmark = () => {
-    if(!this.bookmarked) {
-      this.props.bookmarksStore.addToBookmarks(this.props.post)
+    if(!this.state.bookmarked) {
+      this.props.bookmarksStore.addToBookmarks(this.post)
     } else {
-      this.props.bookmarksStore.removeFromBookmarks(this.props.post)
+      this.props.bookmarksStore.removeFromBookmarks(this.post)
     }
+
+    this.setState({
+      bookmarked: !this.state.bookmarked,
+    });
+
+    this.setState({
+      likeBtnDisable: true,
+    });
+
+    // enable after 5 second
+    setTimeout(()=>{ this.setState({ likeBtnDisable: false})}, 1000)
   }
 
   handleSold = () => this.props.postsStore.markSold(this.props.post)
@@ -58,12 +91,18 @@ class PostActions extends Component {
 
     return (
       <div>
-        <Button className={classes.actionBtn} onClick={this.handleBookmark}>
-          { !this.bookmarked && <FavBorderIcon className={classes.actionIcon } /> }
-          { this.bookmarked && <FavIcon className={classes.liked } /> }
-          <Typography variant="caption" color="secondary">
-            { post.likes > 0 && post.likes }
-          </Typography>
+        <Button
+          disabled={this.state.likeBtnDisable}
+          className={classes.actionBtn} onClick={this.handleBookmark}>
+          { !this.state.bookmarked
+            ? <FavBorderIcon className={classes.actionIcon } />
+            : <FavIcon className={classes.liked } /> }
+          {
+            this.likes > 0 &&
+            <Typography variant="caption" color="secondary">
+              { this.likes }
+            </Typography>
+          }
         </Button>
         <ShareButton url={ url } post={ post }/>
         {

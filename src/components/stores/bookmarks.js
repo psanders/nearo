@@ -53,31 +53,39 @@ class BookmarksStore {
         notificationsStore.showMustLogin()
         return
       }
+
+      this.bookmarks.push(post.id)
+      this.updateLikes(post, 1)
+
+      notificationsStore.showNotification('Added to your liked posts')
       const bookmarksRef = db.collection('bookmarks').doc(post.id)
+
       bookmarksRef.set({
         user: usersStore.currentUser.id
       }, { merge: true }).then(() => {
-        notificationsStore.showNotification('Added to your liked posts')
-        this.bookmarks.push(post.id)
       }).catch(error => {
         // Revert change in UI
         console.error("Error writing document: ", error)
       })
-
-      this.updateLikes(post, 1)
     }
 
     removeFromBookmarks = (post) => {
+      if (!usersStore.isSignedIn()) {
+        notificationsStore.showMustLogin()
+        return
+      }
+
+      this.bookmarks.pop(post.id)
+      this.updateLikes(post, -1)
+
       const bookmarksRef = db.collection('bookmarks').doc(post.id)
+      notificationsStore.showNotification('Removed from your liked posts')
+
       bookmarksRef.delete()
       .then(() => {
-        this.bookmarks.pop(post.id)
-        notificationsStore.showNotification('Removed from your liked posts')
       }).catch(error => {
         console.error("Error writing document: ", error)
       })
-
-      this.updateLikes(post, -1)
     }
 
     setData (bookmarks) {

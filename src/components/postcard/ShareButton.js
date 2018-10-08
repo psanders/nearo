@@ -40,7 +40,7 @@ class ShareButton extends React.Component {
           <FacebookShareCount url={url}>
             {shareCount => (
               <Typography variant="caption" color="secondary">
-                { shareCount > 0 ? shareCount : ""}
+                { shareCount > 0 ? shareCount : ''}
               </Typography>
             )}
           </FacebookShareCount>
