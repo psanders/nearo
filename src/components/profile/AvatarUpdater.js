@@ -189,7 +189,7 @@ const styles = theme => ({
     margin: '23px',
     zIndex: 10,
     color: '#fff',
-    backgroundColor: 'rgb(0,0,0,0.05)'
+    backgroundColor: 'rgba(0,0,0,0.1)'
   },
   row: {
     display: 'flex',

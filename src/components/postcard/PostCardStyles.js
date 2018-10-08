@@ -66,7 +66,7 @@ export const styles = theme => ({
     borderRadius: 25,
     borderColor: '#fff',
     padding: 3,
-    background: 'rgb(0,0,0,.4)',
+    backgroundColor: 'rgba(0,0,0,.4)',
     color: '#fff',
     height: 8,
     width: 8,

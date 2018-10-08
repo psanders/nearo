@@ -1,4 +1,7 @@
 export const styles = theme => ({
+  chip: {
+    marginRight: theme.spacing.unit * 2
+  },
   avatar: {
     width: 30,
     height: 30,

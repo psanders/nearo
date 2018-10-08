@@ -11,8 +11,10 @@ import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
+import Paper from '@material-ui/core/Paper'
 import { withRouter } from 'react-router-dom'
 import classnames from 'classnames'
+import TitlebarGridList from './TitlebarGridList'
 
 import { styles } from './HomeStyles'
 import ProfileMenu from '../topnav/ProfileMenu'
@@ -31,6 +33,10 @@ class Home extends Component {
 
   goToLogin = () => this.props.history.push('/login')
 
+  @computed get signed () {
+    return this.props.usersStore.signedIn
+  }
+
   handleChange = name => event => {
     const navInfo = this.props.navStore.navInfo
     navInfo.searchTerm = event.target.value
@@ -41,10 +47,6 @@ class Home extends Component {
     const navInfo = this.props.navStore.navInfo
     navInfo.locInfo = locInfo
     this.props.navStore.setNavInfo(navInfo)
-  }
-
-  @computed get signed () {
-    return this.props.usersStore.signedIn
   }
 
   render() {
@@ -72,14 +74,14 @@ class Home extends Component {
         </Toolbar>
       </AppBar>
       <div className={ classes.toolbar }/>
-      <div style={{display: 'flex', alignContent: 'center', alignItems:'center', height: 'calc(100vh - 55px)',  backgroundColor: '#fff'}}>
+      <div style={{display: 'flex', alignContent: 'center', alignItems:'center', height: 'calc(100vh - 55px)', backgroundColor: '#fff'}}>
         <div style={{position: 'relative', top: '-55px',margin: '0 auto', maxWidth: 650}}>
-          <Typography variant="title" color="secondary" style={{marginBottom: 10}}>
-            Find classified information near you
+          <Typography variant="title" color="secondary" gutterBottom>
+            Classified ads from people near you
           </Typography>
-          <div style={{borderTopRightRadius: 10, borderBottomLeftRadius: 10, display: 'flex', padding: 10, backgroundColor: 'rgb(243, 243, 243)'}}>
+          <Paper style={{display: 'flex', padding: 5}}>
             <TextField
-             className={classnames(classes.right, classes.left)}
+             className={classnames(classes.right)}
              placeholder="community, offers, services"
              id="searchInput"
              autoFocus={true}
@@ -104,7 +106,7 @@ class Home extends Component {
              }}
            />
             <Hidden xsDown={true}>
-              <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
+              <Locator style={{boxShadow: '0 0 0 0.05rem red'}} name="locator" onChangeLocation={ this.handleOnChangeLocation } />
               <Button onClick={ () => this.props.history.push('/explore') } className={classes.searchBtn}
                 variant="flat"
                 aria-label="Sign Up"
@@ -120,9 +122,17 @@ class Home extends Component {
                 <SearchIcon />
               </IconButton>
             </Hidden>
-          </div>
+          </Paper>
+          {/*<br />
+          <Paper style={{padding: 10}}>
+            <Typography variant="body1" color="secondary" >
+              Latest Posts
+            </Typography>
+            <TitlebarGridList />
+          </Paper>*/}
         </div>
       </div>
+
     </div>
   }
 }
