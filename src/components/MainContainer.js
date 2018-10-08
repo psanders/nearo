@@ -6,9 +6,10 @@ import Helmet from 'react-helmet-async'
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
 import PostPanel from './postpanel/PostPanel'
+import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
 
-const loading = <div style={{margin: 20}}>Loading...</div>
+const loading = <Typography variant="body1" color="secondary" style={{margin: 20}}>Loading...</Typography>
 
 const Profile = Loadable({
   loader: () => import('./profile/Profile'),
