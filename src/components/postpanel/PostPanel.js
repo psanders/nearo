@@ -90,7 +90,8 @@ class PostPanel extends Component {
       timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
       _geoloc: latLng,
       deleted: false,
-      media: this.state.media
+      media: this.state.media,
+      avatar: this.props.usersStore.currentUser.picture
     }
 
     db.collection('posts')
@@ -172,7 +173,7 @@ class PostPanel extends Component {
             <div>
               <Hidden xsDown={true}>
                 <div style={{ padding: 10, paddingBottom: 0 }}>
-                  <img alt="Post media" style={{ width: 100 }} src={ imageURL({media: this.state.media}) }/>
+                  <img alt="Post media" style={{ width: 100 }} src={ imageURL({media: this.state.media}, 'sm') }/>
                   <div/>
                   <Button onClick={ () => this.setState({media: []}) }
                     style={{width: 100, borderRadius: 0}}

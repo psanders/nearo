@@ -17,7 +17,7 @@ export const openURL = (url, blank = false) => {
   win.focus()
 }
 
-export const imageURL = (post, size) => {
+export const imageURL = (post, size = 'md') => {
   if (!post.media || post.media.length === 0) return null
   const s = size === 'panorama' ? 1 : 0
   return size !== 'panorama'
