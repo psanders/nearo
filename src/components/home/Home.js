@@ -4,10 +4,14 @@ import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 import {computed} from 'mobx'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import Divider from '@material-ui/core/Divider'
 import { withRouter } from 'react-router-dom'
+
 import Gallery from './Gallery'
+import './Gallery.css'
 import { styles } from './HomeStyles'
+import { getCategories } from '../commons/categories'
 
 @inject('appStore')
 @inject('postsStore')
@@ -24,27 +28,39 @@ class Home extends Component {
     return this.props.usersStore.signedIn
   }
 
-  handleChange = name => event => {
+  handleChange = category => {
     const navInfo = this.props.navStore.navInfo
-    navInfo.searchTerm = event.target.value
+    navInfo.searchTerm = category.name
     this.props.navStore.setNavInfo(navInfo)
-  }
-
-  handleOnChangeLocation = locInfo => {
-    const navInfo = this.props.navStore.navInfo
-    navInfo.locInfo = locInfo
-    this.props.navStore.setNavInfo(navInfo)
+    this.props.history.push('/explore')
   }
 
   render() {
     const { classes } = this.props
 
+    const categories = () => <div>
+      <Typography style={{display: 'inline', marginRight: 15}}
+        variant="body2" color="secondary">Categories</Typography>
+      {
+        getCategories().map(category => {
+         return (
+            <Button
+              key={category.ref}
+              onClick={() => this.handleChange(category)}
+              size="small"
+              color="secondary"
+              style={{textTransform:'capitalize'}}>
+              {category.name}
+            </Button>
+          )
+        })
+      }
+    </div>
+
     return <div >
       <Divider />
         <div style={{padding: 10, backgroundColor: '#fff'}}>
-        <Typography variant="body1" color="secondary" >
-          <b>Trending</b> &nbsp;&nbsp; Jobs &nbsp;&nbsp; Services &nbsp;&nbsp; RealEstate &nbsp;&nbsp; Community &nbsp;&nbsp; Events &nbsp;&nbsp; Gov
-        </Typography>
+          { categories() }
         </div>
       <Divider />
       <div className={ classes.toolbar }/>

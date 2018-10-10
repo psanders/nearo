@@ -8,8 +8,6 @@ import FavIcon from '@material-ui/icons/Favorite'
 import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import SoldOutIcon from '@material-ui/icons/AttachMoney'
 import IconButton from '@material-ui/core/IconButton'
-import ShareIcon from '@material-ui/icons/Repeat'
-import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
 import classnames from 'classnames'
 
 import ShareButton from './ShareButton'

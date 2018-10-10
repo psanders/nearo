@@ -1,35 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import classnames from 'classnames'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
-import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
-import Collapse from '@material-ui/core/Collapse'
 import Avatar from '@material-ui/core/Avatar'
-import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-
-import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
-import ShareIcon from '@material-ui/icons/Repeat'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
 import Moment from 'react-moment'
 import ButtonBase from '@material-ui/core/ButtonBase'
-import { Link } from 'react-router-dom'
 import Linkify from 'react-linkify'
+import firebase from 'firebase/app'
+import { Link } from 'react-router-dom'
 
 import PostActions from '../postcard/PostActions'
 import { imageURL } from '../commons/utils'
 
 const styles = theme => ({
   cardImg: {
-    width: 280,
+    width: 290,
   },
   card: {
-    width: 280,
+    width: 290,
   },
   media: {
     height: 0,
@@ -59,9 +51,7 @@ const styles = theme => ({
 class RecipeReviewCard extends React.Component {
   state = { expanded: false }
 
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }))
-  }
+  handleExpandClick = () => this.setState(state => ({ expanded: !state.expanded }))
 
   render() {
     const { classes, post } = this.props
@@ -73,14 +63,14 @@ class RecipeReviewCard extends React.Component {
             <Avatar src={post.avatar} aria-label="Recipe" className={classes.avatar} />
           }
 
-          subheader={<Moment fromNow={true} interval={30000}>{post.timestamp.toDate()}</Moment>}
+          subheader={ <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp._seconds, post.timestamp._nanoseconds).toDate()}</Moment>}
         />
         {
           post.media &&
           post.media.length > 0 &&
           <Link to={'/posts/' + post.id} >
             <ButtonBase aria-label="Open Publication Details">
-              <img className={classes.cardImg} src={ imageURL(post, 'md') } />
+              <img alt="" className={classes.cardImg} src={ imageURL(post, 'md') } />
             </ButtonBase>
           </Link>
           }

@@ -81,7 +81,7 @@ class PostCard extends React.Component {
               <Linkify>{ post.body }</Linkify>
             </Typography>
             <Typography variant="caption" color="textSecondary">By { post.author }
-              &nbsp;<Moment fromNow={true} interval={30000}>{firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds)}</Moment>
+              &nbsp;<Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp._seconds, post.timestamp._nanoseconds).toDate()}</Moment>
             </Typography>
           </Grid>
           <Grid item>
