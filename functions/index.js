@@ -1,6 +1,7 @@
 const functions = require('firebase-functions')
 const gcs = require('@google-cloud/storage')()
 const sharp = require('sharp')
+//const spawn = require('child-process-promise').spawn;
 const path = require('path')
 const os = require('os')
 const fs = require('fs')
@@ -90,12 +91,17 @@ exports.optimizeImages= functions.storage.object().onFinalize((object) => {
     const newFileTemp = path.join(os.tmpdir(), newFileName)
     const newFilePath = `imgs/${newFileName}`
 
-    console.log('DBG000')
+    /*return spawn('convert', [tempFilePath, '-resize', optimization.size, newFileTemp])
+    .then(info => {
+      return bucket.upload(newFileTemp, { destination: newFilePath })
+    }).catch(error => {
+      console.log(error)
+    })*/
+
     return sharp(tempFilePath)
-    .resize({ width: optimization.size })
+    .resize(optimization.size)
     .toFile(newFileTemp)
     .then(info => {
-      console.log('DBG001')
       return bucket.upload(newFileTemp, { destination: newFilePath })
     }).catch(error => {
       console.log(error)
