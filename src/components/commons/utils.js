@@ -18,6 +18,7 @@ export const openURL = (url, blank = false) => {
 }
 
 export const imageURL = (post, size) => {
+  if (!post.media || post.media.length === 0) return null
   const s = size === 'panorama' ? 1 : 0
   return size !== 'panorama'
     ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[s].filename + '?alt=media'

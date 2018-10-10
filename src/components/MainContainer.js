@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Hidden from '@material-ui/core/Hidden'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Route, Switch } from 'react-router-dom'
@@ -63,7 +64,9 @@ class MainContainer extends Component {
                   <Helmet>
                     <title>Nearo</title>
                   </Helmet>
-                  <Home />
+                  <Topnav className={ classes.appBar } />
+                  <Hidden mdUp={true}><PostsContainer/></Hidden>
+                  <Hidden smDown={true}><Home /></Hidden>
                 </div>
               }}
             />

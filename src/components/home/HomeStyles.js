@@ -45,10 +45,11 @@ export const styles = theme => ({
     marginRight: 20,
   },
   bootstrapInput: {
-    borderRadius: 4,
+    borderRadius: 0,
     color: theme.palette.secondary.main,
     backgroundColor: '#fff',
     fontSize: 16,
+    marginTop: 5,
     padding: '10px 12px',
     height: 22,
     width: 250,
@@ -64,15 +65,7 @@ export const styles = theme => ({
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      color: theme.palette.secondary.main,
-      boxShadow: '0 0 0 0.05rem ' + theme.palette.secondary.main,
-    },
-    '&:hover': {
-      color: theme.palette.secondary.main,
-      boxShadow: '0 0 0 0.05rem ' + theme.palette.secondary.main,
-    },
+    ].join(',')
   },
   bootstrapFormLabel: {
     fontSize: 18,

@@ -6,6 +6,7 @@ import { notificationsStore } from './notifications'
 import { navStore } from './navigation'
 import { appStore } from './app'
 import { doSearchAlgolia } from '../commons/firebase/algolia'
+import firebase from 'firebase/app'
 
 const maxItemperPage = 20
 
@@ -93,7 +94,7 @@ class PostsStore {
       const postRef = db.collection('posts').doc(post.id)
       postRef.set({
         deleted: true,
-        deletedTimestamp: Date.now()
+        deletedTimestamp: firebase.firestore.Timestamp.fromDate(Date.now())
       }, { merge: true }).then(() => {
         this.posts = this.posts.filter(p => p.id !== post.id)
         notificationsStore.showNotification('Post deleted', 0, this.handleUndeletePost)
@@ -107,7 +108,7 @@ class PostsStore {
       const postRef = db.collection('posts').doc(this.deletedPost.id)
       postRef.set({
         deleted: false,
-        deletedTimestamp: Date.now()
+        deletedTimestamp: firebase.firestore.Timestamp.fromDate(Date.now())
       }, { merge: true }).then(() => {
         this.deletedPost.deleted = false
         this.posts.unshift(this.deletedPost)

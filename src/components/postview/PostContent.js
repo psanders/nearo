@@ -52,7 +52,7 @@ export const postContent = (post, classes) => {
         <Linkify>{ post.body }</Linkify>
       </Typography>
       <Typography variant="caption" gutterBottom className={classes.bottom10}>
-        Posted <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment> nearby "{ ellip(post.locText, 22) }"
+        Posted <Moment fromNow={true} interval={30000}>{post.timestamp.toDate()}</Moment> nearby "{ ellip(post.locText, 22) }"
       </Typography>
     </div>
   </div>

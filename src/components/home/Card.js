@@ -1,43 +1,143 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import classnames from 'classnames'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardMedia from '@material-ui/core/CardMedia'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
+import Collapse from '@material-ui/core/Collapse'
+import Avatar from '@material-ui/core/Avatar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
 
-const styles = {
-  media: {
-    // ⚠️ object-fit is not supported by IE11.
-    objectFit: 'cover',
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
+import ShareIcon from '@material-ui/icons/Repeat'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import Moment from 'react-moment'
+import ButtonBase from '@material-ui/core/ButtonBase'
+import { Link } from 'react-router-dom'
+import Linkify from 'react-linkify'
+
+import PostActions from '../postcard/PostActions'
+import { imageURL } from '../commons/utils'
+
+const styles = theme => ({
+  cardImg: {
+    width: 280,
   },
-};
+  card: {
+    width: 280,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  actions: {
+    display: 'flex',
+  },
+  expand: { /* Leave this here for later */
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+    marginLeft: 'auto',
+    [theme.breakpoints.up('sm')]: {
+      marginRight: -8,
+    },
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: theme.palette.secondary.main
+  },
+})
 
-function ImgMediaCard(props) {
-  const { classes, img } = props;
-  return (
-    <CardMedia
-      alt="Contemplative Reptile"
-      className={classes.media}
-      height="140"
-      image={img}
-      title="Contemplative Reptile"
-      style={{borderRadius: 5, width: 100, height: 100}}
-    >
-      <div style={{position: 'absolute', backgroundColor: '#fff', opacity: 0.5, width: '100%', top: '40%'}}>
-        <Typography variant="caption" style={{color: '#000', padding: 2}}>
-          By Nearo Team
-        </Typography>
-      </div>
-    </CardMedia>
-  );
+class RecipeReviewCard extends React.Component {
+  state = { expanded: false }
+
+  handleExpandClick = () => {
+    this.setState(state => ({ expanded: !state.expanded }))
+  }
+
+  render() {
+    const { classes, post } = this.props
+
+    return (
+      <Card className={classes.card} elevation={0} style={{marginBottom: 30}}>
+        <CardHeader
+          avatar={
+            <Avatar src={post.avatar} aria-label="Recipe" className={classes.avatar} />
+          }
+
+          subheader={<Moment fromNow={true} interval={30000}>{post.timestamp.toDate()}</Moment>}
+        />
+        {
+          post.media &&
+          post.media.length > 0 &&
+          <Link to={'/posts/' + post.id} >
+            <ButtonBase aria-label="Open Publication Details">
+              <img className={classes.cardImg} src={ imageURL(post, 'md') } />
+            </ButtonBase>
+          </Link>
+          }
+        <CardContent>
+          <Typography component="p">
+            <Linkify>
+              { post.body }
+            </Linkify>
+          </Typography>
+        </CardContent>
+        <CardActions className={classes.actions} disableActionSpacing>
+          <PostActions post={post} home={true}/>
+          {/*<IconButton
+            className={classnames(classes.expand, {
+              [classes.expandOpen]: this.state.expanded,
+            })}
+            onClick={this.handleExpandClick}
+            aria-expanded={this.state.expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>*/}
+        </CardActions>
+        {/*<Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>Method:</Typography>
+            <Typography paragraph>
+              Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
+              minutes.
+            </Typography>
+            <Typography paragraph>
+              Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
+              heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
+              browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving
+              chicken and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion,
+              salt and pepper, and cook, stirring often until thickened and fragrant, about 10
+              minutes. Add saffron broth and remaining 4 1/2 cups chicken broth bring to a boil.
+            </Typography>
+            <Typography paragraph>
+              Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
+              without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat
+              to medium-low, add reserved shrimp and mussels, tucking them down into the rice, and
+              cook again without stirring, until mussels have opened and rice is just tender, 5 to 7
+              minutes more. (Discard any mussels that don’t open.)
+            </Typography>
+            <Typography>
+              Set aside off of the heat to let rest for 10 minutes, and then serve.
+            </Typography>
+          </CardContent>
+        </Collapse> */}
+      </Card>
+    )
+  }
 }
 
-ImgMediaCard.propTypes = {
+RecipeReviewCard.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(ImgMediaCard);
+export default withStyles(styles)(RecipeReviewCard)

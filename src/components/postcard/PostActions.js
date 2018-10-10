@@ -7,6 +7,11 @@ import FavBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavIcon from '@material-ui/icons/Favorite'
 import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import SoldOutIcon from '@material-ui/icons/AttachMoney'
+import IconButton from '@material-ui/core/IconButton'
+import ShareIcon from '@material-ui/icons/Repeat'
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
+import classnames from 'classnames'
+
 import ShareButton from './ShareButton'
 import { styles } from './PostCardStyles'
 import { observer, inject } from 'mobx-react'
@@ -87,45 +92,59 @@ class PostActions extends Component {
   }
 
   render() {
-    const { classes, url, post } = this.props
+    const { classes, post, home } = this.props
 
-    return (
-      <div>
-        <Button
-          disabled={this.state.likeBtnDisable}
-          className={classes.actionBtn} onClick={this.handleBookmark}>
-          { !this.state.bookmarked
-            ? <FavBorderIcon className={classes.actionIcon } />
-            : <FavIcon className={classes.liked } /> }
-          {
-            this.likes > 0 &&
-            <Typography variant="caption" color="secondary">
-              { this.likes }
-            </Typography>
-          }
+    const homeActions = () => <div>
+      <IconButton
+        disabled={this.state.likeBtnDisable}
+        onClick={this.handleBookmark}
+        aria-label="Add to favorites">
+        {
+          !this.state.bookmarked
+          ? <FavBorderIcon  />
+          : <FavIcon className={classes.favLiked } />
+        }
+      </IconButton>
+      <ShareButton home={true} post={post} />
+    </div>
+
+    const elseWhere = () => <div>
+      <Button
+        disabled={this.state.likeBtnDisable}
+        className={classes.actionBtn} onClick={this.handleBookmark}>
+        { !this.state.bookmarked
+          ? <FavBorderIcon className={classes.actionIcon } />
+          : <FavIcon className={classnames(classes.actionIcon, classes.favLiked) } /> }
+        {
+          this.likes > 0 &&
+          <Typography variant="caption" color="secondary">
+            { this.likes }
+          </Typography>
+        }
+      </Button>
+      <ShareButton post={ post }/>
+      {
+        this.isOwner() &&
+        this.props.post.category === 'forsale' &&
+        <Button onClick={ this.handleSold } className={classes.actionBtn} >
+          <SoldOutIcon className={classes.actionIcon } />
+          <Typography variant="caption" color="secondary">
+            { this.sold? "Mark Available" : "Mark Sold" }
+          </Typography>
         </Button>
-        <ShareButton url={ url } post={ post }/>
-        {
-          this.isOwner() &&
-          this.props.post.category === 'forsale' &&
-          <Button onClick={ this.handleSold } className={classes.actionBtn} >
-            <SoldOutIcon className={classes.actionIcon } />
-            <Typography variant="caption" color="secondary">
-              { this.sold? "Mark Available" : "Mark Sold" }
-            </Typography>
-          </Button>
-        }
-        {
-          this.isOwner() &&
-          <Button onClick={this.handleRemove} className={classes.actionBtn}>
-            <DeleteIcon className={classes.actionIcon } />
-            <Typography variant="caption" color="secondary">
-              Remove
-            </Typography>
-          </Button>
-        }
-      </div>
-    )
+      }
+      {
+        this.isOwner() &&
+        <Button onClick={this.handleRemove} className={classes.actionBtn}>
+          <DeleteIcon className={classes.actionIcon } />
+          <Typography variant="caption" color="secondary">
+            Remove
+          </Typography>
+        </Button>
+      }
+    </div>
+
+    return home ? homeActions() : elseWhere()
   }
 }
 

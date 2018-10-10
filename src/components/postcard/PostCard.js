@@ -12,6 +12,7 @@ import Icon360 from '@material-ui/icons/CompassCalibration'
 import Hidden from '@material-ui/core/Hidden'
 import Linkify from 'react-linkify'
 import classnames from 'classnames'
+import firebase from 'firebase/app'
 
 import { styles } from './PostCardStyles'
 import { getCategory } from '../commons/categories'
@@ -19,6 +20,12 @@ import { imageURL, hasPanorama } from '../commons/utils'
 import PostActions from './PostActions'
 
 class PostCard extends React.Component {
+
+  componentDidMount() {
+    console.log('ts',this.props.post.timestamp)
+    console.log('seconds', this.props.post.timestamp._seconds)
+    console.log('nano', this.props.post.timestamp._nanoseconds)
+  }
 
   render() {
     const { classes, post } = this.props
@@ -73,12 +80,12 @@ class PostCard extends React.Component {
             <Typography gutterBottom>
               <Linkify>{ post.body }</Linkify>
             </Typography>
-            <Typography variant="caption" color="textSecondary">By { post.author } <Moment fromNow={true} interval={30000}>{post.timestamp}</Moment></Typography>
+            <Typography variant="caption" color="textSecondary">By { post.author }
+              &nbsp;<Moment fromNow={true} interval={30000}>{firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds)}</Moment>
+            </Typography>
           </Grid>
           <Grid item>
-            <PostActions post={ post }
-              url={ "https://nearo.co/posts/" + post.id }
-            />
+            <PostActions post={ post } />
           </Grid>
         </Grid>
       </Grid>

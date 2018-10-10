@@ -1,7 +1,8 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import Popover from '@material-ui/core/Popover'
-import ShareIcon from '@material-ui/icons/Link'
+import IconButton from '@material-ui/core/IconButton'
+import ShareIcon from '@material-ui/icons/Repeat'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -25,12 +26,13 @@ class ShareButton extends React.Component {
 
   render() {
     const { anchorEl } = this.state
-    const { classes, url } = this.props
+    const { classes, post, home } = this.props
+    const url = "https://nearo.co/posts/" + post.id
     const open = Boolean(anchorEl)
 
     return (
       <span>
-        <Button
+        { !home && <Button
           aria-owns={anchorEl ? 'mouse-over-popover' : null}
           aria-haspopup="true"
           onClick={ this.handlePopoverOpen }
@@ -44,7 +46,17 @@ class ShareButton extends React.Component {
               </Typography>
             )}
           </FacebookShareCount>
-        </Button>
+        </Button> }
+
+        {
+          home &&
+          <IconButton
+            onClick={ this.handlePopoverOpen }
+            aria-label="Share">
+            <ShareIcon />
+          </IconButton>
+        }
+
         <Popover
           elevation={2}
           id="mouse-over-popover"

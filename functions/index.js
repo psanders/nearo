@@ -38,7 +38,10 @@ exports.onPostUpdated = functions.firestore.document('posts/{postId}').onUpdate(
 })
 
 exports.onUserUpdated = functions.firestore.document('users/{userId}').onUpdate((change, context) => {
-  if (change.before.data().name === change.after.data()) return
+  if (
+    (change.before.data().name === change.after.data().name) &&
+    (change.before.data().picture === change.after.data().picture)
+  ) return
 
   const postRef = admin.firestore().collection('posts')
   const user = change.after.data()
@@ -47,7 +50,9 @@ exports.onUserUpdated = functions.firestore.document('users/{userId}').onUpdate(
   .then(querySnapshot => {
     return querySnapshot.forEach(doc => {
       const curDoc = doc.data()
+      // Is this a good idea?
       curDoc.author = user.name
+      curDoc.avatar = user.picture
       postRef.doc(doc.id).set(curDoc)
     })
   }).catch(error => {

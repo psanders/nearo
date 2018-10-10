@@ -48,7 +48,7 @@ class About extends React.Component {
 
         { showAsLink
           && <div onClick={this.handleClickOpen('paper')} style={{cursor: 'pointer'}}>
-            <Typography  align="center">
+            <Typography style={{color: '#fff'}}  align="center">
               About
             </Typography>
           </div>
