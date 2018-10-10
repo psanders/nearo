@@ -46,7 +46,8 @@ exports.onUserUpdated = functions.firestore.document('users/{userId}').onUpdate(
   const postRef = admin.firestore().collection('posts')
   const user = change.after.data()
 
-  return postRef.where("userId", "==", user.id).get()
+  postRef.where("userId", "==", user.id)
+  .get()
   .then(querySnapshot => {
     return querySnapshot.forEach(doc => {
       const curDoc = doc.data()
@@ -70,45 +71,41 @@ exports.optimizeImages= functions.storage.object().onFinalize((object) => {
   const OPTIMIZATION = [
     {prefix: 'sm', size: 200},
     {prefix: 'md', size: 500},
-    {prefix: 'lg', size: 800},
   ] // Resize target width in pixels
-
-  if (!contentType.startsWith('image/') || resourceState === 'not_exists') {
-    console.log('This is not an image.')
-    return
-  }
 
   // Get the file name.
   const fileName = path.basename(filePath)
   // Exit if the image is already a thumbnail.
-  if (fileName.startsWith('img_')) {
-    console.log('Already a Thumbnail.')
+  if (fileName.startsWith('img_') ||
+    !contentType.startsWith('image/') ||
+    resourceState === 'not_exists') {
     return null
   }
 
   const bucket = gcs.bucket(fileBucket)
   const tempFilePath = path.join(os.tmpdir(), fileName)
+  const optimize = (optimization) => {
+    console.log('optimization', JSON.stringify(optimization))
+    const newFileName = `img_${optimization.prefix}_${fileName}`
+    const newFileTemp = path.join(os.tmpdir(), newFileName)
+    const newFilePath = `imgs/${newFileName}`
+
+    console.log('DBG000')
+    return sharp(tempFilePath)
+    .resize({ width: optimization.size })
+    .toFile(newFileTemp)
+    .then(info => {
+      console.log('DBG001')
+      return bucket.upload(newFileTemp, { destination: newFilePath })
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 
   return bucket.file(filePath).download({
     destination: tempFilePath
-  }).then(() => {
-    return OPTIMIZATION.map(optimization => {
-      let newFileName = `img_${optimization.prefix}_${fileName}`
-      let newFileTemp = path.join(os.tmpdir(), newFileName)
-      let newFilePath = `imgs/${newFileName}`
-
-      return sharp(tempFilePath)
-        .resize(optimization.size, null)
-        .toFile(newFileTemp)
-        .then(info => {
-          return bucket.upload(newFileTemp, {
-            destination: newFilePath
-          })
-        }).catch(error => {
-          console.log(error)
-        })
-    })
-  })
+  }).then(() => OPTIMIZATION.forEach(optimization => optimize(optimization)))
+  .catch(error => console.error(error))
 })
 
 exports.host = functions.https.onRequest((req, res) => {

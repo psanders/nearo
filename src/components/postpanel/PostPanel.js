@@ -173,7 +173,7 @@ class PostPanel extends Component {
             <div>
               <Hidden xsDown={true}>
                 <div style={{ padding: 10, paddingBottom: 0 }}>
-                  <img alt="Post media" style={{ width: 100 }} src={ imageURL({media: this.state.media}, 'sm') }/>
+                  <img alt="Post media" style={{ width: 100 }} src={ imageURL({media: this.state.media}) }/>
                   <div/>
                   <Button onClick={ () => this.setState({media: []}) }
                     style={{width: 100, borderRadius: 0}}

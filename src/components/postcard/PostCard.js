@@ -21,12 +21,6 @@ import PostActions from './PostActions'
 
 class PostCard extends React.Component {
 
-  componentDidMount() {
-    console.log('ts',this.props.post.timestamp)
-    console.log('seconds', this.props.post.timestamp._seconds)
-    console.log('nano', this.props.post.timestamp._nanoseconds)
-  }
-
   render() {
     const { classes, post } = this.props
 
