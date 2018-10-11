@@ -163,10 +163,12 @@ const imageURL = (post, size) => {
     : bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
 }
 
+const capitalize = word => word ? word.replace(/\w/, c => c.toUpperCase()) : ''
+
 const getOpenGraph = post => {
 	let og = `<meta property="fb:app_id" content="${fbAppId}" />`
 	og += `<meta property="og:type" content="website" />`
-	og += `<meta property="og:title" content="${post.category}" />`
+	og += `<meta property="og:title" content="${capitalize(post.category)}" />`
 	og += `<meta property="og:description" content="${post.body}" />`
 
   if (post.media.length > 0) {
