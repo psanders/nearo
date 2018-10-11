@@ -64,7 +64,7 @@ class SinglePostContainer extends Component {
     const { post, user } = this.state
 
     const leftColumn = (post, classes) => {
-      return <div className={classes.leftColumn} style={{ marginBottom: gutterBottom ? gutterBottom : 10}}>
+      return <div className={classes.leftColumn}>
         { post.id ? postContent(post, classes, gutterBottom) : placeHolder() }
         {
           post.id &&
@@ -79,9 +79,17 @@ class SinglePostContainer extends Component {
     }
 
     const rightColumn = post => <div>
-      <ProfileCard user={ user } />
-      <MapCard center={ post._geoloc } />
-      { post._geoloc && <About/> }
+      <Hidden xsDown={true}>
+        <ProfileCard user={ user } gutterBottom={16}/>
+        <MapCard center={ post._geoloc } gutterBottom={16}/>
+        { post._geoloc && <About gutterBottom={16}/> }
+      </Hidden>
+      <Hidden smUp={true}>
+        <ProfileCard user={ user } gutterBottom={3} />
+        <MapCard center={ post._geoloc } gutterBottom={3}/>
+        {/* A bit of a hack...*/}
+        { post._geoloc && <About gutterBottom={0.9}/> }
+      </Hidden>
     </div>
 
     return (
@@ -110,6 +118,7 @@ class SinglePostContainer extends Component {
                 </Grid>
               </Hidden>
               <Hidden smUp={true}>
+                <div style={{marginTop: 3}} />
                 { rightColumn(post) }
               </Hidden>
             </Grid>
