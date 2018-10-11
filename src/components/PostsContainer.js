@@ -18,17 +18,15 @@ import PostCard from './postcard/PostCard'
 @observer
 class PostsContainer extends Component {
   @computed get keepScrolling() {
-    const pStore = this.props.postsStore
-    return !pStore.loadingPosts && pStore.posts.length !== pStore.nbHits
-      ? true
-      : false
+    const p = this.props.postsStore
+    return !p.loadingPosts && p.posts.length !== p.nbHits ? true : false
   }
 
   @computed get posts() {
     return this.props.postsStore.posts
   }
 
-  handleScroll = (scrollArea) => this.props.postsStore.showMoreResults()
+  handleScroll = scrollArea => this.props.postsStore.showMoreResults()
 
   render() {
     const { classes } = this.props
@@ -38,7 +36,7 @@ class PostsContainer extends Component {
         <InfiniteScroll
           hasMore={this.keepScrolling}
           loadMore={this.handleScroll}
-          loader={<div className="loader" key={0}>Loading ...</div>}>
+          loader={<div key={0}>Loading ...</div>}>
           <Grid item>
             <SubBar/>
           </Grid>
@@ -71,6 +69,7 @@ const styles = theme => ({
     left: '50%',
     backgroundColor: '#e5e3df'
   },
+  // What was this for?
   postArea: {
     backgroundColor: '#fff',
     minHeight: 'calc(100vh - 65px)',

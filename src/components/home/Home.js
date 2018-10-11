@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 import {computed} from 'mobx'
 import Typography from '@material-ui/core/Typography'
@@ -10,7 +8,6 @@ import { withRouter } from 'react-router-dom'
 
 import Gallery from './Gallery'
 import './Gallery.css'
-import { styles } from './HomeStyles'
 import { getCategories } from '../commons/categories'
 
 @inject('appStore')
@@ -36,8 +33,6 @@ class Home extends Component {
   }
 
   render() {
-    const { classes } = this.props
-
     const categories = () => <div>
       <Typography style={{display: 'inline', marginRight: 15}}
         variant="body2" color="secondary">Categories</Typography>
@@ -63,7 +58,6 @@ class Home extends Component {
           { categories() }
         </div>
       <Divider />
-      <div className={ classes.toolbar }/>
       <div style={{paddingTop: 20, width: 900, margin: '0 auto'}}>
         <Gallery/>
       </div>
@@ -71,8 +65,4 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = {
-    classes: PropTypes.object.isRequired,
-}
-
-export default withStyles(styles)(Home)
+export default Home

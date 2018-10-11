@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent'
 import Avatar from '@material-ui/core/Avatar'
 import PhoneIcon from '@material-ui/icons/ContactPhone'
 import Moment from 'react-moment'
-import ContentLoader, { Facebook } from 'react-content-loader'
 
 function ProfileCard(props) {
   const { classes, user, gutterBottom } = props

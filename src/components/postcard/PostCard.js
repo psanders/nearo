@@ -8,7 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
 import LinkIcon from '@material-ui/icons/Link'
-import Icon360 from '@material-ui/icons/CompassCalibration'
+import Icon360 from '@material-ui/icons/ThreeSixty'
 import Hidden from '@material-ui/core/Hidden'
 import Linkify from 'react-linkify'
 import classnames from 'classnames'
@@ -24,22 +24,20 @@ class PostCard extends React.Component {
   render() {
     const { classes, post } = this.props
 
-    const holdover = () => <div
-      style={{ backgroundColor: '#f4f4f4',
-      border: '1px solid #757ce8', width: 130,
-      height: 110, borderRadius: 3}}>
-      <LinkIcon className={classes.shareIcon} color="primary"
-      style={{transform: 'rotate(45deg)', width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
-    </div>
+    const placeHolder = () => <div
+        className={classes.placeHolder}
+      >
+        <LinkIcon className={classes.shareIcon} color="primary"
+        style={{transform: 'rotate(45deg)', width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
+      </div>
 
     const panoramaIcon = <Icon360 className={classes.panoramaIcon} />
 
     const panoramaIconMobile = <Icon360 className={classnames(classes.panoramaIcon, classes.panoramaIconBig)} />
 
     const imageMobile = () =>
-      <CardMedia image={ imageURL(post, 'md') } >
+      <CardMedia style={{width: '100vw', height: 320}} image={ imageURL(post, 'md') } >
        { hasPanorama(post) && panoramaIconMobile }
-       <div style={{ width: 'calc(100vw - 33px)', height: 320}} />
       </CardMedia>
 
     const imageDesktop = () =>
@@ -48,17 +46,14 @@ class PostCard extends React.Component {
          image={ imageURL(post, 'sm') }
       >
        { hasPanorama(post) && panoramaIcon }
-       <div style={{ width: 130, height: 110, borderRadius: 2}} />
       </CardMedia>
 
-    const image = (post, mord) => !post.media || post.media.length === 0
-      ? holdover()
-      : mord()
+    const image = (p, m) => !p.media || p.media.length === 0 ? placeHolder() : m()
 
-    const card = (post) => <Grid container spacing={16}>
+    const card = (post) => <Grid container>
       <Hidden smUp={true}>
-        <Grid item>
-          <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
+        <Grid items>
+          <Link to={'/posts/' + post.id}>
             <ButtonBase aria-label="Open Publication Details">
               { image(post, imageMobile) }
             </ButtonBase>
@@ -66,8 +61,8 @@ class PostCard extends React.Component {
         </Grid>
       </Hidden>
       <Grid item xs={12} sm container>
-        <Grid item xs container direction="column" spacing={16}>
-          <Grid item xs>
+        <Grid item xs container direction="column" spacing={0}>
+          <Grid item xs style={{padding: 10}}>
             <Typography gutterBottom variant="subheading">
                { post.category && getCategory(post.category).name }
             </Typography>
@@ -78,14 +73,16 @@ class PostCard extends React.Component {
               &nbsp;<Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment>
             </Typography>
           </Grid>
-          <Grid item>
-            <PostActions post={ post } />
+          <Grid item >
+            <div className={classes.actionsContainer}>
+              <PostActions post={ post } />
+            </div>
           </Grid>
         </Grid>
       </Grid>
       <Hidden xsDown={true}>
         <Grid item style={{paddingTop: 35}}>
-          <Link to={'/posts/' + post.id} style={{color: '#fff', textDecoration: 'none'}}>
+          <Link to={'/posts/' + post.id}>
             <ButtonBase className={classes.image} aria-label="Open Publication Details">
               { image(post, imageDesktop) }
             </ButtonBase>
@@ -97,7 +94,7 @@ class PostCard extends React.Component {
     return (
       <div>
         <Hidden mdUp={true}>
-          <div className={classes.post}>
+          <div className={classnames(classes.post, classes.postMobile)}>
             { card(post)}
           </div>
         </Hidden>

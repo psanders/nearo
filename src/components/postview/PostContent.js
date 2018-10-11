@@ -21,8 +21,8 @@ export const postContent = (post, classes, gutterBottom) => {
     { hasMedia(post)  &&
       !hasPanorama(post) &&
       <CardMedia
-        className={classes.post}
         image={ imageURL(post, 'md') }
+        className={classes.cardMedia}
       >
         {
           post.category === 'forsale' && (post.price > 0 || post.sold) &&
@@ -33,19 +33,13 @@ export const postContent = (post, classes, gutterBottom) => {
             color="secondary"
           />
         }
-        <div style={{ width: 130, height: 300, borderRadius: 2}} />
       </CardMedia>
     }
     {
       hasMedia(post) &&
-      hasPanorama(post) &&
-      <div className={classes.bottom10}>
-        <Viewer360 height="300px"
-          imageURL={imageURL(post, 'panorama')}
-        />
-      </div>
+      hasPanorama(post) && <Viewer360 height="400px" imageURL={imageURL(post, 'panorama')} />
     }
-    <div className={classes.postContent}>
+    <div className={classes.postContainer}>
       <Typography className={ classes.capitalize } variant="title" gutterBottom>
         { post.category }
       </Typography>

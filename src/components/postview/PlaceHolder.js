@@ -1,5 +1,5 @@
 import React from 'react'
-import ContentLoader, { Facebook } from 'react-content-loader'
+import { Facebook } from 'react-content-loader'
 
 export const placeHolder = () => {
   return <Facebook style={{padding: 10, height: 125}} />

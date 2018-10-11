@@ -18,14 +18,15 @@ import { imageURL } from '../commons/utils'
 
 const styles = theme => ({
   cardContent: {
-    paddingBottom: 0,
+    padding: theme.spacing.unit,
+    paddingBottom: 0
   },
   cardImg: {
     width: 280,
   },
   card: {
     width: 280,
-    marginBottom: 20,
+    marginBottom: theme.spacing.unit * 2
   },
   media: {
     height: 0,
@@ -33,6 +34,7 @@ const styles = theme => ({
   },
   actions: {
     display: 'flex',
+    padding: theme.spacing.unit,
   },
   expand: { /* Leave this here for later */
     transform: 'rotate(0deg)',
@@ -85,7 +87,7 @@ class RecipeReviewCard extends React.Component {
             </Linkify>
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
+        <CardActions className={classes.actions}>
           <PostActions post={post} home={true}/>
           {/*<IconButton
             className={classnames(classes.expand, {

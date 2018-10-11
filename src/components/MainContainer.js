@@ -79,7 +79,7 @@ class MainContainer extends Component {
                     <title>Nearo - Explore</title>
                   </Helmet>
                   <Topnav className={ classes.appBar } />
-                  <PostsContainer/>
+                  <PostsContainer />
                 </div>
               }}
             />

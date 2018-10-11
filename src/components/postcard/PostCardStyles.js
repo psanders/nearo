@@ -1,14 +1,16 @@
 export const styles = theme => ({
   post: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 2,
-    borderBottom: '1px solid #f4f4f4',
+    backgroundColor: '#fff'
   },
   postDesktop: {
-    padding: theme.spacing.unit,
+    borderBottom: '1px solid #f4f4f4',
     '&:hover': {
       backgroundColor: theme.palette.primary.a50,
     }
+  },
+  postMobile: {
+    marginBottom: theme.spacing.unit
   },
   image: {
     width: '100%',
@@ -22,6 +24,12 @@ export const styles = theme => ({
   cover: {
     minHeight: 50,
     borderRadius: 2,
+    width: 130,
+    height: 110,
+    margin: theme.spacing.unit
+  },
+  actionsContainer: {
+    padding: theme.spacing.unit
   },
   actionBtn: {
     textTransform: 'Capitalize',
@@ -66,17 +74,26 @@ export const styles = theme => ({
     padding: 3,
     backgroundColor: 'rgba(0,0,0,.4)',
     color: '#fff',
-    height: 8,
-    width: 8,
+    height: 20,
+    width: 20,
     position: 'absolute',
-    right: 3,
-    bottom: 3,
-    transform: 'rotate(-45deg)'
+    right: 15,
+    bottom: 15,
   },
   panoramaIconBig: {
     height: 12,
     width: 12,
     padding: 5,
+    right: 5,
+    bottom: 5,
     backgroundPosition: '5px -1px'
+  },
+  placeHolder: {
+    backgroundColor: '#f4f4f4',
+    border: '1px solid #757ce8',
+    width: 130,
+    height: 110,
+    borderRadius: 3,
+    margin: theme.spacing.unit
   }
 })

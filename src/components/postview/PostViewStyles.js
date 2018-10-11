@@ -8,13 +8,18 @@ export const styles = theme => ({
   post: {
     minHeight: 400,
   },
-  postContent: {
+  postContainer: {
     padding: theme.spacing.unit,
     paddingBottom: 0
   },
   postActions: {
     paddingTop: 0,
     padding: theme.spacing.unit,
+  },
+  cardMedia: {
+    width: '100%',
+    height: 400,
+    backgroundPosition: '0 0'
   },
   capitalize: {
     textTransform: 'capitalize'
