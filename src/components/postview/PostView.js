@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
-import Divider from '@material-ui/core/Divider'
 import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
 
@@ -61,53 +60,35 @@ class SinglePostContainer extends Component {
   handleSold = (post) => this.setState({post: post})
 
   render() {
-    const { classes } = this.props
+    const { classes, gutterBottom } = this.props
     const { post, user } = this.state
 
-    const leftColumn = (post) => {
-      return <div>
-        { post.id ? postContent(post, classes) : placeHolder() }
+    const leftColumn = (post, classes) => {
+      return <div className={classes.leftColumn} style={{ marginBottom: gutterBottom ? gutterBottom : 10}}>
+        { post.id ? postContent(post, classes, gutterBottom) : placeHolder() }
         {
           post.id &&
-          <PostActions post={ this.state.post }
-            className={classes.top20}
-            url={ "https://nearo.co/posts/" + post.id }
-          />
+          <div className={classes.postActions}>
+            <PostActions post={ this.state.post }
+
+              url={ "https://nearo.co/posts/" + post.id }
+            />
+          </div>
         }
       </div>
     }
 
-    const rightColumn = (post) => <div>
-      <ProfileCard user={ user }/>
-      <Hidden xsDown={true}>
-        <br />
-      </Hidden>
-      {
-        post._geoloc &&
-        <div>
-          <MapCard center={ post._geoloc }/>
-          <Hidden xsDown={true}>
-            <br />
-          </Hidden>
-        </div>
-      }
-      {/*<Hidden smDown={true}>
-        <Ads className={classes.bottom20}/>
-        <br />
-      </Hidden>*/}
-      <About/>
-      <Hidden xsDown={true}>
-        <br />
-      </Hidden>
+    const rightColumn = post => <div>
+      <ProfileCard user={ user } />
+      <MapCard center={ post._geoloc } />
+      { post._geoloc && <About/> }
     </div>
 
     return (
       <div>
-        {
-          <Helmet>
-            <title>Nearo - { capitalize(post.category) }</title>
-          </Helmet>
-        }
+        <Helmet>
+          <title>Nearo - { capitalize(post.category) }</title>
+        </Helmet>
         <Hidden xsDown={true}>
           <div className={classes.top20} />
         </Hidden>
@@ -117,19 +98,18 @@ class SinglePostContainer extends Component {
           justify="center"
           spacing={16}
           >
-            <Grid item sm={10} md={5} xs={12}>
+            <Grid item sm={10} md={5} xs={12} >
               <Hidden smUp={true}>
-                <Grid item style={{backgroundColor: '#fff', padding: 15}}>
-                  { leftColumn(post) }
+                <Grid item>
+                  { leftColumn(post, classes) }
                 </Grid>
               </Hidden>
               <Hidden xsDown={true}>
-                <Grid item style={{backgroundColor: '#fff', padding: 10}}>
-                  { leftColumn(post) }
+                <Grid item>
+                  { leftColumn(post, classes) }
                 </Grid>
               </Hidden>
               <Hidden smUp={true}>
-                <Divider />
                 { rightColumn(post) }
               </Hidden>
             </Grid>
@@ -145,7 +125,7 @@ class SinglePostContainer extends Component {
 }
 
 SinglePostContainer.propTypes = {
-    classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 }
 
 export default withStyles(styles)(SinglePostContainer)

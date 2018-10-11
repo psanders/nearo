@@ -2,6 +2,20 @@ export const styles = theme => ({
   root: {
     backgroundColor: '#fff'
   },
+  leftColumn: {
+    backgroundColor: '#fff',
+  },
+  post: {
+    minHeight: 400,
+  },
+  postContent: {
+    padding: theme.spacing.unit,
+    paddingBottom: 0
+  },
+  postActions: {
+    paddingTop: 0,
+    padding: theme.spacing.unit,
+  },
   capitalize: {
     textTransform: 'capitalize'
   },

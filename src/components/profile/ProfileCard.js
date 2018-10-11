@@ -7,30 +7,18 @@ import CardContent from '@material-ui/core/CardContent'
 import Avatar from '@material-ui/core/Avatar'
 import PhoneIcon from '@material-ui/icons/ContactPhone'
 import Moment from 'react-moment'
-import ContentLoader from 'react-content-loader'
+import ContentLoader, { Facebook } from 'react-content-loader'
 
 function ProfileCard(props) {
-  const { classes, user } = props
-  const avatar = user.picture
-    ? user.picture
-    : "/images/default-avatar.png"
+  const { classes, user, gutterBottom } = props
 
-  const mockContent = () => {
-    return <ContentLoader height={150}>
-    <rect x="0" y="10" rx="0" ry="0" width="200" height="25" />
-    <rect x="0" y="50" rx="0" ry="0" width="380" height="10" />
-    <rect x="0" y="70" rx="0" ry="0" width="400" height="10" />
-    <rect x="0" y="90" rx="0" ry="0" width="340" height="10" />
-    <rect x="0" y="110" rx="0" ry="0" width="380" height="10" />
-  </ContentLoader>
-  }
+  if (!user.name) return null
 
-  const showPhone = (user) =>
-    user.phone &&
-    user.phone.trim().length > 0
-    && !user.keepPhonePrivate
+  const avatar = user.picture ? user.picture : "/images/default-avatar.png"
 
-  const realContent = (user, classes) => {
+  const showPhone = (u) => u.phone && u.phone.trim().length > 0 && !u.keepPhonePrivate
+
+  const cardContent = (user, classes) => {
     return <div>
       <Typography variant="title" gutterBottom>
         { user.name }
@@ -54,22 +42,20 @@ function ProfileCard(props) {
     </div>
   }
 
-  return (
-    <Card elevation={0} className={classes.card}>
-      <CardContent>
-        <div className={classes.row}>
-          <Avatar
-            alt={ user.name }
-            src={ avatar }
-            className={classes.avatar}
-          />
-        </div>
-        <div className={classes.content}>
-          { user.name ? realContent(user, classes) : mockContent() }
-        </div>
-      </CardContent>
-    </Card>
-  )
+  return <Card elevation={0} className={classes.card} style={{marginBottom: gutterBottom ? gutterBottom : 10}}>
+    <CardContent>
+      <div className={classes.row}>
+        <Avatar
+          alt={ user.name }
+          src={ avatar }
+          className={classes.avatar}
+        />
+      </div>
+      <div className={classes.content}>
+        { cardContent(user, classes) }
+      </div>
+    </CardContent>
+  </Card>
 }
 
 ProfileCard.propTypes = {
@@ -79,7 +65,8 @@ ProfileCard.propTypes = {
 const styles = theme => ({
   card: {
     borderRadius: 0,
-    maxHeight: 313
+    maxHeight: 313,
+    minWidth: 300
   },
   content: {
     paddingTop: 10

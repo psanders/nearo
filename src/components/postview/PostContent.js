@@ -15,13 +15,14 @@ import {
 } from '../commons/utils'
 import Viewer360 from '../Viewer360'
 
-export const postContent = (post, classes) => {
+export const postContent = (post, classes, gutterBottom) => {
+
   return <div>
     { hasMedia(post)  &&
       !hasPanorama(post) &&
       <CardMedia
+        className={classes.post}
         image={ imageURL(post, 'md') }
-        className={classes.bottom10}
       >
         {
           post.category === 'forsale' && (post.price > 0 || post.sold) &&
@@ -44,7 +45,7 @@ export const postContent = (post, classes) => {
         />
       </div>
     }
-    <div>
+    <div className={classes.postContent}>
       <Typography className={ classes.capitalize } variant="title" gutterBottom>
         { post.category }
       </Typography>

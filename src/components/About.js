@@ -27,12 +27,13 @@ class About extends React.Component {
   handleClose = () => this.setState({ open: false })
 
   render() {
-    const { fullScreen, showAsLink } = this.props
+    const { fullScreen, showAsLink, gutterBottom } = this.props
 
     return (
       <div>
         {!showAsLink
-          && <Card onClick={this.handleClickOpen('paper')} elevation={0} style={{borderRadius: 0}}>
+          && <Card onClick={this.handleClickOpen('paper')} elevation={0}
+          style={{minWidth: 300, borderRadius: 0, marginBottom: gutterBottom ? gutterBottom : 10}}>
           <CardActionArea style={{width: '100%'}}>
             <CardContent>
                 <Typography gutterBottom variant="headline" component="h2">
