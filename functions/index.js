@@ -22,6 +22,7 @@ const fbAppId = '1637247183064443'
 exports.onPostCreated = functions.firestore.document('posts/{postId}').onCreate((snap, context) => {
   const post = snap.data()
   post.id = context.params.postId
+  post.timestamp = { seconds: post.timestamp.seconds, nanoseconds: post.timestamp.nanoseconds}
   post.objectID = post.id
   const index = client.initIndex(ALGOLIA_INDEX_NAME)
   return index.saveObject(post)
@@ -31,6 +32,7 @@ exports.onPostUpdated = functions.firestore.document('posts/{postId}').onUpdate(
   const post = change.after.data()
   post.id = context.params.postId
   post.objectID = post.id
+  post.timestamp = { seconds: post.timestamp.seconds, nanoseconds: post.timestamp.nanoseconds}
   const index = client.initIndex(ALGOLIA_INDEX_NAME)
   if (post.deleted) {
     return index.deleteObject(post.id)

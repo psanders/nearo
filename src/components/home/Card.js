@@ -67,7 +67,7 @@ class RecipeReviewCard extends React.Component {
             <Avatar src={post.avatar} aria-label="Recipe" className={classes.avatar} />
           }
 
-          subheader={ <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp._seconds, post.timestamp._nanoseconds).toDate()}</Moment>}
+          subheader={ <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment>}
         />
         {
           post.media &&
