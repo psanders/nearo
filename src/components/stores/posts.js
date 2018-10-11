@@ -1,4 +1,5 @@
 import { observable, when, autorun } from "mobx"
+import { computed } from 'mobx'
 import { db } from '../commons/firebase/firebase'
 import { usersStore } from './users'
 import { bookmarksStore } from './bookmarks'
@@ -8,7 +9,7 @@ import { appStore } from './app'
 import { doSearchAlgolia } from '../commons/firebase/algolia'
 import firebase from 'firebase/app'
 
-const maxItemperPage = 20
+const maxItemperPage = 3
 
 class PostsStore {
     @observable postDialogOpen = false
@@ -32,6 +33,12 @@ class PostsStore {
       )
 
       autorun(() => this.updateBySearch(navStore.navInfo))
+    }
+
+    @computed get keepScrolling() {
+      return !this.loading &&
+        this.nbHits > 0 &&
+        this.posts.length !== this.nbHits ? true : false
     }
 
     isPostDialogOpen = () => this.postDialogOpen

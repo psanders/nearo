@@ -4,7 +4,6 @@ import Hidden from '@material-ui/core/Hidden'
 import Divider from '@material-ui/core/Divider'
 import {withStyles} from '@material-ui/core/styles'
 import {observer, inject} from 'mobx-react'
-import {computed} from 'mobx'
 import InfiniteScroll from 'react-infinite-scroller'
 
 import SubBar from './subbar/SubBar'
@@ -18,35 +17,25 @@ import PostCard from './postcard/PostCard'
 @inject('notificationsStore')
 @observer
 class PostsContainer extends Component {
-  @computed get keepScrolling() {
-    const p = this.props.postsStore
-    return !p.loadingPosts && p.posts.length !== p.nbHits ? true : false
-  }
-
-  @computed get posts() {
-    return this.props.postsStore.posts
-  }
-
-  handleScroll = scrollArea => this.props.postsStore.showMoreResults()
 
   render() {
-    const { classes } = this.props
+    const { classes, postsStore } = this.props
 
     return (<Grid container>
       <Grid item xs={12} sm={12} md={6} className={classes.postArea}>
         <InfiniteScroll
-          hasMore={this.keepScrolling}
-          loadMore={this.handleScroll}
+          hasMore={ postsStore.keepScrolling }
+          loadMore={ postsStore.showMoreResults }
           loader={<div key={0}>Loading ...</div>}>
           <Grid item>
             <SubBar/>
           </Grid>
           {
-           this.posts.map((post, i) => {
+           postsStore.posts.map((post, i) => {
               return <Grid key={post.id} item>
                 <PostCard post={post}/>
                 {
-                  i < this.posts.length - 1 &&
+                  i < postsStore.posts.length - 1 &&
                   <div>
                     <Hidden xsDown={true}>
                       <Divider className={classes.dividerDesktop}/>
