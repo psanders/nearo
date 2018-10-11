@@ -17,11 +17,15 @@ import PostActions from '../postcard/PostActions'
 import { imageURL } from '../commons/utils'
 
 const styles = theme => ({
+  cardContent: {
+    paddingBottom: 0,
+  },
   cardImg: {
-    width: 290,
+    width: 280,
   },
   card: {
-    width: 290,
+    width: 280,
+    marginBottom: 20,
   },
   media: {
     height: 0,
@@ -57,7 +61,7 @@ class RecipeReviewCard extends React.Component {
     const { classes, post } = this.props
 
     return (
-      <Card className={classes.card} elevation={0} style={{marginBottom: 30}}>
+      <Card className={classes.card} elevation={0}>
         <CardHeader
           avatar={
             <Avatar src={post.avatar} aria-label="Recipe" className={classes.avatar} />
@@ -74,7 +78,7 @@ class RecipeReviewCard extends React.Component {
             </ButtonBase>
           </Link>
           }
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography component="p">
             <Linkify>
               { post.body }

@@ -28,13 +28,20 @@ class Gallery extends Component {
        return <Card key={post.id} post={post}/>
     })
 
+    const breakpointColumnsObj = {
+      default: 4,
+      1100: 3,
+      700: 2,
+      500: 1
+    };
+
     return (
       <InfiniteScroll
         hasMore={this.keepScrolling}
         loadMore={this.handleScroll}
         loader={<div className="loader" key={0}>Loading ...</div>}>
         <Masonry
-          breakpointCols={3}
+          breakpointCols={{default: 3}}
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column">
             {childElements}

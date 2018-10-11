@@ -59,13 +59,13 @@ class Home extends Component {
 
     return <div >
       <Divider />
-        <div style={{padding: 10, backgroundColor: '#fff'}}>
+        <div style={{padding: 5, backgroundColor: '#fff'}}>
           { categories() }
         </div>
       <Divider />
       <div className={ classes.toolbar }/>
-      <div style={{padding: 20, margin: '0 auto', width: '70%'}}>
-        <Gallery />
+      <div style={{paddingTop: 20, width: 900, margin: '0 auto'}}>
+        <Gallery/>
       </div>
     </div>
   }
