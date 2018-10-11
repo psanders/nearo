@@ -1,14 +1,15 @@
 const functions = require('firebase-functions')
 const gcs = require('@google-cloud/storage')()
 const sharp = require('sharp')
-//const spawn = require('child-process-promise').spawn;
+//const spawn = require('child-process-promise').spawn
 const path = require('path')
 const os = require('os')
 const fs = require('fs')
 const algoliasearch = require('algoliasearch')
-const admin = require("firebase-admin");
+const admin = require('firebase-admin')
+const utils = require('./utils')
 
-admin.initializeApp(functions.config().firebase);
+admin.initializeApp(functions.config().firebase)
 
 // Configuration
 const ALGOLIA_ID = "IVUNNPL7J8"
@@ -91,13 +92,6 @@ exports.optimizeImages= functions.storage.object().onFinalize((object) => {
     const newFileTemp = path.join(os.tmpdir(), newFileName)
     const newFilePath = `imgs/${newFileName}`
 
-    /*return spawn('convert', [tempFilePath, '-resize', optimization.size, newFileTemp])
-    .then(info => {
-      return bucket.upload(newFileTemp, { destination: newFilePath })
-    }).catch(error => {
-      console.log(error)
-    })*/
-
     return sharp(tempFilePath)
     .resize(optimization.size)
     .toFile(newFileTemp)
@@ -141,8 +135,8 @@ exports.host = functions.https.onRequest((req, res) => {
 			if (post) {
 				post.id = id
 			}
-			indexHTML = indexHTML.replace(metaPlaceholder, getMeta(post))
-			indexHTML = indexHTML.replace(ogPlaceholder, getOpenGraph(post))
+			indexHTML = indexHTML.replace(metaPlaceholder, utils.getMeta(post))
+			indexHTML = indexHTML.replace(ogPlaceholder, utils.getOpenGraph(post))
 			res.status(200).send(indexHTML)
       return
 		}).catch(error => {
@@ -155,28 +149,54 @@ exports.host = functions.https.onRequest((req, res) => {
 	res.status(200).send(indexHTML)
 })
 
-const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
+/*
+exports.generateThumbs = functions.storage
+.object()
+.onFinalize(async object => {
+  const bucket = gcs.bucket(object.bucket)
+  const filePath = object.name
+  const fileName = filePath.split('/').pop()
+  const bucketDir = path.dirname(filePath)
+  //const bucketDir = 'imgs'
 
-const imageURL = (post, size) => {
-  return size
-    ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
-    : bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
-}
+  const workingDir = path.join(os.tmpdir(), 'thumbs')
+  const tmpFilePath = path.join(workingDir, fileName)
 
-const capitalize = word => word ? word.replace(/\w/, c => c.toUpperCase()) : ''
-
-const getOpenGraph = post => {
-	let og = `<meta property="fb:app_id" content="${fbAppId}" />`
-	og += `<meta property="og:type" content="website" />`
-	og += `<meta property="og:title" content="${capitalize(post.category)}" />`
-	og += `<meta property="og:description" content="${post.body}" />`
-
-  if (post.media.length > 0) {
-	   og += `<meta property="og:image" content="${imageURL(post, 'md')}" />`
+  if (fileName.includes('img_') || !object.contentType.includes('image')) {
+    console.log('exiting function')
+    return false
   }
 
-	og += `<meta property="og:url" content="https://nearo.co/posts/${post.id}" />`
-	return og
-}
+  // 1. Ensure thumbnail dir exists
+  await fs.ensureDir(workingDir)
 
-const getMeta = () => `<meta name="twitter:card" content="summary"></meta>`
+  // 2. Download Source File
+  await bucket.file(filePath).download({
+    destination: tmpFilePath
+  })
+
+  // 3. Resize the images and define an array of upload promises
+  const sizes = [64, 128, 256]
+
+  const uploadPromises = sizes.map(async size => {
+    const thumbName = `img_${size}_${fileName}`
+    const thumbPath = path.join(workingDir, thumbName)
+
+    // Resize source image
+    await sharp(tmpFilePath)
+      .resize(size, size)
+      .toFile(thumbPath)
+
+    // Upload to GCS
+    return bucket.upload(thumbPath, {
+      destination: path.join(bucketDir, thumbName)
+    })
+  })
+
+  // 4. Run the upload operations
+  await Promise.all(uploadPromises)
+
+  // 5. Cleanup remove the tmp/thumbs from the filesystem
+  return fs.remove(workingDir)
+})
+*/

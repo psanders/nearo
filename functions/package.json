@@ -1,4 +1,7 @@
 {
+  "engines" : {
+    "node" : "8"
+  },
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "scripts": {
@@ -12,7 +15,6 @@
   "dependencies": {
     "@google-cloud/storage": "^1.7",
     "algoliasearch": "^3.30.0",
-    "child-process-promise": "^2.2.1",
     "firebase-admin": "~6.0.0",
     "firebase-functions": "^2.0.5",
     "fs-extra": "^7.0.0",
