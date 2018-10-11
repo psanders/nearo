@@ -2,6 +2,8 @@ import ellipsize from 'ellipsize'
 
 const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
 
+const time = postedTime => new Date().getTime() / 1000 - postedTime
+
 export const currentPath = (level = 1) =>  window.location.pathname.split('/')[level]
 
 export const hasMedia = post => post.media && post.media.length > 0
@@ -24,7 +26,7 @@ export const imageURL = (post, size) => {
   // better way to handle error while using CardMedia
   if (!post.timestamp) post.timestamp = { seconds: 0 }
 
-  const justPosted = new Date().getSeconds() - post.timestamp.seconds < 120
+  const justPosted = time(post.timestamp.seconds) < 120
     ? true
     : false
 
