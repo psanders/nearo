@@ -118,8 +118,8 @@ exports.host = functions.https.onRequest((req, res) => {
 	const userAgent = req.headers['user-agent'].toLowerCase()
 	let indexHTML = fs.readFileSync('./index.html').toString()
 	const path = req.path ? req.path.split('/') : req.path
-	const ogPlaceholder = '<meta name="functions-insert-dynamic-og">'
-	const metaPlaceholder = '<meta name="functions-insert-dynamic-meta">'
+	const ogPlaceholder = '<meta name="functions-insert-dynamic-og"/>'
+	const metaPlaceholder = '<meta name="functions-insert-dynamic-meta"/>'
 
 	const isBot = userAgent.includes('googlebot') ||
 		userAgent.includes('yahoou') ||
@@ -141,8 +141,13 @@ exports.host = functions.https.onRequest((req, res) => {
 			if (post) {
 				post.id = id
 			}
+      console.log('metaPlaceholder', metaPlaceholder)
+      console.log('ogPlaceholder', ogPlaceholder)
 			indexHTML = indexHTML.replace(metaPlaceholder, getMeta(post))
 			indexHTML = indexHTML.replace(ogPlaceholder, getOpenGraph(post))
+
+      console.log('indexHTML', indexHTML)
+
 			res.status(200).send(indexHTML)
       return
 		}).catch(error => {
@@ -170,7 +175,7 @@ const getOpenGraph = post => {
 	og += `<meta property="og:description" content="${post.body}" />`
 
   if (post.media.length > 0) {
-	   og += `<meta property="og:image" content="${imageURL(post, 'sm')}" />`
+	   og += `<meta property="og:image" content="${imageURL(post, 'md')}" />`
   }
 
 	og += `<meta property="og:url" content="https://nearo.co/posts/${post.id}" />`
