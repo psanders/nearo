@@ -20,9 +20,17 @@ export const openURL = (url, blank = false) => {
 export const imageURL = (post, size) => {
   if (!post.media || post.media.length === 0) return null
 
+  // This is a fix for issue #3. In the future it will be better to find a
+  // better way to handle error while using CardMedia
+  if (!post.timestamp) post.timestamp = { seconds: 0 }
+
+  const justPosted = new Date().getSeconds() - post.timestamp.seconds < 120
+    ? true
+    : false
+
   if (size === 'panorama') {
     return bucketBaseUrl + '%2F' + post.media[1].filename + '?alt=media'
-  } else if (size) {
+  } else if (size && !justPosted) {
     return bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
   } else {
     return bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
