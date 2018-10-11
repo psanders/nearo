@@ -141,13 +141,8 @@ exports.host = functions.https.onRequest((req, res) => {
 			if (post) {
 				post.id = id
 			}
-      console.log('metaPlaceholder', metaPlaceholder)
-      console.log('ogPlaceholder', ogPlaceholder)
 			indexHTML = indexHTML.replace(metaPlaceholder, getMeta(post))
 			indexHTML = indexHTML.replace(ogPlaceholder, getOpenGraph(post))
-
-      console.log('indexHTML', indexHTML)
-
 			res.status(200).send(indexHTML)
       return
 		}).catch(error => {
