@@ -2,10 +2,10 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  height: 100%;
-  /*overflow: hidden; this does not work for the post detail page*/
-  overscroll-behavior: none; /* This might not work in all browsers */
-  background-color: #dae0e6
+  width: 100vw;
+  height: 100vh;
+  background-color: #dae0e6;
+  overscroll-behavior-y: none; /* Does not work in Safary desktop or mobile */
 }
 
 .Linkify a {
