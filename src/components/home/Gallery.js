@@ -21,16 +21,11 @@ class Gallery extends Component {
     return this.props.postsStore.posts
   }
 
-  handleScroll = (scrollArea) => {
-    console.log('DBG001')
-    this.props.postsStore.showMoreResults()
-  }
+  handleScroll = (scrollArea) => this.props.postsStore.showMoreResults()
 
   render() {
     const childElements = this.posts.map(function(post){
-       return (
-          <Card key={post.id} post={post}/>
-        )
+       return <Card key={post.id} post={post}/>
     })
 
     return (

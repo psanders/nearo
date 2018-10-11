@@ -94,10 +94,10 @@ class PostsStore {
       const postRef = db.collection('posts').doc(post.id)
       postRef.set({
         deleted: true,
-        deletedTimestamp: firebase.firestore.Timestamp.fromDate(Date.now())
+        deletedTimestamp: firebase.firestore.Timestamp.fromDate(new Date())
       }, { merge: true }).then(() => {
         this.posts = this.posts.filter(p => p.id !== post.id)
-        notificationsStore.showNotification('Post deleted', 0, this.handleUndeletePost)
+        notificationsStore.showNotification('Post deleted', 4000, this.handleUndeletePost)
       }).catch(error => {
         notificationsStore.showNotification('Something when wrong :( Please try again later')
         console.error(error)
@@ -108,7 +108,7 @@ class PostsStore {
       const postRef = db.collection('posts').doc(this.deletedPost.id)
       postRef.set({
         deleted: false,
-        deletedTimestamp: firebase.firestore.Timestamp.fromDate(Date.now())
+        deletedTimestamp: firebase.firestore.Timestamp.fromDate(new Date())
       }, { merge: true }).then(() => {
         this.deletedPost.deleted = false
         this.posts.unshift(this.deletedPost)
