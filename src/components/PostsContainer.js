@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
+import Divider from '@material-ui/core/Divider'
 import {withStyles} from '@material-ui/core/styles'
 import {observer, inject} from 'mobx-react'
 import {computed} from 'mobx'
@@ -41,10 +42,21 @@ class PostsContainer extends Component {
             <SubBar/>
           </Grid>
           {
-           this.posts.map(post => {
-              return (<Grid key={post.id} item>
+           this.posts.map((post, i) => {
+              return <Grid key={post.id} item>
                 <PostCard post={post}/>
-              </Grid>)
+                {
+                  i < this.posts.length - 1 &&
+                  <div>
+                    <Hidden xsDown={true}>
+                      <Divider className={classes.dividerDesktop}/>
+                    </Hidden>
+                    <Hidden smUp={true}>
+                      <Divider className={classes.dividerMobile}/>
+                    </Hidden>
+                  </div>
+                }
+              </Grid>
             })
           }
         </InfiniteScroll>
@@ -59,20 +71,26 @@ class PostsContainer extends Component {
 }
 
 const styles = theme => ({
+  dividerDesktop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+  },
+  dividerMobile: {
+    height: 5,
+  },
   progress: {
     margin: theme.spacing.unit * 2
   },
   mapArea: {
-    height: 'calc(100vh - 65px)',
+    backgroundColor: '#e5e3df',
+    height: 'calc(100vh - 55px)',
     position: 'fixed',
     width: '50%',
-    left: '50%',
-    backgroundColor: '#e5e3df'
+    left: '50%'
   },
   // What was this for?
   postArea: {
     backgroundColor: '#fff',
-    minHeight: 'calc(100vh - 65px)',
+    minHeight: 'calc(100vh - 55px)',
   }
 })
 

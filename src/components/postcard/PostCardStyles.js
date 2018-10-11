@@ -4,13 +4,11 @@ export const styles = theme => ({
     backgroundColor: '#fff'
   },
   postDesktop: {
-    borderBottom: '1px solid #f4f4f4',
     '&:hover': {
       backgroundColor: theme.palette.primary.a50,
     }
   },
   postMobile: {
-    marginBottom: theme.spacing.unit
   },
   image: {
     width: '100%',
