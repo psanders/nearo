@@ -28,8 +28,8 @@ class PostCard extends React.Component {
       style={{ backgroundColor: '#f4f4f4',
       border: '1px solid #757ce8', width: 130,
       height: 110, borderRadius: 3}}>
-      <LinkIcon className={classes.shareIcon} color="primary" style={{
-        width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
+      <LinkIcon className={classes.shareIcon} color="primary"
+      style={{transform: 'rotate(45deg)', width: '30px', position: 'relative', top: 'calc(50% - 15px)'}}/>
     </div>
 
     const panoramaIcon = <Icon360 className={classes.panoramaIcon} />
