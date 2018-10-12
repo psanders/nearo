@@ -86,13 +86,13 @@ const styles = theme => ({
     padding: theme.spacing.unit,
   },
   marker: {
-    backgroundColor: blue[500],
+    backgroundColor: theme.palette.primary.light,
     border: '0.3em solid #fff',
     width: 10,
     height: 10,
     borderRadius: '50%',
     position: 'absolute',
-    boxShadow: '0 0 0 0.02em ' + blue[500]
+    boxShadow: '0 0 0 0.02em ' + theme.palette.primary.main
   },
   markerContainer: {
     display: 'flex'
