@@ -56,9 +56,9 @@ class PostActions extends Component {
 
   handleBookmark = () => {
     if(!this.state.bookmarked) {
-      this.props.bookmarksStore.addToBookmarks(this.post)
+      this.props.bookmarksStore.addToBookmarks(this.post, this.props.usersStore.currentUser)
     } else {
-      this.props.bookmarksStore.removeFromBookmarks(this.post)
+      this.props.bookmarksStore.removeFromBookmarks(this.post, this.props.usersStore.currentUser)
     }
 
     this.setState({

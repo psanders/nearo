@@ -2,6 +2,7 @@ import { observable, when } from "mobx"
 import { usersStore } from './users'
 import { notificationsStore } from './notifications'
 import { db } from '../commons/firebase/firebase'
+import firebase from 'firebase/app'
 
 class BookmarksStore {
     @observable bookmarks = []
@@ -23,13 +24,16 @@ class BookmarksStore {
     }
 
     loadBookmarks(user) {
-      db.collection("bookmarks")
-      .where("user", "==", user.id)
+      const likes = db.collection("bookmarks").doc(user.id)
+      likes
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.bookmarks.push(doc.id)
-        })
+      .then(doc => {
+        console.log(doc)
+        if (doc.exists) {
+          doc.data().posts.forEach(postId => {
+            this.bookmarks.push(postId)
+          })
+        }
         this.loaded = true
       })
     }
@@ -48,7 +52,7 @@ class BookmarksStore {
       })
     }
 
-    addToBookmarks = (post) => {
+    addToBookmarks = (post, user) => {
       if (!usersStore.isSignedIn()) {
         notificationsStore.showMustLogin()
         return
@@ -58,18 +62,14 @@ class BookmarksStore {
       this.updateLikes(post, 1)
 
       notificationsStore.showNotification('Added to your liked posts')
-      const bookmarksRef = db.collection('bookmarks').doc(post.id)
+      const bookmarksRef = db.collection('bookmarks').doc(user.id)
 
       bookmarksRef.set({
-        user: usersStore.currentUser.id
-      }, { merge: true }).then(() => {
-      }).catch(error => {
-        // Revert change in UI
-        console.error("Error writing document: ", error)
-      })
+        posts: firebase.firestore.FieldValue.arrayUnion(post.id)
+      }, {merge: true})
     }
 
-    removeFromBookmarks = (post) => {
+    removeFromBookmarks = (post, user) => {
       if (!usersStore.isSignedIn()) {
         notificationsStore.showMustLogin()
         return
@@ -78,14 +78,12 @@ class BookmarksStore {
       this.bookmarks.pop(post.id)
       this.updateLikes(post, -1)
 
-      const bookmarksRef = db.collection('bookmarks').doc(post.id)
+      const bookmarksRef = db.collection('bookmarks').doc(user.id)
       notificationsStore.showNotification('Removed from your liked posts')
 
-      bookmarksRef.delete()
-      .then(() => {
-      }).catch(error => {
-        console.error("Error writing document: ", error)
-      })
+      bookmarksRef.set({
+        posts: firebase.firestore.FieldValue.arrayRemove(post.id)
+      }, {merge: true})
     }
 
     setData (bookmarks) {
