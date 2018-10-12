@@ -11,6 +11,9 @@ const styles = theme => ({
     width: theme.spacing.unit * 4,
     height: theme.spacing.unit * 4,
   },
+  callBackBtn: {
+    color: theme.palette.accent.main
+  }
 })
 
 @inject('notificationsStore')
@@ -19,9 +22,10 @@ class NotificationBar extends Component {
 
   render() {
     const store = this.props.notificationsStore
+    const { classes } = this.props
 
     const action = [
-      <Button key="close" color="secondary" size="small" onClick={ store.hideNotification }>
+      <Button className={ classes.callBackBtn } key="close"  size="small" onClick={ store.hideNotification }>
         <CloseIcon />
       </Button>
     ]
@@ -29,7 +33,7 @@ class NotificationBar extends Component {
     if (store.state.callback) {
       action.pop()
       action.push(
-        <Button key="callback" disabled={ !store.state.callback } color="secondary" size="small"
+        <Button className={ classes.callBackBtn } key="callback" disabled={ !store.state.callback } color="secondary" size="small"
           onClick={ ()=> {
             store.state.callback()
             store.hideNotification()
