@@ -16,10 +16,8 @@ export const styles = theme => ({
     paddingTop: 0,
     padding: theme.spacing.unit,
   },
-  cardMedia: {
+  photo: {
     width: '100%',
-    height: 400,
-    backgroundPosition: '0 0'
   },
   capitalize: {
     textTransform: 'capitalize'

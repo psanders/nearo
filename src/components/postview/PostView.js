@@ -107,16 +107,9 @@ class SinglePostContainer extends Component {
           spacing={16}
           >
             <Grid item sm={10} md={5} xs={12} >
-              <Hidden smUp={true}>
-                <Grid item>
-                  { leftColumn(post, classes) }
-                </Grid>
-              </Hidden>
-              <Hidden xsDown={true}>
-                <Grid item>
-                  { leftColumn(post, classes) }
-                </Grid>
-              </Hidden>
+              <Grid item>
+                { leftColumn(post, classes) }
+              </Grid>
               <Hidden smUp={true}>
                 <div style={{marginTop: 3}} />
                 { rightColumn(post) }
@@ -125,9 +118,13 @@ class SinglePostContainer extends Component {
             <Hidden xsDown={true}>
               <Grid item sm={10} md={3} xs={12}>
                 { rightColumn(post) }
+                <br />
               </Grid>
             </Hidden>
         </Grid>
+        <Hidden mdDown={true}>
+          <div className={classes.top20} />
+        </Hidden>
       </div>
     )
   }

@@ -1,5 +1,4 @@
 import React from 'react'
-import CardMedia from '@material-ui/core/CardMedia'
 import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
 import MoneyIcon from '@material-ui/icons/AttachMoney'
@@ -20,10 +19,8 @@ export const postContent = (post, classes, gutterBottom) => {
   return <div>
     { hasMedia(post)  &&
       !hasPanorama(post) &&
-      <CardMedia
-        image={ imageURL(post, 'md') }
-        className={classes.cardMedia}
-      >
+      <div>
+        <img alt="" className={classes.photo} src={imageURL(post, 'md')} />
         {
           post.category === 'forsale' && (post.price > 0 || post.sold) &&
           <Chip
@@ -33,7 +30,7 @@ export const postContent = (post, classes, gutterBottom) => {
             color="secondary"
           />
         }
-      </CardMedia>
+      </div>
     }
     {
       hasMedia(post) &&
