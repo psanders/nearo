@@ -12,6 +12,7 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import IconButton from '@material-ui/core/IconButton'
 import LoginIcon from '@material-ui/icons/Fingerprint'
 import { observer, inject } from 'mobx-react'
+import { computed } from 'mobx'
 import { withRouter } from 'react-router-dom'
 import classnames from 'classnames'
 
@@ -26,6 +27,10 @@ import Locator from '../locator/Locator'
 @withRouter
 @observer
 class Topnav extends React.Component {
+
+  @computed get address() {
+    return this.props.navStore.navInfo.locInfo.address
+  }
 
   handleChange = name => event => {
     const navInfo = this.props.navStore.navInfo
@@ -46,7 +51,7 @@ class Topnav extends React.Component {
   handleNav = () => this.props.history.push(currentPath(1) === 'explore'? '/' : '/explore')
 
   render() {
-    const { classes, usersStore, appStore } = this.props
+    const { classes, usersStore, appStore, navStore } = this.props
 
     return (
       <div>
@@ -73,7 +78,7 @@ class Topnav extends React.Component {
              }}
            />
             <Hidden xsDown={true}>
-              <Locator name="locator" onChangeLocation={ this.handleOnChangeLocation } />
+              <Locator address={this.address} name="locator" onChangeLocation={ this.handleOnChangeLocation } />
             </Hidden>
             <span className={ classes.flex } />
             {

@@ -18,17 +18,13 @@ import SearchInput from './SearchInput'
 class Locator extends Component {
   state = {
     expanded: false,
-    address: 'USA'
+    address: this.props.address
   }
 
-  componentDidMount = () => {
-    fetchUserInfo(this.props.name)
-    .then(locInfo => {
-      if (locInfo) {
-        this.setState({address: locInfo.address})
-      }
-    })
-  }
+ componentWillReceiveProps(nextProps) {
+   if(nextProps.address === this.state.address) return
+   this.setState({address: nextProps.address})
+ }
 
   handleToggle = e => {
     this.setState(state => ({ expanded: !state.expanded }))

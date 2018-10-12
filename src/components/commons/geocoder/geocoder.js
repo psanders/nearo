@@ -9,10 +9,9 @@ const apiInfo = {
 
 const geocoder = NodeGeocoder(apiInfo)
 
-export const showCurrentLocation = () => {
+export const askForLocation = () => {
   const options = {
     enableHighAccuracy: false,
-    timeout: 5000,
     maximumAge: 0
   }
 
@@ -20,16 +19,17 @@ export const showCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition((pos) => {
       // Using callback
       geocoder.reverse({lat:pos.coords.latitude, lon:pos.coords.longitude}, (err, data) => {
-        const info = {
-          city: data[0].city,
-          state: data[0].administrativeLevels.level1short,
-          lat: pos.coords.latitude,
-          lon: pos.coords.longitude
+        const locInfo = {
+          address: data[0].city,
+          latLng: {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+          }
         }
-        resolve(info)
+        resolve(locInfo)
       })
     }, err => {
-        reject(err)
+      reject(err)
     }, options)
   })
 }
