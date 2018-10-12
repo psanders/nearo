@@ -28,7 +28,6 @@ class BookmarksStore {
       likes
       .get()
       .then(doc => {
-        console.log(doc)
         if (doc.exists) {
           doc.data().posts.forEach(postId => {
             this.bookmarks.push(postId)

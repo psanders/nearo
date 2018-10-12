@@ -68,7 +68,7 @@ class PostPanel extends Component {
     this.setState({media: []})
   }
 
-  createPost = (self, body) => {
+  async createPost (self, body) {
     if (!this.props.usersStore.isSignedIn()) {
       this.props.notificationsStore
         .showMustLogin()
@@ -94,18 +94,16 @@ class PostPanel extends Component {
       avatar: this.props.usersStore.currentUser.picture
     }
 
-    db.collection('posts')
-    .add(post)
-    .then(docRef => {
+    try {
+      const docRef = await db.collection('posts').add(post)
       post.id = docRef.id
       this.props.postsStore.addNewPost(post)
       this.props.postsStore.hidePostDialog()
       this.clearUI()
-    })
-    .catch(error => {
+    } catch(error) {
       console.error("Error adding document: ", error)
       this.clearUI()
-    })
+    }
   }
 
   handleOnUploadStart = () => this.setState({loading: true})

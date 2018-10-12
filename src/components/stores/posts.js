@@ -9,7 +9,7 @@ import { appStore } from './app'
 import { doSearchAlgolia } from '../commons/firebase/algolia'
 import firebase from 'firebase/app'
 
-const maxItemperPage = 3
+const maxItemperPage = 20 // It will load those 20 items super fast!
 
 class PostsStore {
     @observable postDialogOpen = false
@@ -125,21 +125,29 @@ class PostsStore {
       })
     }
 
-    markSold = (post) => {
+    async markSold(post) {
       const postRef = db.collection('posts').doc(post.id)
       post.sold = !post.sold
       this.findAndReplace(post)
-      postRef.set({
+
+      await postRef.set({sold: post.sold }, { merge: true })
+
+      if (post.sold) {
+        notificationsStore.showNotification('Post marked as sold')
+      } else {
+        notificationsStore.showNotification('Post marked as available')
+      }
+
+      /*postRef.set({
          sold: post.sold
       }, { merge: true }).then(() => {
         if(post.sold) {
           notificationsStore.showNotification('Post marked as sold')
         } else {
-          notificationsStore.showNotification('Post marked as available')
         }
       }).catch(error => {
         console.error("Error writing document: ", error)
-      })
+      })*/
     }
 
     findAndReplace = post => {
