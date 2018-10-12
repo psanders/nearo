@@ -10,7 +10,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import LocationIcon from '@material-ui/icons/LocationOn'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
-import { storeUserInfo, fetchUserInfo } from '../commons/dbfunctions'
+import { storeUserInfo } from '../commons/dbfunctions'
 import { ellip } from '../commons/utils'
 import { styles } from './LocatorStyles'
 import SearchInput from './SearchInput'
