@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import Hidden from '@material-ui/core/Hidden'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -55,62 +56,64 @@ class MainContainer extends Component {
       <div className={ classes.root }>
         <main className={ classes.content }>
           <div className={ classes.toolbar } />
-          <Switch>
-            <Route
-              exact path='/'
-              render={(props) => {
-                scrollTop()
-                return <div>
-                  <Helmet>
-                    <title>Nearo</title>
-                  </Helmet>
-                  <Topnav className={ classes.appBar } />
-                  <Hidden mdUp={true}><PostsContainer/></Hidden>
-                  <Hidden smDown={true}><Home /></Hidden>
-                </div>
+          <BrowserRouter>
+            <Switch>
+              <Route
+                exact path='/'
+                render={(props) => {
+                  scrollTop()
+                  return <div>
+                    <Helmet>
+                      <title>Nearo</title>
+                    </Helmet>
+                    <Topnav className={ classes.appBar } />
+                    <Hidden mdUp={true}><PostsContainer/></Hidden>
+                    <Hidden smDown={true}><Home /></Hidden>
+                  </div>
+                }}
+              />
+              <Route
+                exact path='/explore'
+                render={(props) => {
+                  scrollTop()
+                  return <div>
+                    <Helmet>
+                      <title>Nearo - Explore</title>
+                    </Helmet>
+                    <Topnav className={ classes.appBar } />
+                    <PostsContainer />
+                  </div>
+                }}
+              />
+              <Route
+                path='/posts/:postId'
+                render={(props) => {
+                  scrollTop()
+                  return <div>
+                    <Topnav className={ classes.appBar } />
+                    <PostView />
+                  </div>
+                }}
+              />
+              <Route
+                path='/login'
+                render={(props) => {
+                  scrollTop()
+                  return <LoginScreen />
+                }}
+              />
+              <Route
+                path='/profile'
+                render={(props) => {
+                  scrollTop()
+                  return <div>
+                    <Profile />
+                  </div>
               }}
-            />
-            <Route
-              exact path='/explore'
-              render={(props) => {
-                scrollTop()
-                return <div>
-                  <Helmet>
-                    <title>Nearo - Explore</title>
-                  </Helmet>
-                  <Topnav className={ classes.appBar } />
-                  <PostsContainer />
-                </div>
-              }}
-            />
-            <Route
-              path='/posts/:postId'
-              render={(props) => {
-                scrollTop()
-                return <div>
-                  <Topnav className={ classes.appBar } />
-                  <PostView />
-                </div>
-              }}
-            />
-            <Route
-              path='/login'
-              render={(props) => {
-                scrollTop()
-                return <LoginScreen />
-              }}
-            />
-            <Route
-              path='/profile'
-              render={(props) => {
-                scrollTop()
-                return <div>
-                  <Profile />
-                </div>
-            }}
-            />
-            <Route render={ props =>  <NoMatch /> } />
-          </Switch>
+              />
+              <Route render={ props =>  <NoMatch /> } />
+            </Switch>
+          </BrowserRouter>
         </main>
         <NotificationBar />
         <PostPanel />
