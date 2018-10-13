@@ -4,8 +4,14 @@ html, body {
   font-family: sans-serif;
   width: 100vw;
   height: 100vh;
-  background-color: #dae0e6;
   overscroll-behavior-y: none; /* Does not work in Safary desktop or mobile */
+}
+
+body {
+  background-color: #dae0e6;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 .Linkify a {

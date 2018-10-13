@@ -151,7 +151,7 @@ class RenderPropsPopper extends Component {
                 disablePortal>
                   <span className={classes.arrow} ref={this.handleArrowRef} />
                   <Paper>
-                    <Typography variant="body1" className={classes.typography}>
+                    <Typography variant="caption" className={classes.typography}>
                       {label}
                     </Typography>
                     <ClickAwayListener onClickAway={ event => {
