@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import { observer, inject } from 'mobx-react'
 import { ellip } from '../commons/utils'
 import { styles } from './SubBarStyles'
+import PostPanel from '../postpanel/PostPanel'
 
 @inject('navStore')
 @inject('postsStore')
@@ -24,13 +25,7 @@ class SubBar extends Component {
              { postsStore.nbHits } {postsStore.nbHits === 1 ? "result" : "results"} nearby "{ ellip(navInfo.locInfo.address, 30) }"
           </Typography>
           <span className={ classes.flex } />
-          <Button onClick={ postsStore.openPostDialog }
-            variant="flat" className={classes.button}
-            size="small"
-            aria-label="Add New Publication"
-          >
-            New Post
-          </Button>
+          <PostPanel />
         </Toolbar>
       </div>
     )

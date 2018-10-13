@@ -116,7 +116,6 @@ class MainContainer extends Component {
           </BrowserRouter>
         </main>
         <NotificationBar />
-        <PostPanel />
       </div>
     )
   }

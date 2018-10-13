@@ -17,7 +17,8 @@ export const styles = theme => ({
   details: {
     alignItems: 'center',
     padding: 0,
-    maxHeight: 150
+    maxHeight: 150,
+    width: 400
   },
   column: {
     flexBasis: '33.33%',
@@ -44,8 +45,15 @@ export const styles = theme => ({
     fontSize: 14,
     height: '100vh',
   },
+  newPostBtn: {
+    textTransform: 'capitalize',
+    backgroundColor: theme.palette.accent.light,
+    '&:hover': {
+      backgroundColor: theme.palette.accent.main,
+    }
+  },
   button: {
-    textTransform: 'Capitalize',
+    textTransform: 'capitalize'
   },
   chip: {
     margin: theme.spacing.unit,

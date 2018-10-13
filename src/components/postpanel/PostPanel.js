@@ -17,13 +17,14 @@ import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
 import { observer, inject } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 import { getCategories } from '../commons/categories'
 import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
 import { styles } from './PostPanelStyles'
 import { imageURL, ellip } from '../commons/utils'
-//import LocatorMobile from '../locator/LocatorMobile'
+import LocatorMobile from '../locator/LocatorMobile'
 
 @inject('notificationsStore')
 @inject('postsStore')
@@ -35,6 +36,7 @@ class PostPanel extends Component {
     body: '',
     loading: false,
     category: 'news',
+    locInfo: null,
     media: [],
   }
 
@@ -69,16 +71,13 @@ class PostPanel extends Component {
     this.setState({media: []})
   }
 
-  async createPost (self, body) {
+  async createPost (body, locInfo) {
     if (!this.props.usersStore.isSignedIn()) {
       this.props.notificationsStore
         .showMustLogin()
       return
     }
-    self.setState({loading: true})
-
-    const address = this.props.navStore.navInfo.locInfo.address
-    const latLng = this.props.navStore.navInfo.locInfo.latLng
+    this.setState({loading: true})
 
     const post = {
       category: this.getCategoryInText(this.state.body),
@@ -86,10 +85,10 @@ class PostPanel extends Component {
       userId: this.props.usersStore.currentUser.id,
       body: body,
       likes: 0,
-      locText: address,
+      locText: locInfo.address,
       price: this.getPrice(this.state.body),
       timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
-      _geoloc: latLng,
+      _geoloc: locInfo.latLng,
       deleted: false,
       media: this.state.media,
       avatar: this.props.usersStore.currentUser.picture
@@ -109,8 +108,25 @@ class PostPanel extends Component {
 
   handleOnUploadStart = () => this.setState({loading: true})
 
+  async handleLocationChange (address) {
+    console.log('address', address)
+    const results = await geocodeByAddress(address)
+    const latLng = await getLatLng(results[0])
+    const locInfo = {}
+    locInfo.address = address
+    locInfo.latLng = latLng
+    this.setState({locInfo: locInfo})
+  }
+
+  handleCreate = () => {
+    const locInfo = this.state.locInfo
+      ? this.state.locInfo
+      : this.props.navStore.navInfo.locInfo
+    this.createPost(this.state.body, locInfo)
+  }
+
   render() {
-    const { classes, fullScreen } = this.props
+    const { classes, fullScreen, postsStore } = this.props
     this.updateBody = this.updateBody.bind(this)
 
     const showCounter = () => {
@@ -120,8 +136,26 @@ class PostPanel extends Component {
       return false
     }
 
+    const addressLabel = () => {
+      const locInfo = this.state.locInfo
+        ? this.state.locInfo
+        : this.props.navStore.navInfo.locInfo
+
+      return <Typography variant="caption"
+        style={{textTransform: 'capitalize', marginLeft: 5, marginBottom: 5}}>
+         Nearby  "{ ellip(locInfo.address, 20) }"
+      </Typography>
+    }
+
     return (
-      <div>
+      <React.Fragment>
+        <Button onClick={ postsStore.openPostDialog }
+          variant="flat" className={classes.newPostBtn}
+          size="small"
+          aria-label="Add New Publication"
+        >
+          New Post
+        </Button>
         <Dialog
           fullScreen={ fullScreen }
           open={ this.props.postsStore.isPostDialogOpen() }
@@ -130,7 +164,7 @@ class PostPanel extends Component {
         >
           <DialogTitle id="responsive-dialog-title">New Post</DialogTitle>
           <Divider />
-          <DialogContent className={ classes.details }>
+          <DialogContent className={ classes.details } >
             <TextField
               value={ this.state.body }
               onChange={ this.updateBody }
@@ -192,6 +226,8 @@ class PostPanel extends Component {
             </div>
           }
 
+          { addressLabel() }
+
           <Divider />
 
           { this.state.loading && <LinearProgress discolor="secondary" /> }
@@ -212,18 +248,16 @@ class PostPanel extends Component {
                   this.setState({loading: false})
               }}
               />
-            <Typography variant="caption" style={{textTransform: 'capitalize'}}>
-               Nearby  "{ ellip(this.props.navStore.navInfo.locInfo.address, 20) }"
-            </Typography>
+            <LocatorMobile label="Select a location for your post" iconColor="#546E7A" onLocationChange={address => this.handleLocationChange(address)}/>
             <span className={ classes.flex }/>
             <Button onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}
               className={ classes.button } size="small">Cancel</Button>
-            <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () =>  this.createPost(this, this.state.body) } variant="contained" size="small" color="secondary">
+            <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () => this.handleCreate() } variant="contained" size="small" color="secondary">
               Post
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
+      </React.Fragment>
     )
   }
 }

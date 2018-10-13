@@ -57,7 +57,7 @@ class LocationSearchInput extends React.Component {
                 placeholder: 'Search Places ...',
                 className: classes.searchInput,
               })}
-            />
+              autoFocus/>
             <List dense={true} className="autocomplete-dropdown-container">
               {loading && <p style={{fontSize: 12, marginLeft: 20}}>Loading...</p>}
               {this.getInputItems(getSuggestionItemProps, suggestions)}

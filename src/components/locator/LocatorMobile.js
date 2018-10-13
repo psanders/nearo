@@ -106,8 +106,19 @@ class RenderPropsPopper extends Component {
     }));
   };
 
+  handleSelect = address => {
+    if (!this.props.onLocationChange) {
+      this.props.navStore.relocate(address)
+    } else {
+      this.props.onLocationChange(address)
+    }
+  }
+
   render() {
-    const { classes } = this.props
+    const { classes, iconColor } = this.props
+    const label = this.props.label
+      ? this.props.label
+      : "Select a location close to your interest"
 
     return (
       <WithState>
@@ -123,7 +134,9 @@ class RenderPropsPopper extends Component {
                   }));
                   updateAnchorEl(anchorEl? null: event.currentTarget)
                 }}
-                className={classes.locationIcon}>
+                className={classes.locationIcon}
+                style={{color: iconColor ? iconColor: '' }}
+                >
                 <LocationIcon />
               </IconButton>
 
@@ -139,7 +152,7 @@ class RenderPropsPopper extends Component {
                   <span className={classes.arrow} ref={this.handleArrowRef} />
                   <Paper>
                     <Typography variant="body1" className={classes.typography}>
-                    Select a location near your interest
+                      {label}
                     </Typography>
                     <ClickAwayListener onClickAway={ event => {
                         // This is some crazy shit :(
@@ -149,7 +162,7 @@ class RenderPropsPopper extends Component {
                         }
                     }}>
                       <SearchInput onSelect={address => {
-                        this.props.navStore.relocate(address)
+                        this.handleSelect(address)
                         if (Boolean(anchorEl)) {
                           this.setState({open: false})
                           updateAnchorEl(null)
