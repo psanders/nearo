@@ -1,8 +1,14 @@
 import { observable } from "mobx"
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+
 import { fetchUserInfo, storeUserInfo } from '../commons/dbfunctions'
 import { askForLocation } from '../commons/geocoder/geocoder'
 
+const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
+const locationStorage = 'global-location'
+
 class NavStore {
+
     @observable loaded = false
     @observable navInfo = {
       searchTerm: '',
@@ -15,14 +21,14 @@ class NavStore {
       }
     }
 
-    timeout(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+    constructor () {
+      this.initLocation().catch(error => console.log(error))
     }
 
     async initLocation () {
       try {
         // Already has a location
-        let locInfo = await fetchUserInfo('locator')
+        let locInfo = await fetchUserInfo(locationStorage)
         if(locInfo) {
           this.navInfo.locInfo = locInfo
           this.loaded = true
@@ -32,27 +38,32 @@ class NavStore {
         // I don't know how long this is going to take...
         this.loaded = true
         // Wait for a bit
-        await this.timeout(10000);
+        await timeout(10000);
         // Or... Ask the user to provide location
         locInfo = await askForLocation()
 
         if(locInfo) {
           this.navInfo.locInfo = locInfo
-          storeUserInfo('locator', JSON.parse(JSON.stringify(locInfo)),
+          storeUserInfo(locationStorage, JSON.parse(JSON.stringify(locInfo)),
             () => this.loaded = true )
           return
         }
       } catch(error) {
         // Or try getting the address using the users IP
-        storeUserInfo('locator',
+        storeUserInfo(locationStorage,
           JSON.parse(JSON.stringify(this.navInfo.locInfo)),
             () => this.loaded = true )
         throw error
       }
     }
 
-    constructor () {
-      this.initLocation().catch(error => console.log(error))
+    async relocate (address) {
+      const results = await geocodeByAddress(address)
+      const latLng = await getLatLng(results[0])
+      this.navInfo.locInfo.address = address
+      this.navInfo.locInfo.latLng = latLng
+      storeUserInfo(locationStorage, JSON.parse(JSON.stringify(this.navInfo.locInfo)))
+      return this.navInfo.locInfo
     }
 
     setNavInfo = (navInfo) => {

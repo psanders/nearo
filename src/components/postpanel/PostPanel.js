@@ -23,6 +23,7 @@ import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
 import { styles } from './PostPanelStyles'
 import { imageURL, ellip } from '../commons/utils'
+//import LocatorMobile from '../locator/LocatorMobile'
 
 @inject('notificationsStore')
 @inject('postsStore')

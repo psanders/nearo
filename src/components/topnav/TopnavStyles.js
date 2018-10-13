@@ -51,7 +51,7 @@ export const styles = theme => ({
     fontSize: 16,
     padding: '10px 12px',
     height: 22,
-    width: 250,
+    width: 220,
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     fontFamily: [
       '-apple-system',
@@ -93,7 +93,11 @@ export const styles = theme => ({
     color: '#fff',
     border: '1px solid #fff'
   },
+  locationIcon: {
+    color: '#fff',
+  },
   fingerPrint: {
-    color: theme.palette.accent.light
+    //color: theme.palette.accent.light
+    color: '#fff'
   },
 })

@@ -8,20 +8,21 @@ import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import LocationIcon from '@material-ui/icons/LocationOn'
-import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import { observer, inject } from 'mobx-react'
 
-import { storeUserInfo } from '../commons/dbfunctions'
 import { ellip } from '../commons/utils'
 import { styles } from './LocatorStyles'
 import SearchInput from './SearchInput'
 
+@inject('navStore')
+@observer
 class Locator extends Component {
   state = {
     expanded: false,
     address: this.props.address
   }
 
- componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
    if(nextProps.address === this.state.address) return
    this.setState({address: nextProps.address})
  }
@@ -43,19 +44,10 @@ class Locator extends Component {
   }
 
   handleSelect = address => {
-    geocodeByAddress(address)
-    .then(results => getLatLng(results[0]))
-    .then(latLng => {
-      const locInfo = {
-        address: address,
-        latLng: latLng
-      }
-      this.props.onChangeLocation(locInfo)
-      storeUserInfo(this.props.name, locInfo)
+    this.props.navStore.relocate(address).then(() => {
+      this.setState({ address: address })
     })
-    .catch(error => console.error('Error', error))
 
-    this.setState({ address: address })
     this.setState({ expanded: false })
   }
 

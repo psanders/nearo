@@ -19,6 +19,7 @@ import classnames from 'classnames'
 import { currentPath } from '../commons/utils'
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
+import LocatorMobile from '../locator/LocatorMobile'
 
 @inject('navStore')
 @inject('usersStore')
@@ -27,7 +28,6 @@ import Locator from '../locator/Locator'
 @withRouter
 @observer
 class Topnav extends React.Component {
-
   @computed get address() {
     return this.props.navStore.navInfo.locInfo.address
   }
@@ -36,14 +36,6 @@ class Topnav extends React.Component {
     const navInfo = this.props.navStore.navInfo
     navInfo.searchTerm = event.target.value
     this.props.navStore.setNavInfo(navInfo)
-    this.props.history.push('/explore')
-  }
-
-  handleOnChangeLocation = locInfo => {
-    const navInfo = this.props.navStore.navInfo
-    navInfo.locInfo = locInfo
-    this.props.navStore.setNavInfo(navInfo)
-    this.props.history.push('/explore')
   }
 
   goToLogin = () => this.props.history.push('/login')
@@ -78,9 +70,12 @@ class Topnav extends React.Component {
              }}
            />
             <Hidden xsDown={true}>
-              <Locator address={this.address} name="locator" onChangeLocation={ this.handleOnChangeLocation } />
+              <Locator address={this.address} name="gobal-location"/>
             </Hidden>
             <span className={ classes.flex } />
+            <Hidden smUp={true}>
+              <LocatorMobile />
+            </Hidden>
             {
               !appStore.loading && !usersStore.isSignedIn() &&
               <div>
@@ -97,7 +92,7 @@ class Topnav extends React.Component {
                   </Button>
                 </Hidden>
                 <Hidden mdUp={true}>
-                  <IconButton onClick={ this.goToLogin } variant="outlined" className={classes.fingerPrint} aria-label="Login">
+                  <IconButton onClick={ this.goToLogin } className={classes.fingerPrint} aria-label="Login">
                     <LoginIcon />
                   </IconButton>
                 </Hidden>

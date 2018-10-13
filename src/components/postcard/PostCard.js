@@ -53,7 +53,7 @@ class PostCard extends React.Component {
 
     const card = (post) => <Grid container>
       <Hidden smUp={true}>
-        <Grid items>
+        <Grid item>
           <Link to={'/posts/' + post.id}>
             <ButtonBase aria-label="Open Publication Details">
               { image(post, imageMobile) }
