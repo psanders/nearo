@@ -1,6 +1,12 @@
 {
   "short_name": "Nearo",
   "name": "Nearo App",
+  "start_url": "./explore",
+  "orientation": "portrait",
+  "display": "standalone",
+  "theme_color": "#484ec2",
+  "background_color": "#484ec2",
+  "gcm_sender_id": "103953800507",
   "icons": [
     {
       "src": "favicon2.png",
@@ -15,10 +21,5 @@
       "type": "image/png",
       "sizes": "192x192"
     }
-  ],
-  "start_url": "./explore",
-  "display": "standalone",
-  "theme_color": "#304FFE",
-  "background_color": "#304FFE",
-  "gcm_sender_id": "103953800507"
+  ]
 }
