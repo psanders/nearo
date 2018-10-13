@@ -7,7 +7,6 @@ import { Route, Switch } from 'react-router-dom'
 import Helmet from 'react-helmet-async'
 import Topnav from './topnav/Topnav'
 import NotificationBar from './NotificationBar'
-import PostPanel from './postpanel/PostPanel'
 import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
 

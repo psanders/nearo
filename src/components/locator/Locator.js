@@ -24,6 +24,7 @@ class Locator extends Component {
 
   componentWillReceiveProps(nextProps) {
    if(nextProps.address === this.state.address) return
+   console.log('DBG002')
    this.setState({address: nextProps.address})
  }
 
@@ -44,6 +45,7 @@ class Locator extends Component {
   }
 
   handleSelect = address => {
+    console.log('DBG004')
     this.props.navStore.relocate(address).then(() => {
       this.setState({ address: address })
     })

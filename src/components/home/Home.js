@@ -3,7 +3,6 @@ import { observer, inject } from 'mobx-react'
 import {computed} from 'mobx'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import Divider from '@material-ui/core/Divider'
 import { withRouter } from 'react-router-dom'
 
 import PostPanel from '../postpanel/PostPanel'
@@ -61,7 +60,6 @@ class Home extends Component {
         { categories() }
       </div>
       <div style={{paddingTop: 20, width: 900, margin: '0 auto'}}>
-
         <Gallery/>
       </div>
     </div>
