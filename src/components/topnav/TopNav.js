@@ -111,6 +111,7 @@ class Topnav extends React.Component {
           </Toolbar>
           {
             (this.props.appStore.loading || this.props.postsStore.loading) &&
+            navigator.onLine === true &&
             <LinearProgress />
           }
         </AppBar>

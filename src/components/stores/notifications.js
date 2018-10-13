@@ -1,10 +1,19 @@
-import { observable } from "mobx"
+import { observable, when } from "mobx"
 
 class NotificationsStore {
     @observable state = {
       open: false,
       message: "",
       timeout: 4000
+    }
+
+    constructor () {
+      when(
+        () => navigator.onLine === false,
+        () => {
+          this.showNotification("No internet connection found. Please check your network", 60000)
+        }
+      )
     }
 
     showMustLogin = () => {

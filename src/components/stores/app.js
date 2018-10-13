@@ -9,9 +9,9 @@ class AppStore {
 
     constructor () {
       when(
-        () => usersStore.isStatusVerified()
+        () => navigator.onLine === false || (usersStore.isStatusVerified()
           && bookmarksStore.isLoaded()
-          && navStore.isLoaded(),
+          && navStore.isLoaded()),
         () => {
           this.ready = true
           this.loading = false
