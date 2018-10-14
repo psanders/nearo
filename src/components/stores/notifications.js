@@ -16,8 +16,8 @@ class NotificationsStore {
       )
     }
 
-    showMustLogin = () => {
-      this.showNotification('Sorry! You must login first')
+    showMustLogin = (loginCbk) => {
+      this.showNotification('Sorry! You must login first', 10000, loginCbk,  "Login")
     }
 
     showNotification = (message, timeout = 4000, callback = null, callbackLabel = "Undo") => {

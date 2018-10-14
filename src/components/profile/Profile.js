@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Hidden from '@material-ui/core/Hidden'
 import firebase from 'firebase/app'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -114,23 +115,25 @@ class Profile extends Component {
 
     return (
       <div>
-        <AppBar>
-          <Toolbar color="secondary" >
-            <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
-              <ArrowBackIcon className={classes.arrawBack}/>
-            </IconButton>
-            <Typography variant="title" className={classnames(classes.flex, classes.logo)}>
-              Nearo
-            </Typography>
-            <Avatar className={classes.avatar}
-              alt={user.name}
-              src={user.picture} />
-          </Toolbar>
-          {
-            this.props.appStore.loading &&
-            <LinearProgress />
-          }
-        </AppBar>
+        <Hidden xsDown={true}>
+          <AppBar>
+            <Toolbar color="secondary" >
+              <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
+                <ArrowBackIcon className={classes.arrawBack}/>
+              </IconButton>
+              <Typography variant="title" className={classnames(classes.flex, classes.logo)}>
+                Nearo
+              </Typography>
+              <Avatar className={classes.avatar}
+                alt={user.name}
+                src={user.picture} />
+            </Toolbar>
+            {
+              this.props.appStore.loading &&
+              <LinearProgress />
+            }
+          </AppBar>
+        </Hidden>
         <div className={classes.container}>
           <Paper className={classes.card}>
             <Typography variant="title" gutterBottom>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Hidden from '@material-ui/core/Hidden'
 import { withRouter } from 'react-router-dom'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebase from 'firebase/app'
@@ -33,12 +34,12 @@ const uiConfig = (self) => {
         // This is need but I don't know way
         self.setState({loading: false})
       },
-      signInSuccessWithAuthResult: (authResult, redirectUrl = "/explore") => {
+      signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
         if (authResult.user && authResult.additionalUserInfo.isNewUser) {
           createUser(authResult)
         }
         // Let Router take care of the navigation
-        self.props.history.push('/explore')
+        self.props.history.push('/')
         return false
       },
       signInFailure: function(error) {
@@ -57,6 +58,7 @@ class LoginScreen extends Component {
 
     return (
       <div>
+        <Hidden xsDown={true}>
         { !hideBar() && <AppBar>
           <Toolbar color="secondary" >
             <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
@@ -68,6 +70,7 @@ class LoginScreen extends Component {
           </Toolbar>
         </AppBar>
         }
+        </Hidden>
         <StyledFirebaseAuth uiCallback={ui => ui.disableAutoSignIn()} uiConfig={uiConfig(this)} firebaseAuth={firebase.auth()} />
       </div>
     )

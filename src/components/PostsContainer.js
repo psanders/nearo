@@ -18,6 +18,14 @@ import PostCard from './postcard/PostCard'
 @observer
 class PostsContainer extends Component {
 
+  componentWillReceiveProps() {
+    if(this.props.favorites) {
+      this.props.postsStore.loadFavorities().then()
+      return
+    }
+  }
+
+  // If is empty show an image an a message of emptiness
   render() {
     const { classes, postsStore } = this.props
 
@@ -27,9 +35,11 @@ class PostsContainer extends Component {
           hasMore={ postsStore.keepScrolling }
           loadMore={ postsStore.showMoreResults }
           loader={<div key={0}>Loading ...</div>}>
-          <Grid item>
-            <SubBar/>
-          </Grid>
+          <Hidden xsDown={true}>
+            <Grid item>
+              <SubBar/>
+            </Grid>
+          </Hidden>
           {
            postsStore.posts.map((post, i) => {
               return <Grid key={post.id} item>

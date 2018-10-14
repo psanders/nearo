@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-import MainContainer from './components/MainContainer'
+import Screen from './MainView'
 import './App.css'
 
 const theme = createMuiTheme({
@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div className="App">
           <MuiThemeProvider theme={theme}>
-            <MainContainer />
+            <Screen />
           </MuiThemeProvider>
       </div>
     )

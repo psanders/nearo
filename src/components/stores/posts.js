@@ -41,6 +41,30 @@ class PostsStore {
         this.posts.length !== this.nbHits ? true : false
     }
 
+    async loadFavorities() {
+      if (!usersStore.currentUser.id) {
+        console.log('This guy is not login :(', usersStore.currentUser)
+        this.posts = []
+        return
+      }
+
+      /*const posts = []
+      await bookmarksStore.bookmarks.map(bookmark => {
+        db.collection('posts').doc(bookmark)
+        .get()
+        .then(value => {
+          const post = value.data()
+          post.id = value.id
+          posts.push(post)
+        })
+      })*/
+
+      //console.log('posts', posts)
+      this.posts = []
+      console.log('posts', this.posts)
+      return
+    }
+
     isPostDialogOpen = () => this.postDialogOpen
 
     openPostDialog = () => {
