@@ -1,8 +1,8 @@
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 export const styles = theme => ({
-  filters: {
-    backgroundColor: '#f4f4f4',
+  toolbar: {
+    backgroundColor: '#dae0e6',
   },
   search: {
     position: 'relative',

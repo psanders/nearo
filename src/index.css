@@ -1,7 +1,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   width: 100vw;
   height: 100vh;
   overscroll-behavior-y: none; /* Does not work in Safary desktop or mobile */

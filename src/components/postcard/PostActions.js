@@ -139,9 +139,6 @@ class PostActions extends Component {
         this.isOwner() &&
         <Button onClick={this.handleRemove} className={classes.actionBtn}>
           <DeleteIcon className={classes.actionIcon } />
-          <Typography variant="caption" color="secondary">
-            Remove
-          </Typography>
         </Button>
       }
     </div>

@@ -34,8 +34,8 @@ class MobileScreen extends Component {
         <ProfilePage />
       }
       <div className={ classes.toolbar } />
-      <BottomNav />
       <NotificationBar />
+      <BottomNav />
     </Fragment>
   }
 }

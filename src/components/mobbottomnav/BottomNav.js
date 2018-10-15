@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import HomeIcon from '@material-ui/icons/Home'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ProfileIcon from '@material-ui/icons/AccountCircle'
-import EditLocationIcon from '@material-ui/icons/LocationOn'
+import HomeIcon from '@material-ui/icons/HomeOutlined'
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
+import ProfileIcon from '@material-ui/icons/AccountCircleOutlined'
+import EditLocationIcon from '@material-ui/icons/LocationOnOutlined'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
@@ -38,13 +38,14 @@ class BNav extends React.Component {
 
     return (
       <BottomNavigation
+        showLabels
         value={this.value}
         onChange={this.handleChange}
         className={classes.root}>
-        <BottomNavigationAction value="/" icon={<HomeIcon />}  />
-        <BottomNavigationAction value="/favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction value="/location" icon={<EditLocationIcon />} />
-        <BottomNavigationAction value="/profile" icon={<ProfileIcon />}  />
+        <BottomNavigationAction label="Home" value="/" icon={<HomeIcon />}  />
+        <BottomNavigationAction label="Favorites" value="/favorites" icon={<FavoriteIcon />} />
+        <BottomNavigationAction label="Location" value="/location" icon={<EditLocationIcon />} />
+        <BottomNavigationAction label="Profile" value="/profile" icon={<ProfileIcon />}  />
       </BottomNavigation>
     )
   }

@@ -7,7 +7,7 @@ import InputBase from '@material-ui/core/InputBase'
 import SearchIcon from '@material-ui/icons/Search'
 
 import { ellip } from '../commons/utils'
-import { styles } from './SubBarStyles'
+import { styles } from './styles'
 
 @inject('navStore')
 @inject('postsStore')
@@ -36,7 +36,7 @@ class SubBar extends Component {
 
     return (
       <Fragment>
-        <Toolbar className={classes.filters}>
+        <Toolbar className={classes.toolbar}>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

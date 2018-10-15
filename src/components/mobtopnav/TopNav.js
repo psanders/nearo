@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import IconButton from '@material-ui/core/IconButton'
-import NotificationsIcon from '@material-ui/icons/Notifications'
+import NotificationsIcon from '@material-ui/icons/NotificationsOutlined'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
@@ -32,7 +32,7 @@ class TopNav extends Component {
   render() {
     return (
       <Fragment>
-        <AppBar>
+        <AppBar elevation={0}>
           <Toolbar>
             <Typography variant="title" >
               <span style={commonSyles.logo}>Nearo</span>
