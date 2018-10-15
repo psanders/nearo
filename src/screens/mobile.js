@@ -7,8 +7,9 @@ import Favorites from './favorites.mobile'
 import BottomNav from '../components/mobbottomnav/BottomNav'
 import HomePage from './home.mobile'
 import PostPage from './post.mobile'
+import LocationPage from './location.mobile'
+import ProfilePage from './profile.mobile'
 import TopNav from '../components/mobtopnav/TopNav'
-import Profile from './profile.mobile'
 
 const styles = theme => ({
   toolbar: theme.mixins.toolbar,
@@ -26,10 +27,11 @@ class MobileScreen extends Component {
       { this.props.appStore.currentView === '/' && <HomePage /> }
       { this.props.appStore.currentView === '/post' && <PostPage /> }
       { this.props.appStore.currentView === '/favorites' && <Favorites /> }
+      { this.props.appStore.currentView === '/location' && <LocationPage /> }
       {
         (this.props.appStore.currentView === '/profile' ||
         this.props.appStore.currentView === '/login') &&
-        <Profile />
+        <ProfilePage />
       }
       <div className={ classes.toolbar } />
       <BottomNav />

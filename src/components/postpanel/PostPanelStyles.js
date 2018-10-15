@@ -47,9 +47,9 @@ export const styles = theme => ({
   },
   newPostBtn: {
     textTransform: 'capitalize',
-    backgroundColor: theme.palette.accent.light,
+    backgroundColor: theme.palette.accent.main,
     '&:hover': {
-      backgroundColor: theme.palette.accent.main,
+      backgroundColor: theme.palette.accent.light,
     }
   },
   button: {

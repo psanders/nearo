@@ -70,7 +70,7 @@ class Topnav extends React.Component {
              }}
            />
             <Hidden xsDown={true}>
-              <Locator address={this.address} name="gobal-location"/>
+              <Locator address={this.address} name="gobal-location" />
             </Hidden>
             <span className={ classes.flex } />
             <Hidden smUp={true}>

@@ -51,7 +51,7 @@ class Locator extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, withBorder, withWith } = this.props
     const { expanded, address } = this.state
     this.myButton = React.createRef()
 
@@ -71,6 +71,7 @@ class Locator extends Component {
             onClick={this.handleToggle}
             onMouseOut={this.handleClose}
             aria-label="Select Address Button"
+            style={{width: withWith? withWith:'' , border: withBorder? '1px solid #546E7A': ''}}
            >
             <LocationIcon color="secondary" className={classes.leftIcon} />
             <span className={classes.iconText}>{ ellip( address, 22) }</span>
@@ -93,7 +94,7 @@ class Locator extends Component {
                 id="menu-list-grow"
                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
-                <Paper style={{width: 250}}>
+                <Paper style={{width: withWith? (withWith - 1.8): 250}}>
                   <ClickAwayListener onClickAway={this.handleClose} >
                     <SearchInput
                       onSelect={this.handleSelect}/>
