@@ -37,7 +37,7 @@ class NoMatch extends Component {
             <Typography component="p">
             This is use to show you content
               <br />
-            relevant to your area.
+            relevant to you.
             </Typography>
           </CardContent>
         </Card>

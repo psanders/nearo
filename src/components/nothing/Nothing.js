@@ -32,9 +32,9 @@ class NoMatch extends Component {
               No liked post
             </Typography>
             <Typography component="p">
-            All your liked posts will appear here
+            All your liked posts will appear
               <br />
-            so can come back to them anytime
+            here. 
             </Typography>
           </CardContent>
           <CardActions>
