@@ -61,6 +61,10 @@ class PostActions extends Component {
       this.props.bookmarksStore.removeFromBookmarks(this.post, this.props.usersStore.currentUser)
     }
 
+    if(!this.props.usersStore.isSignedIn()) {
+      return
+    }
+
     this.setState({
       bookmarked: !this.state.bookmarked,
     });
