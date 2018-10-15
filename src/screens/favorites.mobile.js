@@ -1,12 +1,10 @@
-import React, { Component, Fragment } from 'react'
-import PostsContainer from '../components/PostsContainer'
+import React, { Component } from 'react'
+import FavList from '../components/mobfavlist/FavList'
 
-class HomePage extends Component {
+class Favorites extends Component {
   render () {
-    return <Fragment>
-      <PostsContainer favorites/>
-    </Fragment>
+    return <FavList />
   }
 }
 
-export default HomePage
+export default Favorites

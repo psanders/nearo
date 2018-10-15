@@ -14,6 +14,7 @@ const maxItemperPage = 20 // It will load those 20 items super fast!
 class PostsStore {
     @observable postDialogOpen = false
     @observable posts = []
+    @observable favPosts = []
     @observable currentPost = null
     @observable nbHits = 0
     @observable deletedPost
@@ -41,28 +42,22 @@ class PostsStore {
         this.posts.length !== this.nbHits ? true : false
     }
 
-    async loadFavorities() {
+    loadFavorities() {
       if (!usersStore.currentUser.id) {
-        console.log('This guy is not login :(', usersStore.currentUser)
-        this.posts = []
         return
       }
 
-      /*const posts = []
-      await bookmarksStore.bookmarks.map(bookmark => {
-        db.collection('posts').doc(bookmark)
-        .get()
+      this.favPosts.replace([])
+
+      bookmarksStore.bookmarks.map(bookmark => {
+        return db.collection('posts').doc(bookmark).get()
         .then(value => {
           const post = value.data()
           post.id = value.id
-          posts.push(post)
+          this.favPosts.push(post)
+          return
         })
-      })*/
-
-      //console.log('posts', posts)
-      this.posts = []
-      console.log('posts', this.posts)
-      return
+      })
     }
 
     isPostDialogOpen = () => this.postDialogOpen

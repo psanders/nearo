@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
 import Divider from '@material-ui/core/Divider'
-import {withStyles} from '@material-ui/core/styles'
-import {observer, inject} from 'mobx-react'
+import { withStyles } from '@material-ui/core/styles'
+import { observer, inject } from 'mobx-react'
+import { computed } from 'mobx'
 import InfiniteScroll from 'react-infinite-scroller'
 
 import SubBar from './subbar/SubBar'
@@ -18,9 +19,15 @@ import PostCard from './postcard/PostCard'
 @observer
 class PostsContainer extends Component {
 
+  @computed get posts () {
+    return this.props.postsStore.posts
+  }
+
   componentWillReceiveProps() {
+    console.log('DBG001')
     if(this.props.favorites) {
-      this.props.postsStore.loadFavorities().then()
+      console.log('DBG002')
+      this.props.postsStore.loadFavorities()
       return
     }
   }
@@ -41,7 +48,7 @@ class PostsContainer extends Component {
             </Grid>
           </Hidden>
           {
-           postsStore.posts.map((post, i) => {
+           this.posts.map((post, i) => {
               return <Grid key={post.id} item>
                 <PostCard post={post}/>
                 {

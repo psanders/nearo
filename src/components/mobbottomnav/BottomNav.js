@@ -7,7 +7,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ProfileIcon from '@material-ui/icons/Person'
 import EditLocationIcon from '@material-ui/icons/EditLocation'
-import { withRouter } from 'react-router-dom'
+import { observer, inject } from 'mobx-react'
 
 const styles = {
   root: {
@@ -17,15 +17,22 @@ const styles = {
   },
 }
 
-@withRouter
-class LabelBottomNavigation extends React.Component {
+@inject('appStore')
+@inject('postsStore')
+@inject('navStore')
+@inject('usersStore')
+@inject('bookmarksStore')
+@inject('notificationsStore')
+@observer
+class BNav extends React.Component {
   state = {
     value: '/',
   }
 
   handleChange = (event, value) => {
     console.log('value', value)
-    this.props.history.push(value)
+    this.props.appStore.currentView = value
+    //this.props.history.push(value)
     this.setState({value: value})
   }
 
@@ -44,8 +51,8 @@ class LabelBottomNavigation extends React.Component {
   }
 }
 
-LabelBottomNavigation.propTypes = {
+BNav.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(LabelBottomNavigation)
+export default withStyles(styles)(BNav)

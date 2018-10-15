@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Route, Switch } from 'react-router-dom'
+import { observer, inject } from 'mobx-react'
 
 import TopNav from '../components/mobtopnav/TopNav'
 import NotificationBar from '../components/NotificationBar'
@@ -13,6 +13,8 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 })
 
+@inject('appStore')
+@observer
 class MobileScreen extends Component {
   render () {
     const { classes } = this.props
@@ -20,11 +22,9 @@ class MobileScreen extends Component {
     return <Fragment>
       <TopNav />
       <div className={ classes.toolbar } />
-      <Switch>
-        <Route exact path='/' component={ HomePage } />
-        <Route exact path='/favorites' component={ Favorites } />
-        <Route exact path='/profile' component={ Profile } />
-      </Switch>
+      { this.props.appStore.currentView === '/' && <HomePage /> }
+      { this.props.appStore.currentView === '/favorites' && <Favorites /> }
+      { this.props.appStore.currentView === '/profile' && <Profile /> }
       <BottomNav />
       <NotificationBar />
     </Fragment>

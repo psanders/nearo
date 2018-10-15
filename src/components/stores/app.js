@@ -6,6 +6,7 @@ import { navStore } from './navigation'
 class AppStore {
     @observable ready = false
     @observable loading = true
+    @observable currentView = '/'
 
     constructor () {
       when(
