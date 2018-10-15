@@ -7,7 +7,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ExitIcon from '@material-ui/icons/ExitToApp'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { withStyles } from '@material-ui/core/styles'
-import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 
 import { commonSyles } from '../../shared/styles/styles'
@@ -16,7 +15,6 @@ import { styles } from './styles'
 @inject('usersStore')
 @inject('appStore')
 @inject('notificationsStore')
-@withRouter
 @observer
 class ProfileMenu extends React.Component {
   state = {
@@ -26,7 +24,7 @@ class ProfileMenu extends React.Component {
   handleClick = event => {
     if (!this.props.usersStore.isSignedIn()) {
       this.props.notificationsStore.showMustLogin(() => {
-        this.props.history.push('/login')
+        this.props.appStore.currentView('/profile')
       })
       return
     }
@@ -37,12 +35,12 @@ class ProfileMenu extends React.Component {
 
   handleSignOut = () => {
     this.props.usersStore.doSignOut()
-    this.props.history.push('/')
+    this.props.appStore.currentView('/')
   }
 
   render() {
     const { anchorEl } = this.state
-    const { classes } = this.props
+    const { classes, appStore } = this.props
 
     return (
       <div>
@@ -60,7 +58,7 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={ () => this.props.history.push('/profile') } >
+          <MenuItem onClick={ () => appStore.currentView('/profile') } >
             <ListItemIcon className={classes.icon} >
               <SettingsIcon />
             </ListItemIcon>

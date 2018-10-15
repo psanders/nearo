@@ -6,14 +6,14 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import { withRouter } from 'react-router-dom'
+import { observer, inject } from 'mobx-react'
 
-@withRouter
+@inject('appStore')
+@observer
 class NoMatch extends Component {
 
   render () {
-    const props = this.props
-    const { classes } = props
+    const { classes, appStore } = this.rops
 
     return (<div className={classes.root}>
       <div className={classes.row}>
@@ -35,7 +35,7 @@ class NoMatch extends Component {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={() => props.history.push('/')} size="small" variant="outlined" color="primary">Go Home</Button>
+            <Button onClick={() => appStore.currentView('/')} size="small" variant="outlined" color="primary">Go Home</Button>
           </CardActions>
         </Card>
       </div>

@@ -28,11 +28,22 @@ class PostView extends Component {
   }
 
   componentDidMount () {
+    const currentPost = this.props.postsStore.currentPost
+    if (!currentPost) {
+      this.loadFromDB()
+      return
+    }
+    this.loadUser(currentPost)
+  }
+
+  loadFromDB () {
     const postRef = db.collection('posts').doc(currentPath(2))
     postRef.get()
     .then(result => {
       if (result.exists && !result.data().deleted) {
-        this.loadUser(result)
+        const post = result.data()
+        post.id = result.id
+        this.loadUser(post)
       } else {
         // throw 404
       }
@@ -41,9 +52,7 @@ class PostView extends Component {
     })
   }
 
-  loadUser = postInfo => {
-    const post = postInfo.data()
-    post.id = postInfo.id
+  loadUser = post => {
     const userRef = db.collection('users').doc(post.userId)
     userRef.get()
     .then(user => {

@@ -30,7 +30,7 @@ class BNav extends React.Component {
       })
       return
     }
-    this.props.appStore.currentView = value
+    this.props.appStore.currentView(value)
   }
 
   render() {

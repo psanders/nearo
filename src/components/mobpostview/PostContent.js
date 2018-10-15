@@ -5,6 +5,7 @@ import MoneyIcon from '@material-ui/icons/AttachMoney'
 import Typography from '@material-ui/core/Typography'
 import Linkify from 'react-linkify'
 import Moment from 'react-moment'
+import firebase from 'firebase/app'
 
 import {
   imageURL,
@@ -44,7 +45,7 @@ export const postContent = (post, classes, gutterBottom) => {
         <Linkify>{ post.body }</Linkify>
       </Typography>
       <Typography variant="caption" gutterBottom className={classes.bottom10}>
-        Posted <Moment fromNow={true} interval={30000}>{post.timestamp.toDate()}</Moment> nearby "{ ellip(post.locText, 22) }"
+        Posted <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment> nearby "{ ellip(post.locText, 22) }"
       </Typography>
     </div>
   </div>

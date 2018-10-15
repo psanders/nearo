@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import CardMedia from '@material-ui/core/CardMedia'
 import Moment from 'react-moment'
-import { Link } from 'react-router-dom'
 import LinkIcon from '@material-ui/icons/Link'
 import Icon360 from '@material-ui/icons/ThreeSixty'
 import Hidden from '@material-ui/core/Hidden'
@@ -21,11 +20,12 @@ import { imageURL, hasPanorama } from '../commons/utils'
 import PostActions from './PostActions'
 
 @inject('appStore')
+@inject('postsStore')
 @observer
 class PostCard extends React.Component {
 
   render() {
-    const { classes, post } = this.props
+    const { classes, post, appStore, postsStore } = this.props
 
     const placeHolder = () => <div
         className={classes.placeHolder}
@@ -57,11 +57,12 @@ class PostCard extends React.Component {
     const card = (post) => <Grid container>
       <Hidden smUp={true}>
         <Grid item>
-          <Link to={'/posts/' + post.id}>
-            <ButtonBase aria-label="Open Publication Details" onClick={() => this.props.appStore.currentView = '/post'}>
-              { image(post, imageMobile) }
-            </ButtonBase>
-          </Link>
+          <ButtonBase aria-label="Open Publication Details" onClick={() => {
+            postsStore.currentPost = post
+            appStore.currentView('/posts')}
+          }>
+            { image(post, imageMobile) }
+          </ButtonBase>
         </Grid>
       </Hidden>
       <Grid item xs={12} sm container>
@@ -86,11 +87,12 @@ class PostCard extends React.Component {
       </Grid>
       <Hidden xsDown={true}>
         <Grid item style={{paddingTop: 35}}>
-          <Link to={'/posts/' + post.id}>
-            <ButtonBase className={classes.image} aria-label="Open Publication Details">
-              { image(post, imageDesktop) }
-            </ButtonBase>
-          </Link>
+          <ButtonBase className={classes.image} aria-label="Open Publication Details" onClick={() => {
+            postsStore.currentPost = post
+            appStore.currentView('/posts')}
+          }>
+            { image(post, imageDesktop) }
+          </ButtonBase>
         </Grid>
       </Hidden>
     </Grid>

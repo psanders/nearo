@@ -11,56 +11,21 @@ import Moment from 'react-moment'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Linkify from 'react-linkify'
 import firebase from 'firebase/app'
-import { Link } from 'react-router-dom'
+import { observer, inject } from 'mobx-react'
 
 import PostActions from '../postcard/PostActions'
 import { imageURL } from '../commons/utils'
 
-const styles = theme => ({
-  cardContent: {
-    padding: theme.spacing.unit,
-    paddingBottom: 0
-  },
-  cardImg: {
-    width: 280,
-  },
-  card: {
-    width: 280,
-    marginBottom: theme.spacing.unit * 2
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  actions: {
-    display: 'flex',
-    padding: theme.spacing.unit,
-  },
-  expand: { /* Leave this here for later */
-    transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-    marginLeft: 'auto',
-    [theme.breakpoints.up('sm')]: {
-      marginRight: -8,
-    },
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: theme.palette.secondary.main
-  },
-})
-
+@inject('appStore')
+@inject('postsStore')
+@observer
 class RecipeReviewCard extends React.Component {
   state = { expanded: false }
 
   handleExpandClick = () => this.setState(state => ({ expanded: !state.expanded }))
 
   render() {
-    const { classes, post } = this.props
+    const { classes, post, appStore, postsStore } = this.props
 
     return (
       <Card className={classes.card} elevation={0}>
@@ -68,18 +33,18 @@ class RecipeReviewCard extends React.Component {
           avatar={
             <Avatar src={post.avatar} aria-label="Recipe" className={classes.avatar} />
           }
-
           subheader={ <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment>}
         />
         {
           post.media &&
           post.media.length > 0 &&
-          <Link to={'/posts/' + post.id} >
-            <ButtonBase aria-label="Open Publication Details">
-              <img alt="" className={classes.cardImg} src={ imageURL(post, 'md') } />
-            </ButtonBase>
-          </Link>
-          }
+          <ButtonBase aria-label="Open Publication Details" onClick={() => {
+            postsStore.currentPost = post
+            appStore.currentView('/posts')}
+          }>
+            <img alt="" className={classes.cardImg} src={ imageURL(post, 'md') } />
+          </ButtonBase>
+        }
         <CardContent className={classes.cardContent}>
           <Typography component="p">
             <Linkify>
@@ -135,5 +100,44 @@ class RecipeReviewCard extends React.Component {
 RecipeReviewCard.propTypes = {
   classes: PropTypes.object.isRequired,
 }
+
+
+const styles = theme => ({
+  cardContent: {
+    padding: theme.spacing.unit,
+    paddingBottom: 0
+  },
+  cardImg: {
+    width: 280,
+  },
+  card: {
+    width: 280,
+    marginBottom: theme.spacing.unit * 2
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  actions: {
+    display: 'flex',
+    padding: theme.spacing.unit,
+  },
+  expand: { /* Leave this here for later */
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+    marginLeft: 'auto',
+    [theme.breakpoints.up('sm')]: {
+      marginRight: -8,
+    },
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: theme.palette.secondary.main
+  },
+})
 
 export default withStyles(styles)(RecipeReviewCard)

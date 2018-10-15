@@ -2,7 +2,6 @@ import React from 'react'
 import 'typeface-roboto'
 import './index.css'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from "mobx-react"
 
@@ -17,18 +16,16 @@ import { notificationsStore } from './components/stores/notifications'
 
 ReactDOM.render(
   <HelmetProvider>
-    <BrowserRouter>
-      <Provider
-        appStore={appStore}
-        navStore={navStore}
-        postsStore={postsStore}
-        notificationsStore={notificationsStore}
-        usersStore={usersStore}
-        bookmarksStore={bookmarksStore}
-        >
-        <App />
-      </Provider>
-      </BrowserRouter>
+    <Provider
+      appStore={appStore}
+      navStore={navStore}
+      postsStore={postsStore}
+      notificationsStore={notificationsStore}
+      usersStore={usersStore}
+      bookmarksStore={bookmarksStore}
+      >
+      <App />
+    </Provider>
   </HelmetProvider>,
 document.getElementById('root'))
 registerServiceWorker()

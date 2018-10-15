@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Hidden from '@material-ui/core/Hidden'
-import { withRouter } from 'react-router-dom'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import firebase from 'firebase/app'
 import IconButton from '@material-ui/core/IconButton'
@@ -8,6 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import Typography from '@material-ui/core/Typography'
 import Toolbar from '@material-ui/core/Toolbar'
 import AppBar from '@material-ui/core/AppBar'
+import { observer, inject } from 'mobx-react'
 import 'firebase/auth'
 import firebaseui from 'firebaseui'
 
@@ -39,7 +39,7 @@ const uiConfig = (self) => {
           createUser(authResult)
         }
         // Let Router take care of the navigation
-        self.props.history.push('/')
+        self.props.appStore.currentView('/')
         return false
       },
       signInFailure: function(error) {
@@ -48,10 +48,13 @@ const uiConfig = (self) => {
   }
 }}
 
-@withRouter
+
+@inject('appStore')
+@observer
 class LoginScreen extends Component {
 
   render() {
+    const { appStore } = this.props
     const hideBar = () => document.getElementsByClassName("firebaseui-idp-list").length > 0
       ? false
       : true
@@ -61,7 +64,7 @@ class LoginScreen extends Component {
         <Hidden xsDown={true}>
         { !hideBar() && <AppBar>
           <Toolbar color="secondary" >
-            <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
+            <IconButton color="inherit" onClick={ () => appStore.currentView('/') } aria-label="Close">
               <ArrowBackIcon style={{ color: '#fff' }} />
             </IconButton>
             <Typography variant="title" style={{ color: '#fff' }}>

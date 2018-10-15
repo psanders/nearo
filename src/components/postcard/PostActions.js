@@ -14,13 +14,11 @@ import ShareButton from './ShareButton'
 import { styles } from './PostCardStyles'
 import { observer, inject } from 'mobx-react'
 import { computed, when } from 'mobx'
-import { withRouter } from 'react-router-dom'
-import { currentPath } from '../commons/utils'
 
 @inject('bookmarksStore')
 @inject('postsStore')
 @inject('usersStore')
-@withRouter
+@inject('appStore')
 @observer
 class PostActions extends Component {
   state = {
@@ -81,8 +79,8 @@ class PostActions extends Component {
 
   handleRemove = () => {
     this.props.postsStore.handlePostDelete(this.props.post)
-    if (currentPath(1) === 'posts') {
-      this.props.history.push('/explore')
+    if (this.props.appStore.currentView() === '/posts') {
+      this.props.appStore.currentView('/explore')
     }
   }
 

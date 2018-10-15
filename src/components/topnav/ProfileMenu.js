@@ -8,13 +8,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ExitIcon from '@material-ui/icons/ExitToApp'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { withStyles } from '@material-ui/core/styles'
-import { withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { styles } from './TopnavStyles'
 
 @inject('usersStore')
 @inject('appStore')
-@withRouter
 @observer
 class ProfileMenu extends React.Component {
   state = {
@@ -27,7 +25,7 @@ class ProfileMenu extends React.Component {
 
   render() {
     const { anchorEl } = this.state
-    const { classes, usersStore } = this.props
+    const { classes, usersStore, appStore } = this.props
     const user = usersStore.currentUser
 
     return (
@@ -52,7 +50,7 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={ () => this.props.history.push('/profile') } >
+          <MenuItem onClick={ () => this.props.appStore.currentView('/profile') } >
             <ListItemIcon className={classes.icon} >
               <SettingsIcon />
             </ListItemIcon>

@@ -13,10 +13,8 @@ import IconButton from '@material-ui/core/IconButton'
 import LoginIcon from '@material-ui/icons/Fingerprint'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
-import { withRouter } from 'react-router-dom'
 import classnames from 'classnames'
 
-import { currentPath } from '../commons/utils'
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
 import LocatorMobile from '../locator/LocatorMobile'
@@ -25,7 +23,6 @@ import LocatorMobile from '../locator/LocatorMobile'
 @inject('usersStore')
 @inject('appStore')
 @inject('postsStore')
-@withRouter
 @observer
 class Topnav extends React.Component {
   @computed get address() {
@@ -38,9 +35,9 @@ class Topnav extends React.Component {
     this.props.navStore.setNavInfo(navInfo)
   }
 
-  goToLogin = () => this.props.history.push('/login')
+  goToLogin = () => this.props.appStore.currentView('/profile')
 
-  handleNav = () => this.props.history.push(currentPath(1) === 'explore'? '/' : '/explore')
+  handleNav = () => this.props.appStore.currentView('/')
 
   render() {
     const { classes, usersStore, appStore } = this.props

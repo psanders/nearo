@@ -19,18 +19,18 @@ const styles = theme => ({
 @observer
 class MobileScreen extends Component {
   render () {
-    const { classes } = this.props
+    const { classes, appStore } = this.props
 
     return <Fragment>
       <TopNav />
       <div className={ classes.toolbar } />
-      { this.props.appStore.currentView === '/' && <HomePage /> }
-      { this.props.appStore.currentView === '/post' && <PostPage /> }
-      { this.props.appStore.currentView === '/favorites' && <Favorites /> }
-      { this.props.appStore.currentView === '/location' && <LocationPage /> }
+      { appStore.currentView() === '/' && <HomePage /> }
+      { appStore.currentView() === '/posts' && <PostPage /> }
+      { appStore.currentView() === '/favorites' && <Favorites /> }
+      { appStore.currentView() === '/location' && <LocationPage /> }
       {
-        (this.props.appStore.currentView === '/profile' ||
-        this.props.appStore.currentView === '/login') &&
+        (appStore.currentView() === '/profile' ||
+        appStore.currentView() === '/login') &&
         <ProfilePage />
       }
       <div className={ classes.toolbar } />

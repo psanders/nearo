@@ -6,7 +6,6 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import IconButton from '@material-ui/core/IconButton'
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined'
 import { observer, inject } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
 
 import PostPanel from '../postpanel/PostPanel'
 import { commonSyles } from '../../shared/styles/styles'
@@ -15,14 +14,13 @@ import { commonSyles } from '../../shared/styles/styles'
 @inject('postsStore')
 @inject('usersStore')
 @inject('notificationsStore')
-@withRouter
 @observer
 class TopNav extends Component {
 
   handleClick = event => {
     if (!this.props.usersStore.isSignedIn()) {
       this.props.notificationsStore.showMustLogin(() => {
-        this.props.history.push('/profile')
+        this.props.appStore.currentView('/profile')
       })
       return
     }

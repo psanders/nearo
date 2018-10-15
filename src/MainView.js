@@ -1,12 +1,10 @@
-import React, { Component } from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import { Route, Switch } from 'react-router-dom'
+import React, { Component, Fragment} from 'react'
 import Hidden from '@material-ui/core/Hidden'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Helmet from 'react-helmet-async'
 import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
+import { observer, inject } from 'mobx-react'
 
 import Topnav from './components/topnav/Topnav'
 import NotificationBar from './components/NotificationBar'
@@ -44,9 +42,11 @@ const PostsContainer = Loadable({
   loading: () => loading,
 })
 
+@inject('appStore')
+@observer
 class MainContainer extends Component {
   render () {
-    const { classes } = this.props
+    const { classes, appStore } = this.props
 
     const scrollTop = () => {
       document.body.scrollTop = 0 // For Safari
@@ -54,77 +54,25 @@ class MainContainer extends Component {
     }
 
     return(
-      <div>
+      <Fragment>
         <Hidden xsDown={true}>
           <div className={ classes.root }>
             <main className={ classes.content }>
               <div className={ classes.toolbar } />
-              <BrowserRouter>
-                <Switch>
-                  <Route
-                    exact path='/'
-                    render={(props) => {
-                      scrollTop()
-                      return <div>
-                        <Helmet>
-                          <title>Nearo</title>
-                        </Helmet>
-                        <Topnav className={ classes.appBar } />
-                        <Hidden mdUp={true}><PostsContainer/></Hidden>
-                        <Hidden smDown={true}><Home /></Hidden>
-                      </div>
-                    }}
-                  />
-                  <Route
-                    exact path='/explore'
-                    render={(props) => {
-                      scrollTop()
-                      return <div>
-                        <Helmet>
-                          <title>Nearo - Explore</title>
-                        </Helmet>
-                        <Topnav className={ classes.appBar } />
-                        <PostsContainer />
-                      </div>
-                    }}
-                  />
-                  <Route
-                    path='/posts/:postId'
-                    render={(props) => {
-                      scrollTop()
-                      return <div>
-                        <Topnav className={ classes.appBar } />
-                        <PostView />
-                      </div>
-                    }}
-                  />
-                  <Route
-                    path='/login'
-                    render={(props) => {
-                      scrollTop()
-                      return <LoginScreen />
-                    }}
-                  />
-                  <Route
-                    path='/profile'
-                    render={(props) => {
-                      scrollTop()
-                      return <div>
-                        <Profile />
-                      </div>
-                  }}
-                  />
-                  <Route render={ props =>  <NoMatch /> } />
-                </Switch>
-              </BrowserRouter>
+              <Topnav className={ classes.appBar } />
+              { appStore.currentView() === '/' && <Home /> }
+              { appStore.currentView() === '/explore' && <PostsContainer /> }
+              { appStore.currentView() === '/posts' && <PostView /> }
+              { appStore.currentView() === '/profile' && <Profile /> }
+              { appStore.currentView() === null && <NoMatch /> }
             </main>
-            <NotificationBar />
           </div>
         </Hidden>
         <Hidden smUp={true}>
           <MobileScreen />
         </Hidden>
-      </div>
+        <NotificationBar />
+      </Fragment>
     )
   }
 }

@@ -3,7 +3,6 @@ import { observer, inject } from 'mobx-react'
 import {computed} from 'mobx'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { withRouter } from 'react-router-dom'
 
 import PostPanel from '../postpanel/PostPanel'
 import Gallery from './Gallery'
@@ -15,11 +14,10 @@ import { getCategories } from '../commons/categories'
 @inject('navStore')
 @inject('bookmarksStore')
 @inject('notificationsStore')
-@withRouter
 @observer
 class Home extends Component {
 
-  goToLogin = () => this.props.history.push('/login')
+  goToLogin = () => this.props.appStore.currentView('/profile')
 
   @computed get signed () {
     return this.props.usersStore.signedIn
@@ -29,7 +27,7 @@ class Home extends Component {
     const navInfo = this.props.navStore.navInfo
     navInfo.searchTerm = category.name
     this.props.navStore.setNavInfo(navInfo)
-    this.props.history.push('/explore')
+    this.props.appStore.currentView('/explore')
   }
 
   render() {
