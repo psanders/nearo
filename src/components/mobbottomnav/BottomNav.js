@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
@@ -14,7 +14,7 @@ import { computed } from 'mobx'
 @inject('usersStore')
 @inject('notificationsStore')
 @observer
-class BNav extends React.Component {
+class BNav extends Component {
   @computed get value() {
     return this.props.appStore.currentView()
   }
@@ -34,7 +34,7 @@ class BNav extends React.Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, appStore } = this.props
 
     return (
       <BottomNavigation
@@ -42,10 +42,10 @@ class BNav extends React.Component {
         value={this.value}
         onChange={this.handleChange}
         className={classes.root}>
-        <BottomNavigationAction label="Home" value="/" icon={<HomeIcon />}  />
-        <BottomNavigationAction label="Favorites" value="/favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Location" value="/location" icon={<EditLocationIcon />} />
-        <BottomNavigationAction label="Profile" value="/profile" icon={<ProfileIcon />}  />
+          { appStore.isReady() && <BottomNavigationAction label="Home" value="/" icon={<HomeIcon />}  /> }
+          { appStore.isReady() && <BottomNavigationAction label="Favorites" value="/favorites" icon={<FavoriteIcon />} /> }
+          { appStore.isReady() && <BottomNavigationAction label="Location" value="/location" icon={<EditLocationIcon />} /> }
+          { appStore.isReady() && <BottomNavigationAction label="Profile" value="/profile" icon={<ProfileIcon />}  /> }
       </BottomNavigation>
     )
   }

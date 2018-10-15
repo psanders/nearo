@@ -27,7 +27,7 @@ class AppStore {
       } else if (!this.curView && currentPath()) {
         return '/' + currentPath()
       }
-      window.history.pushState({}, document.title, '/');
+      //window.history.pushState({}, document.title, '/');
       return this.curView || '/'
     }
 

@@ -28,25 +28,31 @@ class TopNav extends Component {
   }
 
   render() {
+    const { appStore } = this.props
+
     return (
       <Fragment>
         <AppBar elevation={0}>
-          <Toolbar>
-            <Typography variant="title" >
-              <span style={commonSyles.logo}>Nearo</span>
-            </Typography>
+          <Toolbar> {
+            appStore.isReady() &&
+              <Fragment>
+                <Typography variant="title" >
+                  <span style={commonSyles.logo}>Nearo</span>
+                </Typography>
 
-          <span style={ commonSyles.flex } />
+                <span style={ commonSyles.flex } />
 
-          <IconButton onClick={this.handleClick}>
-            <NotificationsIcon style={commonSyles.clrWhite} />
-          </IconButton>
+                <IconButton onClick={this.handleClick}>
+                  <NotificationsIcon style={commonSyles.clrWhite} />
+                </IconButton>
 
-          <PostPanel />
-
+                <PostPanel />
+              </Fragment>
+            }
           </Toolbar>
           {
             (this.props.appStore.loading || this.props.postsStore.loading) &&
+            this.props.appStore.isReady() &&
             navigator.onLine === true &&
             <LinearProgress />
           }

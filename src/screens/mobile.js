@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import  Fade from '@material-ui/core/Fade'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
@@ -34,14 +35,21 @@ class MobileScreen extends Component {
       </Helmet>
       <TopNav />
       <div className={ classes.toolbar } />
-      { appStore.currentView() === '/' && <HomePage /> }
-      { appStore.currentView() === '/posts' && <PostPage /> }
-      { appStore.currentView() === '/favorites' && <Favorites /> }
-      { appStore.currentView() === '/location' && <LocationPage /> }
       {
-        (appStore.currentView() === '/profile' ||
-        appStore.currentView() === '/login') &&
-        <ProfilePage />
+        appStore.isReady() &&
+        <Fade in={true} timeout={300}>
+            <div>
+            { appStore.currentView() === '/' && <HomePage /> }
+            { appStore.currentView() === '/posts' && <PostPage /> }
+            { appStore.currentView() === '/favorites' && <Favorites /> }
+            { appStore.currentView() === '/location' && <LocationPage /> }
+            {
+              (appStore.currentView() === '/profile' ||
+              appStore.currentView() === '/login') &&
+              <ProfilePage />
+            }
+          </div>
+        </Fade>
       }
       <div className={ classes.toolbar } />
       <BottomNav />
