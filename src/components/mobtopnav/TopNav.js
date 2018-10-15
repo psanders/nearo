@@ -8,7 +8,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications'
 import { observer, inject } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
 
-import ProfileMenu from '../mobprofilemenu/ProfileMenu'
+import PostPanel from '../postpanel/PostPanel'
 import { commonSyles } from '../../shared/styles/styles'
 
 @inject('appStore')
@@ -44,7 +44,7 @@ class TopNav extends Component {
             <NotificationsIcon style={commonSyles.clrWhite} />
           </IconButton>
 
-          <ProfileMenu/>
+          <PostPanel />
 
           </Toolbar>
           {

@@ -55,6 +55,9 @@ export const styles = theme => ({
   button: {
     textTransform: 'capitalize'
   },
+  addIcon: {
+    color: theme.palette.accent.main
+  },
   chip: {
     margin: theme.spacing.unit,
   },

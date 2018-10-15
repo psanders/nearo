@@ -15,6 +15,8 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
 import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
+import IconButton from '@material-ui/core/IconButton'
+import PostIcon from '@material-ui/icons/AddCircleOutline'
 import { observer, inject } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
@@ -149,13 +151,21 @@ class PostPanel extends Component {
 
     return (
       <React.Fragment>
-        <Button onClick={ postsStore.openPostDialog }
-          variant="flat" className={classes.newPostBtn}
-          size="small"
-          aria-label="Add New Publication"
-        >
-          New Post
-        </Button>
+        <Hidden smUp={true}>
+          <IconButton onClick={ postsStore.openPostDialog }
+            aria-label="Add New Publication">
+            <PostIcon className={classes.addIcon}/>
+          </IconButton>
+        </Hidden>
+        <Hidden xsDown={true}>
+          <Button onClick={ postsStore.openPostDialog }
+            variant="flat" className={classes.newPostBtn}
+            size="small"
+            aria-label="Add New Publication"
+          >
+            New Post
+          </Button>
+        </Hidden>
         <Dialog
           fullScreen={ fullScreen }
           open={ this.props.postsStore.isPostDialogOpen() }

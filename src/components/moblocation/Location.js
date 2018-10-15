@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
@@ -32,7 +30,7 @@ class NoMatch extends Component {
             <Typography className={classes.title} color="textSecondary">
               Select a location
             </Typography>
-            <Locator address="USA" withBorder withWith={265} address={this.address} name="gobal-location"/>
+            <Locator withBorder withWith={265} address={this.address} name="gobal-location"/>
             <br />
             <Typography component="p">
             This is use to show you content
