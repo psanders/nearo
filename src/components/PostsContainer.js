@@ -18,15 +18,12 @@ import PostCard from './postcard/PostCard'
 @inject('notificationsStore')
 @observer
 class PostsContainer extends Component {
-
   @computed get posts () {
     return this.props.postsStore.posts
   }
 
   componentWillReceiveProps() {
-    console.log('DBG001')
     if(this.props.favorites) {
-      console.log('DBG002')
       this.props.postsStore.loadFavorities()
       return
     }

@@ -13,12 +13,15 @@ import Hidden from '@material-ui/core/Hidden'
 import Linkify from 'react-linkify'
 import classnames from 'classnames'
 import firebase from 'firebase/app'
+import { observer, inject } from 'mobx-react'
 
 import { styles } from './PostCardStyles'
 import { getCategory } from '../commons/categories'
 import { imageURL, hasPanorama } from '../commons/utils'
 import PostActions from './PostActions'
 
+@inject('appStore')
+@observer
 class PostCard extends React.Component {
 
   render() {
@@ -55,7 +58,7 @@ class PostCard extends React.Component {
       <Hidden smUp={true}>
         <Grid item>
           <Link to={'/posts/' + post.id}>
-            <ButtonBase aria-label="Open Publication Details">
+            <ButtonBase aria-label="Open Publication Details" onClick={() => this.props.appStore.currentView = '/post'}>
               { image(post, imageMobile) }
             </ButtonBase>
           </Link>

@@ -8,27 +8,39 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import ProfileIcon from '@material-ui/icons/Person'
 import EditLocationIcon from '@material-ui/icons/EditLocation'
 import { observer, inject } from 'mobx-react'
+import { computed } from 'mobx'
 
 @inject('appStore')
+@inject('usersStore')
+@inject('notificationsStore')
 @observer
 class BNav extends React.Component {
-  state = {
-    value: '/',
+  @computed get value() {
+    return this.props.appStore.currentView
+  }
+
+  @computed get signedIn() {
+    return this.props.usersStore.signedIn
   }
 
   handleChange = (event, value) => {
-    console.log('value', value)
+    if (!this.signedIn && value === '/favorites') {
+      this.props.notificationsStore.showMustLogin(()=> {
+        this.props.appStore.currentView = '/profile'
+      })
+      return
+    }
     this.props.appStore.currentView = value
-    //this.props.history.push(value)
-    this.setState({value: value})
   }
 
   render() {
     const { classes } = this.props
-    const { value } = this.state
 
     return (
-      <BottomNavigation value={value} onChange={this.handleChange} className={classes.root}>
+      <BottomNavigation
+        value={this.value}
+        onChange={this.handleChange}
+        className={classes.root}>
         <BottomNavigationAction value="/" icon={<HomeIcon />}  />
         <BottomNavigationAction value="/favorites" icon={<FavoriteIcon />} />
         <BottomNavigationAction value="/location" icon={<EditLocationIcon />} />

@@ -70,7 +70,6 @@ class SinglePostContainer extends Component {
           post.id &&
           <div className={classes.postActions}>
             <PostActions post={ this.state.post }
-
               url={ "https://nearo.co/posts/" + post.id }
             />
           </div>
