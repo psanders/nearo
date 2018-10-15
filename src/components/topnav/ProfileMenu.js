@@ -50,7 +50,7 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={ () => this.props.appStore.currentView('/profile') } >
+          <MenuItem onClick={ () => appStore.currentView('/profile') } >
             <ListItemIcon className={classes.icon} >
               <SettingsIcon />
             </ListItemIcon>

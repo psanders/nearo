@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
 
-import Profile from '../components/profile/Profile'
+import GoBackPage from '../components/gobackpage/GoBackPage'
+import Profile from '../components/mobprofile/Profile'
 import LoginScreen from '../components/profile/LoginScreen'
 
 @inject('usersStore')
@@ -9,7 +10,7 @@ import LoginScreen from '../components/profile/LoginScreen'
 class ProfilePage extends Component {
   render () {
     return <Fragment>
-      { this.props.usersStore.isSignedIn() && <Profile /> }
+      { this.props.usersStore.isSignedIn() && <GoBackPage children={ <Profile /> } /> }
       { !this.props.usersStore.isSignedIn() && <LoginScreen /> }
     </Fragment>
   }

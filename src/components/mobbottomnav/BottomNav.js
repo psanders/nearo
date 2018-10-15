@@ -16,7 +16,7 @@ import { computed } from 'mobx'
 @observer
 class BNav extends React.Component {
   @computed get value() {
-    return this.props.appStore.currentView
+    return this.props.appStore.currentView()
   }
 
   @computed get signedIn() {

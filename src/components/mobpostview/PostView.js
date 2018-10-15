@@ -11,7 +11,7 @@ import MapCard from '../map/MapCard'
 import ProfileCard from '../profile/ProfileCard'
 import About from '../About'
 import { db } from '../commons/firebase/firebase'
-import { capitalize } from '../commons/utils'
+import { currentPath, capitalize } from '../commons/utils'
 import { placeHolder } from './PlaceHolder'
 import { postContent } from './PostContent'
 import { styles } from './PostViewStyles'
@@ -28,23 +28,31 @@ class PostView extends Component {
   }
 
   componentDidMount () {
-    const postRef = db.collection('posts').doc(this.props.postsStore.currentPost.id)
-    this.setState({post: this.props.postsStore.currentPost})
-    /*postRef.get()
+    const currentPost = this.props.postsStore.currentPost
+    if (!currentPost) {
+      this.loadFromDB()
+      return
+    }
+    this.loadUser(currentPost)
+  }
+
+  loadFromDB () {
+    const postRef = db.collection('posts').doc(currentPath(2))
+    postRef.get()
     .then(result => {
       if (result.exists && !result.data().deleted) {
-        this.loadUser(result)
+        const post = result.data()
+        post.id = result.id
+        this.loadUser(post)
       } else {
         // throw 404
       }
     }).catch(error => {
       console.error('Unable to fetch post information', error)
-    })*/
+    })
   }
 
-  loadUser = postInfo => {
-    const post = postInfo.data()
-    post.id = postInfo.id
+  loadUser = post => {
     const userRef = db.collection('users').doc(post.userId)
     userRef.get()
     .then(user => {

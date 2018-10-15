@@ -7,7 +7,7 @@ import { currentPath } from '../commons/utils'
 class AppStore {
     @observable ready = false
     @observable loading = true
-    @observable curView = '/'
+    @observable curView
 
     constructor () {
       when(
@@ -22,13 +22,13 @@ class AppStore {
     }
 
     currentView = view => {
-      console.log('currentPath', currentPath())
-      if (currentPath()) {
-        this.curView = '/' + currentPath()
-      } else if (view) {
+      if (view) {
         this.curView = view
+      } else if (!this.curView && currentPath()) {
+        return '/' + currentPath()
       }
-      return this.curView
+      window.history.pushState({}, document.title, '/');
+      return this.curView || '/'
     }
 
     isReady = () => this.ready

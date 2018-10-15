@@ -76,7 +76,7 @@ class Profile extends Component {
     storeUserInfo('user-info', jsonUser)
     this.props.usersStore.setCurrentUser(jsonUser)
     this.props.notificationsStore.showNotification('All set.')
-    this.props.history.goBack()
+    this.props.appStore.currentView('/')
   }
 
   isInvalid = user => {
@@ -116,7 +116,7 @@ class Profile extends Component {
         <Hidden xsDown={true}>
           <AppBar>
             <Toolbar color="secondary" >
-              <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
+              <IconButton color="inherit" onClick={ () => this.props.appStore.currentView('/') } aria-label="Close">
                 <ArrowBackIcon className={classes.arrawBack}/>
               </IconButton>
               <Typography variant="title" className={classnames(classes.flex, classes.logo)}>
@@ -196,13 +196,13 @@ class Profile extends Component {
               <div className={classes.buttonContainer}>
                 <span className={classes.flex}/>
                 <Button onClick={this.handleEmailReset} className={classes.button}
-                  size="small" variant="flat" color="secondary"
+                  size="small" variant="flat" color="primary"
                   aria-label="Reset Password"
                 >
                   Password Reset
                 </Button>
                 <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
-                  size="small" variant="contained" color="secondary"
+                  size="small" variant="outlined" color="primary"
                   aria-label="Save Profile"
                 >
                   Save

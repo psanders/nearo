@@ -76,7 +76,7 @@ class Profile extends Component {
     storeUserInfo('user-info', jsonUser)
     this.props.usersStore.setCurrentUser(jsonUser)
     this.props.notificationsStore.showNotification('All set.')
-    this.props.history.goBack()
+    this.props.appStore.currentView('/')
   }
 
   isInvalid = user => {
@@ -111,111 +111,83 @@ class Profile extends Component {
     const { classes, usersStore } = this.props
     const user = usersStore.currentUser
 
-    return (
-      <div>
-        <Hidden xsDown={true}>
-          <AppBar>
-            <Toolbar color="secondary" >
-              <IconButton color="inherit" onClick={ this.props.history.goBack } aria-label="Close">
-                <ArrowBackIcon className={classes.arrawBack}/>
-              </IconButton>
-              <Typography variant="title" className={classnames(classes.flex, classes.logo)}>
-                Nearo
-              </Typography>
-              <Avatar className={classes.avatar}
-                alt={user.name}
-                src={user.picture} />
-            </Toolbar>
-            {
-              this.props.appStore.loading &&
-              <LinearProgress />
+    return (<div className={classes.container}>
+        <Typography variant="body1" gutterBottom>
+          Your Preferences
+        </Typography>
+        <AvatarUpdater />
+        <form noValidate autoComplete="off">
+          <TextField
+            variant="outlined"
+            id="user-name"
+            label="Display Name"
+            onChange={this.handleChange}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps= {{
+              maxLength: 70,
+            }}
+            value={ user.name }
+            error={this.isNoPristine('user-name') && user.name.length < 3 }
+            placeholder="Name"
+            fullWidth
+            margin="dense"
+          />
+          {user && <PhoneInput
+            id="user-phone"
+            value={user.phone}
+            onChange={this.handleChange}
+          />}
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                id="user-phone-private"
+                checked={user.keepPhonePrivate}
+                onChange={this.handleChange}
+                color="primary"
+              />
             }
-          </AppBar>
-        </Hidden>
-        <div className={classes.container}>
-          <Paper className={classes.card}>
-            <Typography variant="title" gutterBottom>
-              User Preferences
-            </Typography>
-            <AvatarUpdater />
-            <form className={classes.container} noValidate autoComplete="off">
-              <TextField
-                autoFocus
-                variant="outlined"
-                id="user-name"
-                label="Display Name"
-                onChange={this.handleChange}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps= {{
-                  maxLength: 70,
-                }}
-                value={ user.name }
-                error={this.isNoPristine('user-name') && user.name.length < 3 }
-                placeholder="Name"
-                fullWidth
-                margin="dense"
-              />
-              {user && <PhoneInput
-                id="user-phone"
-                value={user.phone}
-                onChange={this.handleChange}
-              />}
+            label="Keep Phone Private"
+          />
 
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="user-phone-private"
-                    checked={user.keepPhonePrivate}
-                    onChange={this.handleChange}
-                    color="primary"
-                  />
-                }
-                label="Keep Phone Private"
-              />
-
-              <TextField
-                id="user-bio"
-                label="About"
-                multiline
-                rows="4"
-                margin="dense"
-                variant="outlined"
-                fullWidth
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                inputProps= {{
-                  maxLength: 128,
-                }}
-                onChange={this.handleChange}
-                className={classes.textField}
-                value={user.bio}
-              />
-              <div className={classes.buttonContainer}>
-                <span className={classes.flex}/>
-                <Button onClick={this.handleEmailReset} className={classes.button}
-                  size="small" variant="flat" color="secondary"
-                  aria-label="Reset Password"
-                >
-                  Password Reset
-                </Button>
-                <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
-                  size="small" variant="contained" color="secondary"
-                  aria-label="Save Profile"
-                >
-                  Save
-                </Button>
-              </div>
-            </form>
-          </Paper>
-          <Typography variant="caption" style={{marginTop: 5}} align="center">
-            We will not annoy you with push notification if you are currently online.
-            We also throttle noisy conversation.
-          </Typography>
-        </div>
-        <NotificationBar />
+          <TextField
+            id="user-bio"
+            label="About"
+            multiline
+            rows="4"
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps= {{
+              maxLength: 128,
+            }}
+            onChange={this.handleChange}
+            className={classes.textField}
+            value={user.bio}
+          />
+          <div className={classes.buttonContainer}>
+            <span className={classes.flex}/>
+            <Button onClick={this.handleEmailReset} className={classes.button}
+              size="small" variant="flat" color="primary"
+              aria-label="Reset Password"
+            >
+              Password Reset
+            </Button>
+            <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
+              size="small" variant="outlined" color="primary"
+              aria-label="Save Profile"
+            >
+              Save
+            </Button>
+          </div>
+        </form>
+        <Typography variant="caption" style={{marginTop: 5}} align="center">
+          We will not annoy you with push notification if you are currently online.
+          We also throttle noisy conversation.
+        </Typography>
       </div>
     )
   }
@@ -233,12 +205,9 @@ const styles = theme => ({
     color: '#fff'
   },
   container: {
-    margin: 'auto',
-    maxWidth: 360
-  },
-  card: {
     padding: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2
+    background: '#fff',
+    height: 'calc(100vh - 114px)',
   },
   button: {
     textTransform: 'capitalize',
@@ -252,8 +221,8 @@ const styles = theme => ({
     flexGrow: 1
   },
   textField: {
-    width: '285px', /* Why?? */
-    marginBottom: 15
+    marginBottom: 15,
+    width: '100%'
   },
   passwordField :{
     width: '305px', /* Why?? */

@@ -5,20 +5,17 @@ import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
 import { observer, inject } from 'mobx-react'
+import Helmet from 'react-helmet-async'
 
 import Topnav from './components/topnav/Topnav'
 import NotificationBar from './components/NotificationBar'
 import MobileScreen from './screens/mobile'
+import { capitalize } from './components/commons/utils'
 
 const loading = <Typography variant="body1" color="secondary" style={{margin: 20}}>Loading...</Typography>
 
 const Profile = Loadable({
   loader: () => import('./components/profile/Profile'),
-  loading: () => loading,
-})
-
-const LoginScreen = Loadable({
-  loader: () => import('./components/profile/LoginScreen'),
   loading: () => loading,
 })
 
@@ -45,17 +42,25 @@ const PostsContainer = Loadable({
 @inject('appStore')
 @observer
 class MainContainer extends Component {
+
+  scrollTop = () => {
+    document.body.scrollTop = 0 // For Safari
+    document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+  }
+
   render () {
     const { classes, appStore } = this.props
-
-    const scrollTop = () => {
-      document.body.scrollTop = 0 // For Safari
-      document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
-    }
 
     return(
       <Fragment>
         <Hidden xsDown={true}>
+          <Helmet>
+            <title>
+              Nearo
+              { appStore.currentView() !== '/' ? ' - ' : ''}
+              { capitalize(appStore.currentView().replace('/', '')) }
+            </title>
+          </Helmet>
           <div className={ classes.root }>
             <main className={ classes.content }>
               <div className={ classes.toolbar } />
