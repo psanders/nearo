@@ -75,7 +75,7 @@ class Profile extends Component {
     // Update local DB
     storeUserInfo('user-info', jsonUser)
     this.props.usersStore.setCurrentUser(jsonUser)
-    this.props.notificationsStore.showNotification('All set.')
+    this.props.notificationsStore.showNotification('All set')
     this.props.appStore.currentView('/')
   }
 

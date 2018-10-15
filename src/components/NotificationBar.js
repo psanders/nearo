@@ -22,26 +22,30 @@ class NotificationBar extends Component {
 
   render() {
     const store = this.props.notificationsStore
-    const { classes } = this.props
+    const { classes, withClose } = this.props
+    const actions = []
 
-    const action = [
-      <Button className={ classes.callBackBtn } key="close"  size="small" onClick={ store.hideNotification }>
-        <CloseIcon />
-      </Button>
-    ]
+    const closeAction = <Button className={ classes.callBackBtn } key="close"  size="small" onClick={ store.hideNotification }>
+      <CloseIcon />
+    </Button>
 
     if (store.state.callback) {
-      action.pop()
-      action.push(
-        <Button className={ classes.callBackBtn } key="callback" disabled={ !store.state.callback } color="secondary" size="small"
+      actions.push(
+        <Button className={ classes.callBackBtn } key="callback"
+          color="secondary"
+          size="small"
           onClick={ ()=> {
+            console.log('DBG002')
             store.state.callback()
             store.hideNotification()
           }}>
-            {store.state.callbackLabel}
-          </Button>
-        )
-      //action.push(closeAction)
+          { store.state.callbackLabel }
+        </Button>
+      )
+    }
+
+    if (withClose) {
+      actions.push(closeAction)
     }
 
     return (
@@ -58,7 +62,7 @@ class NotificationBar extends Component {
             'aria-describedby': 'message-id',
           }}
           message={<span id="message-id">{ store.state.message }</span>}
-          action={ action }
+          action={ actions }
         />
       </div>
     )

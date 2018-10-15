@@ -33,7 +33,7 @@ class MobileScreen extends Component {
           { capitalize(appStore.currentView().replace('/', '')) }
         </title>
       </Helmet>
-      <TopNav />
+      { appStore.currentView() !== '/profile' && <TopNav /> }
       <div className={ classes.toolbar } />
       {
         appStore.isReady() &&
@@ -52,7 +52,7 @@ class MobileScreen extends Component {
         </Fade>
       }
       <div className={ classes.toolbar } />
-      <BottomNav />
+      { appStore.currentView() !== '/profile' && <BottomNav /> }
       <NotificationBar />
     </Fragment>
   }

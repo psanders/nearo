@@ -75,8 +75,7 @@ class PostPanel extends Component {
 
   async createPost (body, locInfo) {
     if (!this.props.usersStore.isSignedIn()) {
-      this.props.notificationsStore
-        .showMustLogin()
+      this.props.notificationsStore.showMustLogin()
       return
     }
     this.setState({loading: true})

@@ -19,9 +19,7 @@ class TopNav extends Component {
 
   handleClick = event => {
     if (!this.props.usersStore.isSignedIn()) {
-      this.props.notificationsStore.showMustLogin(() => {
-        this.props.appStore.currentView('/profile')
-      })
+      this.props.notificationsStore.showMustLogin()
       return
     }
     this.props.notificationsStore.showNotification("You don't have notifications")

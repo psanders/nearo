@@ -174,7 +174,7 @@ class Profile extends Component {
             </Button>
           </div>
         </form>
-        <Typography variant="caption" style={{marginTop: 20}} align="center">
+        <Typography variant="caption" style={{marginTop: 10}} align="center">
           We will not annoy you with push notification if you are currently online.
           We also throttle noisy conversation.
         </Typography>
@@ -195,9 +195,9 @@ const styles = theme => ({
     color: '#fff'
   },
   container: {
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 1,
     background: '#fff',
-    height: 'calc(100vh - 114px)',
+    height: 'calc(100vh - 71px)',
   },
   button: {
     textTransform: 'capitalize',

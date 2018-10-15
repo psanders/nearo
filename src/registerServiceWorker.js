@@ -58,14 +58,14 @@ function registerValidSW(swUrl) {
               // the fresh content will have been added to the cache.
               // It's the perfect time to display a "New content is
               // available please refresh." message in your web app.
-              console.log('New content is available please refresh.')
-              notificationsStore.showNotification('New content is available please refresh.',
+              console.log('New content is available')
+              notificationsStore.showNotification('New content available',
                 20000, () => openURL('https://nearo.co'), 'Refresh')
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.')
+              console.log('Content is cached for offline use')
             }
           }
         }
@@ -97,8 +97,8 @@ function checkValidServiceWorker(swUrl) {
       }
     })
     .catch(() => {
-      console.log('No internet connection found. App is running in offline mode.')
-      notificationsStore.showNotification('No internet connection found. App is running in offline mode.')
+      console.log('No connection')
+      notificationsStore.showNotification('No connection')
     })
 }
 

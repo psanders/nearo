@@ -1,4 +1,5 @@
 import { observable, when } from "mobx"
+import { appStore } from './app'
 
 class NotificationsStore {
     @observable state = {
@@ -11,16 +12,24 @@ class NotificationsStore {
       when(
         () => navigator.onLine === false,
         () => {
-          this.showNotification("No internet connection found. Please check your network", 60000)
+          this.showNotification("No connection", 60000)
         }
       )
     }
 
-    showMustLogin = (loginCbk) => {
-      this.showNotification('Sorry! You must login first', 10000, loginCbk,  "Login")
+    showMustLogin = () => {
+      this.showNotification('Please login', 10000,
+        () => {
+          console.log('DBG001')
+          appStore.currentView('/profile')
+      },  "Login")
     }
 
-    showNotification = (message, timeout = 4000, callback = null, callbackLabel = "Undo") => {
+    showNotification = (message,
+        timeout = 4000,
+        callback = null,
+        callbackLabel = "Undo",
+        closeable = true) => {
       const state = {
         open: true,
         message: message,
@@ -29,9 +38,11 @@ class NotificationsStore {
       }
 
       if (callback) {
+        console.log('DBG002')
         state.callback = callback
         state.callbackLabel = callbackLabel
       }
+      console.log('state', JSON.stringify(state))
       this.state = state
     }
 

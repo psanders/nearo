@@ -11,7 +11,7 @@ class ProfilePage extends Component {
   render () {
     return <Fragment>
       { this.props.usersStore.isSignedIn() && <GoBackPage children={ <Profile /> } /> }
-      { !this.props.usersStore.isSignedIn() && <LoginScreen /> }
+      { !this.props.usersStore.isSignedIn() && <GoBackPage children={ <LoginScreen /> } /> }
     </Fragment>
   }
 }

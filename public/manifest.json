@@ -1,7 +1,7 @@
 {
   "short_name": "Nearo",
   "name": "Nearo App",
-  "start_url": "./explore",
+  "start_url": "/",
   "orientation": "portrait",
   "display": "standalone",
   "theme_color": "#484ec2",
