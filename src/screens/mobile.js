@@ -31,6 +31,7 @@ class MobileScreen extends Component {
         this.props.appStore.currentView === '/login') &&
         <Profile />
       }
+      <div className={ classes.toolbar } />
       <BottomNav />
       <NotificationBar />
     </Fragment>
