@@ -16,7 +16,7 @@ import classnames from 'classnames'
 class Profile extends Component {
 
   render() {
-    const { classes, appStore, usersStore, children } = this.props
+    const { classes, appStore, children } = this.props
 
     return (<div>
         <AppBar elevation={ 0 }>
@@ -58,28 +58,10 @@ const styles = theme => ({
     height: 'calc(100vh - 115px)',
     background: '#fff',
   },
-  card: {
-    padding: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2
-  },
-  button: {
-    textTransform: 'capitalize',
-    marginLeft: theme.spacing.unit
-  },
-  buttonContainer: {
-    display: 'flex'
-  },
   flex: {
     flex: 1,
     flexGrow: 1
   },
-  textField: {
-    width: '285px', /* Why?? */
-    marginBottom: 15
-  },
-  passwordField :{
-    width: '305px', /* Why?? */
-  }
 })
 
 export default withStyles(styles)(Profile)

@@ -1,22 +1,12 @@
 import React, { Component } from 'react'
-import Hidden from '@material-ui/core/Hidden'
 import firebase from 'firebase/app'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import Avatar from '@material-ui/core/Avatar'
-import Paper from '@material-ui/core/Paper'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import { observer, inject } from 'mobx-react'
-import classnames from 'classnames'
 
-import NotificationBar from '../NotificationBar'
 import PhoneInput, { isValidNumber } from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -184,7 +174,7 @@ class Profile extends Component {
             </Button>
           </div>
         </form>
-        <Typography variant="caption" style={{marginTop: 5}} align="center">
+        <Typography variant="caption" style={{marginTop: 20}} align="center">
           We will not annoy you with push notification if you are currently online.
           We also throttle noisy conversation.
         </Typography>
