@@ -8,10 +8,6 @@ import { computed } from 'mobx'
 import PostCard from '../../components/postcard/PostCard'
 
 @inject('postsStore')
-@inject('navStore')
-@inject('usersStore')
-@inject('bookmarksStore')
-@inject('notificationsStore')
 @observer
 class FavList extends Component {
 

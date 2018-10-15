@@ -9,20 +9,7 @@ import ProfileIcon from '@material-ui/icons/Person'
 import EditLocationIcon from '@material-ui/icons/EditLocation'
 import { observer, inject } from 'mobx-react'
 
-const styles = {
-  root: {
-    width: '100vw',
-    position: 'fixed',
-    top: 'calc(100vh - 55px)'
-  },
-}
-
 @inject('appStore')
-@inject('postsStore')
-@inject('navStore')
-@inject('usersStore')
-@inject('bookmarksStore')
-@inject('notificationsStore')
 @observer
 class BNav extends React.Component {
   state = {
@@ -53,6 +40,14 @@ class BNav extends React.Component {
 
 BNav.propTypes = {
   classes: PropTypes.object.isRequired,
+}
+
+const styles = {
+  root: {
+    width: '100vw',
+    position: 'fixed',
+    top: 'calc(100vh - 55px)'
+  },
 }
 
 export default withStyles(styles)(BNav)
