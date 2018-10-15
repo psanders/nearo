@@ -103,7 +103,7 @@ class PostView extends Component {
           container
           direction="row"
           justify="center"
-          spacing={16}
+
           >
             <Grid item sm={10} md={5} xs={12} >
               <Grid item>

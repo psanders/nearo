@@ -48,7 +48,7 @@ class NoMatch extends Component {
 
 const styles = {
   root: {
-    height: 'calc(100vh - 65px)',
+    height: 'calc(100vh - 55px)',
     display: 'flex',
   },
   row: {

@@ -28,8 +28,8 @@ class MobileScreen extends Component {
       { this.props.appStore.currentView === '/favorites' && <Favorites /> }
       {
         (this.props.appStore.currentView === '/profile' ||
-        this.props.appStore.currentView === '/login')
-        && <Profile />
+        this.props.appStore.currentView === '/login') &&
+        <Profile />
       }
       <BottomNav />
       <NotificationBar />
