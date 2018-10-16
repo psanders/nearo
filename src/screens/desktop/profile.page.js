@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react'
 import Card from '@material-ui/core/Card'
 
 import GoBackPage from '../../components/gobackpage/GoBackPage'
-import Profile from '../../components/mobprofile/Profile'
+import Profile from '../../components/profile/Profile'
 import Login from '../../components/login/Login'
 
 const style = {

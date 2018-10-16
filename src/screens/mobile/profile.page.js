@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
 
 import GoBackPage from '../../components/gobackpage/GoBackPage'
-import Profile from '../../components/mobprofile/Profile'
-import LoginScreen from '../../components/profile/LoginScreen'
+import Profile from '../../components/profile/Profile'
+import LoginScreen from '../../components/login/Login'
 
 @inject('usersStore')
 @observer
