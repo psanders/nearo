@@ -1,11 +1,9 @@
 import React, { Component, Fragment} from 'react'
-import Hidden from '@material-ui/core/Hidden'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
 import { observer, inject } from 'mobx-react'
-import Helmet from 'react-helmet-async'
 
 import Topnav from '../../components/topnav/Topnav'
 import ProfilePage from './profile.page'

@@ -261,7 +261,7 @@ class PostPanel extends Component {
             <span className={ classes.flex }/>
             <Button onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}
               className={ classes.button } size="small">Cancel</Button>
-            <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () => this.handleCreate() } variant="contained" size="small" color="secondary">
+            <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () => this.handleCreate() } variant="outlined" size="small" color="primary">
               Post
             </Button>
           </DialogActions>

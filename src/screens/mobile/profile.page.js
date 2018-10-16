@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
 import GoBackPage from '../../components/gobackpage/GoBackPage'
@@ -9,11 +11,34 @@ import LoginScreen from '../../components/login/Login'
 @observer
 class ProfilePage extends Component {
   render () {
+    const { classes } = this.props
+
     return <Fragment>
-      { this.props.usersStore.isSignedIn() && <GoBackPage children={ <Profile /> } /> }
-      { !this.props.usersStore.isSignedIn() && <GoBackPage children={ <LoginScreen /> } /> }
+      {
+        this.props.usersStore.isSignedIn() &&
+        <div>
+          <GoBackPage children={ <Profile /> } />
+        </div>
+      }
+      {
+        !this.props.usersStore.isSignedIn() &&
+        <div className={classes.container}>
+          <GoBackPage children={ <LoginScreen /> } />
+        </div>
+      }
     </Fragment>
   }
 }
 
-export default ProfilePage
+ProfilePage.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+const styles = theme => ({
+  container: {
+    height: 'calc(100vh - 55px)',
+    backgroundColor: theme.palette.primary.light
+  }
+})
+
+export default withStyles(styles)(ProfilePage)

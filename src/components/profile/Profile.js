@@ -161,7 +161,7 @@ class Profile extends Component {
           <div className={classes.buttonContainer}>
             <span className={classes.flex}/>
             <Button onClick={this.handleEmailReset} className={classes.button}
-              size="small" variant="flat" color="primary"
+              size="small" variant="flat"
               aria-label="Reset Password"
             >
               Password Reset
@@ -197,7 +197,7 @@ const styles = theme => ({
   container: {
     padding: theme.spacing.unit * 1,
     background: '#fff',
-    height: '100vw',
+    height: '100vh',
   },
   button: {
     textTransform: 'capitalize',

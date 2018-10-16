@@ -54,9 +54,8 @@ const styles = theme => ({
   },
   container: {
     margin: '0 auto',
-    width: '100wv',
-    height: 'calc(100vh - 115px)',
-    background: '#fff',
+    width: '100vw',
+    height: 'calc(100vh - 55px)',
   },
   flex: {
     flex: 1,

@@ -9,7 +9,8 @@ import Login from '../../components/login/Login'
 const style = {
   width: 400,
   margin: '0 auto',
-  marginTop: 20
+  marginTop: 20,
+  height: 510
 }
 
 @inject('usersStore')

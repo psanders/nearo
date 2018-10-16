@@ -25,7 +25,7 @@ class NoMatch extends Component {
             <Typography className={classes.title} color="textSecondary">
               Nothing yet
             </Typography>
-            <Typography variant="headline" component="h3">
+            <Typography variant="title" component="h3">
               Favorite Posts
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
@@ -34,7 +34,7 @@ class NoMatch extends Component {
             <Typography component="p">
             All your liked posts will appear
               <br />
-            here. 
+            here.
             </Typography>
           </CardContent>
           <CardActions>

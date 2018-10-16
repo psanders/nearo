@@ -7,7 +7,8 @@ html, body {
 }
 
 body {
-  background-color: #dae0e6;
+  background-color: #fff;
+  /*background-color: #dae0e6;*/
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
