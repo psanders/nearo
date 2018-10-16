@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 import TextField from '@material-ui/core/TextField'
 import { observer, inject } from 'mobx-react'
 
@@ -159,13 +160,22 @@ class Profile extends Component {
             value={user.bio}
           />
           <div className={classes.buttonContainer}>
+            <div>
+              <a onClick={this.handleEmailReset}
+                size="small"
+                aria-label="Reset Password"
+              >
+              <Typography variant="caption">Recover Password </Typography>
+              </a>
+              <a onClick={ () => this.props.usersStore.doSignOut() }
+                size="small"
+                aria-label="Sign Out"
+              >
+                <Typography variant="caption">Logout</Typography>
+              </a>
+            </div>
             <span className={classes.flex}/>
-            <Button onClick={this.handleEmailReset} className={classes.button}
-              size="small" variant="flat"
-              aria-label="Reset Password"
-            >
-              Password Reset
-            </Button>
+
             <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
               size="small" variant="outlined" color="primary"
               aria-label="Save Profile"
@@ -174,10 +184,8 @@ class Profile extends Component {
             </Button>
           </div>
         </form>
-        <Typography variant="caption" style={{marginTop: 10}} align="center">
-          We will not annoy you with push notification if you are currently online.
-          We also throttle noisy conversation.
-        </Typography>
+
+
       </div>
     )
   }

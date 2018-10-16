@@ -25,8 +25,7 @@ class NotificationsStore {
     showNotification = (message,
         timeout = 4000,
         callback = null,
-        callbackLabel = "Undo",
-        closeable = true) => {
+        callbackLabel = "Undo") => {
       const state = {
         open: true,
         message: message,

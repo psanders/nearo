@@ -41,7 +41,7 @@ class NotificationBar extends Component {
         autoHideDuration={ store.state.timeout }
         onClose={ store.hideNotification }
         ContentProps={{ 'aria-describedby': 'message-id' }}
-        message={ <span id="message-id">{ store.state.message }</span> }
+        message={ <div className={ classes.message } id="message-id">{ store.state.message }</div> }
         action={ store.state.callback && action }
       />
   }
@@ -52,6 +52,9 @@ NotificationBar.propTypes = {
 }
 
 const styles = theme => ({
+  message: {
+    margin: theme.spacing.unit
+  },
   callBackBtn: {
     color: theme.palette.accent.main,
     margin: theme.spacing.unit
