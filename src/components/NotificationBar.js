@@ -53,11 +53,13 @@ NotificationBar.propTypes = {
 
 const styles = theme => ({
   message: {
-    margin: theme.spacing.unit
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   },
   callBackBtn: {
     color: theme.palette.accent.main,
-    margin: theme.spacing.unit
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   },
   closeBtn: {
     color: '#f4f4f4',

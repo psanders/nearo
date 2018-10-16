@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
 import TextField from '@material-ui/core/TextField'
 import { observer, inject } from 'mobx-react'
 
@@ -161,13 +160,13 @@ class Profile extends Component {
           />
           <div className={classes.buttonContainer}>
             <div>
-              <a onClick={this.handleEmailReset}
+              <a className={classes.link} onClick={this.handleEmailReset}
                 size="small"
                 aria-label="Reset Password"
               >
               <Typography variant="caption">Recover Password </Typography>
               </a>
-              <a onClick={ () => this.props.usersStore.doSignOut() }
+              <a className={classes.link} onClick={ () => this.props.usersStore.doSignOut() }
                 size="small"
                 aria-label="Sign Out"
               >
@@ -224,6 +223,9 @@ const styles = theme => ({
   },
   passwordField :{
     width: '305px', /* Why?? */
+  },
+  link: {
+    cursor: 'pointer'
   }
 })
 

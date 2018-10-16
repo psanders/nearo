@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import GoBackPage from '../../components/gobackpage/GoBackPage'
-import Profile from '../../components/profile/Profile'
+import Login from '../../components/login/Login'
 
 class ProfilePage extends Component {
-  render = () => <GoBackPage children={ <Profile /> } />
+  render = () => <GoBackPage children={ <Login /> } />
 }
 
 export default ProfilePage

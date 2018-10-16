@@ -1,30 +1,23 @@
-import React, { Component, Fragment } from 'react'
-import { observer, inject } from 'mobx-react'
+import React, { Component } from 'react'
 import Card from '@material-ui/core/Card'
 
 import GoBackPage from '../../components/gobackpage/GoBackPage'
 import Profile from '../../components/profile/Profile'
-import Login from '../../components/login/Login'
 
 const style = {
   width: 400,
+  height: 480,
   margin: '0 auto',
-  marginTop: 20,
-  height: 510
+  marginTop: 20
 }
 
-@inject('usersStore')
-@observer
 class ProfilePage extends Component {
   render () {
-    return <Fragment>
-      { this.props.usersStore.isSignedIn() &&
-        <Card style={style}>
-          <GoBackPage children={ <Profile /> } />
-        </Card>
-      }
-      { !this.props.usersStore.isSignedIn() && <GoBackPage children={ <Login /> } /> }
-    </Fragment>
+    return <GoBackPage children={
+      <Card style={ style }>
+        <Profile />
+      </Card>
+    } />
   }
 }
 

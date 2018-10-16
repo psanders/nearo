@@ -5,8 +5,9 @@ import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
 import { observer, inject } from 'mobx-react'
 
-import Topnav from '../../components/topnav/Topnav'
+import TopNav from '../../components/topnav/TopNav'
 import ProfilePage from './profile.page'
+import LoginPage from './login.page'
 
 const loading = <Typography variant="body1" color="secondary" style={{ margin: 20 }}>
   Loading...
@@ -38,24 +39,27 @@ class DesktopScreen extends Component {
 
   render () {
     const { classes, appStore } = this.props
+    const hideNav = () => {
+      return appStore.currentView() === '/profile' ||
+        appStore.currentView() === '/login' ? true : false
+    }
 
-    return <Fragment>
-      <div className={ classes.root }>
-        <main className={ classes.content }>
-          { appStore.currentView() !== '/profile' && <Topnav /> }
-          <div className={ classes.toolbar } />
-          { appStore.currentView() === '/' && <Home /> }
-          { appStore.currentView() === '/explore' && <PostsContainer /> }
-          { appStore.currentView() === '/posts' && <PostView /> }
-          {
-            (appStore.currentView() === '/profile' ||
-            appStore.currentView() === '/login') &&
-            <ProfilePage />
-          }
-          { appStore.currentView() === null && <NoMatch /> }
-        </main>
-      </div>
-    </Fragment>
+    return <div className={ classes.root }>
+      <main className={ classes.content }>
+        { ! hideNav() &&
+          <Fragment>
+            <TopNav />
+            <div className={ classes.toolbar } />
+          </Fragment>
+        }
+        { appStore.currentView() === '/' && <Home /> }
+        { appStore.currentView() === '/explore' && <PostsContainer /> }
+        { appStore.currentView() === '/posts' && <PostView /> }
+        { appStore.currentView() === '/profile' && <ProfilePage /> }
+        { appStore.currentView() === '/login' && <LoginPage /> }
+        { appStore.currentView() === null && <NoMatch /> }
+      </main>
+    </div>
   }
 }
 

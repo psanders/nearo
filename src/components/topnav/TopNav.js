@@ -24,7 +24,7 @@ import LocatorMobile from '../locator/LocatorMobile'
 @inject('appStore')
 @inject('postsStore')
 @observer
-class Topnav extends React.Component {
+class TopNav extends React.Component {
   @computed get address() {
     return this.props.navStore.navInfo.locInfo.address
   }
@@ -112,8 +112,8 @@ class Topnav extends React.Component {
   }
 }
 
-Topnav.propTypes = {
+TopNav.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(Topnav)
+export default withStyles(styles)(TopNav)
