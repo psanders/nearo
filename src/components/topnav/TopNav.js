@@ -44,7 +44,7 @@ class Topnav extends React.Component {
 
     return (
       <div>
-        <AppBar>
+        <AppBar elevation={0}>
           <Toolbar>
             <Typography variant="title" color="inherit" onClick={this.handleNav}>
               <span className={classes.logo}>Nearo</span>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PostView from '../components/mobpostview/PostView'
+import PostView from '../../components/mobpostview/PostView'
 
 class PostPage extends Component {
   render () {

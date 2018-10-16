@@ -16,7 +16,6 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import { observer, inject } from 'mobx-react'
 import classnames from 'classnames'
 
-import NotificationBar from '../NotificationBar'
 import PhoneInput, { isValidNumber } from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
@@ -215,7 +214,6 @@ class Profile extends Component {
             We also throttle noisy conversation.
           </Typography>
         </div>
-        <NotificationBar />
       </div>
     )
   }

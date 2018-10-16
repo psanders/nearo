@@ -27,7 +27,14 @@ class AppStore {
       } else if (!this.curView && currentPath()) {
         return '/' + currentPath()
       }
-      //window.history.pushState({}, document.title, '/');
+
+      if (this.curView === '/') {
+        window.history.pushState({}, document.title, '/')
+      } if ((this.curView === '/profile' ||
+          this.curView === '/login') && !usersStore.isSignedIn()){
+        window.history.pushState({}, document.title, '/login')
+      }
+
       return this.curView || '/'
     }
 

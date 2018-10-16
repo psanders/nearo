@@ -19,7 +19,7 @@ class Profile extends Component {
     const { classes, appStore, children } = this.props
 
     return (<div>
-        <AppBar elevation={ 0 }>
+        <AppBar elevation={0}>
           <Toolbar color="secondary" >
             <IconButton onClick={() => appStore.currentView('/')} color="inherit" aria-label="Close">
               <ArrowBackIcon className={classes.arrawBack}/>

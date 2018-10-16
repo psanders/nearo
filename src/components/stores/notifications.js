@@ -19,10 +19,7 @@ class NotificationsStore {
 
     showMustLogin = () => {
       this.showNotification('Please login', 10000,
-        () => {
-          console.log('DBG001')
-          appStore.currentView('/profile')
-      },  "Login")
+        ()=> appStore.currentView('/profile') ,  "Login")
     }
 
     showNotification = (message,
@@ -38,11 +35,9 @@ class NotificationsStore {
       }
 
       if (callback) {
-        console.log('DBG002')
         state.callback = callback
         state.callbackLabel = callbackLabel
       }
-      console.log('state', JSON.stringify(state))
       this.state = state
     }
 

@@ -197,7 +197,7 @@ const styles = theme => ({
   container: {
     padding: theme.spacing.unit * 1,
     background: '#fff',
-    height: 'calc(100vh - 71px)',
+    height: '100vw',
   },
   button: {
     textTransform: 'capitalize',

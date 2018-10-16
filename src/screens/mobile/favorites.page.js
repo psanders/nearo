@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
-import FavList from '../components/mobfavlist/FavList'
-import Nothing from '../components/nothing/Nothing'
+import FavList from '../../components/mobfavlist/FavList'
+import Nothing from '../../components/nothing/Nothing'
 
 @inject('postsStore')
 @observer

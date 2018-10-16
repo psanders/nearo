@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
-import Location from '../components/moblocation/Location'
+import Location from '../../components/moblocation/Location'
 
 @inject('postsStore')
 @observer

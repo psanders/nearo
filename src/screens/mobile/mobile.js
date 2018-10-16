@@ -4,19 +4,14 @@ import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
 
-import NotificationBar from '../components/NotificationBar'
-import Favorites from './favorites.mobile'
-import BottomNav from '../components/mobbottomnav/BottomNav'
-import HomePage from './home.mobile'
-import PostPage from './post.mobile'
-import LocationPage from './location.mobile'
-import ProfilePage from './profile.mobile'
-import TopNav from '../components/mobtopnav/TopNav'
-import { capitalize } from '../components/commons/utils'
-
-const styles = theme => ({
-  toolbar: theme.mixins.toolbar,
-})
+import BottomNav from '../../components/mobbottomnav/BottomNav'
+import TopNav from '../../components/mobtopnav/TopNav'
+import { capitalize } from '../../components/commons/utils'
+import Favorites from './favorites.page'
+import HomePage from './home.page'
+import PostPage from './post.page'
+import LocationPage from './location.page'
+import ProfilePage from './profile.page'
 
 @inject('appStore')
 @observer
@@ -26,13 +21,6 @@ class MobileScreen extends Component {
     const { classes, appStore } = this.props
 
     return <Fragment>
-      <Helmet>
-        <title>
-          Nearo
-          { appStore.currentView() !== '/' ? ' - ' : ''}
-          { capitalize(appStore.currentView().replace('/', '')) }
-        </title>
-      </Helmet>
       { appStore.currentView() !== '/profile' && <TopNav /> }
       <div className={ classes.toolbar } />
       {
@@ -53,9 +41,12 @@ class MobileScreen extends Component {
       }
       <div className={ classes.toolbar } />
       { appStore.currentView() !== '/profile' && <BottomNav /> }
-      <NotificationBar />
     </Fragment>
   }
 }
+
+const styles = theme => ({
+  toolbar: theme.mixins.toolbar,
+})
 
 export default withStyles(styles)(MobileScreen)
