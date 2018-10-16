@@ -33,6 +33,7 @@ class Profile extends Component {
             <LinearProgress />
           }
         </AppBar>
+        <div className={ classes.toolbar } />
         <div className={classes.container}>
           { children }
         </div>
@@ -61,6 +62,7 @@ const styles = theme => ({
     flex: 1,
     flexGrow: 1
   },
+  toolbar: theme.mixins.toolbar,
 })
 
 export default withStyles(styles)(Profile)

@@ -26,10 +26,15 @@ class BNav extends Component {
   handleChange = (event, value) => {
     if (!this.signedIn && value === '/favorites') {
       this.props.notificationsStore.showMustLogin(()=> {
-        this.props.appStore.currentView = '/profile'
+        this.props.appStore.currentView = '/login'
       })
       return
     }
+
+    if(value === '/profile' && !this.signedIn) {
+      this.props.appStore.currentView('/login')
+    }
+
     this.props.appStore.currentView(value)
   }
 

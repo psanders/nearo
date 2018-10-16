@@ -10,6 +10,7 @@ import HomePage from './home.page'
 import PostPage from './post.page'
 import LocationPage from './location.page'
 import ProfilePage from './profile.page'
+import LoginPage from './login.page'
 
 @inject('appStore')
 @observer
@@ -17,10 +18,19 @@ class MobileScreen extends Component {
 
   render () {
     const { classes, appStore } = this.props
+    const hideNav = () => {
+      return appStore.currentView() === '/profile' ||
+        appStore.currentView() === '/login' ? true : false
+    }
 
     return <Fragment>
-      { appStore.currentView() !== '/profile' && <TopNav /> }
-      <div className={ classes.toolbar } />
+      { ! hideNav() &&
+        <Fragment>
+          <TopNav />
+          <div className={ classes.toolbar } />
+        </Fragment>
+      }
+
       {
         appStore.isReady() &&
         <Fade in={true} timeout={300}>
@@ -29,16 +39,19 @@ class MobileScreen extends Component {
             { appStore.currentView() === '/posts' && <PostPage /> }
             { appStore.currentView() === '/favorites' && <Favorites /> }
             { appStore.currentView() === '/location' && <LocationPage /> }
-            {
-              (appStore.currentView() === '/profile' ||
-              appStore.currentView() === '/login') &&
-              <ProfilePage />
-            }
+            { appStore.currentView() === '/profile' && <ProfilePage /> }
+            { appStore.currentView() === '/login' && <LoginPage /> }
           </div>
         </Fade>
       }
-      <div className={ classes.toolbar } />
-      { appStore.currentView() !== '/profile' && <BottomNav /> }
+
+      {
+        ! hideNav() &&
+        <Fragment>
+          <div className={ classes.toolbar } />
+          <BottomNav />
+        </Fragment>
+      }
     </Fragment>
   }
 }

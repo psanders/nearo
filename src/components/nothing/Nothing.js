@@ -12,7 +12,7 @@ import { observer, inject } from 'mobx-react'
 @observer
 class NoMatch extends Component {
 
-  handleClick = () => this.props.appStore.currentView = '/'
+  handleClick = () => this.props.appStore.currentView('/')
 
   render () {
     const props = this.props

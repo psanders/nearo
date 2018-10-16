@@ -30,9 +30,10 @@ class AppStore {
 
       if (this.curView === '/') {
         window.history.pushState({}, document.title, '/')
-      } if ((this.curView === '/profile' ||
-          this.curView === '/login') && !usersStore.isSignedIn()){
+      } if ((this.curView === '/profile' || this.curView === '/login')
+          && !usersStore.isSignedIn()){
         window.history.pushState({}, document.title, '/login')
+        return '/login'
       }
 
       return this.curView || '/'

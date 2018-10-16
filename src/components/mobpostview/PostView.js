@@ -8,7 +8,7 @@ import Helmet from 'react-helmet-async'
 
 import PostActions from '../postcard/PostActions'
 import MapCard from '../map/MapCard'
-import ProfileCard from '../profile/ProfileCard'
+import ProfileCard from '../profilecard/ProfileCard'
 import About from '../About'
 import { db } from '../commons/firebase/firebase'
 import { currentPath, capitalize } from '../commons/utils'
