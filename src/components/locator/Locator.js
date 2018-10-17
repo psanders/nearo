@@ -51,7 +51,7 @@ class Locator extends Component {
   }
 
   render() {
-    const { classes, withBorder, withWith } = this.props
+    const { classes, withBorder, withWidth } = this.props
     const { expanded, address } = this.state
     this.myButton = React.createRef()
 
@@ -64,16 +64,19 @@ class Locator extends Component {
             buttonRef={node => {
               this.anchorEl = node
             }}
-            color="secondary"
+            color="primary"
             className={this.state.expanded? classes.locButtonOpen: classes.locButton}
             aria-owns={expanded ? 'menu-list-grow' : null}
             aria-haspopup="true"
             onClick={this.handleToggle}
             onMouseOut={this.handleClose}
             aria-label="Select Address Button"
-            style={{width: withWith? withWith:'' , border: withBorder? '1px solid #546E7A': ''}}
+            style={{
+              width: withWidth? 'calc(' + withWidth + ' - 40px)' : '',
+              border: '1px solid #484ec2',
+            }}
            >
-            <LocationIcon color="secondary" className={classes.leftIcon} />
+            <LocationIcon color="primary" className={classes.leftIcon} />
             <span className={classes.iconText}>{ ellip( address, 22) }</span>
             <span className={classes.flex} />
             <ArrowDropDownIcon/>
@@ -94,10 +97,12 @@ class Locator extends Component {
                 id="menu-list-grow"
                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
-                <Paper style={{width: withWith? (withWith - 1.8): 250}}>
+                <Paper style={{
+                  border: '1px solid #484ec2',
+                  borderTop: '',
+                  width: withWidth? 'calc(' + withWidth + ' - 42px)' : 250}}>
                   <ClickAwayListener onClickAway={this.handleClose} >
-                    <SearchInput
-                      onSelect={this.handleSelect}/>
+                    <SearchInput onSelect={this.handleSelect}/>
                   </ClickAwayListener>
                 </Paper>
               </Grow>

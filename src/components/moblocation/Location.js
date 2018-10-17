@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
@@ -24,21 +22,17 @@ class NoMatch extends Component {
     const { classes } = props
 
     return (<div className={classes.root}>
-      <div className={classes.row}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              Select a location
-            </Typography>
-            <Locator withBorder withWith={265} address={this.address} name="gobal-location"/>
-            <br />
-            <Typography component="p">
-            This is use to show you content
-              <br />
-            relevant to you.
-            </Typography>
-          </CardContent>
-        </Card>
+      <div className={classes.container}>
+        <Typography className={classes.title} color="textSecondary">
+          Select a location
+        </Typography>
+        <Locator withBorder withWidth={'100vw'} address={this.address} name="gobal-location"/>
+        <br />
+        <Typography component="p">
+        This is use to show you content
+          <br />
+        in your area.
+        </Typography>
       </div>
     </div>)
   }
@@ -46,15 +40,10 @@ class NoMatch extends Component {
 
 const styles = {
   root: {
-    height: 'calc(100vh - 55px)',
+    height: 'calc(100vh - 110px)',
     display: 'flex',
-  },
-  row: {
-    margin: 'auto',
-  },
-  card: {
-    margin: 'auto',
-    width: 300,
+    padding: 20,
+    backgroundColor: '#fff'
   },
   title: {
     marginBottom: 16,

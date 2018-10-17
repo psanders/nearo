@@ -16,10 +16,6 @@
     background-color: red;
 }
 
-div.firebaseui-container {
-  background-color: '#dae0e6'
-}
-
 div.mdl-progress::after {
     display: block;
     color: black;

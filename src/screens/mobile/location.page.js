@@ -1,15 +1,15 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import Location from '../../components/moblocation/Location'
+
+const style = {
+  height: 'calc(100vh - 110px)'
+}
 
 @inject('postsStore')
 @observer
 class LocationPage extends Component {
-  render () {
-    return <Fragment>
-      <Location />
-    </Fragment>
-  }
+  render = () => <div style={ style }><Location /></div>
 }
 
 export default LocationPage

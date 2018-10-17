@@ -44,7 +44,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 'calc(100vh - 55px)',
+    height: 'calc(100vh - 110px)',
   },
   container: {
     width: 260

@@ -101,90 +101,90 @@ class Profile extends Component {
     const { classes, usersStore } = this.props
     const user = usersStore.currentUser
 
-    return (<div className={classes.container}>
-        <Typography variant="body1" gutterBottom>
-          Your Preferences
-        </Typography>
-        <AvatarUpdater />
-        <form noValidate autoComplete="off">
-          <TextField
-            variant="outlined"
-            id="user-name"
-            label="Display Name"
-            onChange={this.handleChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            inputProps= {{
-              maxLength: 70,
-            }}
-            value={ user.name }
-            error={this.isNoPristine('user-name') && user.name.length < 3 }
-            placeholder="Name"
-            fullWidth
-            margin="dense"
-          />
-          {user && <PhoneInput
-            id="user-phone"
-            value={user.phone}
-            onChange={this.handleChange}
-          />}
+    return (<div className={classes.root}>
+        <div className={classes.container}>
+          <Typography variant="body1" gutterBottom>
+            Your Preferences
+          </Typography>
+          <AvatarUpdater />
+          <form noValidate autoComplete="off">
+            <TextField
+              variant="outlined"
+              id="user-name"
+              label="Display Name"
+              onChange={this.handleChange}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps= {{
+                maxLength: 70,
+              }}
+              value={ user.name }
+              error={this.isNoPristine('user-name') && user.name.length < 3 }
+              placeholder="Name"
+              fullWidth
+              margin="dense"
+            />
+            {user && <PhoneInput
+              id="user-phone"
+              value={user.phone}
+              onChange={this.handleChange}
+            />}
 
-          <FormControlLabel
-            control={
-              <Checkbox
-                id="user-phone-private"
-                checked={user.keepPhonePrivate}
-                onChange={this.handleChange}
-                color="primary"
-              />
-            }
-            label="Keep Phone Private"
-          />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="user-phone-private"
+                  checked={user.keepPhonePrivate}
+                  onChange={this.handleChange}
+                  color="primary"
+                />
+              }
+              label="Keep Phone Private"
+            />
 
-          <TextField
-            id="user-bio"
-            label="About"
-            multiline
-            rows="4"
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            inputProps= {{
-              maxLength: 128,
-            }}
-            onChange={this.handleChange}
-            className={classes.textField}
-            value={user.bio}
-          />
-          <div className={classes.buttonContainer}>
-            <div>
-              <a className={classes.link} onClick={this.handleEmailReset}
-                size="small"
-                aria-label="Reset Password"
+            <TextField
+              id="user-bio"
+              label="About"
+              multiline
+              rows="4"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps= {{
+                maxLength: 128,
+              }}
+              onChange={this.handleChange}
+              className={classes.textField}
+              value={user.bio}
+            />
+            <div className={classes.buttonContainer}>
+              <div>
+                <a className={classes.link} onClick={this.handleEmailReset}
+                  size="small"
+                  aria-label="Reset Password"
+                >
+                <Typography variant="caption">Recover Password </Typography>
+                </a>
+                <a className={classes.link} onClick={ () => this.props.usersStore.doSignOut() }
+                  size="small"
+                  aria-label="Sign Out"
+                >
+                  <Typography variant="caption">Logout</Typography>
+                </a>
+              </div>
+              <span className={classes.flex}/>
+
+              <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
+                size="small" variant="outlined" color="primary"
+                aria-label="Save Profile"
               >
-              <Typography variant="caption">Recover Password </Typography>
-              </a>
-              <a className={classes.link} onClick={ () => this.props.usersStore.doSignOut() }
-                size="small"
-                aria-label="Sign Out"
-              >
-                <Typography variant="caption">Logout</Typography>
-              </a>
+                Save
+              </Button>
             </div>
-            <span className={classes.flex}/>
-
-            <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }
-              size="small" variant="outlined" color="primary"
-              aria-label="Save Profile"
-            >
-              Save
-            </Button>
-          </div>
-        </form>
-
-
+          </form>
+        </div>
       </div>
     )
   }
@@ -201,10 +201,12 @@ const styles = theme => ({
   logo: {
     color: '#fff'
   },
-  container: {
-    padding: theme.spacing.unit * 1,
+  root: {
     background: '#fff',
-    height: '100vh',
+    height: '100%'
+  },
+  container: {
+    padding: theme.spacing.unit
   },
   button: {
     textTransform: 'capitalize',
