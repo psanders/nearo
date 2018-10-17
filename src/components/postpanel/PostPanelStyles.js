@@ -9,22 +9,22 @@ export const styles = theme => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
+  avatarEdit: {
+    backgroundColor: theme.palette.primary.light
+  },
   details: {
     alignItems: 'center',
-    padding: 0,
     maxHeight: 150,
-    width: 400
   },
   customTFRoot: {
-    paddingTop: 10,
+    paddingTop: 0,
+    padding: 0,
     backgroundColor: '#fff',
-    height: '100vh',
   },
   customTFInput: {
-    padding: 10,
+    padding: 5,
     color: 'black',
     fontSize: 14,
-    height: '100vh',
   },
   newPostBtn: {
     textTransform: 'capitalize',
@@ -38,6 +38,9 @@ export const styles = theme => ({
   },
   addIcon: {
     color: theme.palette.accent.main
+  },
+  closeIcon: {
+    color: theme.palette.primary.light
   },
   chip: {
     margin: theme.spacing.unit,

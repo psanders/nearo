@@ -16,7 +16,9 @@ import withMobileDialog from '@material-ui/core/withMobileDialog'
 import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
 import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/icons/Edit'
 import PostIcon from '@material-ui/icons/AddCircleOutline'
+import CloseIcon from '@material-ui/icons/Close'
 import { observer, inject } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
@@ -171,15 +173,28 @@ class PostPanel extends Component {
           onClose={ this.props.postsStore.hidePostDialog }
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">New Post</DialogTitle>
-          <Divider />
+            <div style={{display: 'flex', minHeight: 50 }}>
+              <div style={{padding: 8,paddingTop: 10}}>
+                <Avatar className={classes.avatarEdit} src={ this.props.usersStore.currentUser.picture }>
+                  <EditIcon />
+                </Avatar>
+              </div>
+            <span className={ classes.flex }/>
+            <div style={{padding: 5}}>
+              <IconButton onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}
+                aria-label="Add New Publication">
+                <CloseIcon className={classes.closeIcon}/>
+              </IconButton>
+            </div>
+          </div>
           <DialogContent className={ classes.details } >
             <TextField
               value={ this.state.body }
               onChange={ this.updateBody }
               multiline
-              rows={4}
+              autoFocus
               fullWidth
+              placeholder="Whats on your mind?"
               InputProps={{
                 inputProps: {
                   maxLength: 254,
@@ -195,13 +210,6 @@ class PostPanel extends Component {
                 className: classes.customTFLabel,
               }}
             />
-            <div className={classes.counter}>
-              { showCounter() &&
-                <Typography variant="caption">
-                  {this.state.body.length - 254}
-                </Typography>
-              }
-            </div>
           </DialogContent>
 
           { this.state.media.length > 0 &&
@@ -228,13 +236,9 @@ class PostPanel extends Component {
             </div>
           }
 
-          { addressLabel() }
-
-          <Divider />
-
           { this.state.loading && <LinearProgress discolor="secondary" /> }
 
-          <DialogActions style={{ padding: 12, paddingRight: 20 }}>
+          <DialogActions style={{position: 'relative', bottom: 0, left: 0}}>
             <UploaderButton
               onUploadStart={this.handleOnUploadStart}
               onUploadSuccess={(filename) => {
@@ -251,9 +255,15 @@ class PostPanel extends Component {
               }}
               />
             <LocatorMobile label="Select a location for your post" onLocationChange={address => this.handleLocationChange(address)}/>
+            { addressLabel() }
             <span className={ classes.flex }/>
-            <Button onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}
-              className={ classes.button } size="small">Cancel</Button>
+            <div>
+              { showCounter() &&
+                <Typography variant="caption">
+                  {this.state.body.length - 254}
+                </Typography>
+              }
+            </div>
             <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () => this.handleCreate() } variant="outlined" size="small" color="primary">
               Post
             </Button>
