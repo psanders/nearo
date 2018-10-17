@@ -40,14 +40,14 @@ class NavStore {
         // Wait for a bit
         await timeout(10000);
         // Or... Ask the user to provide location
-        locInfo = await askForLocation()
+        /*locInfo = await askForLocation()
 
         if(locInfo) {
           this.navInfo.locInfo = locInfo
           storeUserInfo(locationStorage, JSON.parse(JSON.stringify(locInfo)),
             () => this.loaded = true )
           return
-        }
+        }*/
       } catch(error) {
         // Or try getting the address using the users IP
         storeUserInfo(locationStorage,
