@@ -101,7 +101,7 @@ class PostView extends Component {
     </Fragment>
 
     return (
-      <Fragment>
+      <div style={{minHeight: '100vh'}}>
         <Helmet>
           <title>Nearo - { capitalize(post.category) }</title>
         </Helmet>
@@ -133,7 +133,7 @@ class PostView extends Component {
         <Hidden mdDown={true}>
           <div className={classes.top20} />
         </Hidden>
-      </Fragment>
+      </div>
     )
   }
 }

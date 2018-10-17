@@ -53,7 +53,7 @@ class Home extends Component {
       <div style={{padding: 5, backgroundColor: '#484ec2'}}>
         { categories() }
       </div>
-      <div style={{paddingTop: 20, width: 900, margin: '0 auto'}}>
+      <div style={{minHeight: '100vh', paddingTop: 20, width: 900, margin: '0 auto'}}>
         <Gallery/>
       </div>
     </div>
