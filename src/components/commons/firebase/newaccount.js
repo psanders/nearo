@@ -4,7 +4,7 @@ import firebase from 'firebase/app'
 export const createUser = authResult => {
   const picture = authResult.user.photoURL !== null
     ? authResult.user.photoURL
-    : "/images/default-avatar.png"
+    : "/images/user.svg"
 
   const user = {
     id: authResult.user.email,

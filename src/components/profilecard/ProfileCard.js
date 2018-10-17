@@ -13,7 +13,7 @@ function ProfileCard(props) {
 
   if (!user.name) return null
 
-  const avatar = user.picture ? user.picture : "/images/default-avatar.png"
+  const avatar = user.picture ? user.picture : "/images/user.svg"
 
   const showPhone = (u) => u.phone && u.phone.trim().length > 0 && !u.keepPhonePrivate
 

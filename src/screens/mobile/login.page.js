@@ -22,9 +22,14 @@ class ProfilePage extends Component {
       }
       {
         !this.props.usersStore.isSignedIn() &&
-        <div className={classes.container}>
-          <GoBackPage children={ <LoginScreen /> } />
-        </div>
+        <GoBackPage children={
+          <div className={classes.root}>
+            <div className={classes.container}>
+              <img className={classes.illustration} src="https://image.flaticon.com/icons/svg/149/149071.svg" />
+              <LoginScreen />
+            </div>
+          </div>
+        } />
       }
     </Fragment>
   }
@@ -35,9 +40,19 @@ ProfilePage.propTypes = {
 }
 
 const styles = theme => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 'calc(100vh - 55px)',
+  },
   container: {
-    height: '100vh',
-    backgroundColor: theme.palette.primary.light
+    width: 260
+  },
+  illustration: {
+    width: 80,
+    marginLeft: 85,
+    marginBottom: theme.spacing.unit
   }
 })
 
