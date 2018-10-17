@@ -9,30 +9,11 @@ export const styles = theme => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
-  icon: {
-    verticalAlign: 'bottom',
-    height: 20,
-    width: 20,
-  },
   details: {
     alignItems: 'center',
     padding: 0,
     maxHeight: 150,
     width: 400
-  },
-  column: {
-    flexBasis: '33.33%',
-  },
-  helper: {
-    borderLeft: `2px solid ${theme.palette.divider}`,
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
-  },
-  link: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
   },
   customTFRoot: {
     paddingTop: 10,
@@ -61,7 +42,7 @@ export const styles = theme => ({
   chip: {
     margin: theme.spacing.unit,
   },
-  couter: {
+  counter: {
     position: 'absolute',
     top: 0,
     right: 0,

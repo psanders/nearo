@@ -3,6 +3,7 @@ import  Fade from '@material-ui/core/Fade'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
+import NotificationBar from '../../components/NotificationBar'
 import BottomNav from '../../components/mobbottomnav/BottomNav'
 import TopNav from '../../components/mobtopnav/TopNav'
 import FavoritesPage from './favorites.page'
@@ -52,6 +53,7 @@ class MobileScreen extends Component {
           <BottomNav />
         </Fragment>
       }
+      <NotificationBar withExtraSpacing/>
     </Fragment>
   }
 }

@@ -18,7 +18,7 @@ class NotificationBar extends Component {
 
   render() {
     const store = this.props.notificationsStore
-    const { classes } = this.props
+    const { classes, withExtraSpacing } = this.props
     let action
 
     if (store.state.callback !== null) {
@@ -41,7 +41,12 @@ class NotificationBar extends Component {
         autoHideDuration={ store.state.timeout }
         onClose={ store.hideNotification }
         ContentProps={{ 'aria-describedby': 'message-id' }}
-        message={ <div className={ classes.message } id="message-id">{ store.state.message }</div> }
+        message={ <div
+            className={ classes.message }
+            style={{marginTop: withExtraSpacing ? '' : 0, marginBottom: withExtraSpacing ? '' : 0}}
+            id="message-id">{ store.state.message }
+          </div>
+        }
         action={ store.state.callback && action }
       />
   }
@@ -58,8 +63,6 @@ const styles = theme => ({
   },
   callBackBtn: {
     color: theme.palette.accent.main,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
   },
   closeBtn: {
     color: '#f4f4f4',

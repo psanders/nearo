@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
 import { observer, inject } from 'mobx-react'
 
+import NotificationBar from '../../components/NotificationBar'
 import TopNav from '../../components/topnav/TopNav'
 import ProfilePage from './profile.page'
 import LoginPage from './login.page'
@@ -59,6 +60,7 @@ class DesktopScreen extends Component {
         { appStore.currentView() === '/login' && <LoginPage /> }
         { appStore.currentView() === null && <NoMatch /> }
       </main>
+      <NotificationBar />
     </div>
   }
 }

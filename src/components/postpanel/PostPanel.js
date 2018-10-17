@@ -195,13 +195,7 @@ class PostPanel extends Component {
                 className: classes.customTFLabel,
               }}
             />
-            <div className={classes.counter} style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              marginTop: 67,
-              marginRight: 5
-            }}>
+            <div className={classes.counter}>
               { showCounter() &&
                 <Typography variant="caption">
                   {this.state.body.length - 254}

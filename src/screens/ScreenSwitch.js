@@ -4,7 +4,6 @@ import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
 
 import { capitalize } from '../components/commons/utils'
-import NotificationBar from '../components/NotificationBar'
 import MobileScreen from './mobile/mobile'
 import DesktopScreen from './desktop/desktop'
 
@@ -38,7 +37,6 @@ class MainContainer extends Component {
           <MobileScreen />
           </div>
         </Hidden>
-        <NotificationBar />
       </Fragment>
     )
   }
