@@ -25,7 +25,7 @@ class ProfilePage extends Component {
         <GoBackPage children={
           <div className={classes.root}>
             <div className={classes.container}>
-              <img className={classes.illustration} src="https://image.flaticon.com/icons/svg/149/149071.svg" />
+              <img alt="" className={classes.illustration} src="https://image.flaticon.com/icons/svg/149/149071.svg" />
               <LoginScreen />
             </div>
           </div>

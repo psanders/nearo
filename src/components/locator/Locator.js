@@ -51,7 +51,7 @@ class Locator extends Component {
   }
 
   render() {
-    const { classes, withBorder, withWidth } = this.props
+    const { classes, withWidth } = this.props
     const { expanded, address } = this.state
     this.myButton = React.createRef()
 

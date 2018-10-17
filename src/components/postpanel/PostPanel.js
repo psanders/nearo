@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import firebase from 'firebase/app'
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
@@ -149,7 +149,7 @@ class PostPanel extends Component {
     }
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Hidden smUp={true}>
           <IconButton onClick={ postsStore.openPostDialog }
             aria-label="Add New Publication">
@@ -266,7 +266,7 @@ class PostPanel extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-      </React.Fragment>
+      </Fragment>
     )
   }
 }
