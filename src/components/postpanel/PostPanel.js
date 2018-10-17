@@ -257,7 +257,7 @@ class PostPanel extends Component {
                   this.setState({loading: false})
               }}
               />
-            <LocatorMobile label="Select a location for your post" iconColor="#546E7A" onLocationChange={address => this.handleLocationChange(address)}/>
+            <LocatorMobile label="Select a location for your post" onLocationChange={address => this.handleLocationChange(address)}/>
             <span className={ classes.flex }/>
             <Button onClick={ () => { this.clearUI(); this.props.postsStore.hidePostDialog() }}
               className={ classes.button } size="small">Cancel</Button>

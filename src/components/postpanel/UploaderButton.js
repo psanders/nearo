@@ -38,7 +38,6 @@ class UploaderButton extends Component {
         <form>
           <Tooltip title="Add Photo">
             <IconButton onClick={()=> this.triggerInputFile()}
-              color="secondary"
               aria-label="Photo Uploader Button"
             >
               <CameraIcon />

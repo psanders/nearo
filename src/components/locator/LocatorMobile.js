@@ -20,9 +20,6 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     paddingBottom: 0
   },
-  locationIcon: {
-    color: '#fff'
-  },
   popper: {
     zIndex: 1,
     '&[x-placement*="bottom"] $arrow': {
@@ -115,7 +112,7 @@ class RenderPropsPopper extends Component {
   }
 
   render() {
-    const { classes, iconColor } = this.props
+    const { classes } = this.props
     const label = this.props.label
       ? this.props.label
       : "Select a location close to your interest"
@@ -135,7 +132,6 @@ class RenderPropsPopper extends Component {
                   updateAnchorEl(anchorEl? null: event.currentTarget)
                 }}
                 className={classes.locationIcon}
-                style={{color: iconColor ? iconColor: '' }}
                 >
                 <LocationIcon />
               </IconButton>
