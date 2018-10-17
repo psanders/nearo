@@ -25,8 +25,6 @@ class MobileScreen extends Component {
         appStore.currentView() === '/login' ? true : false
     }
 
-    const hasFavorite = () => this.props.postsStore.favPosts.length > 0
-
     return <Fragment>
       { ! hideNav() &&
         <Fragment>
@@ -40,8 +38,7 @@ class MobileScreen extends Component {
           <div>
             { appStore.currentView() === '/' && <HomePage /> }
             { appStore.currentView() === '/posts' && <PostPage /> }
-            { hasFavorite() && appStore.currentView() === '/favorites' && <FavoritesPage /> }
-            { !hasFavorite() && appStore.currentView() === '/favorites' && <NothingPage /> }
+            { appStore.currentView() === '/favorites' && <FavoritesPage /> }
             { appStore.currentView() === '/location' && <LocationPage /> }
             { appStore.currentView() === '/profile' && <ProfilePage /> }
             { appStore.currentView() === '/login' && <LoginPage /> }

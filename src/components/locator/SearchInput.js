@@ -5,6 +5,7 @@ import PlacesAutocomplete from 'react-places-autocomplete'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import TextField from '@material-ui/core/TextField'
 
 import { ellip } from '../commons/utils'
 
@@ -52,7 +53,7 @@ class LocationSearchInput extends React.Component {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            <input
+            <TextField
               {...getInputProps({
                 placeholder: 'Search Places ...',
                 className: classes.searchInput,
@@ -83,17 +84,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   searchInput: {
-    fontSize: 12,
     width: 'calc(100% - 40px)',
     marginLeft: 15,
     marginTop: 10,
     marginBottom: 5,
     padding: 5,
-    border: '1px solid #cdcdcd',
-    '&:focus': {
-      outline: 'none !important',
-      border: '1px solid #444',
-    },
   }
 })
 

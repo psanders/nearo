@@ -139,7 +139,6 @@ class Profile extends Component {
             <AvatarUpdater />
             <form className={classes.container} noValidate autoComplete="off">
               <TextField
-                autoFocus
                 variant="outlined"
                 id="user-name"
                 label="Display Name"

@@ -46,9 +46,7 @@ class PostsStore {
       if (!usersStore.currentUser.id) {
         return
       }
-
       this.favPosts.replace([])
-
       bookmarksStore.bookmarks.map(bookmark => {
         return db.collection('posts').doc(bookmark).get()
         .then(value => {

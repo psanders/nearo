@@ -180,7 +180,6 @@ class PostPanel extends Component {
               multiline
               rows={4}
               fullWidth
-              autoFocus
               InputProps={{
                 inputProps: {
                   maxLength: 254,
