@@ -18,3 +18,7 @@
   word-wrap: break-word;
   white-space: normal;
 }
+
+button.btn {
+  color: #f4f4f4
+}

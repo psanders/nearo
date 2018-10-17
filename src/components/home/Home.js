@@ -4,7 +4,6 @@ import {computed} from 'mobx'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
-import PostPanel from '../postpanel/PostPanel'
 import Gallery from './Gallery'
 import './Gallery.css'
 import { getCategories } from '../commons/categories'
@@ -32,8 +31,8 @@ class Home extends Component {
 
   render() {
     const categories = () => <div style={{display: 'flex'}}>
-      <Typography style={{ display: 'inline', marginLeft: 10, marginRight: 5, marginTop: 3 }}
-        variant="body2" color="secondary">Categories</Typography>
+      <Typography style={{color: '#f4f4f4', display: 'inline', marginLeft: 10, marginRight: 5, marginTop: 3}}
+        variant="body2" className="btn">Categories</Typography>
       {
         getCategories().map(category => {
          return (
@@ -41,20 +40,17 @@ class Home extends Component {
               key={category.ref}
               onClick={() => this.handleChange(category)}
               size="small"
-              color="secondary"
+              className="btn"
               style={{textTransform:'capitalize'}}>
               {category.name}
             </Button>
           )
         })
       }
-      <span style={{display: 'flex', flex: 1}} />
-      <PostPanel style={{marginRight: 20}}/>
-      <span style={{marginLeft: 10}} />
     </div>
 
     return <div>
-      <div style={{padding: 5, backgroundColor: '#fff'}}>
+      <div style={{padding: 5, backgroundColor: '#484ec2'}}>
         { categories() }
       </div>
       <div style={{paddingTop: 20, width: 900, margin: '0 auto'}}>
