@@ -35,13 +35,12 @@ const PostsContainer = Loadable({
   loading: () => loading,
 })
 
-@inject('appStore')
 @inject('routing')
 @observer
 class DesktopScreen extends Component {
 
   render () {
-    const { classes, appStore } = this.props
+    const { classes } = this.props
     const pathname = this.props.routing.location.pathname
     const hideNav = () => {
       return pathname === '/profile' ||

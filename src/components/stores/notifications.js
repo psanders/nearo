@@ -1,8 +1,6 @@
-import { observable, when, inject } from "mobx"
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+import { observable, when } from "mobx"
 
 class NotificationsStore {
-
     @observable state = {
       open: false,
       message: "",

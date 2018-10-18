@@ -15,6 +15,7 @@ import { styles } from './PostCardStyles'
 import { observer, inject } from 'mobx-react'
 import { computed, when } from 'mobx'
 
+@inject('routing')
 @inject('bookmarksStore')
 @inject('postsStore')
 @inject('usersStore')

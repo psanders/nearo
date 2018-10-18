@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import  Fade from '@material-ui/core/Fade'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
-import { computed } from 'mobx'
 
 import NotificationBar from '../../components/NotificationBar'
 import BottomNav from '../../components/mobbottomnav/BottomNav'
@@ -24,12 +23,7 @@ class MobileScreen extends Component {
   render () {
     const { classes, appStore } = this.props
     const pathname = this.props.routing.location.pathname
-    const hideNav = () => {
-      return pathname === '/profile' ||
-        pathname === '/login' ? true : false
-    }
-
-    console.log('pathname', getMainPath(pathname))
+    const hideNav = () => pathname === '/profile' || pathname === '/login'
 
     return <Fragment>
       { ! hideNav() &&
@@ -43,8 +37,8 @@ class MobileScreen extends Component {
         <Fade in={true} timeout={300}>
           <div>
             { pathname === '/' && <HomePage /> }
-            {  pathname === '/explore' || pathname === '/' && <HomePage /> }
-            { '/' + getMainPath(pathname) === '/posts' && <PostPage /> }
+            { (pathname === '/explore' || pathname === '/') && <HomePage /> }
+            { ('/' + getMainPath(pathname) === '/posts') && <PostPage /> }
             { pathname === '/favorites' && <FavoritesPage /> }
             { pathname === '/location' && <LocationPage /> }
             { pathname === '/profile' && <ProfilePage /> }

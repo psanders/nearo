@@ -4,7 +4,6 @@ import 'firebase/storage'
 import FileUploader from 'react-firebase-file-uploader'
 import CameraIcon from '@material-ui/icons/PhotoCamera'
 import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
 
 class UploaderButton extends Component {
 
@@ -36,13 +35,11 @@ class UploaderButton extends Component {
     return (
       <div>
         <form>
-          <Tooltip title="Add Photo">
-            <IconButton onClick={()=> this.triggerInputFile()}
-              aria-label="Photo Uploader Button"
-            >
-              <CameraIcon />
-            </IconButton>
-          </Tooltip>
+          <IconButton onClick={()=> this.triggerInputFile()}
+            aria-label="Photo Uploader Button"
+          >
+            <CameraIcon />
+          </IconButton>
           <FileUploader
             id="uploaderInput"
             hidden

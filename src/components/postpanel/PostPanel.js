@@ -17,7 +17,6 @@ import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 import PostIcon from '@material-ui/icons/AddCircleOutline'
 import CloseIcon from '@material-ui/icons/Close'
-import Tooltip from '@material-ui/core/Tooltip'
 import { observer, inject } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
@@ -253,9 +252,8 @@ class PostPanel extends Component {
               }}
               />
 
-            <Tooltip title="Change Post Location">
-              <LocatorMini label="Select a location for your post" onLocationChange={address => this.handleLocationChange(address)}/>
-            </Tooltip>
+            <LocatorMini label="Select a location for your post" onLocationChange={address => this.handleLocationChange(address)}/>
+
             { addressLabel() }
             <span className={ classes.flex }/>
             <div>
