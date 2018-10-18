@@ -33,7 +33,7 @@ const uiConfig = (self) => {
           createUser(authResult)
         }
         // Let Router take care of the navigation
-        self.props.appStore.currentView('/')
+        self.props.routing.push('/')
         return false
       },
       signInFailure: function(error) {
@@ -42,7 +42,7 @@ const uiConfig = (self) => {
   }
 }}
 
-@inject('appStore')
+@inject('routing')
 @observer
 class LoginScreen extends Component {
   render() {

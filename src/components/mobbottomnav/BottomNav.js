@@ -10,13 +10,14 @@ import EditLocationIcon from '@material-ui/icons/LocationOnOutlined'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
+@inject('routing')
 @inject('appStore')
 @inject('usersStore')
 @inject('notificationsStore')
 @observer
 class BNav extends Component {
-  @computed get value() {
-    return this.props.appStore.currentView()
+  @computed get currentView() {
+    return this.props.routing.location.pathname
   }
 
   @computed get signedIn() {
@@ -26,16 +27,17 @@ class BNav extends Component {
   handleChange = (event, value) => {
     if (!this.signedIn && value === '/favorites') {
       this.props.notificationsStore.showMustLogin(()=> {
-        this.props.appStore.currentView = '/login'
+        this.props.routing.push('/login')
       })
       return
     }
 
     if(value === '/profile' && !this.signedIn) {
-      this.props.appStore.currentView('/login')
+      this.props.routing.push('/login')
+      return
     }
 
-    this.props.appStore.currentView(value)
+    this.props.routing.push(value)
   }
 
   render() {
@@ -44,7 +46,7 @@ class BNav extends Component {
     return (
       <BottomNavigation
         showLabels
-        value={this.value}
+        value={this.currentView}
         onChange={this.handleChange}
         className={classes.root}>
           { appStore.isReady() && <BottomNavigationAction label="Home" value="/" icon={<HomeIcon />}  /> }

@@ -39,7 +39,7 @@ const uiConfig = (self) => {
           createUser(authResult)
         }
         // Let Router take care of the navigation
-        self.props.appStore.currentView('/')
+        self.props.routing.push('/')
         return false
       },
       signInFailure: function(error) {
@@ -49,12 +49,12 @@ const uiConfig = (self) => {
 }}
 
 
-@inject('appStore')
+@inject('routing')
 @observer
 class LoginScreen extends Component {
 
   render() {
-    const { appStore } = this.props
+    const { routing } = this.props
     const hideBar = () => document.getElementsByClassName("firebaseui-idp-list").length > 0
       ? false
       : true
@@ -64,7 +64,7 @@ class LoginScreen extends Component {
         <Hidden xsDown={true}>
         { !hideBar() && <AppBar>
           <Toolbar color="secondary" >
-            <IconButton color="inherit" onClick={ () => appStore.currentView('/') } aria-label="Close">
+            <IconButton color="inherit" onClick={ () => routing.push('/') } aria-label="Close">
               <ArrowBackIcon style={{ color: '#fff' }} />
             </IconButton>
             <Typography variant="title" style={{ color: '#fff' }}>

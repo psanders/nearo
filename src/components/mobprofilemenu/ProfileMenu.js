@@ -14,6 +14,7 @@ import { styles } from './styles'
 
 @inject('usersStore')
 @inject('appStore')
+@inject('routing')
 @inject('notificationsStore')
 @observer
 class ProfileMenu extends React.Component {
@@ -24,7 +25,7 @@ class ProfileMenu extends React.Component {
   handleClick = event => {
     if (!this.props.usersStore.isSignedIn()) {
       this.props.notificationsStore.showMustLogin(() => {
-        this.props.appStore.currentView('/profile')
+        this.props.routing.push('/profile')
       })
       return
     }
@@ -35,12 +36,12 @@ class ProfileMenu extends React.Component {
 
   handleSignOut = () => {
     this.props.usersStore.doSignOut()
-    this.props.appStore.currentView('/')
+    this.props.routing.push('/')
   }
 
   render() {
     const { anchorEl } = this.state
-    const { classes, appStore } = this.props
+    const { classes, routing } = this.props
 
     return (
       <div>
@@ -58,7 +59,7 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={ () => appStore.currentView('/profile') } >
+          <MenuItem onClick={ () => routing.push('/profile') } >
             <ListItemIcon className={classes.icon} >
               <SettingsIcon />
             </ListItemIcon>

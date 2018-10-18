@@ -10,18 +10,19 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import { observer, inject } from 'mobx-react'
 import classnames from 'classnames'
 
+@inject('routing')
 @inject('appStore')
 @inject('usersStore')
 @observer
 class Profile extends Component {
 
   render() {
-    const { classes, appStore, children } = this.props
+    const { classes, routing, appStore, children } = this.props
 
     return (<div>
         <AppBar elevation={0}>
           <Toolbar color="secondary" >
-            <IconButton onClick={() => appStore.currentView('/')} color="inherit" aria-label="Close">
+            <IconButton onClick={() => routing.goBack()} color="inherit" aria-label="Close">
               <ArrowBackIcon className={classes.arrawBack}/>
             </IconButton>
             <Typography variant="title" className={classnames(classes.flex, classes.logo)}>

@@ -7,7 +7,7 @@ import { computed } from 'mobx'
 
 import Locator from '../locator/Locator'
 
-@inject('appStore')
+@inject('routing')
 @inject('navStore')
 @observer
 class NoMatch extends Component {
@@ -15,7 +15,7 @@ class NoMatch extends Component {
     return this.props.navStore.navInfo.locInfo.address
   }
 
-  handleClick = () => this.props.appStore.currentView = '/'
+  handleClick = () => this.props.routing.push('/')
 
   render () {
     const props = this.props

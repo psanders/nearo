@@ -21,7 +21,7 @@ import LocatorMobile from '../locator/LocatorMobile'
 
 @inject('navStore')
 @inject('usersStore')
-@inject('appStore')
+@inject('routing')
 @inject('postsStore')
 @observer
 class TopNav extends React.Component {
@@ -35,12 +35,12 @@ class TopNav extends React.Component {
     this.props.navStore.setNavInfo(navInfo)
   }
 
-  goToLogin = () => this.props.appStore.currentView('/profile')
+  goToLogin = () => this.props.routing.push('/profile')
 
-  handleNav = () => this.props.appStore.currentView('/')
+  handleNav = () => this.props.routing.push('/')
 
   render() {
-    const { classes, usersStore, appStore } = this.props
+    const { classes, usersStore, appStore, routing } = this.props
 
     return (
       <div>

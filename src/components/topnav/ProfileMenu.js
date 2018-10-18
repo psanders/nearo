@@ -12,7 +12,7 @@ import { observer, inject } from 'mobx-react'
 import { styles } from './TopnavStyles'
 
 @inject('usersStore')
-@inject('appStore')
+@inject('routing')
 @observer
 class ProfileMenu extends React.Component {
   state = {
@@ -25,7 +25,7 @@ class ProfileMenu extends React.Component {
 
   render() {
     const { anchorEl } = this.state
-    const { classes, usersStore, appStore } = this.props
+    const { classes, usersStore, routing } = this.props
     const user = usersStore.currentUser
 
     return (
@@ -50,7 +50,7 @@ class ProfileMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={ () => appStore.currentView('/profile') } >
+          <MenuItem onClick={ () => routing.push('/profile') } >
             <ListItemIcon className={classes.icon} >
               <SettingsIcon />
             </ListItemIcon>

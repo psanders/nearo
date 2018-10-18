@@ -26,6 +26,7 @@ import { storeUserInfo } from '../commons/dbfunctions'
 @inject('usersStore')
 @inject('notificationsStore')
 @inject('appStore')
+@inject('routing')
 @observer
 class Profile extends Component {
   state = {
@@ -75,7 +76,7 @@ class Profile extends Component {
     storeUserInfo('user-info', jsonUser)
     this.props.usersStore.setCurrentUser(jsonUser)
     this.props.notificationsStore.showNotification('All set')
-    this.props.appStore.currentView('/')
+    this.props.routing.push('/')
   }
 
   isInvalid = user => {
@@ -115,7 +116,7 @@ class Profile extends Component {
         <Hidden xsDown={true}>
           <AppBar>
             <Toolbar color="secondary" >
-              <IconButton color="inherit" onClick={ () => this.props.appStore.currentView('/') } aria-label="Close">
+              <IconButton color="inherit" onClick={ () => this.props.routing.push('/') } aria-label="Close">
                 <ArrowBackIcon className={classes.arrawBack}/>
               </IconButton>
               <Typography variant="title" className={classnames(classes.flex, classes.logo)}>

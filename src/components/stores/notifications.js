@@ -1,5 +1,7 @@
-import { observable, when } from "mobx"
-import { appStore } from './app'
+import { observable, when, inject } from "mobx"
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+
+const routingStore = new RouterStore()
 
 class NotificationsStore {
     @observable state = {
@@ -19,7 +21,7 @@ class NotificationsStore {
 
     showMustLogin = () => {
       this.showNotification('Please login', 10000,
-        ()=> appStore.currentView('/profile') ,  "Login")
+        ()=> routingStore.push('/profile') ,  "Login")
     }
 
     showNotification = (message,

@@ -16,7 +16,7 @@ import { observer, inject } from 'mobx-react'
 import PostActions from '../postcard/PostActions'
 import { imageURL } from '../commons/utils'
 
-@inject('appStore')
+@inject('routing')
 @inject('postsStore')
 @observer
 class RecipeReviewCard extends React.Component {
@@ -25,7 +25,7 @@ class RecipeReviewCard extends React.Component {
   handleExpandClick = () => this.setState(state => ({ expanded: !state.expanded }))
 
   render() {
-    const { classes, post, appStore, postsStore } = this.props
+    const { classes, post, postsStore, routing } = this.props
 
     return (
       <Card className={classes.card} elevation={0}>
@@ -40,7 +40,7 @@ class RecipeReviewCard extends React.Component {
           post.media.length > 0 &&
           <ButtonBase aria-label="Open Publication Details" onClick={() => {
             postsStore.currentPost = post
-            appStore.currentView('/posts')}
+            routing.push('/posts/' + post.id)}
           }>
             <img alt="" className={classes.cardImg} src={ imageURL(post, 'md') } />
           </ButtonBase>

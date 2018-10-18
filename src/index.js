@@ -2,8 +2,11 @@ import React from 'react'
 import 'typeface-roboto'
 import './index.css'
 import ReactDOM from 'react-dom'
+import createBrowserHistory from 'history/createBrowserHistory'
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from "mobx-react"
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+import { Router } from 'react-router'
 
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
@@ -14,17 +17,27 @@ import { bookmarksStore } from './components/stores/bookmarks'
 import { usersStore } from './components/stores/users'
 import { notificationsStore } from './components/stores/notifications'
 
+const browserHistory = createBrowserHistory()
+const routingStore = new RouterStore()
+
+const stores = {
+  routing: routingStore,
+  appStore: appStore,
+  navStore: navStore,
+  postsStore: postsStore,
+  notificationsStore: notificationsStore,
+  usersStore: usersStore,
+  bookmarksStore: bookmarksStore
+}
+
+const history = syncHistoryWithStore(browserHistory, routingStore)
+
 ReactDOM.render(
   <HelmetProvider>
-    <Provider
-      appStore={appStore}
-      navStore={navStore}
-      postsStore={postsStore}
-      notificationsStore={notificationsStore}
-      usersStore={usersStore}
-      bookmarksStore={bookmarksStore}
-      >
-      <App />
+    <Provider {...stores}>
+      <Router history={history}>
+        <App />
+      </Router>
     </Provider>
   </HelmetProvider>,
 document.getElementById('root'))

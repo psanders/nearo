@@ -8,7 +8,7 @@ import Gallery from './Gallery'
 import './Gallery.css'
 import { getCategories } from '../commons/categories'
 
-@inject('appStore')
+@inject('routing')
 @inject('postsStore')
 @inject('navStore')
 @inject('bookmarksStore')
@@ -16,7 +16,7 @@ import { getCategories } from '../commons/categories'
 @observer
 class Home extends Component {
 
-  goToLogin = () => this.props.appStore.currentView('/profile')
+  goToLogin = () => this.props.routing.push('/profile')
 
   @computed get signed () {
     return this.props.usersStore.signedIn
@@ -26,7 +26,7 @@ class Home extends Component {
     const navInfo = this.props.navStore.navInfo
     navInfo.searchTerm = category.name
     this.props.navStore.setNavInfo(navInfo)
-    this.props.appStore.currentView('/explore')
+    this.props.routing.push('/explore')
   }
 
   render() {

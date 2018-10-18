@@ -8,12 +8,12 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { observer, inject } from 'mobx-react'
 
-@inject('appStore')
+@inject('routing')
 @observer
 class NoMatch extends Component {
 
   render () {
-    const { classes, appStore } = this.rops
+    const { classes, routing } = this.rops
 
     return (<div className={classes.root}>
       <div className={classes.row}>
@@ -35,7 +35,7 @@ class NoMatch extends Component {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={() => appStore.currentView('/')} size="small" variant="outlined" color="primary">Go Home</Button>
+            <Button onClick={() => routing.push('/')} size="small" variant="outlined" color="primary">Go Home</Button>
           </CardActions>
         </Card>
       </div>

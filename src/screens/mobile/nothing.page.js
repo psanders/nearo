@@ -4,10 +4,10 @@ import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import { observer, inject } from 'mobx-react'
 
-@inject('appStore')
+@inject('routing')
 @observer
 class NothingPage extends Component {
-  handleClick = () => this.props.appStore.currentView('/')
+  handleClick = () => this.props.routing.push('/')
 
   render () {
     const { classes } = this.props

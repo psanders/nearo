@@ -7,6 +7,7 @@ import { capitalize } from '../components/commons/utils'
 import MobileScreen from './mobile/mobile'
 import DesktopScreen from './desktop/desktop'
 
+@inject('routing')
 @inject('appStore')
 @observer
 class MainContainer extends Component {
@@ -17,17 +18,17 @@ class MainContainer extends Component {
   }
 
   render () {
-    const { appStore } = this.props
+    const { routing } = this.props
 
     return(
       <Fragment>
         <Helmet>
           <title>
             Nearo
-            { appStore.currentView() !== '/' ? ' - ' : ''}
-            { capitalize(appStore.currentView().replace('/', '')) }
+            { routing.location.pathname !== '/' ? ' - ' : ''}
+            { capitalize(routing.location.pathname.replace('/', '')) }
           </title>
-          <link rel="canonical" href={appStore.currentView()} />
+          <link rel="canonical" href={routing.location.pathname} />
         </Helmet>
         <Hidden xsDown={true}>
           <DesktopScreen />

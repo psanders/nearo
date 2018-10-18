@@ -19,13 +19,13 @@ import { getCategory } from '../commons/categories'
 import { imageURL, hasPanorama } from '../commons/utils'
 import PostActions from './PostActions'
 
-@inject('appStore')
+@inject('routing')
 @inject('postsStore')
 @observer
 class PostCard extends React.Component {
 
   render() {
-    const { classes, post, appStore, postsStore } = this.props
+    const { classes, post, routing, postsStore } = this.props
 
     const placeHolder = () => <div
         className={classes.placeHolder}
@@ -59,8 +59,8 @@ class PostCard extends React.Component {
         <Grid item>
           <ButtonBase aria-label="Open Publication Details" onClick={() => {
             postsStore.currentPost = post
-            appStore.currentView('/posts')}
-          }>
+            routing.push('/posts/' + post.id)
+          }}>
             { image(post, imageMobile) }
           </ButtonBase>
         </Grid>
@@ -89,7 +89,7 @@ class PostCard extends React.Component {
         <Grid item style={{paddingTop: 35}}>
           <ButtonBase className={classes.image} aria-label="Open Publication Details" onClick={() => {
             postsStore.currentPost = post
-            appStore.currentView('/posts')}
+            routing.push('/posts/' + post.id)}
           }>
             { image(post, imageDesktop) }
           </ButtonBase>

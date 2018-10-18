@@ -35,14 +35,15 @@ const PostsContainer = Loadable({
 })
 
 @inject('appStore')
+@inject('routing')
 @observer
 class DesktopScreen extends Component {
 
   render () {
-    const { classes, appStore } = this.props
+    const { classes, appStore, routing } = this.props
     const hideNav = () => {
-      return appStore.currentView() === '/profile' ||
-        appStore.currentView() === '/login' ? true : false
+      return routing.location.pathname === '/profile' ||
+        routing.location.pathname === '/login' ? true : false
     }
 
     return <div className={ classes.root }>
@@ -53,12 +54,12 @@ class DesktopScreen extends Component {
             <div className={ classes.toolbar } />
           </Fragment>
         }
-        { appStore.currentView() === '/' && <Home /> }
-        { appStore.currentView() === '/explore' && <PostsContainer /> }
-        { appStore.currentView() === '/posts' && <PostView /> }
-        { appStore.currentView() === '/profile' && <ProfilePage /> }
-        { appStore.currentView() === '/login' && <LoginPage /> }
-        { appStore.currentView() === null && <NoMatch /> }
+        { routing.location.pathname === '/' && <Home /> }
+        { routing.location.pathname === '/explore' && <PostsContainer /> }
+        { routing.location.pathname === '/posts' && <PostView /> }
+        { routing.location.pathname === '/profile' && <ProfilePage /> }
+        { routing.location.pathname === '/login' && <LoginPage /> }
+        { routing.location.pathname === null && <NoMatch /> }
       </main>
       <NotificationBar />
     </div>

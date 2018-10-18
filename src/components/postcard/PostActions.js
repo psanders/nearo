@@ -18,7 +18,6 @@ import { computed, when } from 'mobx'
 @inject('bookmarksStore')
 @inject('postsStore')
 @inject('usersStore')
-@inject('appStore')
 @observer
 class PostActions extends Component {
   state = {
@@ -79,8 +78,8 @@ class PostActions extends Component {
 
   handleRemove = () => {
     this.props.postsStore.handlePostDelete(this.props.post)
-    if (this.props.appStore.currentView() === '/posts') {
-      this.props.appStore.currentView('/explore')
+    if (this.props.routing.location.pathname === '/posts') {
+      this.props.routing.push('/explore')
     }
   }
 

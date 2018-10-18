@@ -6,6 +6,13 @@ const time = postedTime => new Date().getTime() / 1000 - postedTime
 
 export const currentPath = (level = 1) =>  window.location.pathname.split('/')[level]
 
+export const getMainPath = str => {
+  const regex = /^\/([^?\/]+)/
+  return str.match(regex) && str.match(regex).length > 1
+    ? str.match(regex)[1]
+    : null
+}
+
 export const hasMedia = post => post.media && post.media.length > 0
 
 export const hasPanorama = post => post.media && post.media.length > 1
