@@ -64,7 +64,7 @@ class Locator extends Component {
             buttonRef={node => {
               this.anchorEl = node
             }}
-            color="primary"
+            color="secondary"
             className={this.state.expanded? classes.locButtonOpen: classes.locButton}
             aria-owns={expanded ? 'menu-list-grow' : null}
             aria-haspopup="true"
@@ -73,10 +73,10 @@ class Locator extends Component {
             aria-label="Select Address Button"
             style={{
               width: withWidth? 'calc(' + withWidth + ' - 40px)' : '',
-              border: '1px solid #484ec2',
+              border: '1px solid #546E7A'
             }}
            >
-            <LocationIcon color="primary" className={classes.leftIcon} />
+            <LocationIcon color="secondary" className={classes.leftIcon} />
             <span className={classes.iconText}>{ ellip( address, 22) }</span>
             <span className={classes.flex} />
             <ArrowDropDownIcon/>
@@ -98,7 +98,6 @@ class Locator extends Component {
                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
                 <Paper style={{
-                  border: '1px solid #484ec2',
                   borderTop: '',
                   width: withWidth? 'calc(' + withWidth + ' - 42px)' : 250}}>
                   <ClickAwayListener onClickAway={this.handleClose} >

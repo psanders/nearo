@@ -25,7 +25,6 @@ import classnames from 'classnames'
 
 import { styles } from './TopnavStyles'
 import Locator from '../locator/Locator'
-import LocatorMobile from '../locator/LocatorMobile'
 
 @inject('navStore')
 @inject('appStore')

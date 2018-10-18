@@ -27,7 +27,7 @@ import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
 import { styles } from './PostPanelStyles'
 import { imageURL, ellip } from '../commons/utils'
-import LocatorMobile from '../locator/LocatorMobile'
+import LocatorMini from '../locator/LocatorMini'
 
 @inject('notificationsStore')
 @inject('postsStore')
@@ -254,7 +254,7 @@ class PostPanel extends Component {
               />
 
             <Tooltip title="Change Post Location">
-              <LocatorMobile label="Select a location for your post" onLocationChange={address => this.handleLocationChange(address)}/>
+              <LocatorMini label="Select a location for your post" onLocationChange={address => this.handleLocationChange(address)}/>
             </Tooltip>
             { addressLabel() }
             <span className={ classes.flex }/>

@@ -83,7 +83,7 @@ const styles = theme => ({
 
 @inject('navStore')
 @observer
-class RenderPropsPopper extends Component {
+class LocatorMini extends Component {
   state = {
     arrowRef: null,
     open: false
@@ -175,8 +175,8 @@ class RenderPropsPopper extends Component {
   }
 }
 
-RenderPropsPopper.propTypes = {
+LocatorMini.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(RenderPropsPopper)
+export default withStyles(styles)(LocatorMini)
