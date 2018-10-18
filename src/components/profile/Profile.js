@@ -168,7 +168,10 @@ class Profile extends Component {
                 >
                 <Typography variant="caption">Recover Password </Typography>
                 </a>
-                <a className={classes.link} onClick={ () => this.props.usersStore.doSignOut() }
+                <a className={classes.link} onClick={ () => {
+                  this.props.usersStore.doSignOut()
+                  this.props.routing.push('/')
+                }}
                   size="small"
                   aria-label="Sign Out"
                 >
