@@ -55,8 +55,7 @@ export const styles = theme => ({
     backgroundColor: '#fff',
     fontSize: 16,
     padding: '10px 12px',
-    height: 22,
-
+    height: 20,
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     fontFamily: [
       '-apple-system',

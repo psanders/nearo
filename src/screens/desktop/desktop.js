@@ -15,8 +15,8 @@ const loading = <Typography variant="body1" color="secondary" style={{ margin: 2
   Loading...
 </Typography>
 
-const PostView = Loadable({
-  loader: () => import('../../components/postview/PostView'),
+const PostPage = Loadable({
+  loader: () => import('./post.page'),
   loading: () => loading,
 })
 
@@ -43,10 +43,11 @@ class DesktopScreen extends Component {
   render () {
     const { classes, appStore } = this.props
     const pathname = this.props.routing.location.pathname
-
     const hideNav = () => {
       return pathname === '/profile' ||
-        pathname === '/login' ? true : false
+        '/' + getMainPath(pathname) === '/posts' ||
+        pathname === '/post'
+        ? true : false
     }
 
     return <div className={ classes.root }>
@@ -59,7 +60,7 @@ class DesktopScreen extends Component {
         }
         { pathname === '/' && <Home /> }
         { pathname === '/explore' && <PostsContainer /> }
-        { '/' + getMainPath(pathname) === '/posts' && <PostView /> }
+        { '/' + getMainPath(pathname) === '/posts' && <PostPage /> }
         { pathname === '/profile' && <ProfilePage /> }
         { pathname === '/login' && <LoginPage /> }
         { pathname === null && <NoMatch /> }
