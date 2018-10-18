@@ -9,6 +9,7 @@ import NotificationBar from '../../components/NotificationBar'
 import TopNav from '../../components/topnav/TopNav'
 import ProfilePage from './profile.page'
 import LoginPage from './login.page'
+import { getMainPath } from '../../components/commons/utils'
 
 const loading = <Typography variant="body1" color="secondary" style={{ margin: 20 }}>
   Loading...
@@ -40,10 +41,12 @@ const PostsContainer = Loadable({
 class DesktopScreen extends Component {
 
   render () {
-    const { classes, appStore, routing } = this.props
+    const { classes, appStore } = this.props
+    const pathname = this.props.routing.location.pathname
+
     const hideNav = () => {
-      return routing.location.pathname === '/profile' ||
-        routing.location.pathname === '/login' ? true : false
+      return pathname === '/profile' ||
+        pathname === '/login' ? true : false
     }
 
     return <div className={ classes.root }>
@@ -54,12 +57,12 @@ class DesktopScreen extends Component {
             <div className={ classes.toolbar } />
           </Fragment>
         }
-        { routing.location.pathname === '/' && <Home /> }
-        { routing.location.pathname === '/explore' && <PostsContainer /> }
-        { routing.location.pathname === '/posts' && <PostView /> }
-        { routing.location.pathname === '/profile' && <ProfilePage /> }
-        { routing.location.pathname === '/login' && <LoginPage /> }
-        { routing.location.pathname === null && <NoMatch /> }
+        { pathname === '/' && <Home /> }
+        { pathname === '/explore' && <PostsContainer /> }
+        { '/' + getMainPath(pathname) === '/posts' && <PostView /> }
+        { pathname === '/profile' && <ProfilePage /> }
+        { pathname === '/login' && <LoginPage /> }
+        { pathname === null && <NoMatch /> }
       </main>
       <NotificationBar />
     </div>

@@ -22,8 +22,8 @@ import { getMainPath } from '../../components/commons/utils'
 class MobileScreen extends Component {
 
   render () {
-    const { classes, appStore, routing } = this.props
-    const pathname = routing.location.pathname
+    const { classes, appStore } = this.props
+    const pathname = this.props.routing.location.pathname
     const hideNav = () => {
       return pathname === '/profile' ||
         pathname === '/login' ? true : false
@@ -43,7 +43,8 @@ class MobileScreen extends Component {
         <Fade in={true} timeout={300}>
           <div>
             { pathname === '/' && <HomePage /> }
-            { '/' + getMainPath(pathname)  === '/posts' && <PostPage /> }
+            {  pathname === '/explore' || pathname === '/' && <HomePage /> }
+            { '/' + getMainPath(pathname) === '/posts' && <PostPage /> }
             { pathname === '/favorites' && <FavoritesPage /> }
             { pathname === '/location' && <LocationPage /> }
             { pathname === '/profile' && <ProfilePage /> }

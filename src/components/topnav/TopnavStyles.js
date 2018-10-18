@@ -1,4 +1,9 @@
 export const styles = theme => ({
+  searchInput2: {
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    width: 240,
+  },
   progress: {
     color: theme.palette.accent.main,
   },
@@ -51,7 +56,7 @@ export const styles = theme => ({
     fontSize: 16,
     padding: '10px 12px',
     height: 22,
-    width: 220,
+
     transition: theme.transitions.create(['border-color', 'box-shadow']),
     fontFamily: [
       '-apple-system',
@@ -67,11 +72,11 @@ export const styles = theme => ({
     ].join(','),
     '&:focus': {
       color: theme.palette.secondary.main,
-      boxShadow: '0 0 0 0.05rem ' + theme.palette.secondary.main,
+      //boxShadow: '0 0 0 0.05rem ' + theme.palette.secondary.main,
     },
     '&:hover': {
       color: theme.palette.secondary.main,
-      boxShadow: '0 0 0 0.05rem ' + theme.palette.secondary.main,
+      //boxShadow: '0 0 0 0.05rem ' + theme.palette.secondary.main,
     },
   },
   bootstrapFormLabel: {

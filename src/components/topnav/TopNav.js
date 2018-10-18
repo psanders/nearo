@@ -11,6 +11,14 @@ import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import IconButton from '@material-ui/core/IconButton'
 import LoginIcon from '@material-ui/icons/Fingerprint'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormControl from '@material-ui/core/FormControl'
+import MenuItem from '@material-ui/core/MenuItem'
+import CloseIcon from '@material-ui/icons/Close'
+
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 import classnames from 'classnames'
@@ -20,6 +28,7 @@ import Locator from '../locator/Locator'
 import LocatorMobile from '../locator/LocatorMobile'
 
 @inject('navStore')
+@inject('appStore')
 @inject('usersStore')
 @inject('routing')
 @inject('postsStore')
@@ -35,12 +44,14 @@ class TopNav extends React.Component {
     this.props.navStore.setNavInfo(navInfo)
   }
 
-  goToLogin = () => this.props.routing.push('/profile')
+  handleClearSearch = () => this.props.navStore.navInfo.searchTerm = ''
+
+  goToLogin = () => this.props.routing.push(this.props.usersStore.isSignedIn()? '/profile' : '/login')
 
   handleNav = () => this.props.routing.push('/')
 
   render() {
-    const { classes, usersStore, appStore, routing } = this.props
+    const { classes, usersStore, appStore, navStore, postsStore } = this.props
 
     return (
       <div>
@@ -50,22 +61,33 @@ class TopNav extends React.Component {
               <span className={classes.logo}>Nearo</span>
             </Typography>
             <TextField
-             className={classnames(classes.right, classes.left)}
-             placeholder="Search"
-             id="searchInput"
-             value={this.props.navStore.navInfo.searchTerm}
-             onChange={this.handleChange('searchInput')}
-             InputProps={{
-               disableUnderline: true,
-               classes: {
-                 input: classes.bootstrapInput,
-               }
-             }}
-             InputLabelProps={{
-               shrink: true,
-               className: classes.bootstrapFormLabel,
-             }}
-           />
+              className={classnames(classes.right, classes.left, classes.searchInput2)}
+              placeholder="Search Nearo"
+              type="text"
+              value={ navStore.navInfo.searchTerm }
+              onChange={this.handleChange('searchInput')}
+              InputLabelProps={{
+                shrink: true,
+                className: classes.bootstrapFormLabel,
+              }}
+              InputProps={{
+                disableUnderline: true,
+                classes: {
+                  input: classes.bootstrapInput,
+                },
+                endAdornment: (
+                  navStore.navInfo.searchTerm.length > 0 && <InputAdornment position="end">
+                    <IconButton
+                      style={{backgroundColor: 'rgba(255,255,255,0)'}}
+                      aria-label="Clear Search"
+                      onClick={this.handleClearSearch}
+                    >
+                      { <CloseIcon style={{width: 22, height: 22}}/> }
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
             <Hidden xsDown={true}>
               <Locator address={this.address} name="gobal-location" />
             </Hidden>
@@ -96,13 +118,13 @@ class TopNav extends React.Component {
               </div>
             }
             {
-              !this.props.appStore.loading &&
+              !appStore.loading &&
               usersStore.isSignedIn() && <ProfileMenu/>
             }
 
           </Toolbar>
           {
-            (this.props.appStore.loading || this.props.postsStore.loading) &&
+            (appStore.loading || postsStore.loading) &&
             navigator.onLine === true &&
             <LinearProgress />
           }

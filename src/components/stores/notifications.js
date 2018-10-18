@@ -1,9 +1,8 @@
 import { observable, when, inject } from "mobx"
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
 
-const routingStore = new RouterStore()
-
 class NotificationsStore {
+
     @observable state = {
       open: false,
       message: "",
@@ -20,8 +19,10 @@ class NotificationsStore {
     }
 
     showMustLogin = () => {
+      // I'm passing push as a reference index.js
+      // Not the most elegant but it works
       this.showNotification('Please login', 10000,
-        ()=> routingStore.push('/profile') ,  "Login")
+        ()=> this.push('/login') ,  "Login")
     }
 
     showNotification = (message,

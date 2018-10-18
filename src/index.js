@@ -20,6 +20,9 @@ import { notificationsStore } from './components/stores/notifications'
 const browserHistory = createBrowserHistory()
 const routingStore = new RouterStore()
 
+// Not very elegant but it works...
+notificationsStore.push = routingStore.push
+
 const stores = {
   routing: routingStore,
   appStore: appStore,
@@ -29,6 +32,8 @@ const stores = {
   usersStore: usersStore,
   bookmarksStore: bookmarksStore
 }
+
+
 
 const history = syncHistoryWithStore(browserHistory, routingStore)
 
