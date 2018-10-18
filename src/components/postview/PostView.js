@@ -87,27 +87,17 @@ class PostView extends Component {
     }
 
     const rightColumn = post => <Fragment>
-      <Hidden xsDown={true}>
-        <ProfileCard user={ user } gutterBottom={16}/>
-        <MapCard center={ post._geoloc } gutterBottom={16}/>
-        { post._geoloc && <About gutterBottom={16}/> }
-      </Hidden>
-      <Hidden smUp={true}>
-        <ProfileCard user={ user } gutterBottom={3} />
-        <MapCard center={ post._geoloc } gutterBottom={3}/>
-        {/* A bit of a hack...*/}
-        { post._geoloc && <About gutterBottom={0.9}/> }
-      </Hidden>
+      <ProfileCard user={ user } gutterBottom={16}/>
+      <MapCard center={ post._geoloc } gutterBottom={16}/>
+      { post._geoloc && <About gutterBottom={16}/> }
     </Fragment>
 
     return (
-      <div style={{minHeight: '100vh'}}>
+      <Fragment>
         <Helmet>
           <title>Nearo - { capitalize(post.category) }</title>
         </Helmet>
-        <Hidden xsDown={true}>
-          <div className={classes.top20} />
-        </Hidden>
+        <div className={classes.top20} />
         <Grid
           container
           direction="row"
@@ -118,22 +108,13 @@ class PostView extends Component {
               <Grid item>
                 { leftColumn(post, classes) }
               </Grid>
-              <Hidden smUp={true}>
-                <div style={{marginTop: 3}} />
-                { rightColumn(post) }
-              </Hidden>
             </Grid>
-            <Hidden xsDown={true}>
-              <Grid item sm={10} md={3} xs={12}>
-                { rightColumn(post) }
-                <br />
-              </Grid>
-            </Hidden>
+            <Grid item sm={10} md={3} xs={12}>
+              { rightColumn(post) }
+            </Grid>
         </Grid>
-        <Hidden mdDown={true}>
-          <div className={classes.top20} />
-        </Hidden>
-      </div>
+        <div className={classes.top20} />
+      </Fragment>
     )
   }
 }

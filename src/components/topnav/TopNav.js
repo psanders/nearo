@@ -88,13 +88,8 @@ class TopNav extends React.Component {
                 ),
               }}
             />
-            <Hidden xsDown={true}>
-              <Locator address={this.address} name="gobal-location" />
-            </Hidden>
+            <Locator address={this.address} name="gobal-location" />
             <span className={ classes.flex } />
-            <Hidden smUp={true}>
-              <LocatorMobile />
-            </Hidden>
             {
               !appStore.loading && !usersStore.isSignedIn() &&
               <div>

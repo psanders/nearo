@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
 import PostIcon from '@material-ui/icons/AddCircleOutline'
 import CloseIcon from '@material-ui/icons/Close'
+import Tooltip from '@material-ui/core/Tooltip'
 import { observer, inject } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
@@ -110,7 +111,6 @@ class PostPanel extends Component {
   handleOnUploadStart = () => this.setState({loading: true})
 
   async handleLocationChange (address) {
-    console.log('address', address)
     const results = await geocodeByAddress(address)
     const latLng = await getLatLng(results[0])
     const locInfo = {}
@@ -252,7 +252,10 @@ class PostPanel extends Component {
                   this.setState({loading: false})
               }}
               />
-            <LocatorMobile label="Select a location for your post" onLocationChange={address => this.handleLocationChange(address)}/>
+
+            <Tooltip title="Change Post Location">
+              <LocatorMobile label="Select a location for your post" onLocationChange={address => this.handleLocationChange(address)}/>
+            </Tooltip>
             { addressLabel() }
             <span className={ classes.flex }/>
             <div>
