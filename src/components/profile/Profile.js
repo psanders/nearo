@@ -125,7 +125,6 @@ class Profile extends Component {
               error={this.isNoPristine('user-name') && user.name.length < 3 }
               placeholder="Name"
               fullWidth
-              margin="dense"
             />
             {user && <PhoneInput
               id="user-phone"

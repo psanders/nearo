@@ -31,10 +31,11 @@ const uiConfig = (self) => {
       signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
         if (authResult.user && authResult.additionalUserInfo.isNewUser) {
           createUser(authResult)
+          window.gtag_report_conversion()
         }
         // Let Router take care of the navigation
         self.props.routing.push('/')
-        window.gtag_report_conversion('https://nearo.co/login')
+
         return false
       },
       signInFailure: function(error) {

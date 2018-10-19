@@ -33,8 +33,6 @@ const stores = {
   bookmarksStore: bookmarksStore
 }
 
-
-
 const history = syncHistoryWithStore(browserHistory, routingStore)
 
 ReactDOM.render(
