@@ -7,9 +7,40 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-71722942-2');
+      gtag('config', 'AW-1037889083');
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-1037889083/v8jmCKXJyIsBELvc8-4D',
+            'event_callback': callback
+        });
+        return false;
+      }
+      window.gtag_report_conversion = gtag_report_conversion
     </script>
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1264086740292093');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1264086740292093&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no" />
     <meta charset="utf-8"  />
     <meta name="apple-mobile-web-app-title" content="Nearo">
@@ -20,7 +51,6 @@
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#484ec2">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json"  />
-
     <!--Icon and splash for different devices -->
     <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/images/icons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="%PUBLIC_URL%/images/icons/apple-icon-60x60.png">
@@ -46,7 +76,6 @@
     <link rel="preconnect" href="https://firestore.googleapis.com"  />
     <link rel="preconnect" href="https://firebasestorage.googleapis.com"  />
     <link rel="preconnect" href="https://maps.googleapis.com"  />
-
     <!--
     Gets replaced by URL specific meta tags via Firebase Functions
     -->

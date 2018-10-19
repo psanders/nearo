@@ -4,16 +4,13 @@ import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
 import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
+
 import { capitalize } from '../components/commons/utils'
+import MobileScreen from './mobile/mobile'
 
 const loading = <Typography variant="body1" color="secondary" style={{ margin: 20 }}>
   Loading...
 </Typography>
-
-const MobileScreen = Loadable({
-  loader: () => import('./mobile/mobile'),
-  loading: () => loading,
-})
 
 const DesktopScreen = Loadable({
   loader: () => import('./desktop/desktop'),
@@ -24,11 +21,6 @@ const DesktopScreen = Loadable({
 @inject('appStore')
 @observer
 class MainContainer extends Component {
-
-  scrollTop = () => {
-    document.body.scrollTop = 0 // For Safari
-    document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
-  }
 
   render () {
     const { routing } = this.props

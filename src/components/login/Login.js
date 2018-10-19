@@ -34,6 +34,7 @@ const uiConfig = (self) => {
         }
         // Let Router take care of the navigation
         self.props.routing.push('/')
+        window.gtag_report_conversion('https://nearo.co/login')
         return false
       },
       signInFailure: function(error) {

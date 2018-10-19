@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import Gallery from './Gallery'
 import './Gallery.css'
 import { getCategories } from '../commons/categories'
+import { scrollTop } from '../commons/utils'
 
 @inject('routing')
 @inject('postsStore')
@@ -20,6 +21,10 @@ class Home extends Component {
 
   @computed get signed () {
     return this.props.usersStore.signedIn
+  }
+
+  componentDidMount() {
+    scrollTop()
   }
 
   handleChange = category => {

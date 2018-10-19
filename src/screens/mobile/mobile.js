@@ -1,18 +1,20 @@
 import React, { Component, Fragment } from 'react'
 import  Fade from '@material-ui/core/Fade'
+import Loadable from 'react-loadable'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
-import NotificationBar from '../../components/NotificationBar'
 import BottomNav from '../../components/mobbottomnav/BottomNav'
 import TopNav from '../../components/mobtopnav/TopNav'
-import FavoritesPage from './favorites.page'
-import HomePage from './home.page'
-import PostPage from './post.page'
-import LocationPage from './location.page'
-import ProfilePage from './profile.page'
-import LoginPage from './login.page'
 import { getMainPath } from '../../components/commons/utils'
+
+const HomePage = Loadable({ loader: () => import('./home.page'), loading: () => null})
+const PostPage = Loadable({ loader: () => import('./post.page'), loading: () => null})
+const LocationPage = Loadable({ loader: () => import('./location.page'), loading: () => null})
+const ProfilePage = Loadable({ loader: () => import('./profile.page'), loading: () => null})
+const FavoritesPage = Loadable({ loader: () => import('./favorites.page'), loading: () => null})
+const LoginPage = Loadable({ loader: () => import('./login.page'), loading: () => null})
+const NotificationBar = Loadable({ loader: () => import('../../components/NotificationBar'), loading: () => null})
 
 @inject('routing')
 @inject('appStore')

@@ -51,3 +51,8 @@ export const ellip = (str, len, c1 = ',', c2 = '') => {
   const pos = result.lastIndexOf(c1)
   return result.substring(0, pos) + c2 + result.substring(pos + 1)
 }
+
+export const scrollTop = () => {
+  document.body.scrollTop = 0 // For Safari
+  document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
+}

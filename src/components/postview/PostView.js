@@ -14,6 +14,7 @@ import { currentPath, capitalize } from '../commons/utils'
 import { placeHolder } from './PlaceHolder'
 import { postContent } from './PostContent'
 import { styles } from './PostViewStyles'
+import { scrollTop } from '../commons/utils'
 
 @inject('usersStore')
 @inject('postsStore')
@@ -68,6 +69,7 @@ class PostView extends Component {
   handleSold = (post) => this.setState({post: post})
 
   render() {
+    scrollTop()
     const { classes, gutterBottom } = this.props
     const { post, user } = this.state
 

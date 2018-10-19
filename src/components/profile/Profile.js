@@ -114,6 +114,7 @@ class Profile extends Component {
               id="user-name"
               label="Display Name"
               onChange={this.handleChange}
+              margin="dense"
               InputLabelProps={{
                 shrink: true,
               }}
@@ -150,6 +151,7 @@ class Profile extends Component {
               multiline
               rows="4"
               variant="outlined"
+              margin="dense"
               InputLabelProps={{
                 shrink: true,
               }}

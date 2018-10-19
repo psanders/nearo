@@ -76,7 +76,6 @@ const styles = theme => ({
   },
   avatar: {
     margin: 10,
-    border: '2px solid ' + theme.palette.secondary.main,
     width: 80,
     height: 80,
   },
