@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Loadable from 'react-loadable'
 import { observer, inject } from 'mobx-react'
 
-import NotificationBar from '../../components/NotificationBar'
+import SimpleNotification from '../../components/notifications/SimpleNotification'
 import TopNav from '../../components/topnav/TopNav'
 import ProfilePage from './profile.page'
 import LoginPage from './login.page'
@@ -59,7 +59,7 @@ class DesktopScreen extends Component {
         { pathname === '/login' && <LoginPage /> }
         { show404(pathname) && <NoMatch /> }
       </main>
-      <NotificationBar />
+      <SimpleNotification />
     </div>
   }
 }

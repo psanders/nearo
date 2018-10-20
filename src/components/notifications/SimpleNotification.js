@@ -9,7 +9,7 @@ import { observer, inject } from 'mobx-react'
 
 @inject('notificationsStore')
 @observer
-class NotificationBar extends Component {
+class SimpleNotification extends Component {
 
   handleCallback = () => {
     this.props.notificationsStore.state.callback()
@@ -52,7 +52,7 @@ class NotificationBar extends Component {
   }
 }
 
-NotificationBar.propTypes = {
+SimpleNotification.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
@@ -70,4 +70,4 @@ const styles = theme => ({
   }
 })
 
-export default withStyles(styles)(NotificationBar)
+export default withStyles(styles)(SimpleNotification)

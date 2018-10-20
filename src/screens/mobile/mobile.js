@@ -4,6 +4,7 @@ import Loadable from 'react-loadable'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
+import SimpleNotification from '../../components/notifications/SimpleNotification'
 import BottomNav from '../../components/mobbottomnav/BottomNav'
 import TopNav from '../../components/mobtopnav/TopNav'
 import { getMainPath, show404 } from '../../components/commons/utils'
@@ -15,7 +16,6 @@ const LocationPage = Loadable({ loader: () => import('./location.page'), loading
 const ProfilePage = Loadable({ loader: () => import('./profile.page'), loading: () => null})
 const FavoritesPage = Loadable({ loader: () => import('./favorites.page'), loading: () => null})
 const LoginPage = Loadable({ loader: () => import('./login.page'), loading: () => null})
-const NotificationBar = Loadable({ loader: () => import('../../components/NotificationBar'), loading: () => null})
 
 @inject('routing')
 @inject('appStore')
@@ -52,7 +52,7 @@ class MobileScreen extends Component {
           <BottomNav />
         </Fragment>
       }
-      <NotificationBar withExtraSpacing/>
+      <SimpleNotification withExtraSpacing/>
     </Fragment>
   }
 }
