@@ -15,6 +15,9 @@ import classnames from 'classnames'
 @inject('usersStore')
 @observer
 class Profile extends Component {
+  handleGoBack = () => window.history.length < 3
+    ? this.props.routing.push('/')
+    : this.props.routing.goBack()
 
   render() {
     const { classes, routing, appStore, children } = this.props
@@ -22,8 +25,8 @@ class Profile extends Component {
     return (<div>
         <AppBar elevation={0}>
           <Toolbar color="secondary" >
-            <IconButton onClick={() => routing.push('/')} color="inherit" aria-label="Close">
-              <ArrowBackIcon className={classes.arrawBack}/>
+            <IconButton onClick={ this.handleGoBack } color="inherit" aria-label="Close">
+              <ArrowBackIcon className={ classes.arrawBack }/>
             </IconButton>
             <Typography variant="title" className={classnames(classes.flex, classes.logo)}>
               Nearo
