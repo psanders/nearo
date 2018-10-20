@@ -31,11 +31,15 @@ const uiConfig = (self) => {
       signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
         if (authResult.user && authResult.additionalUserInfo.isNewUser) {
           createUser(authResult)
-          window.gtag_report_conversion()
+          window.ga('send', {
+            hitType: 'event',
+            eventCategory: 'Engagement',
+            eventAction: 'Signup',
+            eventLabel: 'Signup'
+          });
         }
         // Let Router take care of the navigation
         self.props.routing.push('/')
-
         return false
       },
       signInFailure: function(error) {
