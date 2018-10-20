@@ -10,12 +10,12 @@ import { Router } from 'react-router'
 
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
-import { appStore } from './components/stores/app'
-import { navStore } from './components/stores/navigation'
-import { postsStore } from './components/stores/posts'
-import { bookmarksStore } from './components/stores/bookmarks'
-import { usersStore } from './components/stores/users'
-import { notificationsStore } from './components/stores/notifications'
+import { appStore } from './stores/app'
+import { navStore } from './stores/navigation'
+import { postsStore } from './stores/posts'
+import { bookmarksStore } from './stores/bookmarks'
+import { usersStore } from './stores/users'
+import { notificationsStore } from './stores/notifications'
 
 const browserHistory = createBrowserHistory()
 const routingStore = new RouterStore()

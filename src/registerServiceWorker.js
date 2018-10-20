@@ -1,4 +1,4 @@
-import { notificationsStore } from './components/stores/notifications'
+import { notificationsStore } from './stores/notifications'
 import { openURL } from './components/commons/utils'
 
 const isLocalhost = Boolean(

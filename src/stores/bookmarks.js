@@ -1,7 +1,7 @@
 import { observable, when } from "mobx"
 import { usersStore } from './users'
 import { notificationsStore } from './notifications'
-import { db } from '../commons/firebase/firebase'
+import { db } from '../components/commons/firebase/firebase'
 import firebase from 'firebase/app'
 
 class BookmarksStore {

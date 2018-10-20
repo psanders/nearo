@@ -1,11 +1,11 @@
 import { observable } from "mobx"
 
-import { auth, db } from '../commons/firebase/firebase'
+import { auth, db } from '../components/commons/firebase/firebase'
 import {
   fetchUserInfo,
   storeUserInfo,
   removeUserInfo
-} from '../commons/dbfunctions'
+} from '../components/commons/dbfunctions'
 
 const initUser = {password: '', name: '', email: ''}
 

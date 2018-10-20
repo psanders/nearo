@@ -1,12 +1,12 @@
 import { observable, when, autorun } from "mobx"
 import { computed } from 'mobx'
-import { db } from '../commons/firebase/firebase'
+import { db } from '../components/commons/firebase/firebase'
 import { usersStore } from './users'
 import { bookmarksStore } from './bookmarks'
 import { notificationsStore } from './notifications'
 import { navStore } from './navigation'
 import { appStore } from './app'
-import { doSearchAlgolia } from '../commons/firebase/algolia'
+import { doSearchAlgolia } from '../components/commons/firebase/algolia'
 import firebase from 'firebase/app'
 
 const maxItemperPage = 20 // It will load those 20 items super fast!
