@@ -28,12 +28,7 @@ class MobileScreen extends Component {
     const hideNav = () => pathname === '/profile' || pathname === '/login'
 
     return <Fragment>
-      { ! hideNav() &&
-        <Fragment>
-          <TopNav />
-          <div className={ classes.toolbar } />
-        </Fragment>
-      }
+      { ! hideNav() && <TopNav /> }
       {
         appStore.isReady() &&
         <Fade in={true} timeout={300}>

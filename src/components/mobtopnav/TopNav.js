@@ -30,7 +30,7 @@ class TopNav extends Component {
 
     return (
       <Fragment>
-        <AppBar elevation={0}>
+        <AppBar elevation={0} position="sticky">
           <Toolbar> {
             appStore.isReady() &&
               <Fragment>
