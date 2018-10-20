@@ -6,8 +6,9 @@ import { observer, inject } from 'mobx-react'
 
 import BottomNav from '../../components/mobbottomnav/BottomNav'
 import TopNav from '../../components/mobtopnav/TopNav'
-import { getMainPath } from '../../components/commons/utils'
+import { getMainPath, show404 } from '../../components/commons/utils'
 
+const NothingPage = Loadable({ loader: () => import('./nothing.page'), loading: () => null})
 const HomePage = Loadable({ loader: () => import('./home.page'), loading: () => null})
 const PostPage = Loadable({ loader: () => import('./post.page'), loading: () => null})
 const LocationPage = Loadable({ loader: () => import('./location.page'), loading: () => null})
@@ -40,6 +41,7 @@ class MobileScreen extends Component {
             { pathname === '/location' && <LocationPage /> }
             { pathname === '/profile' && <ProfilePage /> }
             { pathname === '/login' && <LoginPage /> }
+            { show404(pathname) && <NothingPage /> }
           </div>
         </Fade>
       }

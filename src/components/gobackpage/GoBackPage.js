@@ -20,7 +20,7 @@ class Profile extends Component {
     : this.props.routing.goBack()
 
   render() {
-    const { classes, routing, appStore, children } = this.props
+    const { classes, appStore, children } = this.props
 
     return (<div>
         <AppBar elevation={0}>

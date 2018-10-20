@@ -1,7 +1,6 @@
 import React, { Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
 import { observer, inject } from 'mobx-react'
 
@@ -9,30 +8,26 @@ import NotificationBar from '../../components/NotificationBar'
 import TopNav from '../../components/topnav/TopNav'
 import ProfilePage from './profile.page'
 import LoginPage from './login.page'
-import { getMainPath } from '../../components/commons/utils'
-
-const loading = <Typography variant="body1" color="secondary" style={{ margin: 20 }}>
-  Loading...
-</Typography>
+import { getMainPath, show404 } from '../../components/commons/utils'
 
 const PostPage = Loadable({
   loader: () => import('./post.page'),
-  loading: () => loading,
+  loading: () => null,
 })
 
 const NoMatch = Loadable({
   loader: () => import('../../components/404'),
-  loading: () => loading,
+  loading: () => null,
 })
 
 const Home = Loadable({
   loader: () => import('../../components/home/Home'),
-  loading: () => loading,
+  loading: () => null,
 })
 
 const PostsContainer = Loadable({
   loader: () => import('../../components/PostsContainer'),
-  loading: () => loading,
+  loading: () => null,
 })
 
 @inject('routing')
@@ -62,7 +57,7 @@ class DesktopScreen extends Component {
         { '/' + getMainPath(pathname) === '/posts' && <PostPage /> }
         { pathname === '/profile' && <ProfilePage /> }
         { pathname === '/login' && <LoginPage /> }
-        { pathname === null && <NoMatch /> }
+        { show404(pathname) && <NoMatch /> }
       </main>
       <NotificationBar />
     </div>

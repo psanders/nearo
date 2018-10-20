@@ -13,7 +13,7 @@ import { observer, inject } from 'mobx-react'
 class NoMatch extends Component {
 
   render () {
-    const { classes, routing } = this.rops
+    const { classes, routing } = this.props
 
     return (<div className={classes.root}>
       <div className={classes.row}>
