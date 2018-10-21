@@ -26,7 +26,7 @@ class NoMatch extends Component {
         <Typography className={classes.title} color="textSecondary">
           Select a location
         </Typography>
-        <Locator withBorder withWidth={'100vw'} address={this.address} name="gobal-location"/>
+        <Locator withBorder="1px solid #616161" withWidth={'100vw'} address={this.address} name="gobal-location"/>
         <br />
         <Typography component="p">
         This is use to show you content

@@ -51,7 +51,7 @@ class Locator extends Component {
   }
 
   render() {
-    const { classes, withWidth } = this.props
+    const { classes, withWidth, withBorder } = this.props
     const { expanded, address } = this.state
     this.myButton = React.createRef()
 
@@ -73,7 +73,7 @@ class Locator extends Component {
             aria-label="Select Address Button"
             style={{
               width: withWidth? 'calc(' + withWidth + ' - 40px)' : '',
-              border: '1px solid #546E7A'
+              border: withBorder? withBorder : ''
             }}
            >
             <LocationIcon color="secondary" className={classes.leftIcon} />
