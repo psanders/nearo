@@ -9,7 +9,8 @@ const style = {
     backgroundRepeat: 'no-repeat',
     backgroundColor: '#ff5959',
     minHeight: 75,
-    padding: 10
+    padding: 10,
+    width: '100%'
   }
 }
 
