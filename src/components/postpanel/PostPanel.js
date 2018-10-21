@@ -105,6 +105,12 @@ class PostPanel extends Component {
       console.error("Error adding document: ", error)
       this.clearUI()
     }
+
+    window.gtag('event', 'created-post', {
+      'event_category': 'Engagement',
+      'event_label': 'Created Post'
+    })
+    window.fbq('trackCustom', 'created-post')    
   }
 
   handleOnUploadStart = () => this.setState({loading: true})
