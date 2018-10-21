@@ -35,10 +35,15 @@ const uiConfig = (self) => {
             'event_category': 'Engagement',
             'event_label': 'Signup'
           })
-          window.fbq('trackCustom', 'signup')     
+          window.fbq('trackCustom', 'signup')
         }
         // Let Router take care of the navigation
-        self.props.routing.push('/')
+        if(window.history.length < 3) {
+          self.props.routing.push('/')
+        } else {
+          self.props.routing.goBack()
+          self.props.routing.goBack()
+        }
         return false
       },
       signInFailure: function(error) {

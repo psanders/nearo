@@ -12,8 +12,16 @@ const clrWhite = {
   color: '#fff'
 }
 
+const link = {
+  color: '#4285f4',
+  '&:visited': {
+    color: '#4285f4'
+  }
+}
+
 export const commonSyles = {
   flex: flex,
   logo: logo,
-  clrWhite: clrWhite
+  clrWhite: clrWhite,
+  link: link
 }

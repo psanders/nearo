@@ -112,7 +112,8 @@ const styles = theme => ({
   },
   card: {
     width: 280,
-    marginBottom: theme.spacing.unit * 2
+    marginBottom: theme.spacing.unit * 2,
+    border: '1px solid lightgray'
   },
   media: {
     height: 0,

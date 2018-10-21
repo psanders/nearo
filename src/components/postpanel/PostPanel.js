@@ -161,7 +161,7 @@ class PostPanel extends Component {
             size="small"
             aria-label="Add New Publication"
           >
-            New Post
+            Create Post
           </Button>
         </Hidden>
         <Dialog
@@ -170,7 +170,7 @@ class PostPanel extends Component {
           onClose={ this.props.postsStore.hidePostDialog }
           aria-labelledby="responsive-dialog-title"
         >
-            <div style={{display: 'flex', minHeight: 50 }}>
+            <div style={{display: 'flex', minHeight: 50, minWidth: 400 }}>
               <div style={{padding: 8,paddingTop: 10}}>
                 <Avatar className={classes.avatarEdit} src={ this.props.usersStore.currentUser.picture }>
                   <EditIcon />
