@@ -31,12 +31,10 @@ const uiConfig = (self) => {
       signInSuccessWithAuthResult: (authResult, redirectUrl = "/") => {
         if (authResult.user && authResult.additionalUserInfo.isNewUser) {
           createUser(authResult)
-          window.ga('send', {
-            hitType: 'event',
-            eventCategory: 'Engagement',
-            eventAction: 'signup',
-            eventLabel: 'Signup'
-          })
+          window.gtag('event', 'signup', {
+            'event_category': 'Engagement',
+            'event_label': 'Signup'
+          })     
         }
         // Let Router take care of the navigation
         self.props.routing.push('/')

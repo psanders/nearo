@@ -23,12 +23,10 @@ class LoginNotification extends Component {
   letsDoIt = () => {
     this.props.routing.push('/login')
     this.handleClose()
-    window.ga('send', {
-      hitType: 'event',
-      eventCategory: 'Engagement',
-      eventAction: 'accepted-signup-prompt',
-      eventLabel: 'Signup'
-    })
+    window.gtag('event', 'accepted-signup-prompt', {
+      'event_category': 'Engagement',
+      'event_label': 'Accepted Auth Prompt'
+    });
   }
 
   render () {
