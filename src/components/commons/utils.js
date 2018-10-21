@@ -1,7 +1,7 @@
 import ellipsize from 'ellipsize'
 
 const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
-const routes = ['/', '/explore', '/posts', '/profile', '/login']
+const routes = ['/', '/explore', '/posts', '/profile', '/login', '/location', '/favorites']
 const time = postedTime => new Date().getTime() / 1000 - postedTime
 
 export const currentPath = (level = 1) =>  window.location.pathname.split('/')[level]
@@ -15,7 +15,7 @@ export const getMainPath = str => {
     : null
 }
 
-export const show404 = pathname => getMainPath(pathname) !== '/posts' && !routes.includes(pathname)
+export const show404 = pathname => getMainPath(pathname) !== 'posts' && !routes.includes(pathname)
 
 export const hasMedia = post => post.media && post.media.length > 0
 

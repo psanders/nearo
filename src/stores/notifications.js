@@ -2,7 +2,7 @@ import { observable, when } from "mobx"
 
 import { usersStore } from './users'
 import { appStore } from './app'
-import { timeout } from '../components/commons/utils'
+import { currentPath } from '../components/commons/utils'
 
 class NotificationsStore {
     @observable hideLoginNotification = true
@@ -24,16 +24,23 @@ class NotificationsStore {
       this.promptLogin().catch(error => console.log(error))
     }
 
+    isPromptLogin = () => navigator.onLine !== false &&
+      appStore.isReady() &&
+      !usersStore.isSignedIn() &&
+      currentPath(1) !== 'login'
+
     async promptLogin () {
       try {
-        await timeout(5000);
-
         when(
-          () => navigator.onLine !== false &&
-            appStore.isReady() &&
-            !usersStore.isSignedIn(),
+          () => this.isPromptLogin(),
           () => {
-            this.hideLoginNotification = false
+            // By now the login status has been confirm
+            // Please ensure that this is not a bad practice :P
+            setTimeout(() => {
+              if(!usersStore.isSignedIn()) {
+                this.hideLoginNotification = false
+              }
+            }, 4000)
           }
         )
       } catch(error) {

@@ -102,7 +102,8 @@ const styles = theme => ({
   },
   iconClose: {
     color: 'gray',
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing.unit * 2,
+    cursor: 'pointer'
   },
   flex: {
     flex: 1
@@ -124,7 +125,10 @@ const styles = theme => ({
     backgroundColor: '#3e82f7',
     color: '#fff',
     marginBottom: theme.spacing.unit,
-    width: '100%'
+    width: '100%',
+    '&:hover': {
+      backgroundColor: '#5795ff',
+    }
   },
   iconImage: {
     marginRight: theme.spacing.unit * 2,
