@@ -34,7 +34,8 @@ const uiConfig = (self) => {
           window.gtag('event', 'signup', {
             'event_category': 'Engagement',
             'event_label': 'Signup'
-          })     
+          })
+          window.fbq('trackCustom', 'signup')     
         }
         // Let Router take care of the navigation
         self.props.routing.push('/')

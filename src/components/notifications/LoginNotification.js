@@ -26,7 +26,8 @@ class LoginNotification extends Component {
     window.gtag('event', 'accepted-signup-prompt', {
       'event_category': 'Engagement',
       'event_label': 'Accepted Auth Prompt'
-    });
+    })
+    window.fbq('trackCustom', 'accepted-signup-prompt')
   }
 
   render () {
