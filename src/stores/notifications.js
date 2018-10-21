@@ -40,7 +40,7 @@ class NotificationsStore {
               if(!usersStore.isSignedIn()) {
                 this.hideLoginNotification = false
               }
-            }, 4000)
+            }, 2000)
           }
         )
       } catch(error) {
