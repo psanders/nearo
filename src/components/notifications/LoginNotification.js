@@ -26,7 +26,7 @@ class LoginNotification extends Component {
   }
 
   render () {
-    const { classes, className, message, onClose, routing, ...other } = this.props
+    const { classes } = this.props
 
     return (
       <SnackbarContent
@@ -56,7 +56,6 @@ class LoginNotification extends Component {
             </div>
           </Fragment>
         }
-        {...other}
       />
     )
   }
