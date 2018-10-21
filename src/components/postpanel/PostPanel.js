@@ -110,7 +110,7 @@ class PostPanel extends Component {
       'event_category': 'Engagement',
       'event_label': 'Created Post'
     })
-    window.fbq('trackCustom', 'created-post')    
+    window.fbq('trackCustom', 'created-post')
   }
 
   handleOnUploadStart = () => this.setState({loading: true})
@@ -163,7 +163,7 @@ class PostPanel extends Component {
         </Hidden>
         <Hidden xsDown={true}>
           <Button onClick={ postsStore.openPostDialog }
-            variant="flat" className={classes.newPostBtn}
+            variant="text" className={classes.newPostBtn}
             size="small"
             aria-label="Add New Publication"
           >

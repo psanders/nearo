@@ -157,7 +157,7 @@ class AvatarUpdater extends Component {
           <DialogActions>
             <Button className={classes.btn} onClick={this.handleClose}
               size="small"
-              variant="flat"
+              variant="text"
             >
               Cancel
             </Button>

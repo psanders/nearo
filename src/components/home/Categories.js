@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Chip from '@material-ui/core/Chip'
 import Divider from '@material-ui/core/Divider'
+import ShareBanner from '../sharebanner/ShareBanner'
 
 import PostPanel from '../postpanel/PostPanel'
 import { getCategories } from '../commons/categories'
@@ -43,7 +44,7 @@ const styles = theme => ({
     minWidth: 350,
   },
   helperContainer: {
-    backgroundImage: "url('https://image.flaticon.com/icons/svg/1179/1179004.svg')",
+    backgroundImage: "url('/images/location.svg')",
     backgroundPosition: 'right 10px top 15px',
     backgroundSize: '20%',
     backgroundRepeat: 'no-repeat',
@@ -98,15 +99,7 @@ function DetailedExpansionPanel(props) {
             { categories }
           </div>
           <div className={classNames(classes.column, classes.helper)}>
-            <div className={ classes.helperContainer }>
-              <Typography variant="title" style={{color: '#fff'}}>
-                Share a post with people nearby
-                <Typography variant="caption" style={{color: '#fff'}}>
-                  Buy, sell, or Trade with people close to you
-                </Typography>
-              </Typography>
-
-            </div>
+            <ShareBanner />
           </div>
         </ExpansionPanelDetails>
         <Divider />
