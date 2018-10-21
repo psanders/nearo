@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
 import SimpleNotification from '../../components/notifications/SimpleNotification'
+import Notifier from '../../components/notifications/Notifier'
 import BottomNav from '../../components/mobbottomnav/BottomNav'
 import TopNav from '../../components/mobtopnav/TopNav'
 import { getMainPath, show404 } from '../../components/commons/utils'
@@ -29,7 +30,12 @@ class MobileScreen extends Component {
     const hideNav = () => pathname === '/profile' || pathname === '/login'
 
     return <Fragment>
-      { ! hideNav() && <TopNav /> }
+      { ! hideNav() &&
+        <Fragment>
+          <div className={ classes.toolbar } />
+          <TopNav />
+        </Fragment>
+      }
       {
         appStore.isReady() &&
         <Fade in={true} timeout={300}>
@@ -52,7 +58,8 @@ class MobileScreen extends Component {
           <BottomNav />
         </Fragment>
       }
-      <SimpleNotification withExtraSpacing/>
+      <Notifier />
+      <SimpleNotification withExtraSpacing />
     </Fragment>
   }
 }

@@ -2,9 +2,10 @@ import { observable } from "mobx"
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 import { fetchUserInfo, storeUserInfo } from '../components/commons/dbfunctions'
+import { timeout } from '../components/commons/utils'
 //import { askForLocation } from '../commons/geocoder/geocoder'
 
-const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 const locationStorage = 'global-location'
 
 class NavStore {

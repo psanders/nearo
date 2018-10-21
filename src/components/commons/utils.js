@@ -6,6 +6,8 @@ const time = postedTime => new Date().getTime() / 1000 - postedTime
 
 export const currentPath = (level = 1) =>  window.location.pathname.split('/')[level]
 
+export const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 export const getMainPath = str => {
   const regex = /^\/([^?/]+)/
   return str.match(regex) && str.match(regex).length > 1

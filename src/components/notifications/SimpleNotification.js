@@ -30,7 +30,7 @@ class SimpleNotification extends Component {
     } else {
       action = <IconButton className={ classes.closeBtn }
         aria-label="Close"
-        size="small" onClick={ this.props.notificationsStore.hideNotification }>
+        size="small" onClick={ store.hideNotification }>
         <CloseIcon />
       </IconButton>
     }

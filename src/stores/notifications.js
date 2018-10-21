@@ -1,6 +1,12 @@
 import { observable, when } from "mobx"
 
+import { usersStore } from './users'
+import { appStore } from './app'
+import { timeout } from '../components/commons/utils'
+
 class NotificationsStore {
+    @observable hideLoginNotification = true
+    @observable notificationId = 'signup'
     @observable state = {
       open: false,
       message: "",
@@ -14,13 +20,32 @@ class NotificationsStore {
           this.showNotification("No connection", 60000)
         }
       )
+
+      this.promptLogin().catch(error => console.log(error))
+    }
+
+    async promptLogin () {
+      try {
+        await timeout(5000);
+
+        when(
+          () => navigator.onLine !== false &&
+            appStore.isReady() &&
+            !usersStore.isSignedIn(),
+          () => {
+            this.hideLoginNotification = false
+          }
+        )
+      } catch(error) {
+        throw error
+      }
     }
 
     showMustLogin = () => {
       // I'm passing push as a reference index.js
       // Not the most elegant but it works
       this.showNotification('Please login', 10000,
-        ()=> this.push('/login') ,  "Login")
+        () => this.push('/login') , "Login")
     }
 
     showNotification = (message,
