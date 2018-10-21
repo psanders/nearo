@@ -8,7 +8,7 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined'
 import { observer, inject } from 'mobx-react'
 
 import PostPanel from '../postpanel/PostPanel'
-import { commonSyles } from '../../shared/styles/styles'
+import { commonStyles } from '../../shared/styles/styles'
 
 @inject('appStore')
 @inject('postsStore')
@@ -35,13 +35,13 @@ class TopNav extends Component {
             appStore.isReady() &&
               <Fragment>
                 <Typography variant="title" >
-                  <span style={commonSyles.logo}>Nearo</span>
+                  <span style={commonStyles.logo}>Nearo</span>
                 </Typography>
 
-                <span style={ commonSyles.flex } />
+                <span style={ commonStyles.flex } />
 
                 <IconButton onClick={this.handleClick}>
-                  <NotificationsIcon style={commonSyles.clrWhite} />
+                  <NotificationsIcon style={commonStyles.clrWhite} />
                 </IconButton>
 
                 <PostPanel />

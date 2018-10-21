@@ -19,7 +19,7 @@ const link = {
   }
 }
 
-export const commonSyles = {
+export const commonStyles = {
   flex: flex,
   logo: logo,
   clrWhite: clrWhite,

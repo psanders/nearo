@@ -12,9 +12,11 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 import Linkify from 'react-linkify'
 import firebase from 'firebase/app'
 import { observer, inject } from 'mobx-react'
+import green from '@material-ui/core/colors/green';
 
 import PostActions from '../postcard/PostActions'
 import { imageURL } from '../commons/utils'
+import { commonStyles } from '../../shared/styles/styles'
 
 @inject('routing')
 @inject('postsStore')
@@ -56,6 +58,13 @@ class RecipeReviewCard extends React.Component {
         </CardContent>
         <CardActions className={classes.actions}>
           <PostActions post={post} home={true}/>
+          <span style={commonStyles.flex} />
+          {
+            post.category === 'forsale' &&
+            (post.price > 0 || post.sold) &&
+            <Typography variant="body1" className={classes.greenText}>${post.price}</Typography>
+          }
+
           {/*<IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
@@ -144,6 +153,9 @@ const styles = theme => ({
   avatar: {
     backgroundColor: theme.palette.secondary.main
   },
+  greenText: {
+    color: green[500]
+  }
 })
 
 export default withStyles(styles)(RecipeReviewCard)
