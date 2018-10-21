@@ -34,9 +34,9 @@ const uiConfig = (self) => {
           window.ga('send', {
             hitType: 'event',
             eventCategory: 'Engagement',
-            eventAction: 'Signup',
+            eventAction: 'signup',
             eventLabel: 'Signup'
-          });
+          })
         }
         // Let Router take care of the navigation
         self.props.routing.push('/')
