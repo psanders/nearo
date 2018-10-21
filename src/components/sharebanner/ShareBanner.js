@@ -18,7 +18,7 @@ const ShareBanner = props => <div style={ style.root }>
   <Typography variant="title" style={{color: '#fff'}}>
     Share a post with people nearby
     <Typography variant="caption" style={{color: '#fff'}}>
-      Buy, sell, or Trade with people close to you
+      Buy, sell, or trade with people close to you
     </Typography>
   </Typography>
 </div>

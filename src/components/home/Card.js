@@ -24,8 +24,13 @@ class RecipeReviewCard extends React.Component {
 
   handleExpandClick = () => this.setState(state => ({ expanded: !state.expanded }))
 
+  handleClick = post => {
+    this.props.postsStore.currentPost = post
+    this.props.routing.push('/posts/' + post.id)
+  }
+
   render() {
-    const { classes, post, postsStore, routing } = this.props
+    const { classes, post } = this.props
 
     return (
       <Card className={classes.card} elevation={0}>
@@ -38,14 +43,11 @@ class RecipeReviewCard extends React.Component {
         {
           post.media &&
           post.media.length > 0 &&
-          <ButtonBase aria-label="Open Publication Details" onClick={() => {
-            postsStore.currentPost = post
-            routing.push('/posts/' + post.id)}
-          }>
+          <ButtonBase aria-label="Open Publication Details" onClick={() => this.handleClick(post)}>
             <img alt="" className={classes.cardImg} src={ imageURL(post, 'md') } />
           </ButtonBase>
         }
-        <CardContent className={classes.cardContent}>
+        <CardContent className={classes.cardContent} onClick={() => this.handleClick(post)}>
           <Typography component="p">
             <Linkify>
               { post.body }
@@ -105,7 +107,10 @@ RecipeReviewCard.propTypes = {
 const styles = theme => ({
   cardContent: {
     padding: theme.spacing.unit,
-    paddingBottom: 0
+    cursor: 'pointer',
+    '&:hover': {
+      background: '#f4f4f4'
+    }
   },
   cardImg: {
     width: 280,
