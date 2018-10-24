@@ -15,6 +15,7 @@ export const styles = theme => ({
   details: {
     alignItems: 'center',
     maxHeight: 150,
+    padding: 10
   },
   customTFRoot: {
     paddingTop: 0,

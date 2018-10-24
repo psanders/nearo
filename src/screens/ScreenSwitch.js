@@ -5,7 +5,6 @@ import Helmet from 'react-helmet-async'
 import Typography from '@material-ui/core/Typography'
 import Loadable from 'react-loadable'
 
-import { capitalize } from '../components/commons/utils'
 import MobileScreen from './mobile/mobile'
 
 const loading = <Typography variant="body1" color="secondary" style={{ margin: 20 }}>
@@ -24,20 +23,22 @@ class MainContainer extends Component {
 
   render () {
     const { routing } = this.props
-    const title = () => {
-      let str = (routing.location.pathname !== '/' ? ' - ' : '')
-      return str + ' ' + capitalize(routing.location.pathname.replace('/', ''))
+    const title = (route) => {
+      if(route === '/') return "For Sale, Cars, Furniture, Houses, Services, Community | Nearo"
+      if(route === '/explore') return "For Sale, Cars, Furniture, Houses, Services, Community | Nearo"
+      return "Nearo"
     }
 
     return(
       <Fragment>
-        <Helmet>
-          <title>
-            Nearo
-            { title()}
-          </title>
-          <link rel="canonical" href={routing.location.pathname} />
-        </Helmet>
+        { (routing.location.pathname === '/' || routing.location.pathname === '/explore') &&
+          <Helmet>
+            <title>
+              { title(routing.location.pathname)}
+            </title>
+            <link rel="canonical" href={routing.location.pathname} />
+          </Helmet>
+        }
         <Hidden xsDown={true}>
           <DesktopScreen />
         </Hidden>

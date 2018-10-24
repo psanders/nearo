@@ -68,8 +68,8 @@ class PostCard extends React.Component {
       <Grid item xs={12} sm container>
         <Grid item xs container direction="column" spacing={0}>
           <Grid item xs style={{padding: 10}}>
-            <Typography gutterBottom variant="subheading">
-               { post.category && getCategory(post.category).name }
+            <Typography variant="subtitle1" gutterBottom>
+              { post.title ? post.title : post.category && getCategory(post.category).name }
             </Typography>
             <Typography gutterBottom>
               <Linkify>{ post.body }</Linkify>

@@ -110,7 +110,7 @@ class Profile extends Component {
           <AvatarUpdater />
           <form noValidate autoComplete="off">
             <TextField
-              variant="outlined"
+              variant="filled"
               id="user-name"
               label="Display Name"
               onChange={this.handleChange}
@@ -149,7 +149,7 @@ class Profile extends Component {
               label="About"
               multiline
               rows="4"
-              variant="outlined"
+              variant="filled"
               margin="dense"
               InputLabelProps={{
                 shrink: true,

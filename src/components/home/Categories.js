@@ -87,7 +87,7 @@ function DetailedExpansionPanel(props) {
       <ExpansionPanel defaultExpanded elevation={0}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className={classes.column}>
-            <Typography className={classes.heading}>Hot Topics</Typography>
+            <Typography className={classes.heading}>Topics</Typography>
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>Begin Search</Typography>

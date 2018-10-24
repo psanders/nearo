@@ -38,12 +38,12 @@ const uiConfig = (self) => {
           window.fbq('trackCustom', 'signup')
         }
         // Let Router take care of the navigation
-        if(window.history.length < 3) {
-          self.props.routing.push('/')
-        } else {
-          self.props.routing.goBack()
-          self.props.routing.goBack()
-        }
+        //if(window.history.length < 4) {
+        self.props.routing.push('/')
+        //} else {
+        //  self.props.routing.goBack()
+        //  self.props.routing.goBack()
+        //}
         return false
       },
       signInFailure: function(error) {

@@ -103,7 +103,7 @@ class PostView extends Component {
     return (
       <Fragment>
         <Helmet>
-          <title>Nearo - { capitalize(post.category) }</title>
+          <title>{ post.title? post.title : capitalize(post.category) } { " near " + post.locText } | Nearo</title>
         </Helmet>
         <Hidden xsDown={true}>
           <div className={classes.top20} />
@@ -112,7 +112,6 @@ class PostView extends Component {
           container
           direction="row"
           justify="center"
-
           >
             <Grid item sm={10} md={5} xs={12} >
               <Grid item>

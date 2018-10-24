@@ -35,6 +35,7 @@ import LocatorMini from '../locator/LocatorMini'
 @observer
 class PostPanel extends Component {
   state = {
+    title: '',
     body: '',
     loading: false,
     category: 'news',
@@ -43,6 +44,8 @@ class PostPanel extends Component {
   }
 
   updateBody = e => this.setState({body: e.target.value})
+
+  updateTitle = e => this.setState({title: e.target.value})
 
   getCategoryInText = text => {
     const tags = extract(text)
@@ -67,6 +70,7 @@ class PostPanel extends Component {
   }
 
   clearUI = () => {
+    this.setState({title: ''})
     this.setState({body: ''})
     this.setState({loading: false})
     this.setState({expanded: false})
@@ -82,6 +86,7 @@ class PostPanel extends Component {
 
     const post = {
       category: this.getCategoryInText(this.state.body),
+      title: this.state.title,
       author: this.props.usersStore.currentUser.name,
       userId: this.props.usersStore.currentUser.id,
       body: body,
@@ -176,7 +181,7 @@ class PostPanel extends Component {
           onClose={ this.props.postsStore.hidePostDialog }
           aria-labelledby="responsive-dialog-title"
         >
-            <div style={{display: 'flex', minHeight: 50, minWidth: 400 }}>
+            <div style={{display: 'flex', minHeight: 50 }}>
               <div style={{padding: 8,paddingTop: 10}}>
                 <Avatar className={classes.avatarEdit} src={ this.props.usersStore.currentUser.picture }>
                   <EditIcon />
@@ -192,25 +197,31 @@ class PostPanel extends Component {
           </div>
           <DialogContent className={ classes.details } >
             <TextField
-              value={ this.state.body }
-              onChange={ this.updateBody }
-              multiline
+              value={ this.state.title }
+              onChange={ this.updateTitle }
               autoFocus
               fullWidth
-              placeholder="Whats on your mind?"
+              variant="filled"
+              placeholder="Post title"
+              margin="dense"
+              InputProps={{
+                inputProps: {
+                  maxLength: 70,
+                },
+              }}
+            />
+            <TextField
+              value={ this.state.body }
+              onChange={ this.updateBody }
+              fullWidth
+              multiline
+              rows="3"
+              placeholder="Post Body"
+              variant="filled"
               InputProps={{
                 inputProps: {
                   maxLength: 254,
                 },
-                disableUnderline: true,
-                classes: {
-                  root: classes.customTFRoot,
-                  input: classes.customTFInput,
-                },
-              }}
-              InputLabelProps={{
-                shrink: false,
-                className: classes.customTFLabel,
               }}
             />
           </DialogContent>
@@ -269,8 +280,8 @@ class PostPanel extends Component {
                 </Typography>
               }
             </div>
-            <Button className={ classes.button } disabled={!this.state.body || this.state.loading } onClick={ () => this.handleCreate() } variant="outlined" size="small" color="primary">
-              Post
+            <Button className={ classes.button } disabled={!this.state.title || !this.state.body || this.state.loading } onClick={ () => this.handleCreate() } variant="outlined" size="small" color="primary">
+              Finish
             </Button>
           </DialogActions>
         </Dialog>

@@ -38,8 +38,8 @@ export const postContent = (post, classes, gutterBottom) => {
       hasPanorama(post) && <Viewer360 height="400px" imageURL={imageURL(post, 'panorama')} />
     }
     <div className={classes.postContainer}>
-      <Typography className={ classes.capitalize } variant="title" gutterBottom>
-        { post.category }
+      <Typography className={ classes.capitalize } component="h1" variant="h6" gutterBottom>
+        { post.title? post.title : post.category }
       </Typography>
       <Typography variant="body1" gutterBottom>
         <Linkify>{ post.body }</Linkify>

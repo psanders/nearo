@@ -96,7 +96,7 @@ class PostView extends Component {
     return (
       <Fragment>
         <Helmet>
-          <title>Nearo - { capitalize(post.category) }</title>
+          <title>{ post.title? post.title : capitalize(post.category) }  { " near " + post.locText } | Nearo</title>
         </Helmet>
         <div className={classes.top20} />
         <Grid

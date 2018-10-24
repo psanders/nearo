@@ -49,6 +49,9 @@ class NotificationsStore {
     }
 
     showMustLogin = () => {
+      if(!this.hideLoginNotification) {
+        return
+      }
       // I'm passing push as a reference index.js
       // Not the most elegant but it works
       this.showNotification('Please login', 10000,
