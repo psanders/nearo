@@ -116,6 +116,8 @@ exports.host = functions.https.onRequest((req, res) => {
 	const path = req.path ? req.path.split('/') : req.path
 	const ogPlaceholder = '<meta name="functions-insert-dynamic-og"/>'
 	const metaPlaceholder = '<meta name="functions-insert-dynamic-meta"/>'
+	const descriptionPlaceholder = '<meta name="functions-insert-dynamic-description"/>'
+	const titlePlaceholder = '<titlePlaceholder/>'
 
 	const isBot = userAgent.includes('googlebot') ||
 		userAgent.includes('yahoou') ||
@@ -130,7 +132,12 @@ exports.host = functions.https.onRequest((req, res) => {
 		userAgent.includes('twitterbot') ||
 		userAgent.includes('developers.google.com') ? true : false
 
-	if (isBot && (path && path.length > 1 && path[1] === 'posts')) {
+  if (!isBot || !path || path.length <= 1 || path[1] === 'explore') {
+    // Just replace title and description
+    indexHTML = indexHTML.replace(descriptionPlaceholder, utils.getPageDescription())
+    indexHTML = indexHTML.replace(titlePlaceholder, utils.getPageTitle())
+    return res.status(200).send(indexHTML)
+  } else if (path[1] === 'posts') {
 		const id = path[2]
 		admin.firestore().collection('posts').doc(id).get().then(snapshot => {
 			const post = snapshot.data()
@@ -138,17 +145,18 @@ exports.host = functions.https.onRequest((req, res) => {
 				post.id = id
 			}
 			indexHTML = indexHTML.replace(metaPlaceholder, utils.getMeta(post))
-			indexHTML = indexHTML.replace(ogPlaceholder, utils.getOpenGraph(post))
+			indexHTML = indexHTML.replace(ogPlaceholder, utils.getOpenGraph(post, fbAppId))
+      indexHTML = indexHTML.replace(descriptionPlaceholder, utils.getPageDescription(post))
+      indexHTML = indexHTML.replace(titlePlaceholder, utils.getPageTitle(post))
 			res.status(200).send(indexHTML)
       return
 		}).catch(error => {
       console.error(error)
     })
-		return
 	}
 
 	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
-	res.status(200).send(indexHTML)
+  return
 })
 
 /*
