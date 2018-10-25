@@ -16,7 +16,7 @@ const style = {
 
 const ShareBanner = props => <div style={ style.root }>
   <Typography component="h2" variant="subtitle1" style={{color: '#fff'}}>
-    Buy & Sell Locally
+    Buy, sell, and trade locally
   </Typography>
   <Typography component="h3" variant="caption" style={{color: '#fff'}}>
     Share a post with people close to you

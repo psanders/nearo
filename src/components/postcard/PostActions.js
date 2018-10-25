@@ -40,16 +40,8 @@ class PostActions extends Component {
     return this.props && this.props.bookmarksStore.bookmarks.includes(this.props.post.id)
   }
 
-  @computed get likes() {
-    return this.props.postsStore.posts.find(post => post.id === this.props.post.id).likes
-  }
-
   @computed get post() {
     return this.props.postsStore.posts.find(post => post.id === this.props.post.id)
-  }
-
-  @computed get sold() {
-    return this.props.postsStore.posts.filter(post => post.id === this.props.post.id)[0].sold
   }
 
   handleBookmark = () => {
@@ -116,20 +108,21 @@ class PostActions extends Component {
           ? <FavBorderIcon className={classes.actionIcon } />
           : <FavIcon className={classnames(classes.actionIcon, classes.favLiked) } /> }
         {
-          this.likes > 0 &&
+          this.post && this.post.likes > 0 &&
           <Typography variant="caption" color="secondary">
-            { this.likes }
+            { this.post.likes }
           </Typography>
         }
       </Button>
       <ShareButton post={ post }/>
       {
+        this.post &&
         this.isOwner() &&
         this.props.post.category === 'forsale' &&
         <Button onClick={ this.handleSold } className={classes.actionBtn} >
           <SoldOutIcon className={classes.actionIcon } />
           <Typography variant="caption" color="secondary">
-            { this.sold? "Mark Available" : "Mark Sold" }
+            { this.post.sold? "Mark Available" : "Mark Sold" }
           </Typography>
         </Button>
       }

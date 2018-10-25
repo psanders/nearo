@@ -9,9 +9,12 @@ const imageURL = (post, size) => {
 
 const capitalize = word => word ? word.replace(/\w/, c => c.toUpperCase()) : ''
 
-const defaultPageTitle = 'For Sale, Cars, Furniture, Houses, Services, Community | Nearo'
-const defaultPageDescription = 'Personal advertisement, Free Advertisement, DIY Advertisement'
+const defaultPageTitle = 'Buy, sell, and trade locally | Nearo'
 
+const defaultPageDescription = `Nearo is local classifieds for jobs, housing,
+for sale, events, services, and community. Connect with local buyers and sellers on Nearo.
+Find cars, trucks, electronics, furniture, and more.
+`
 const getTitle = (post) => post.title + " near " + post.locText
 
 exports.getPageTitle = post => {
@@ -43,3 +46,18 @@ exports.getOpenGraph = (post, fbAppId) => {
 }
 
 exports.getMeta = () => `<meta name="twitter:card" content="summary"></meta>`
+
+exports.isBot = userAgent => userAgent.includes('googlebot') ||
+  userAgent.includes('mozilla') ||
+  userAgent.includes('yahoou') ||
+  userAgent.includes('slurp') ||
+  userAgent.includes('bingbot') ||
+  userAgent.includes('baiduspider') ||
+  userAgent.includes('yandex') ||
+  userAgent.includes('yeti') ||
+  userAgent.includes('yodaobot') ||
+  userAgent.includes('gigabot') ||
+  userAgent.includes('ia_archiver') ||
+  userAgent.includes('facebookexternalhit') ||
+  userAgent.includes('twitterbot') ||
+  userAgent.includes('developers.google.com')

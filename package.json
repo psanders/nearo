@@ -84,7 +84,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js && cp build/index.html functions",
     "test": "node scripts/test.js --env=jsdom",
-    "jest": "jest src/components --env=jsdom"
+    "jest": "jest src/components --env=jsdom",
+    "seolint": "seolint localhost:8000"    
   },
   "jest": {
     "collectCoverageFrom": [

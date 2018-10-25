@@ -23,15 +23,12 @@ class MainContainer extends Component {
 
   render () {
     const { routing } = this.props
-    const title = (route) => {
-      if(route === '/') return "For Sale, Cars, Furniture, Houses, Services, Community | Nearo"
-      if(route === '/explore') return "For Sale, Cars, Furniture, Houses, Services, Community | Nearo"
-      return "Nearo"
-    }
+    const doChangeTitle = route => route === '/' || route === '/explore'
+    const title = route => doChangeTitle(route) ?  "Buy, sell, and trade locally | Nearo" : "Nearo"
 
     return(
       <Fragment>
-        { (routing.location.pathname === '/' || routing.location.pathname === '/explore') &&
+        { doChangeTitle(routing.location.pathname) &&
           <Helmet>
             <title>
               { title(routing.location.pathname)}
