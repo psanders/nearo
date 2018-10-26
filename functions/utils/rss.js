@@ -7,7 +7,7 @@ const constants = require('./constants')
 exports.generateFeed = (callback) => {
   /* lets create an rss feed */
   const feed = new RSS({
-    title: constants.siteInfo.title,
+    title: constants.siteInfo.name,
     description: constants.siteInfo.description,
     feed_url: constants.siteInfo.url + "/rss.xml",
     site_url: constants.siteInfo.url,
@@ -29,23 +29,24 @@ exports.generateFeed = (callback) => {
       querySnapshot.forEach(snapshot => {
         const post = snapshot.data()
         post.id = snapshot.id
+
+        let description = post.body
+
+        if (utils.imageURL(post, 'sm')) {
+          description = `<img src="${utils.imageURL(post, 'sm')}" style="max-width: 400px" /><br />"`
+            + description
+        }
+
         feed.item({
           title: post.title,
-          description: post.description,
-          url: constants.siteInfo.url + '/posts/' + post.id, // link to the item
-          guid: post.id,
+          description: description,
+          url: constants.siteInfo.url + '/posts/' + post.id,
           categories: [post.category],
           author: post.author,
+          enclosure: {url: utils.imageURL(post)},
           date: post.timestamp,
           lat: post._geoloc.lat,
           long: post._geoloc.lng,
-          custom_elements: [
-            {'post:image': {
-              _attr: {
-                href: utils.imageURL(post)
-              }
-            }},
-          ]
         })
       })
     callback(feed.xml())

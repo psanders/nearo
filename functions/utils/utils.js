@@ -20,14 +20,14 @@ exports.imageURL = imageURL
 exports.getDefaultTags = path => {
   console.log('path', path)
   let tags = `<meta property="og:type" content="website" />`
-	tags += `<meta property="og:title" content="${constants.defaultPageTitle}" />`
-	tags += `<meta property="og:description" content="${constants.defaultPageDescription}" />`
+	tags += `<meta property="og:title" content="${constants.siteInfo.title}" />`
+	tags += `<meta property="og:description" content="${constants.siteInfo.description}" />`
 	tags += `<meta property="og:url" content="https://nearo.co/${path}" />`
   tags += `<meta property="og:image" content="https://nearo.com/images/icons/android-icon-512x512.png" />`
   tags += `<meta name="twitter:card" content="summary"></meta>`
-  tags += `<meta name="description" content="${constants.defaultPageDescription}" />`
+  tags += `<meta name="description" content="${constants.siteInfo.description}" />`
   tags += `<link rel="canonical" href="https://nearo.co/${path}" />`
-  tags += `<title>${constants.defaultPageTitle}</title>`
+  tags += `<title>${constants.siteInfo.title}</title>`
 	return tags
 }
 
