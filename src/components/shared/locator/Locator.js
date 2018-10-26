@@ -10,7 +10,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import LocationIcon from '@material-ui/icons/LocationOn'
 import { observer, inject } from 'mobx-react'
 
-import { ellip } from '../../commons/utils'
+import { ellip } from 'components/commons/utils'
 import { styles } from './LocatorStyles'
 import SearchInput from './SearchInput'
 

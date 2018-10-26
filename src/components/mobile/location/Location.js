@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
-import Locator from '../../shared/locator/Locator'
+import Locator from 'components/shared/locator/Locator'
 
 @inject('routing')
 @inject('navStore')

@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react'
 
 import GoBackPage from '../../components/shared/gobackpage/GoBackPage'
 import Profile from '../../components/shared/profile/Profile'
-import LoginScreen from '../../components/login/Login'
+import LoginScreen from '../../components/shared/login/Login'
 
 @inject('usersStore')
 @observer

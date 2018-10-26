@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 import { withStyles } from '@material-ui/core/styles'
 
-import PostCard from '../postcard/PostCard'
+import PostCard from 'components/postcard/PostCard'
 
 class FavList extends Component {
 

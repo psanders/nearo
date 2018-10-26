@@ -14,9 +14,9 @@ import firebase from 'firebase/app'
 import { observer, inject } from 'mobx-react'
 import green from '@material-ui/core/colors/green';
 
-import PostActions from '../postactions/PostActions'
-import { imageURL } from '../commons/utils'
-import { commonStyles } from '../../shared/styles/styles'
+import PostActions from 'components/postactions/PostActions'
+import { imageURL } from 'components/commons/utils'
+import { commonStyles } from 'shared/styles/styles'
 
 @inject('routing')
 @inject('postsStore')

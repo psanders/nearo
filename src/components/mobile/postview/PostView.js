@@ -9,12 +9,12 @@ import { observer, inject } from 'mobx-react'
 import { placeHolder } from './PlaceHolder'
 import { postContent } from './PostContent'
 import { styles } from './PostViewStyles'
-import { db } from '../../commons/firebase/firebase'
-import { currentPath } from '../../commons/utils'
-import PostActions from '../../postactions/PostActions'
-import MapCard from '../../shared/map/MapCard'
-import ProfileCard from '../../shared/profilecard/ProfileCard'
-import About from '../../About'
+import { db } from 'components/commons/firebase/firebase'
+import { currentPath } from 'components/commons/utils'
+import PostActions from 'components/postactions/PostActions'
+import MapCard from 'components/shared/map/MapCard'
+import ProfileCard from 'components/shared/profilecard/ProfileCard'
+import About from 'components/About'
 
 @inject('usersStore')
 @inject('postsStore')

@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react'
 import 'firebase/auth'
 import firebaseui from 'firebaseui'
 
-import { createUser } from '../commons/firebase/newaccount'
+import { createUser } from 'components/commons/firebase/newaccount'
 
 const uiConfig = (self) => {
 

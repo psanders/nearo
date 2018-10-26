@@ -12,8 +12,8 @@ import {
   ellip,
   hasPanorama,
   hasMedia,
-} from '../../commons/utils'
-import Viewer360 from '../../Viewer360'
+} from 'components/commons/utils'
+import Viewer360 from 'components/Viewer360'
 
 export const postContent = (post, classes, gutterBottom) => {
 

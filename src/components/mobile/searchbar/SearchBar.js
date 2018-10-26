@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import InputBase from '@material-ui/core/InputBase'
 import SearchIcon from '@material-ui/icons/Search'
 
-import { ellip } from '../../commons/utils'
+import { ellip } from 'components/commons/utils'
 import { styles } from './styles'
 
 @inject('navStore')

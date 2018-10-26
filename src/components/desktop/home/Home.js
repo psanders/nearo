@@ -6,7 +6,7 @@ import {computed} from 'mobx'
 import Categories from './Categories'
 import Gallery from './Gallery'
 import './Gallery.css'
-import { scrollTop } from '../commons/utils'
+import { scrollTop } from 'components/commons/utils'
 
 @inject('routing')
 @inject('postsStore')

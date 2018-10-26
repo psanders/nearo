@@ -22,7 +22,7 @@ const NoMatch = Loadable({
 })
 
 const Home = Loadable({
-  loader: () => import('../../components/home/Home'),
+  loader: () => import('../../components/desktop/home/Home'),
   loading: () => null,
 })
 

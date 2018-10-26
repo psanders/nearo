@@ -10,10 +10,10 @@ import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Chip from '@material-ui/core/Chip'
 import Divider from '@material-ui/core/Divider'
-import ShareBanner from '../shared/sharebanner/ShareBanner'
 
-import PostPanel from '../postpanel/PostPanel'
-import { getCategories } from '../commons/categories'
+import ShareBanner from 'components/shared/sharebanner/ShareBanner'
+import PostPanel from 'components/postpanel/PostPanel'
+import { getCategories } from 'components/commons/categories'
 
 const styles = theme => ({
   root: {

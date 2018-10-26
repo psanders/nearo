@@ -9,7 +9,7 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
-import { commonSyles } from '../../shared/styles/styles'
+import { commonSyles } from 'components/shared/styles/styles'
 import { styles } from './styles'
 
 @inject('usersStore')

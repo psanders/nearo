@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import Icon360 from '@material-ui/icons/ThreeSixty'
-import { imageURL, hasPanorama } from '../../commons/utils'
+import { imageURL, hasPanorama } from 'components/commons/utils'
 
 const style = {
   width: {

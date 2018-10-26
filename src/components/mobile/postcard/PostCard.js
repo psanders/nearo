@@ -5,8 +5,8 @@ import Linkify from 'react-linkify'
 import Paper from '@material-ui/core/Paper';
 import { observer, inject } from 'mobx-react'
 
-import { hasMedia } from '../../commons/utils'
-import PostActions from '../../postactions/PostActions'
+import { hasMedia } from 'components/commons/utils'
+import PostActions from 'components/postactions/PostActions'
 import PostImage from './PostImage'
 import PlaceHolder from './PlaceHolder'
 import PostDate from './PostDate'
