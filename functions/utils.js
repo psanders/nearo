@@ -2,8 +2,7 @@
 const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
 const defaultPageTitle = 'Buy, sell, and trade locally | Nearo'
 const defaultPageDescription = `Nearo is local classifieds for jobs, housing,
-for sale, events, services, and community. Connect with local buyers and sellers on Nearo.
-Find cars, trucks, electronics, furniture, and more.`
+for sale, events, services, and community. Find cars, trucks, electronics, furniture, and more.`
 
 const imageURL = (post, size) => size
   ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
