@@ -10,7 +10,7 @@ import MapCard from '../map/MapCard'
 import ProfileCard from '../profilecard/ProfileCard'
 import About from '../About'
 import { db } from '../commons/firebase/firebase'
-import { currentPath, capitalize } from '../commons/utils'
+import { currentPath } from '../commons/utils'
 import { placeHolder } from './PlaceHolder'
 import { postContent } from './PostContent'
 import { styles } from './PostViewStyles'
@@ -96,7 +96,7 @@ class PostView extends Component {
     return (
       <Fragment>
         <Helmet>
-          <title>{ post.title? post.title : capitalize(post.category) }  { " near " + post.locText } | Nearo</title>
+          { post.title && <title>{post.title} near {post.locText} | Nearo</title> }
         </Helmet>
         <div className={classes.top20} />
         <Grid

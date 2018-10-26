@@ -36,7 +36,7 @@ class About extends React.Component {
           style={{minWidth: 300, borderRadius: 0, marginBottom: gutterBottom ? gutterBottom : 10}}>
           <CardActionArea style={{width: '100%'}}>
             <CardContent>
-                <Typography variant="h2" >
+                <Typography variant="subheading" >
                   About
                 </Typography>
                 <Typography variant="caption" gutterBottom align="center">

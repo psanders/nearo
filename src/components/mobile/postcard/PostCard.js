@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Linkify from 'react-linkify'
@@ -27,35 +26,23 @@ class PostCard extends Component {
     const { post, routing, postsStore } = this.props
 
     return <Paper elevation={0}>
-      <Grid container>
-        <Grid item>
-          <ButtonBase aria-label="Open Publication Details" onClick={() => {
-            postsStore.currentPost = post
-            routing.push('/posts/' + post.id)
-          }}>
-            { hasMedia(post) && <PostImage post={ post }/> }
-            { !hasMedia(post) && <PlaceHolder /> }
-          </ButtonBase>
-        </Grid>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={0}>
-            <Grid item xs style={{padding: 10}}>
-              <Typography variant="subtitle2" gutterBottom>
-                { post.title }
-              </Typography>
-              <Typography component="p" variant="body1" gutterBottom>
-                <Linkify>{ post.body }</Linkify>
-              </Typography>
-              <PostDate post={ post } />
-             </Grid>
-            <Grid item >
-              <div style={style.actionsContainer}>
-                <PostActions post={ post } />
-              </div>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <ButtonBase aria-label="Open Publication Details" onClick={() => {
+        postsStore.currentPost = post
+        routing.push('/posts/' + post.id)
+      }}>
+        { hasMedia(post) && <PostImage post={ post }/> }
+        { !hasMedia(post) && <PlaceHolder /> }
+      </ButtonBase>
+      <div style={style.actionsContainer}>
+        <Typography variant="subtitle2" gutterBottom>
+          { post.title }
+        </Typography>
+        <Typography component="p" variant="body1">
+          <Linkify>{ post.body }</Linkify>
+        </Typography>
+        <PostDate post={ post } />
+        <PostActions post={ post } />
+      </div>
     </Paper>
   }
 }

@@ -25,25 +25,27 @@ class TopNav extends Component {
   }
 
   render() {
-    const { appStore } = this.props
+    const { appStore, usersStore } = this.props
 
     return (
       <Fragment>
         <AppBar elevation={0}>
-          <Toolbar> {
+          <Toolbar > {
             appStore.isReady() &&
               <Fragment>
                 <Typography variant="h6" >
                   <span style={commonStyles.logo}>Nearo</span>
                 </Typography>
-
-                <span style={ commonStyles.flex } />
-
-                <IconButton onClick={this.handleClick}>
-                  <NotificationsIcon style={commonStyles.clrWhite} />
-                </IconButton>
-
-                <PostPanel />
+                {
+                  usersStore.isSignedIn() &&
+                  <Fragment>
+                    <span style={ commonStyles.flex } />
+                    <IconButton onClick={this.handleClick}>
+                      <NotificationsIcon style={commonStyles.clrWhite} />
+                    </IconButton>
+                    <PostPanel />
+                  </Fragment>
+                }
               </Fragment>
             }
           </Toolbar>

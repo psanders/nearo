@@ -6,6 +6,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import HomeIcon from '@material-ui/icons/HomeOutlined'
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder'
 import ProfileIcon from '@material-ui/icons/AccountCircleOutlined'
+import LoginIcon from '@material-ui/icons/Fingerprint'
 import EditLocationIcon from '@material-ui/icons/LocationOnOutlined'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
@@ -41,7 +42,7 @@ class BNav extends Component {
   }
 
   render() {
-    const { classes, appStore } = this.props
+    const { classes, appStore, usersStore } = this.props
 
     return (
       <BottomNavigation
@@ -50,9 +51,22 @@ class BNav extends Component {
         onChange={this.handleChange}
         className={classes.root}>
           { appStore.isReady() && <BottomNavigationAction label="Home" value="/" icon={<HomeIcon />}  /> }
-          { appStore.isReady() && <BottomNavigationAction label="Favorites" value="/favorites" icon={<FavoriteIcon />} /> }
+          {
+            appStore.isReady() &&
+            usersStore.isSignedIn() &&
+            <BottomNavigationAction label="Favorites" value="/favorites" icon={<FavoriteIcon />} />
+          }
           { appStore.isReady() && <BottomNavigationAction label="Location" value="/location" icon={<EditLocationIcon />} /> }
-          { appStore.isReady() && <BottomNavigationAction label="Profile" value="/profile" icon={<ProfileIcon />}  /> }
+          {
+            appStore.isReady() &&
+            usersStore.isSignedIn() &&
+            <BottomNavigationAction label="Profile" value="/profile" icon={<ProfileIcon />}  />
+          }
+          {
+            appStore.isReady() &&
+            !usersStore.isSignedIn() &&
+            <BottomNavigationAction label="Login" value="/login" icon={<LoginIcon />}  /> 
+          }
       </BottomNavigation>
     )
   }

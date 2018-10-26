@@ -1,7 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-//import 'firebase/messaging'
 
 const prodConfig = {
   apiKey: "AIzaSyAshRmJgF-p3IesZfmeLzhB-n705ePUAFA",
@@ -33,22 +32,4 @@ const auth = firebase.auth()
 const db = firebase.firestore()
 db.settings({timestampsInSnapshots: true})
 
-/*const messaging = firebase.messaging()
-
-async function retrieveToken() {
-  try {
-    await messaging.requestPermission()
-    return await messaging.getToken()
-  } catch(error) {
-    console.error(error)
-  }
-}
-
-retrieveToken().then((token) => {
-  console.log('token', token)
-})*/
-
-export {
-  auth,
-  db
-}
+export { auth, db }

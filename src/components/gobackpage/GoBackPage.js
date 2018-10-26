@@ -37,7 +37,6 @@ class Profile extends Component {
             <LinearProgress />
           }
         </AppBar>
-        <div className={ classes.toolbar } />
         <div className={classes.container}>
           { children }
         </div>

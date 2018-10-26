@@ -1,4 +1,3 @@
-
 const categories = [
   {
     "ref": "news",

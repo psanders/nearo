@@ -9,7 +9,7 @@ const timestamp = timestamp =>
 
 const PostDate = props => <Typography
   variant="caption"
-  color="textSecondary">By { props.post.author } &nbsp;
+  color="textSecondary" gutterBottom>By { props.post.author } &nbsp;
   <Moment fromNow={true} interval={30000}>
     { timestamp(props.post.timestamp) }
   </Moment>

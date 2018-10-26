@@ -8,7 +8,5 @@ const index = client.initIndex('posts')
 export const doSearchAlgolia = (q, callback) => {
   index
     .search(q)
-    .then(function(responses) {
-      callback(responses.hits, responses.nbHits)
-    })
+    .then(responses => callback(responses.hits, responses.nbHits))
 }
