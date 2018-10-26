@@ -49,6 +49,7 @@ exports.generateFeed = (callback) => {
         })
       })
     callback(feed.xml())
+    return
   }).catch(error => {
     console.error(error)
   })
