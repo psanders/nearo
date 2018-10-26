@@ -39,7 +39,7 @@ export const postContent = (post, classes, gutterBottom) => {
     }
     <div className={classes.postContainer}>
       <Typography className={ classes.capitalize } component="h1" variant="h6" gutterBottom>
-        { post.title? post.title : post.category }
+        { post.title }
       </Typography>
       <Typography variant="body1" gutterBottom>
         <Linkify>{ post.body }</Linkify>

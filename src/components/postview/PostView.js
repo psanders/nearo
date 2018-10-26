@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
 
-import PostActions from '../postcard/PostActions'
+import PostActions from '../postactions/PostActions'
 import MapCard from '../map/MapCard'
 import ProfileCard from '../profilecard/ProfileCard'
 import About from '../About'

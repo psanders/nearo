@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import Location from '../../components/moblocation/Location'
+import Location from '../../components/mobile/location/Location'
 
 const style = {
   height: 'calc(100vh - 110px)'

@@ -26,13 +26,11 @@ class PostActions extends Component {
     bookmarked: false
   }
 
-  constructor() {
-    super()
-
+  componentDidMount() {
     // This is a huge hack to prevent users from adding multiple likes
     when(
       () => this.bookmarked,
-      () =>   this.setState({bookmarked: this.bookmarked})
+      () => this.setState({bookmarked: this.bookmarked})
     )
   }
 

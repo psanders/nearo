@@ -50,7 +50,7 @@ class TopNav extends React.Component {
       <div>
         <AppBar elevation={1}>
           <Toolbar>
-            <Typography variant="title" color="inherit" onClick={this.handleNav}>
+            <Typography variant="h6" color="inherit" onClick={this.handleNav}>
               <span className={classes.logo}>Nearo</span>
             </Typography>
             <TextField

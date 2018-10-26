@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import FavList from '../../components/mobfavlist/FavList'
-import NothingPage from './nothing.page'
-
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
+
+import FavList from '../../components/mobile/favlist/FavList'
+import NothingPage from './nothing.page'
 
 @inject('postsStore')
 @observer

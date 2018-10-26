@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react'
-import  Fade from '@material-ui/core/Fade'
+import Collapse from '@material-ui/core/Collapse'
 import Loadable from 'react-loadable'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
 import SimpleNotification from '../../components/notifications/SimpleNotification'
 import Notifier from '../../components/notifications/Notifier'
-import BottomNav from '../../components/mobbottomnav/BottomNav'
-import TopNav from '../../components/mobtopnav/TopNav'
+import BottomNav from '../../components/mobile/bottomnav/BottomNav'
+import TopNav from '../../components/mobile/topnav/TopNav'
 import { getMainPath, show404 } from '../../components/commons/utils'
 
 const NothingPage = Loadable({ loader: () => import('./nothing.page'), loading: () => null})
@@ -27,7 +27,7 @@ class MobileScreen extends Component {
   render () {
     const { classes, appStore } = this.props
     const pathname = this.props.routing.location.pathname
-    const hideNav = () => pathname === '/profile' || pathname === '/login'
+    const hideNav = pathname => pathname === '/profile' || pathname === '/login'
 
     return <Fragment>
       { ! hideNav() &&
@@ -37,8 +37,7 @@ class MobileScreen extends Component {
         </Fragment>
       }
       {
-        appStore.isReady() &&
-        <Fade in={true} timeout={300}>
+        <Collapse in={appStore.isReady()}>
           <div>
             { pathname === '/' && <HomePage /> }
             { (pathname === '/explore' || pathname === '/') && <HomePage /> }
@@ -49,10 +48,10 @@ class MobileScreen extends Component {
             { pathname === '/login' && <LoginPage /> }
             { show404(pathname) && <NothingPage /> }
           </div>
-        </Fade>
+        </Collapse>
       }
       {
-        ! hideNav() &&
+        ! hideNav(pathname) &&
         <Fragment>
           <div className={ classes.toolbar } />
           <BottomNav />
@@ -64,8 +63,6 @@ class MobileScreen extends Component {
   }
 }
 
-const styles = theme => ({
-  toolbar: theme.mixins.toolbar,
-})
+const styles = theme => ({ toolbar: theme.mixins.toolbar })
 
 export default withStyles(styles)(MobileScreen)

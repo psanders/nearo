@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import SearchBar from '../../components/mobsearchbar/SearchBar'
-import PostsContainer from '../../components/PostsContainer'
+import SearchBar from '../../components/mobile/searchbar/SearchBar'
+import PostList from '../../components/mobile/postlist/PostList'
 
 class HomePage extends Component {
   render () {
     return <Fragment>
       <SearchBar />
-      <PostsContainer />
+      <PostList />
     </Fragment>
   }
 }

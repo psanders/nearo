@@ -40,10 +40,10 @@ class PostCard extends Component {
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={0}>
             <Grid item xs style={{padding: 10}}>
-              <Typography variant="subtitle1" gutterBottom>
+              <Typography variant="subtitle2" gutterBottom>
                 { post.title }
               </Typography>
-              <Typography gutterBottom>
+              <Typography component="p" variant="body1" gutterBottom>
                 <Linkify>{ post.body }</Linkify>
               </Typography>
               <PostDate post={ post } />

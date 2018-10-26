@@ -17,7 +17,7 @@ import { observer, inject } from 'mobx-react'
 import { styles } from './PostCardStyles'
 import { getCategory } from '../commons/categories'
 import { imageURL, hasPanorama } from '../commons/utils'
-import PostActions from './PostActions'
+import PostActions from '../postactions/PostActions'
 
 @inject('routing')
 @inject('postsStore')

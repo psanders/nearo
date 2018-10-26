@@ -39,12 +39,12 @@ export const postContent = (post, classes, gutterBottom) => {
     }
     <div className={classes.postContainer}>
       <Typography className={ classes.capitalize } component="h1" variant="h6" gutterBottom>
-        { post.title? post.title : post.category }
+        { post.title }
       </Typography>
       <Typography variant="body1" gutterBottom>
         <Linkify>{ post.body }</Linkify>
       </Typography>
-      <Typography variant="caption" gutterBottom className={classes.bottom10}>
+      <Typography variant="caption" gutterBottom className={ classes.bottom10} >
         Posted <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment> nearby "{ ellip(post.locText, 22) }"
       </Typography>
     </div>

@@ -33,7 +33,7 @@ class TopNav extends Component {
           <Toolbar> {
             appStore.isReady() &&
               <Fragment>
-                <Typography variant="title" >
+                <Typography variant="h6" >
                   <span style={commonStyles.logo}>Nearo</span>
                 </Typography>
 

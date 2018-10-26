@@ -28,7 +28,7 @@ class Profile extends Component {
             <IconButton onClick={ this.handleGoBack } color="inherit" aria-label="Close">
               <ArrowBackIcon className={ classes.arrawBack }/>
             </IconButton>
-            <Typography variant="title" className={classnames(classes.flex, classes.logo)}>
+            <Typography variant="h6" className={classnames(classes.flex, classes.logo)}>
               Nearo
             </Typography>
           </Toolbar>

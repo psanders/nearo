@@ -19,7 +19,7 @@ function ProfileCard(props) {
 
   const cardContent = (user, classes) => {
     return <div>
-      <Typography variant="title" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         { user.name }
       </Typography>
       {user.bio && <Typography variant="body1" gutterBottom>

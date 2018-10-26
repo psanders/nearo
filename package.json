@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^3.2.2",
+    "@material-ui/core": "^3.3.1",
     "@material-ui/icons": "latest",
     "@material-ui/lab": "^3.0.0-alpha.18",
     "algoliasearch": "^3.30.0",
@@ -85,7 +85,7 @@
     "build": "node scripts/build.js && cp build/index.html functions",
     "test": "node scripts/test.js --env=jsdom",
     "jest": "jest src/components --env=jsdom",
-    "seolint": "seolint localhost:8000"    
+    "seolint": "seolint localhost:8000"
   },
   "jest": {
     "collectCoverageFrom": [

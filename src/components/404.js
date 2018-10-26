@@ -22,7 +22,7 @@ class NoMatch extends Component {
             <Typography className={classes.title} color="textSecondary">
               Error
             </Typography>
-            <Typography variant="headline" component="h3">
+            <Typography variant="h5">
               404
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
