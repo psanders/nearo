@@ -113,7 +113,7 @@ exports.optimizeImages= functions.storage.object().onFinalize((object) => {
 exports.host = functions.https.onRequest((req, res) => {
 	let indexHTML = fs.readFileSync('./index.html').toString()
 	const path = req.path ? req.path.split('/') : req.path
-	const dynamicTags = '<meta name="functions-insert-dynamic-tags"/>'
+	const dynamicTags = '<meta name="functions-dynamic-tags"/>'
 
   if (utils.isABot(utils.ua(req)) && path.length <= 1 && path[1] === 'posts') {
 		const id = path[2]

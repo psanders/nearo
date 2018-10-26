@@ -13,7 +13,7 @@ const style = {
 
 const ProfilePage = () => <GoBackPage
   children={
-    <Card style={ style }>
+    <Card style={ style } elevation={0}>
       <Profile />
     </Card>
   }

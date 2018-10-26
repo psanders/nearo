@@ -15,15 +15,26 @@ import classnames from 'classnames'
 @inject('usersStore')
 @observer
 class Profile extends Component {
+  state = {
+    scrollPosition: 0
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", event => {
+      this.setState({scrollPosition: window.pageYOffset || document.documentElement.scrollTop})
+    }, false);
+  }
+
   handleGoBack = () => window.history.length < 3
     ? this.props.routing.push('/')
     : this.props.routing.goBack()
 
   render() {
     const { classes, appStore, children } = this.props
+    const { scrollPosition } = this.state
 
     return (<div>
-        <AppBar elevation={0}>
+        <AppBar elevation={scrollPosition === 0? 0 : 1}>
           <Toolbar color="secondary" >
             <IconButton onClick={ this.handleGoBack } color="inherit" aria-label="Close">
               <ArrowBackIcon className={ classes.arrawBack }/>
@@ -38,6 +49,7 @@ class Profile extends Component {
           }
         </AppBar>
         <div className={classes.container}>
+          <div className={ classes.toolbar } />
           { children }
         </div>
       </div>
@@ -58,12 +70,13 @@ const styles = theme => ({
   },
   container: {
     width: '100vw',
-    minHeight: 'calc(100vh - 55px)'
+    minHeight: '100vh'
   },
   flex: {
     flex: 1,
     flexGrow: 1
   },
+  toolbar: theme.mixins.toolbar,
 })
 
 export default withStyles(styles)(Profile)

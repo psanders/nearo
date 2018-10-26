@@ -1,0 +1,35 @@
+[debug] [2018-10-26T13:19:34.268Z] ----------------------------------------------------------------------
+[debug] [2018-10-26T13:19:34.271Z] Command:       /usr/local/lib/node_modules/node/bin/node /usr/local/bin/firebase serve
+[debug] [2018-10-26T13:19:34.271Z] CLI Version:   5.0.1
+[debug] [2018-10-26T13:19:34.271Z] Platform:      darwin
+[debug] [2018-10-26T13:19:34.271Z] Node Version:  v10.5.0
+[debug] [2018-10-26T13:19:34.272Z] Time:          Fri Oct 26 2018 09:19:34 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-10-26T13:19:34.272Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-26T13:19:34.284Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-26T13:19:34.284Z] > authorizing via signed-in user
+[debug] [2018-10-26T13:19:34.284Z] [iam] checking project locally-57510 for permissions ["firebase.projects.get"]
+[debug] [2018-10-26T13:19:34.286Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/locally-57510:testIamPermissions  
+
+[debug] [2018-10-26T13:19:34.658Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-26T13:19:34.661Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/locally-57510  
+ 
+[debug] [2018-10-26T13:19:34.946Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/psanders/Projects/nearo'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-10-26T13:19:35.577Z] Fetching environment
+[debug] [2018-10-26T13:19:35.582Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/225376231981:getServerAppConfig  
+ 
+[debug] [2018-10-26T13:19:35.583Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/225376231981/clients/_:getWebAppConfig  
+ 
+[debug] [2018-10-26T13:19:35.890Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-26T13:19:35.890Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-26T13:19:35.946Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: build
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2018-10-26T13:19:37.480Z] Parsing function triggers
+[info] ✔  functions: host: http://localhost:5001/locally-57510/us-central1/host
+[info] [hosting] Rewriting /explore to local function host
+[info] [hosting] Rewriting /explore to local function host

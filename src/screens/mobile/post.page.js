@@ -1,8 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PostView from '../../components/mobile/postview/PostView'
-
-class PostPage extends Component {
-  render = () => <PostView />
-}
-
+const PostPage = () => <PostView />
 export default PostPage
