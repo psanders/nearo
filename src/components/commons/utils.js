@@ -60,3 +60,19 @@ export const scrollTop = () => {
   document.body.scrollTop = 0 // For Safari
   document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
 }
+
+const getUrlVars = () => {
+  const vars = {}
+  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    vars[key] = value
+  })
+  return vars
+}
+
+export const getUrlParam = (parameter, defaultvalue) => {
+  let urlparameter = defaultvalue
+  if(window.location.href.indexOf(parameter) > -1){
+    urlparameter = getUrlVars()[parameter]
+  }
+  return urlparameter
+}

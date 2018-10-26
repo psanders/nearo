@@ -2,9 +2,7 @@ import { observable } from "mobx"
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 import { fetchUserInfo, storeUserInfo } from '../components/commons/dbfunctions'
-import { timeout } from '../components/commons/utils'
-//import { askForLocation } from '../commons/geocoder/geocoder'
-
+import { timeout, getUrlParam } from '../components/commons/utils'
 
 const locationStorage = 'global-location'
 
@@ -23,6 +21,10 @@ class NavStore {
     }
 
     constructor () {
+      const searchTerm = getUrlParam("q")
+      if(searchTerm) {
+        this.navInfo.searchTerm = searchTerm
+      }
       this.initLocation().catch(error => console.log(error))
     }
 
