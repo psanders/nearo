@@ -9,6 +9,7 @@ import ExitIcon from '@material-ui/icons/ExitToApp'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
+
 import { styles } from './TopnavStyles'
 
 @inject('usersStore')

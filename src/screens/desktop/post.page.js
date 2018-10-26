@@ -1,9 +1,7 @@
-import React, { Component } from 'react'
-import GoBackPage from '../../components/shared/gobackpage/GoBackPage'
-import PostView from '../../components/postview/PostView'
+import React from 'react'
+import GoBackPage from 'components/shared/gobackpage/GoBackPage'
+import PostView from 'components/desktop/postview/PostView'
 
-class ProfilePage extends Component {
-  render = () => <GoBackPage children={ <PostView /> } />
-}
+const ProfilePage = () => <GoBackPage children={ <PostView /> } />
 
 export default ProfilePage

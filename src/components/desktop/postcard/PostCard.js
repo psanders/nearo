@@ -15,9 +15,9 @@ import firebase from 'firebase/app'
 import { observer, inject } from 'mobx-react'
 
 import { styles } from './PostCardStyles'
-import { getCategory } from '../commons/categories'
-import { imageURL, hasPanorama } from '../commons/utils'
-import PostActions from '../postactions/PostActions'
+import { getCategory } from 'components/commons/categories'
+import { imageURL, hasPanorama } from 'components/commons/utils'
+import PostActions from 'components/shared/postactions/PostActions'
 
 @inject('routing')
 @inject('postsStore')

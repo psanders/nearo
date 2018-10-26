@@ -18,7 +18,7 @@ import { computed } from 'mobx'
 import classnames from 'classnames'
 
 import { styles } from './TopnavStyles'
-import Locator from '../shared/locator/Locator'
+import Locator from 'components/shared/locator/Locator'
 
 @inject('navStore')
 @inject('appStore')

@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import { observer, inject } from 'mobx-react'
 
 import { hasMedia } from 'components/commons/utils'
-import PostActions from 'components/postactions/PostActions'
+import PostActions from 'components/shared/postactions/PostActions'
 import PostImage from './PostImage'
 import PlaceHolder from './PlaceHolder'
 import PostDate from './PostDate'

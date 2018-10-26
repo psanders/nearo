@@ -7,9 +7,9 @@ import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 import InfiniteScroll from 'react-infinite-scroller'
 
-import SubBar from './subbar/SubBar'
-import GoogleMap from './shared/map/GoogleMap'
-import PostCard from './postcard/PostCard'
+import SubBar from 'components/desktop/subbar/SubBar'
+import GoogleMap from 'components/shared/map/GoogleMap'
+import PostCard from 'components/desktop/postcard/PostCard'
 
 @inject('postsStore')
 @inject('navStore')

@@ -21,12 +21,14 @@ import { observer, inject } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
-import { getCategories } from '../commons/categories'
-import { db } from '../commons/firebase/firebase'
-import UploaderButton from './UploaderButton'
+import { getCategories } from 'components/commons/categories'
+import { db } from 'components/commons/firebase/firebase'
+import LocatorMini from 'components/shared/locator/LocatorMini'
+import { imageURL, ellip } from 'components/commons/utils'
 import { styles } from './PostPanelStyles'
-import { imageURL, ellip } from '../commons/utils'
-import LocatorMini from '../shared/locator/LocatorMini'
+import UploaderButton from './UploaderButton'
+
+
 
 @inject('notificationsStore')
 @inject('postsStore')

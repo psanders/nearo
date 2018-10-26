@@ -5,17 +5,15 @@ import Grid from '@material-ui/core/Grid'
 import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
 
-import PostActions from '../postactions/PostActions'
-import MapCard from '../shared/map/MapCard'
-import ProfileCard from '../shared/profilecard/ProfileCard'
-import About from '../About'
-import { db } from '../commons/firebase/firebase'
-import { currentPath } from '../commons/utils'
-import { styles } from './PostViewStyles'
-import { scrollTop } from '../commons/utils'
-
+import PostActions from 'components/shared/postactions/PostActions'
+import MapCard from 'components/shared/map/MapCard'
+import ProfileCard from 'components/shared/profilecard/ProfileCard'
+import About from 'components/About'
+import { db } from 'components/commons/firebase/firebase'
+import { currentPath, scrollTop } from 'components/commons/utils'
 import { placeHolder } from './PlaceHolder'
 import { postContent } from './PostContent'
+import { styles } from './PostViewStyles'
 
 @inject('usersStore')
 @inject('postsStore')

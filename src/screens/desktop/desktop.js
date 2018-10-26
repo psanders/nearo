@@ -6,10 +6,10 @@ import { observer, inject } from 'mobx-react'
 
 import ProfilePage from './profile.page'
 import LoginPage from './login.page'
-import Notifier from '../../components/shared/notifications/Notifier'
-import SimpleNotification from '../../components/shared/notifications/SimpleNotification'
-import TopNav from '../../components/topnav/TopNav'
-import { getMainPath, show404 } from '../../components/commons/utils'
+import Notifier from 'components/shared/notifications/Notifier'
+import SimpleNotification from 'components/shared/notifications/SimpleNotification'
+import TopNav from 'components/desktop/topnav/TopNav'
+import { getMainPath, show404 } from 'components/commons/utils'
 
 const PostPage = Loadable({
   loader: () => import('./post.page'),
@@ -17,17 +17,17 @@ const PostPage = Loadable({
 })
 
 const NoMatch = Loadable({
-  loader: () => import('../../components/404'),
+  loader: () => import('components/404'),
   loading: () => null,
 })
 
 const Home = Loadable({
-  loader: () => import('../../components/desktop/home/Home'),
+  loader: () => import('components/desktop/home/Home'),
   loading: () => null,
 })
 
-const PostsContainer = Loadable({
-  loader: () => import('../../components/PostsContainer'),
+const Explorer = Loadable({
+  loader: () => import('components/desktop/explorer/Explorer'),
   loading: () => null,
 })
 
@@ -54,7 +54,7 @@ class DesktopScreen extends Component {
           </Fragment>
         }
         { pathname === '/' && <Home /> }
-        { pathname === '/explore' && <PostsContainer /> }
+        { pathname === '/explore' && <Explorer /> }
         { '/' + getMainPath(pathname) === '/posts' && <PostPage /> }
         { pathname === '/profile' && <ProfilePage /> }
         { pathname === '/login' && <LoginPage /> }

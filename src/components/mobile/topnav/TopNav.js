@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined'
 import { observer, inject } from 'mobx-react'
 
-import PostPanel from 'components/postpanel/PostPanel'
+import PostPanel from 'components/shared/postpanel/PostPanel'
 import { commonStyles } from 'shared/styles/styles'
 
 @inject('appStore')

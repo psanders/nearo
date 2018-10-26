@@ -4,9 +4,11 @@ import { withStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { observer, inject } from 'mobx-react'
-import { ellip } from '../commons/utils'
+
+import { ellip } from 'components/commons/utils'
+import PostPanel from 'components/shared/postpanel/PostPanel'
 import { styles } from './SubBarStyles'
-import PostPanel from '../postpanel/PostPanel'
+
 
 @inject('navStore')
 @inject('postsStore')

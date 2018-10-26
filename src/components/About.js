@@ -13,8 +13,8 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
 import  ReactMarkdown from 'react-markdown'
 
-import { privacyContent } from '../privacy_policy'
-import { terms } from '../terms_and_conditions'
+import { privacyContent } from 'privacy_policy'
+import { terms } from 'terms_and_conditions'
 
 class About extends React.Component {
   state = {
