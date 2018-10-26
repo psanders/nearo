@@ -26,8 +26,8 @@ class Marker extends Component {
         <div
           aria-owns={open ? 'mouse-over-popover' : null}
           aria-haspopup="true"
-          onMouseEnter={this.handlePopoverOpen}
-          onMouseLeave={this.handlePopoverClose}
+          onMouseEnter={ this.handlePopoverOpen }
+          onMouseLeave={ this.handlePopoverClose }
           className={ classes.marker }
         />
         <Popover
@@ -58,7 +58,7 @@ class Marker extends Component {
               />
             }
             <div className={classes.textContainer}>
-              <Typography className={classnames(classes.textContent, classes.textCategory)} >{post.category}</Typography>
+              <Typography className={classnames(classes.textContent, classes.textCategory)} >{ post.title }</Typography>
               <Typography className={classes.textContent}>Nearby "{ ellip(post.locText, 22) }".</Typography>
               <Typography className={classes.textContent} variant="caption">By {post.author} </Typography>
             </div>

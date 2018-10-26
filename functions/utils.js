@@ -34,7 +34,7 @@ exports.getTags = (post) => {
 	return tags
 }
 
-exports.userAgent = req => req.headers['user-agent']? req.headers['user-agent'].toLowerCase() : 'notabot'
+exports.ua = req => req.headers['user-agent']? req.headers['user-agent'].toLowerCase() : 'notabot'
 
 exports.isABot = userAgent => userAgent.includes('googlebot') ||
   userAgent.includes('mozilla') ||

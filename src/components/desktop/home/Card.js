@@ -38,7 +38,7 @@ class RecipeReviewCard extends React.Component {
       <Card className={classes.card} elevation={0}>
         <CardHeader
           avatar={
-            <Avatar src={post.avatar} aria-label="Recipe" className={classes.avatar} />
+            <Avatar alt={post.title} src={post.avatar} aria-label="Recipe" className={classes.avatar} />
           }
           subheader={ <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment>}
         />
@@ -50,10 +50,8 @@ class RecipeReviewCard extends React.Component {
           </ButtonBase>
         }
         <CardContent className={classes.cardContent} onClick={() => this.handleClick(post)}>
-          <Typography component="p">
-            <Linkify>
-              { post.body }
-            </Linkify>
+          <Typography variant="body1">
+            <Linkify>{ post.body }</Linkify>
           </Typography>
         </CardContent>
         <CardActions className={classes.actions}>
