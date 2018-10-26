@@ -41,7 +41,7 @@ class PostList extends Component {
               return <Grid key={post.id} item>
                 <PostCard post={post}/>
                 {
-                  i < postsStore.posts.length - 1 && <Divider className={classes.dividerMobile}/>
+                  i < postsStore.posts.length - 1 && <Divider className={classes.divider}/>
                 }
               </Grid>
             })
@@ -53,14 +53,9 @@ class PostList extends Component {
 }
 
 const styles = theme => ({
-  dividerDesktop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-  },
-  dividerMobile: {
-    height: 5,
-  },
-  progress: {
-    margin: theme.spacing.unit * 2
+  divider: {
+    height: 6,
+    borderbColor: '#dae0e6'
   },
   mapArea: {
     backgroundColor: '#e5e3df',
