@@ -5,7 +5,7 @@ import Popover from '@material-ui/core/Popover'
 import CardMedia from '@material-ui/core/CardMedia'
 import { withStyles } from '@material-ui/core/styles'
 import classnames from 'classnames'
-import { imageURL, ellip } from '../commons/utils'
+import { imageURL, ellip } from '../../commons/utils'
 
 class Marker extends Component {
   state = {

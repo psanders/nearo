@@ -17,7 +17,7 @@ import 'firebase/storage'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
-import { db } from '../commons/firebase/firebase'
+import { db } from '../../commons/firebase/firebase'
 
 @inject('usersStore')
 @inject('appStore')

@@ -26,7 +26,7 @@ import { db } from '../commons/firebase/firebase'
 import UploaderButton from './UploaderButton'
 import { styles } from './PostPanelStyles'
 import { imageURL, ellip } from '../commons/utils'
-import LocatorMini from '../locator/LocatorMini'
+import LocatorMini from '../shared/locator/LocatorMini'
 
 @inject('notificationsStore')
 @inject('postsStore')

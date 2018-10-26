@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 
-import GoBackPage from '../../components/gobackpage/GoBackPage'
-import Profile from '../../components/profile/Profile'
+import GoBackPage from '../../components/shared/gobackpage/GoBackPage'
+import Profile from '../../components/shared/profile/Profile'
 import LoginScreen from '../../components/login/Login'
 
 @inject('usersStore')

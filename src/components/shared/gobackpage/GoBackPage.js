@@ -64,7 +64,6 @@ const styles = theme => ({
     flex: 1,
     flexGrow: 1
   },
-  toolbar: theme.mixins.toolbar,
 })
 
 export default withStyles(styles)(Profile)

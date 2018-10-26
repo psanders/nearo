@@ -11,8 +11,8 @@ import PhoneInput, { isValidNumber } from './PhoneInput'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import AvatarUpdater from './AvatarUpdater'
-import { db, auth } from '../commons/firebase/firebase'
-import { storeUserInfo } from '../commons/dbfunctions'
+import { db, auth } from '../../commons/firebase/firebase'
+import { storeUserInfo } from '../../commons/dbfunctions'
 
 @inject('usersStore')
 @inject('notificationsStore')

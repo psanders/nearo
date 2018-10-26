@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import GoBackPage from '../../components/gobackpage/GoBackPage'
+import GoBackPage from '../../components/shared/gobackpage/GoBackPage'
 import PostView from '../../components/postview/PostView'
 
 class ProfilePage extends Component {

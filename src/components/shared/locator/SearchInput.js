@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import TextField from '@material-ui/core/TextField'
 
-import { ellip } from '../commons/utils'
+import { ellip } from '../../commons/utils'
 
 class LocationSearchInput extends React.Component {
   state = { address: '' }

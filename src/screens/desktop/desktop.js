@@ -4,11 +4,11 @@ import { withStyles } from '@material-ui/core/styles'
 import Loadable from 'react-loadable'
 import { observer, inject } from 'mobx-react'
 
-import Notifier from '../../components/notifications/Notifier'
-import SimpleNotification from '../../components/notifications/SimpleNotification'
-import TopNav from '../../components/topnav/TopNav'
 import ProfilePage from './profile.page'
 import LoginPage from './login.page'
+import Notifier from '../../components/shared/notifications/Notifier'
+import SimpleNotification from '../../components/shared/notifications/SimpleNotification'
+import TopNav from '../../components/topnav/TopNav'
 import { getMainPath, show404 } from '../../components/commons/utils'
 
 const PostPage = Loadable({

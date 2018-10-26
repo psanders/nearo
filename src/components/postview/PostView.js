@@ -6,15 +6,16 @@ import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
 
 import PostActions from '../postactions/PostActions'
-import MapCard from '../map/MapCard'
-import ProfileCard from '../profilecard/ProfileCard'
+import MapCard from '../shared/map/MapCard'
+import ProfileCard from '../shared/profilecard/ProfileCard'
 import About from '../About'
 import { db } from '../commons/firebase/firebase'
 import { currentPath } from '../commons/utils'
-import { placeHolder } from './PlaceHolder'
-import { postContent } from './PostContent'
 import { styles } from './PostViewStyles'
 import { scrollTop } from '../commons/utils'
+
+import { placeHolder } from './PlaceHolder'
+import { postContent } from './PostContent'
 
 @inject('usersStore')
 @inject('postsStore')
