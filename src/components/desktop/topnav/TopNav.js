@@ -109,7 +109,6 @@ class TopNav extends React.Component {
               !appStore.loading &&
               usersStore.isSignedIn() && <ProfileMenu/>
             }
-
           </Toolbar>
           {
             (appStore.loading || postsStore.loading) &&

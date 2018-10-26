@@ -15,7 +15,9 @@ import { commonStyles } from 'shared/styles/styles'
 @inject('notificationsStore')
 @observer
 class TopNav extends Component {
-
+  state = {
+    scrollPosition: 0
+  }
   handleClick = event => {
     if (!this.props.usersStore.isSignedIn()) {
       this.props.notificationsStore.showMustLogin()
@@ -24,24 +26,31 @@ class TopNav extends Component {
     this.props.notificationsStore.showNotification("You don't have notifications")
   }
 
+  componentDidMount() {
+    window.addEventListener("scroll", event => {
+      this.setState({scrollPosition: window.pageYOffset || document.documentElement.scrollTop})
+    }, false);
+  }
+
   render() {
     const { appStore, usersStore } = this.props
+    const { scrollPosition } = this.state
 
     return (
       <Fragment>
-        <AppBar elevation={0}>
+        <AppBar elevation={scrollPosition === 0? 0 : 1 }>
           <Toolbar > {
             appStore.isReady() &&
               <Fragment>
                 <Typography variant="h6" >
-                  <span style={commonStyles.logo}>Nearo</span>
+                  <span style={commonStyles.logo}>Nearo {  }</span>
                 </Typography>
                 {
                   usersStore.isSignedIn() &&
                   <Fragment>
                     <span style={ commonStyles.flex } />
-                    <IconButton onClick={this.handleClick}>
-                      <NotificationsIcon style={commonStyles.clrWhite} />
+                    <IconButton onClick={ this.handleClick }>
+                      <NotificationsIcon style={ commonStyles.clrWhite } />
                     </IconButton>
                     <PostPanel />
                   </Fragment>

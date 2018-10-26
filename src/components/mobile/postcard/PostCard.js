@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Linkify from 'react-linkify'
-import Paper from '@material-ui/core/Paper';
+import Paper from '@material-ui/core/Paper'
 import { observer, inject } from 'mobx-react'
 
 import { hasMedia } from 'components/commons/utils'
@@ -34,10 +34,10 @@ class PostCard extends Component {
         { !hasMedia(post) && <PlaceHolder /> }
       </ButtonBase>
       <div style={style.actionsContainer}>
-        <Typography variant="subtitle2" gutterBottom>
+        <Typography variant="subtitle1" gutterBottom>
           { post.title }
         </Typography>
-        <Typography component="p" variant="body1">
+        <Typography component="p" variant="body1" gutterBottom>
           <Linkify>{ post.body }</Linkify>
         </Typography>
         <PostDate post={ post } />

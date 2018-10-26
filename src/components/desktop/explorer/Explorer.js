@@ -29,7 +29,6 @@ class PostsContainer extends Component {
     }
   }
 
-  // If is empty show an image an a message of emptiness
   render() {
     const { classes, postsStore } = this.props
 
@@ -39,25 +38,16 @@ class PostsContainer extends Component {
           hasMore={ postsStore.keepScrolling }
           loadMore={ postsStore.showMoreResults }
           loader={<div key={0}>Loading ...</div>}>
-          <Hidden xsDown={true}>
-            <Grid item>
-              <SubBar/>
-            </Grid>
-          </Hidden>
+          <Grid item>
+            <SubBar/>
+          </Grid>
           {
            this.posts.map((post, i) => {
               return <Grid key={post.id} item>
                 <PostCard post={post}/>
                 {
                   i < postsStore.posts.length - 1 &&
-                  <div>
-                    <Hidden xsDown={true}>
-                      <Divider className={classes.dividerDesktop}/>
-                    </Hidden>
-                    <Hidden smUp={true}>
-                      <Divider className={classes.dividerMobile}/>
-                    </Hidden>
-                  </div>
+                  <Divider className={classes.divider}/>
                 }
               </Grid>
             })
@@ -74,14 +64,11 @@ class PostsContainer extends Component {
 }
 
 const styles = theme => ({
-  dividerDesktop: {
+  divider: {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
   },
   dividerMobile: {
     height: 5,
-  },
-  progress: {
-    margin: theme.spacing.unit * 2
   },
   mapArea: {
     backgroundColor: '#e5e3df',
