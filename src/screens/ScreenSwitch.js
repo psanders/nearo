@@ -33,7 +33,6 @@ class MainContainer extends Component {
             <title>
               { title(routing.location.pathname)}
             </title>
-            <link rel="canonical" href={routing.location.pathname} />
           </Helmet>
         }
         <Hidden xsDown={true}>

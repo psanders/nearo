@@ -8,14 +8,16 @@ const imageURL = (post, size) => size
   ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
   : bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
 
-exports.getDefaultTags = () => {
+exports.getDefaultTags = path => {
+  console.log('path', path)
   let tags = `<meta property="og:type" content="website" />`
 	tags += `<meta property="og:title" content="${defaultPageTitle}" />`
 	tags += `<meta property="og:description" content="${defaultPageDescription}" />`
-	tags += `<meta property="og:url" content="https://nearo.co" />`
+	tags += `<meta property="og:url" content="https://nearo.co/${path}" />`
   tags += `<meta property="og:image" content="https://nearo.com/images/icons/android-icon-512x512.png" />`
   tags += `<meta name="twitter:card" content="summary"></meta>`
   tags += `<meta name="description" content="${defaultPageDescription}" />`
+  tags += `<link rel="canonical" href="https://nearo.co/${path}" />`
   tags += `<title>${defaultPageTitle}</title>`
 	return tags
 }
@@ -27,6 +29,7 @@ exports.getTags = (post) => {
 	tags += `<meta property="og:url" content="https://nearo.co/posts/${post.id}" />`
   tags += `<meta name="twitter:card" content="summary"></meta>`
   tags += `<meta name="description" content="${post.body}" />`
+  tags += `<link rel="canonical" href="https://nearo.co/posts/${post.id}" />`
   if (post.media.length > 0) {
 	   tags += `<meta property="og:image" content="${imageURL(post, 'md')}" />`
   }

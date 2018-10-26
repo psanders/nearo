@@ -128,7 +128,7 @@ exports.host = functions.https.onRequest((req, res) => {
       console.error(error)
     })
 	} else {
-    indexHTML = indexHTML.replace(dynamicTags, utils.getDefaultTags())
+    indexHTML = indexHTML.replace(dynamicTags, utils.getDefaultTags(path[1]))
   }
 
 	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
