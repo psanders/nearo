@@ -1,53 +1,42 @@
 
 const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
-
-const imageURL = (post, size) => {
-  return size
-    ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
-    : bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
-}
-
-const capitalize = word => word ? word.replace(/\w/, c => c.toUpperCase()) : ''
-
 const defaultPageTitle = 'Buy, sell, and trade locally | Nearo'
-
 const defaultPageDescription = `Nearo is local classifieds for jobs, housing,
 for sale, events, services, and community. Connect with local buyers and sellers on Nearo.
-Find cars, trucks, electronics, furniture, and more.
-`
-const getTitle = (post) => post.title + " near " + post.locText
+Find cars, trucks, electronics, furniture, and more.`
 
-exports.getPageTitle = post => {
-  if(post) {
-    return `<title>${post.title? getTitle(post) : capitalize(post.category)}</title>`
-  }
-  return `<title>${defaultPageTitle}</title>`
+const imageURL = (post, size) => size
+  ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
+  : bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
+
+exports.getDefaultTags = () => {
+  let tags = `<meta property="og:type" content="website" />`
+	tags += `<meta property="og:title" content="${defaultPageTitle}" />`
+	tags += `<meta property="og:description" content="${defaultPageDescription}" />`
+	tags += `<meta property="og:url" content="https://nearo.co" />`
+  tags += `<meta property="og:image" content="https://nearo.com/images/icons/android-icon-512x512.png" />`
+  tags += `<meta name="twitter:card" content="summary"></meta>`
+  tags += `<meta name="description" content="${defaultPageDescription}" />`
+  tags += `<title>${defaultPageTitle}</title>`
+	return tags
 }
 
-exports.getPageDescription = post => {
-  if(post) {
-    return `<meta name="description" content="${post.body}" />`
-  }
-  return `<meta name="description" content="${defaultPageTitle}" />`
-}
-
-exports.getOpenGraph = (post, fbAppId) => {
-	let og = `<meta property="fb:app_id" content="${fbAppId}" />`
-	og += `<meta property="og:type" content="website" />`
-	og += `<meta property="og:title" content="${post.title? getTitle(post) : capitalize(post.category)}" />`
-	og += `<meta property="og:description" content="${post.body}" />`
-
+exports.getTags = (post) => {
+	let tags = `<meta property="og:type" content="website" />`
+	tags += `<meta property="og:title" content="${post.title} near ${post.locText} | Nearo" />`
+	tags += `<meta property="og:description" content="${post.body}" />`
+	tags += `<meta property="og:url" content="https://nearo.co/posts/${post.id}" />`
+  tags += `<meta name="twitter:card" content="summary"></meta>`
+  tags += `<meta name="description" content="${post.body}" />`
   if (post.media.length > 0) {
-	   og += `<meta property="og:image" content="${imageURL(post, 'md')}" />`
+	   tags += `<meta property="og:image" content="${imageURL(post, 'md')}" />`
   }
-
-	og += `<meta property="og:url" content="https://nearo.co/posts/${post.id}" />`
-	return og
+	return tags
 }
 
-exports.getMeta = () => `<meta name="twitter:card" content="summary"></meta>`
+exports.userAgent = req => req.headers['user-agent']? req.headers['user-agent'].toLowerCase() || 'notabot'
 
-exports.isBot = userAgent => userAgent.includes('googlebot') ||
+exports.isABot = userAgent => userAgent.includes('googlebot') ||
   userAgent.includes('mozilla') ||
   userAgent.includes('yahoou') ||
   userAgent.includes('slurp') ||

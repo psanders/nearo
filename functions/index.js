@@ -111,102 +111,26 @@ exports.optimizeImages= functions.storage.object().onFinalize((object) => {
 })
 
 exports.host = functions.https.onRequest((req, res) => {
-	const userAgent = req.headers['user-agent'].toLowerCase()
 	let indexHTML = fs.readFileSync('./index.html').toString()
 	const path = req.path ? req.path.split('/') : req.path
-	const ogPlaceholder = '<meta name="functions-insert-dynamic-og"/>'
-	const metaPlaceholder = '<meta name="functions-insert-dynamic-meta"/>'
-	const descriptionPlaceholder = '<meta name="functions-insert-dynamic-description"/>'
-	const titlePlaceholder = '<titlePlaceholder/>'
+	const dynamicTags = '<meta name="functions-insert-dynamic-tags"/>'
 
-	const isBot = userAgent.includes('googlebot') ||
-		userAgent.includes('yahoou') ||
-		userAgent.includes('bingbot') ||
-		userAgent.includes('baiduspider') ||
-		userAgent.includes('yandex') ||
-		userAgent.includes('yeti') ||
-		userAgent.includes('yodaobot') ||
-		userAgent.includes('gigabot') ||
-		userAgent.includes('ia_archiver') ||
-		userAgent.includes('facebookexternalhit') ||
-		userAgent.includes('twitterbot') ||
-		userAgent.includes('developers.google.com') ? true : false
-
-  if (!isBot || !path || path.length <= 1 || path[1] === 'explore') {
-    // Just replace title and description
-    indexHTML = indexHTML.replace(descriptionPlaceholder, utils.getPageDescription())
-    indexHTML = indexHTML.replace(titlePlaceholder, utils.getPageTitle())
-    return res.status(200).send(indexHTML)
-  } else if (path[1] === 'posts') {
+  if (utils.isABot(utils.ua(req)) && path.length <= 1 && path[1] === 'posts') {
 		const id = path[2]
 		admin.firestore().collection('posts').doc(id).get().then(snapshot => {
 			const post = snapshot.data()
 			if (post) {
 				post.id = id
 			}
-			indexHTML = indexHTML.replace(metaPlaceholder, utils.getMeta(post))
-			indexHTML = indexHTML.replace(ogPlaceholder, utils.getOpenGraph(post, fbAppId))
-      indexHTML = indexHTML.replace(descriptionPlaceholder, utils.getPageDescription(post))
-      indexHTML = indexHTML.replace(titlePlaceholder, utils.getPageTitle(post))
-			res.status(200).send(indexHTML)
+			indexHTML = indexHTML.replace(dynamicTags, utils.getTags(post))
       return
 		}).catch(error => {
       console.error(error)
     })
-	}
-
-	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
-  return
-})
-
-/*
-exports.generateThumbs = functions.storage
-.object()
-.onFinalize(async object => {
-  const bucket = gcs.bucket(object.bucket)
-  const filePath = object.name
-  const fileName = filePath.split('/').pop()
-  const bucketDir = path.dirname(filePath)
-  //const bucketDir = 'imgs'
-
-  const workingDir = path.join(os.tmpdir(), 'thumbs')
-  const tmpFilePath = path.join(workingDir, fileName)
-
-  if (fileName.includes('img_') || !object.contentType.includes('image')) {
-    console.log('exiting function')
-    return false
+	} else {
+    indexHTML = indexHTML.replace(dynamicTags, utils.getDefaultTags())
   }
 
-  // 1. Ensure thumbnail dir exists
-  await fs.ensureDir(workingDir)
-
-  // 2. Download Source File
-  await bucket.file(filePath).download({
-    destination: tmpFilePath
-  })
-
-  // 3. Resize the images and define an array of upload promises
-  const sizes = [64, 128, 256]
-
-  const uploadPromises = sizes.map(async size => {
-    const thumbName = `img_${size}_${fileName}`
-    const thumbPath = path.join(workingDir, thumbName)
-
-    // Resize source image
-    await sharp(tmpFilePath)
-      .resize(size, size)
-      .toFile(thumbPath)
-
-    // Upload to GCS
-    return bucket.upload(thumbPath, {
-      destination: path.join(bucketDir, thumbName)
-    })
-  })
-
-  // 4. Run the upload operations
-  await Promise.all(uploadPromises)
-
-  // 5. Cleanup remove the tmp/thumbs from the filesystem
-  return fs.remove(workingDir)
+	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
+  return res.status(200).send(indexHTML)
 })
-*/
