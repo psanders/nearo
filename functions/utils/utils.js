@@ -1,24 +1,33 @@
-
+const constants = require('./constants')
+// Duplicated :(
 const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
-const defaultPageTitle = 'Buy, sell, and trade locally | Nearo'
-const defaultPageDescription = `Nearo is local classifieds for jobs, housing,
-for sale, events, services, and community. Find cars, trucks, electronics, furniture, and more.`
 
-const imageURL = (post, size) => size
-  ? bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
-  : bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
+// Duplicated code :(
+const imageURL = (post, size) => {
+  if (!post.media || post.media.length === 0) return null
+
+  if (size === 'panorama') {
+    return bucketBaseUrl + '%2F' + post.media[1].filename + '?alt=media'
+  } else if (size) {
+    return bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
+  }
+
+  return bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
+}
+
+exports.imageURL = imageURL
 
 exports.getDefaultTags = path => {
   console.log('path', path)
   let tags = `<meta property="og:type" content="website" />`
-	tags += `<meta property="og:title" content="${defaultPageTitle}" />`
-	tags += `<meta property="og:description" content="${defaultPageDescription}" />`
+	tags += `<meta property="og:title" content="${constants.defaultPageTitle}" />`
+	tags += `<meta property="og:description" content="${constants.defaultPageDescription}" />`
 	tags += `<meta property="og:url" content="https://nearo.co/${path}" />`
   tags += `<meta property="og:image" content="https://nearo.com/images/icons/android-icon-512x512.png" />`
   tags += `<meta name="twitter:card" content="summary"></meta>`
-  tags += `<meta name="description" content="${defaultPageDescription}" />`
+  tags += `<meta name="description" content="${constants.defaultPageDescription}" />`
   tags += `<link rel="canonical" href="https://nearo.co/${path}" />`
-  tags += `<title>${defaultPageTitle}</title>`
+  tags += `<title>${constants.defaultPageTitle}</title>`
 	return tags
 }
 

@@ -1,13 +1,13 @@
 const functions = require('firebase-functions')
 const gcs = require('@google-cloud/storage')()
 const sharp = require('sharp')
-//const spawn = require('child-process-promise').spawn
 const path = require('path')
 const os = require('os')
 const fs = require('fs')
 const algoliasearch = require('algoliasearch')
 const admin = require('firebase-admin')
-const utils = require('./utils')
+const utils = require('./utils/utils')
+const rss = require('./utils/rss')
 
 admin.initializeApp(functions.config().firebase)
 
@@ -119,18 +119,26 @@ exports.host = functions.https.onRequest((req, res) => {
 		const id = path[2]
 		admin.firestore().collection('posts').doc(id).get().then(snapshot => {
 			const post = snapshot.data()
-			if (post) {
-				post.id = id
-			}
-			indexHTML = indexHTML.replace(dynamicTags, utils.getTags(post))
-      return
+      if (post) {
+        post.id = id
+        indexHTML = indexHTML.replace(dynamicTags, utils.getTags(post))
+      }
+      return res.status(200).send(indexHTML)
 		}).catch(error => {
       console.error(error)
     })
 	} else {
     indexHTML = indexHTML.replace(dynamicTags, utils.getDefaultTags(path[1]))
+    return res.status(200).send(indexHTML)
   }
-
 	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
-  return res.status(200).send(indexHTML)
+})
+
+exports.rss = functions.https.onRequest((req, res) => {
+  rss.generateFeed(xml => {
+    res.
+      set("Content-Type", "text/xml; charset=utf8")
+      .status(200)
+      .send(xml)
+  })
 })

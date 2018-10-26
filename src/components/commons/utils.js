@@ -45,9 +45,9 @@ export const imageURL = (post, size) => {
     return bucketBaseUrl + '%2F' + post.media[1].filename + '?alt=media'
   } else if (size && !justPosted) {
     return bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
-  } else {
-    return bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
   }
+
+  return bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
 }
 
 export const ellip = (str, len, c1 = ',', c2 = '') => {
@@ -60,3 +60,5 @@ export const scrollTop = () => {
   document.body.scrollTop = 0 // For Safari
   document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
 }
+
+exports.imageURL = imageURL

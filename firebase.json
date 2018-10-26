@@ -7,6 +7,9 @@
          "**/node_modules/**"
       ],
       "rewrites": [{
+          "source": "/rss.xml",
+          "function": "rss"
+      },{
           "source": "**",
           "function": "host"
       }],
