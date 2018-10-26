@@ -14,7 +14,7 @@ import { currentPath } from 'components/commons/utils'
 import PostActions from 'components/shared/postactions/PostActions'
 import MapCard from 'components/shared/map/MapCard'
 import ProfileCard from 'components/shared/profilecard/ProfileCard'
-import About from 'components/About'
+import About from 'components/shared/About'
 
 @inject('usersStore')
 @inject('postsStore')

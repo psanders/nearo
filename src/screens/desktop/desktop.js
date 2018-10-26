@@ -17,7 +17,7 @@ const PostPage = Loadable({
 })
 
 const NoMatch = Loadable({
-  loader: () => import('components/404'),
+  loader: () => import('components/shared/404'),
   loading: () => null,
 })
 
