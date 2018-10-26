@@ -33,7 +33,7 @@ exports.generateFeed = (callback) => {
         let description = post.body
 
         if (utils.imageURL(post, 'sm')) {
-          description = `<img src="${utils.imageURL(post, 'sm')}" style="max-width: 400px" /><br />"`
+          description = `<img src="${utils.imageURL(post, 'sm')}"/><br />"`
             + description
         }
 
