@@ -69,9 +69,11 @@ class PostActions extends Component {
 
   handleRemove = () => {
     this.props.postsStore.handlePostDelete(this.props.post)
-    if (this.props.routing.location.pathname === '/posts') {
+    if (this.props.routing.location.pathname.includes('/posts/')) {
       this.props.routing.push('/explore')
+      return
     }
+    this.props.routing.push('/')
   }
 
   isOwner = () => {
