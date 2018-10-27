@@ -14,7 +14,6 @@ export const styles = theme => ({
     border: '1px solid #fff',
     '&:hover': {
       backgroundColor: '#fff',
-      border: '1px solid ' + theme.palette.secondary.main
     },
     '&:focus': {
       backgroundColor: '#fff',

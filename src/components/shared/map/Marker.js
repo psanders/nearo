@@ -17,21 +17,21 @@ class Marker extends Component {
   handlePopoverClose = () => this.setState({ anchorEl: null })
 
   render() {
-    const { classes, latLng, post } = this.props
+    const { classes, post, latLng } = this.props
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
 
     return (
       <div lat={ latLng.lat } lng={ latLng.lng }>
         <div
-          aria-owns={open ? 'mouse-over-popover' : null}
+          aria-owns={open ? post.id : null}
           aria-haspopup="true"
           onMouseEnter={ this.handlePopoverOpen }
           onMouseLeave={ this.handlePopoverClose }
           className={ classes.marker }
         />
         <Popover
-          id="mouse-over-popover"
+          id={post.id}
           className={classes.popover}
           classes={{
             paper: classes.paper,
