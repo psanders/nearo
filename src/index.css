@@ -12,8 +12,7 @@ body {
 
 @media only screen and (max-width: 767px) {
     body {
-      /*background-color: #dae0e6;*/
-      background-color: #B0BEC5;
+      background-color: #dae0e6;
       -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none;
