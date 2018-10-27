@@ -19,6 +19,7 @@ class PostsStore {
     @observable nbHits = 0
     @observable deletedPost
     @observable loading
+    @observable postHighlighted = null
 
     constructor () {
       when(
@@ -172,6 +173,10 @@ class PostsStore {
         return currentPost.id === post.id
       })
       this.posts[index] = post
+    }
+
+    highlightPost = post => {
+      this.postHighlighted = post
     }
 }
 

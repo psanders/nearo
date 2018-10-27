@@ -8,7 +8,7 @@ import { computed } from 'mobx'
 import InfiniteScroll from 'react-infinite-scroller'
 
 import SubBar from 'components/desktop/subbar/SubBar'
-import GoogleMap from 'components/shared/map/GoogleMap'
+import GoogleMap from 'components/desktop/map/GoogleMap'
 import PostCard from 'components/desktop/postcard/PostCard'
 
 @inject('postsStore')

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper';
@@ -16,7 +16,7 @@ import PlaceHolder from 'components/mobile/postcard/PlaceHolder'
 import PostImage from 'components/desktop/postcard/PostImage'
 
 const styles = {
-  postDesktop: {
+  post: {
     '&:hover': {
       backgroundColor: '#E3F2FD'
     }
@@ -29,12 +29,19 @@ const styles = {
 @inject('routing')
 @inject('postsStore')
 @observer
-class PostCard extends React.Component {
+class PostCard extends Component {
+
+  handleMouseEnter = () => this.props.postsStore.highlightPost(this.props.post)
+
+  handleMouseLeave = () => this.props.postsStore.highlightPost(null)
 
   render() {
     const { classes, post, routing, postsStore } = this.props
 
-    return <Paper elevation={0} className={ classes.postDesktop }>
+    return <Paper elevation={0} className={ classes.post }
+        onMouseEnter={ this.handleMouseEnter }
+        onMouseLeave={ this.handleMouseLeave }
+      >
       <Grid container>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={0}>
