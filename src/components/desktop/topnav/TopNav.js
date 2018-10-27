@@ -55,7 +55,7 @@ class TopNav extends React.Component {
             </Typography>
             <TextField
               className={classnames(classes.right, classes.left, classes.searchInput2)}
-              placeholder="Search Nearo"
+              placeholder="Search"
               type="text"
               value={ navStore.navInfo.searchTerm }
               onChange={this.handleChange('searchInput')}

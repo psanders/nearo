@@ -42,7 +42,7 @@ class SubBar extends Component {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search Nearo"
+              placeholder="Search"
               value={this.props.navStore.navInfo.searchTerm}
               onChange={this.handleChange('searchInput')}
               classes={{
