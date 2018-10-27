@@ -115,7 +115,7 @@ exports.host = functions.https.onRequest((req, res) => {
 	const path = req.path ? req.path.split('/') : req.path
 	const dynamicTags = '<meta name="functions-dynamic-tags"/>'
 
-  if (utils.isABot(utils.ua(req)) && path.length <= 1 && path[1] === 'posts') {
+  if (utils.isABot(utils.ua(req)) && path.length > 1 && path[1] === 'posts') {
 		const id = path[2]
 		admin.firestore().collection('posts').doc(id).get().then(snapshot => {
 			const post = snapshot.data()
@@ -134,7 +134,7 @@ exports.host = functions.https.onRequest((req, res) => {
 	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
 })
 
-exports.rss = functions.https.onRequest((req, res) => {
+exports.feed = functions.https.onRequest((req, res) => {
   rss.generateFeed(xml => {
     res.
       set("Content-Type", "text/xml; charset=utf8")

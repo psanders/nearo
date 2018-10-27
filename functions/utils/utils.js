@@ -18,7 +18,6 @@ const imageURL = (post, size) => {
 exports.imageURL = imageURL
 
 exports.getDefaultTags = path => {
-  console.log('path', path)
   let tags = `<meta property="og:type" content="website" />`
 	tags += `<meta property="og:title" content="${constants.siteInfo.title}" />`
 	tags += `<meta property="og:description" content="${constants.siteInfo.description}" />`
@@ -31,7 +30,7 @@ exports.getDefaultTags = path => {
 	return tags
 }
 
-exports.getTags = (post) => {
+exports.getTags = post => {
 	let tags = `<meta property="og:type" content="website" />`
 	tags += `<meta property="og:title" content="${post.title} near ${post.locText} | Nearo" />`
 	tags += `<meta property="og:description" content="${post.body}" />`
@@ -48,7 +47,6 @@ exports.getTags = (post) => {
 exports.ua = req => req.headers['user-agent']? req.headers['user-agent'].toLowerCase() : 'notabot'
 
 exports.isABot = userAgent => userAgent.includes('googlebot') ||
-  userAgent.includes('mozilla') ||
   userAgent.includes('yahoou') ||
   userAgent.includes('slurp') ||
   userAgent.includes('bingbot') ||
