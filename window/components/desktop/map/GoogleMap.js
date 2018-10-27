@@ -34,26 +34,15 @@ class GMap extends Component {
   }
 
   componentDidMount() {
-    let isScrolling
-    window.addEventListener("scroll", event => {
-      if (this.state.map && this.state.maps) {
-        window.clearTimeout( isScrolling )
-        isScrolling = setTimeout(() => {
-          this.centerMap(this.state.map, this.state.maps,
-            Array.from( this.props.postsStore.postsInViewport.values()))
-        }, 500)
-      }
-    }, false);
+    when(() => this.state.map && this.state.maps && this.props.postsStore.pos, () => {
+      console.log('this.props.postsStore.pos', this.props.postsStore.pos)
+      this.centerMap(this.state.map, this.state.maps, this.props.postsStore.posts.slice(0, 10))
+    })
   }
 
   render() {
     const posts = this.props.postsStore.posts
     const {center, zoom} = this.props
-
-    // Initial center!
-    when(() => this.state.map && this.state.maps && this.props.postsStore.posts, () => {
-      this.centerMap(this.state.map, this.state.maps, posts.slice(0, 10))
-    })
 
     return (<GoogleMapReact yesIWantToUseGoogleMapApiInternals={true} bootstrapURLKeys={{
         key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y"

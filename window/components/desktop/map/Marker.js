@@ -6,7 +6,6 @@ import CardMedia from '@material-ui/core/CardMedia'
 import { withStyles } from '@material-ui/core/styles'
 import classnames from 'classnames'
 import { observer, inject } from 'mobx-react'
-import { when } from 'mobx'
 import { computed } from 'mobx'
 import Zoom from '@material-ui/core/Zoom'
 
@@ -17,7 +16,6 @@ import { imageURL, ellip } from 'components/commons/utils'
 class Marker extends Component {
   state = {
     arrowRef: null,
-    open: false
   }
 
   @computed get isHightlighted() {
@@ -29,27 +27,18 @@ class Marker extends Component {
 
   handlePopoverClose = () => this.props.postsStore.highlightPost(null)
 
-  handleArrowRef = node => this.setState({ arrowRef: node })
-
-  componentDidMount() {
-    let isScrolling
-    when (
-      () => this.isHightlighted,
-      () => {
-        window.clearTimeout( isScrolling )
-        isScrolling = setTimeout(() => {
-          this.setState({open: true})
-        }, 66)
-      }
-    )
-  }
+  handleArrowRef = node => {
+    this.setState({
+      arrowRef: node,
+    });
+  };
 
   render() {
     const { classes, post, latLng } = this.props
 
     return (
       <div lat={ latLng.lat } lng={ latLng.lng }>
-        <Tooltip TransitionComponent={Zoom} open={this.state.open && this.isHightlighted} classes={{ tooltip: classes.lightTooltip, popper: classes.arrowPopper }}
+        <Tooltip TransitionComponent={Zoom} open={this.isHightlighted} classes={{ tooltip: classes.lightTooltip, popper: classes.arrowPopper }}
           PopperProps={{
             popperOptions: {
               modifiers: {

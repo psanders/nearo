@@ -20,7 +20,7 @@ class PostsStore {
     @observable deletedPost
     @observable loading
     @observable postHighlighted = null
-    @observable postsInViewport = new Map()
+    @observable postsInViewport = []
 
     constructor () {
       when(
@@ -178,14 +178,6 @@ class PostsStore {
 
     highlightPost = post => {
       this.postHighlighted = post
-    }
-
-    addVisiblePost = post => {
-      this.postsInViewport.set(post.id, post)
-    }
-
-    removeNonVisiblePost = post => {
-      this.postsInViewport.delete(post.id)
     }
 }
 

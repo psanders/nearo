@@ -1,15 +1,12 @@
 import React, {Component} from 'react'
 import Grid from '@material-ui/core/Grid'
-import Hidden from '@material-ui/core/Hidden'
 import Divider from '@material-ui/core/Divider'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 import InfiniteScroll from 'react-infinite-scroller'
 
-import SubBar from 'components/desktop/subbar/SubBar'
-import GoogleMap from 'components/desktop/map/GoogleMap'
-import PostCard from 'components/desktop/postcard/PostCard'
+import PostCard from '../postcard/PostCard'
 
 @inject('postsStore')
 @inject('navStore')
@@ -17,7 +14,7 @@ import PostCard from 'components/desktop/postcard/PostCard'
 @inject('bookmarksStore')
 @inject('notificationsStore')
 @observer
-class PostsContainer extends Component {
+class PostList extends Component {
   @computed get posts () {
     return this.props.postsStore.posts
   }
@@ -29,6 +26,7 @@ class PostsContainer extends Component {
     }
   }
 
+  // If is empty show an image an a message of emptiness
   render() {
     const { classes, postsStore } = this.props
 
@@ -38,41 +36,30 @@ class PostsContainer extends Component {
           hasMore={ postsStore.keepScrolling }
           loadMore={ postsStore.showMoreResults }
           loader={<div key={0}>Loading ...</div>}>
-          <Grid item>
-            <SubBar/>
-          </Grid>
           {
            this.posts.map((post, i) => {
               return <Grid key={post.id} item>
                 <PostCard post={post}/>
                 {
-                  i < postsStore.posts.length - 1 &&
-                  <Divider className={classes.divider}/>
+                  i < postsStore.posts.length - 1 && <Divider className={classes.divider}/>
                 }
               </Grid>
             })
           }
         </InfiniteScroll>
       </Grid>
-      <Hidden smDown={true}>
-        <Grid item sm={6} xs={12} className={classes.mapArea}>
-          <GoogleMap />
-        </Grid>
-      </Hidden>
     </Grid>)
   }
 }
 
 const styles = theme => ({
   divider: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-  },
-  dividerMobile: {
-    height: 5,
+    height: 6,
+    borderbColor: '#dae0e6'
   },
   mapArea: {
     backgroundColor: '#e5e3df',
-    height: 'calc(100vh - 64px)',
+    height: 'calc(100vh - 55px)',
     position: 'fixed',
     width: '50%',
     left: '50%'
@@ -84,4 +71,4 @@ const styles = theme => ({
   }
 })
 
-export default withStyles(styles)(PostsContainer)
+export default withStyles(styles)(PostList)

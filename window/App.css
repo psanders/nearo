@@ -1,0 +1,34 @@
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.App-logo {
+  height: 40px;
+}
+
+.mdl-shadow--2dp {
+    box-shadow: none;
+}
+
+.firebaseui-info-bar {
+    margin-top: 20px;
+    background-color: red;
+}
+
+div.mdl-progress::after {
+    display: block;
+    color: black;
+    content: "Preparing the content...";
+    margin: 20px auto;
+    text-align: center;
+}
+
+.mdl-progress {
+    height: 5px;
+}
+
+div.mdl-card.mdl-shadow--2dp.firebaseui-container.firebaseui-id-page-callback {
+  background-color: #dae0e6
+}
+/*mdl-card mdl-shadow--2dp firebaseui-container firebaseui-id-page-callback*/
