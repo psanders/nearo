@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Toolbar from '@material-ui/core/Toolbar'
 import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
 import InputBase from '@material-ui/core/InputBase'

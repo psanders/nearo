@@ -7,8 +7,10 @@ import { computed } from 'mobx'
 import InfiniteScroll from 'react-infinite-scroller'
 
 import PostCard from '../postcard/PostCard'
+import PostPanel from 'components/shared/postpanel/PostPanel'
 
 @inject('postsStore')
+@inject('appStore')
 @inject('navStore')
 @inject('usersStore')
 @inject('bookmarksStore')
@@ -28,27 +30,29 @@ class PostList extends Component {
 
   // If is empty show an image an a message of emptiness
   render() {
-    const { classes, postsStore } = this.props
+    const { classes, postsStore, appStore } = this.props
 
-    return (<Grid container>
-      <Grid item xs={12} sm={12} md={6} className={classes.postArea}>
-        <InfiniteScroll
-          hasMore={ postsStore.keepScrolling }
-          loadMore={ postsStore.showMoreResults }
-          loader={<div key={0}>Loading ...</div>}>
-          {
-           this.posts.map((post, i) => {
-              return <Grid key={post.id} item>
-                <PostCard post={post}/>
-                {
-                  i < postsStore.posts.length - 1 && <Divider className={classes.divider}/>
-                }
-              </Grid>
-            })
-          }
-        </InfiniteScroll>
+    return (<div><Grid container>
+        <Grid item xs={12} sm={12} md={6} className={classes.postArea}>
+          <InfiniteScroll
+            hasMore={ postsStore.keepScrolling }
+            loadMore={ postsStore.showMoreResults }
+            loader={<div key={0}>Loading ...</div>}>
+            {
+             this.posts.map((post, i) => {
+                return <Grid key={post.id} item>
+                  <PostCard post={post}/>
+                  {
+                    i < postsStore.posts.length - 1 && <Divider className={classes.divider}/>
+                  }
+                </Grid>
+              })
+            }
+          </InfiniteScroll>
+        </Grid>
       </Grid>
-    </Grid>)
+      { appStore.isReady() && <PostPanel asFabButton={true} /> }
+    </div>)
   }
 }
 
@@ -61,7 +65,7 @@ const styles = theme => ({
   postArea: {
     backgroundColor: '#fff',
     minHeight: 'calc(100vh - 55px)',
-  }
+  },
 })
 
 export default withStyles(styles)(PostList)

@@ -1,3 +1,5 @@
+import red from '@material-ui/core/colors/red'
+
 export const styles = theme => ({
   flex: {
     flex: 1,
@@ -52,5 +54,15 @@ export const styles = theme => ({
     right: 0,
     marginTop: 67,
     marginRight: 5
-  }
+  },
+  fab: {
+    color: '#fff',
+    backgroundColor: red[400],
+    ':&hover': {
+      backgroundColor: red[800],
+    },
+    position: 'fixed',
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
+  },
 })

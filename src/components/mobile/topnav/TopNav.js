@@ -2,20 +2,15 @@ import React, { Component, Fragment } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined'
+import Avatar from '@material-ui/core/Avatar'
 import { observer, inject } from 'mobx-react'
 
 import Drawer from 'components/mobile/drawer/Drawer'
-import PostPanel from 'components/shared/postpanel/PostPanel'
 import SearchBar from 'components/mobile/searchbar/SearchBar'
-import { commonStyles } from 'shared/styles/styles'
+
 
 @inject('routing')
 @inject('appStore')
-@inject('postsStore')
-@inject('usersStore')
-@inject('notificationsStore')
 @observer
 class TopNav extends Component {
   state = {
@@ -33,7 +28,7 @@ class TopNav extends Component {
   }
 
   render() {
-    const { appStore, usersStore } = this.props
+    const { appStore } = this.props
     const { scrollPosition } = this.state
     const logo = {
       margins: {
@@ -42,6 +37,13 @@ class TopNav extends Component {
       },
       color: {
         color: '#fff'
+      },
+      avatar: {
+        width: 33,
+        height: 33,
+        backgroundColor: 'rgb(108, 113, 206)',
+        marginLeft: 15,
+        marginRight: 15
       }
     }
 
@@ -52,9 +54,11 @@ class TopNav extends Component {
             {
               appStore.isReady() &&
               <Fragment>
-                <Typography variant="h6" onClick={this.handleNav} style={logo.margins}>
-                  <span style={logo.color}>N</span>
-                </Typography>
+                <Avatar style={logo.avatar}>
+                  <Typography variant="h5" onClick={this.handleNav} >
+                    <span style={logo.color}>N</span>
+                  </Typography>
+                </Avatar>
                 <SearchBar />
                 <Drawer />
               </Fragment>

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
-import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
@@ -25,8 +24,6 @@ import orange from '@material-ui/core/colors/orange'
 import purple from '@material-ui/core/colors/purple'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
-
-import About from 'components/shared/About'
 
 @inject('routing')
 @inject('appStore')
@@ -76,7 +73,7 @@ class SwipeableTemporaryDrawer extends React.Component {
   }
 
   render() {
-    const { classes, usersStore } = this.props
+    const { classes } = this.props
 
     const list = (
       <div className={classes.list}>

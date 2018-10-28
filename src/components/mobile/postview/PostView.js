@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Grid from '@material-ui/core/Grid'
-import Hidden from '@material-ui/core/Hidden'
 import Helmet from 'react-helmet-async'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'

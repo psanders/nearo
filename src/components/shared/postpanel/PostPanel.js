@@ -15,7 +15,6 @@ import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
 import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
-import PostIcon from '@material-ui/icons/AddCircleOutline'
 import CloseIcon from '@material-ui/icons/Close'
 import { observer, inject } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
@@ -27,7 +26,6 @@ import LocatorMini from 'components/shared/locator/LocatorMini'
 import { imageURL, ellip } from 'components/commons/utils'
 import { styles } from './PostPanelStyles'
 import UploaderButton from './UploaderButton'
-
 
 
 @inject('notificationsStore')
@@ -139,7 +137,7 @@ class PostPanel extends Component {
   }
 
   render() {
-    const { classes, fullScreen, postsStore } = this.props
+    const { classes, fullScreen, postsStore, asFabButton } = this.props
     this.updateBody = this.updateBody.bind(this)
 
     const showCounter = () => {
@@ -162,13 +160,8 @@ class PostPanel extends Component {
 
     return (
       <Fragment>
-        <Hidden smUp={true}>
-          <IconButton onClick={ postsStore.openPostDialog }
-            aria-label="Add New Publication">
-            <PostIcon className={classes.addIcon}/>
-          </IconButton>
-        </Hidden>
-        <Hidden xsDown={true}>
+        {
+          !asFabButton &&
           <Button onClick={ postsStore.openPostDialog }
             variant="text" className={classes.newPostBtn}
             size="small"
@@ -176,7 +169,13 @@ class PostPanel extends Component {
           >
             Create Post
           </Button>
-        </Hidden>
+        }
+        {
+          asFabButton &&
+          <Button onClick={ postsStore.openPostDialog } variant="fab" className={classes.fab} >
+            <EditIcon />
+          </Button>
+        }
         <Dialog
           fullScreen={ fullScreen }
           open={ this.props.postsStore.isPostDialogOpen() }
