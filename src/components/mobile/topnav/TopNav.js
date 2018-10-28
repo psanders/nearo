@@ -11,6 +11,7 @@ import PostPanel from 'components/shared/postpanel/PostPanel'
 import SearchBar from 'components/mobile/searchbar/SearchBar'
 import { commonStyles } from 'shared/styles/styles'
 
+@inject('routing')
 @inject('appStore')
 @inject('postsStore')
 @inject('usersStore')
@@ -20,12 +21,9 @@ class TopNav extends Component {
   state = {
     scrollPosition: 0
   }
-  handleClick = event => {
-    if (!this.props.usersStore.isSignedIn()) {
-      this.props.notificationsStore.showMustLogin()
-      return
-    }
-    this.props.notificationsStore.showNotification("You don't have notifications")
+
+  handleNav = () => {
+    this.props.routing.push('/')
   }
 
   componentDidMount() {
@@ -37,16 +35,25 @@ class TopNav extends Component {
   render() {
     const { appStore, usersStore } = this.props
     const { scrollPosition } = this.state
+    const logo = {
+      margins: {
+        marginLeft: 20,
+        marginRight: 20
+      },
+      color: {
+        color: '#fff'
+      }
+    }
 
     return (
       <Fragment>
-        <AppBar elevation={scrollPosition === 0? 0 : 1 }>
-          <Toolbar>
+        <AppBar elevation={scrollPosition === 0 ? 0 : 1 }>
+          <Toolbar disableGutters>
             {
-            appStore.isReady() &&
+              appStore.isReady() &&
               <Fragment>
-                <Typography variant="h6" onClick={this.handleNav}>
-                  <span style={{color: '#fff', marginRight: 20}}>N</span>
+                <Typography variant="h6" onClick={this.handleNav} style={logo.margins}>
+                  <span style={logo.color}>N</span>
                 </Typography>
                 <SearchBar />
                 <Drawer />

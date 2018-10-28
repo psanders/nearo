@@ -9,11 +9,8 @@ export const styles = theme => ({
       backgroundColor: fade(theme.palette.common.white, 1),
     },
     marginLeft: 0,
+    marginRight: 0,
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit,
-      width: 'auto',
-    },
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
