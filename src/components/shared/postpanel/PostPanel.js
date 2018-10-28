@@ -172,7 +172,7 @@ class PostPanel extends Component {
         }
         {
           asFabButton &&
-          <Button onClick={ postsStore.openPostDialog } variant="fab" className={classes.fab} >
+          <Button onClick={ postsStore.openPostDialog } variant="fab" color="primary" className={classes.fab} >
             <EditIcon />
           </Button>
         }

@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 import { observer, inject } from 'mobx-react'
 
 import Drawer from 'components/mobile/drawer/Drawer'
 import SearchBar from 'components/mobile/searchbar/SearchBar'
-
 
 @inject('routing')
 @inject('appStore')
@@ -39,11 +37,10 @@ class TopNav extends Component {
         color: '#fff'
       },
       avatar: {
-        width: 33,
-        height: 33,
-        backgroundColor: 'rgb(108, 113, 206)',
+        width: 30,
+        height: 30,
         marginLeft: 15,
-        marginRight: 15
+        marginRight: 10,
       }
     }
 
@@ -54,11 +51,10 @@ class TopNav extends Component {
             {
               appStore.isReady() &&
               <Fragment>
-                <Avatar style={logo.avatar}>
-                  <Typography variant="h5" onClick={this.handleNav} >
-                    <span style={logo.color}>N</span>
-                  </Typography>
-                </Avatar>
+                <Avatar style={logo.avatar}
+                  onClick={ this.handleNav }
+                  src="/images/icons/android-icon-192x192.png"
+                />
                 <SearchBar />
                 <Drawer />
               </Fragment>

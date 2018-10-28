@@ -58,8 +58,8 @@ export const styles = theme => ({
   fab: {
     color: '#fff',
     backgroundColor: red[400],
-    ':&hover': {
-      backgroundColor: red[800],
+    '&:hover': {
+      backgroundColor: red[400],
     },
     position: 'fixed',
     bottom: theme.spacing.unit * 2,
