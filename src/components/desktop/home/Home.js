@@ -47,7 +47,7 @@ class Home extends Component {
         </Typography>
         <Typography component="h2" variant="h5" color="textSecondary"
           style={style.subtitle} gutterBottom>
-          Free Illustrations vectors for personal and commercial use. Download in .AI and .EPS format.
+          Local classifieds for jobs, housing, for sale, events, services, community, and more.
         </Typography>
         <PostPanel />
       </div>
