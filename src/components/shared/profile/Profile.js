@@ -162,23 +162,12 @@ class Profile extends Component {
               value={user.bio}
             />
             <div className={classes.buttonContainer}>
-              <div>
-                <a className={classes.link} onClick={this.handleEmailReset}
-                  size="small"
-                  aria-label="Reset Password"
-                >
+              <a className={classes.link} onClick={this.handleEmailReset}
+                size="small"
+                aria-label="Reset Password"
+              >
                 <Typography variant="caption">Recover Password </Typography>
-                </a>
-                <a className={classes.link} onClick={ () => {
-                  this.props.usersStore.doSignOut()
-                  this.props.routing.push('/')
-                }}
-                  size="small"
-                  aria-label="Sign Out"
-                >
-                  <Typography variant="caption">Logout</Typography>
-                </a>
-              </div>
+              </a>
               <span className={classes.flex}/>
 
               <Button className={classes.button} disabled={ this.isInvalid(user) } onClick={ this.save }

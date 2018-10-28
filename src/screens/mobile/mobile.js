@@ -6,7 +6,6 @@ import { observer, inject } from 'mobx-react'
 
 import SimpleNotification from '../../components/shared/notifications/SimpleNotification'
 import Notifier from '../../components/shared/notifications/Notifier'
-import BottomNav from '../../components/mobile/bottomnav/BottomNav'
 import TopNav from '../../components/mobile/topnav/TopNav'
 import { getMainPath, show404 } from '../../components/commons/utils'
 
@@ -17,6 +16,7 @@ const LocationPage = Loadable({ loader: () => import('./location.page'), loading
 const ProfilePage = Loadable({ loader: () => import('./profile.page'), loading: () => null})
 const FavoritesPage = Loadable({ loader: () => import('./favorites.page'), loading: () => null})
 const LoginPage = Loadable({ loader: () => import('./login.page'), loading: () => null})
+const AboutPage = Loadable({ loader: () => import('./about.page'), loading: () => null})
 
 @inject('routing')
 @inject('appStore')
@@ -27,7 +27,9 @@ class MobileScreen extends Component {
   render () {
     const { classes, appStore } = this.props
     const pathname = this.props.routing.location.pathname
-    const hideNav = pathname => pathname === '/profile' || pathname === '/login'
+    const hideNav = pathname => pathname === '/profile'
+      || pathname === '/login'
+      || pathname === '/about'
 
     return <Fragment>
       { ! hideNav(pathname) &&
@@ -46,16 +48,10 @@ class MobileScreen extends Component {
             { pathname === '/location' && <LocationPage /> }
             { pathname === '/profile' && <ProfilePage /> }
             { pathname === '/login' && <LoginPage /> }
+            { pathname === '/about' && <AboutPage /> }
             { show404(pathname) && <NothingPage /> }
           </div>
         </Collapse>
-      }
-      {
-        ! hideNav(pathname) &&
-        <Fragment>
-          <div className={ classes.toolbar } />
-          <BottomNav />
-        </Fragment>
       }
       <Notifier />
       <SimpleNotification withExtraSpacing />

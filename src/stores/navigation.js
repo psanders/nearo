@@ -7,7 +7,6 @@ import { timeout, getUrlParam } from '../components/commons/utils'
 const locationStorage = 'global-location'
 
 class NavStore {
-
     @observable loaded = false
     @observable navInfo = {
       searchTerm: '',

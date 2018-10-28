@@ -1,7 +1,7 @@
 import ellipsize from 'ellipsize'
 
 const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
-const routes = ['/', '/explore', '/posts', '/profile', '/login', '/location', '/favorites']
+const routes = ['/', '/about', '/explore', '/posts', '/profile', '/login', '/location', '/favorites']
 const time = postedTime => new Date().getTime() / 1000 - postedTime
 
 export const currentPath = (level = 1) =>  window.location.pathname.split('/')[level]

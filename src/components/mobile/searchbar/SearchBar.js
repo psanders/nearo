@@ -36,22 +36,20 @@ class SubBar extends Component {
 
     return (
       <Fragment>
-        <Toolbar className={classes.toolbar}>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search"
-              value={this.props.navStore.navInfo.searchTerm}
-              onChange={this.handleChange('searchInput')}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
           </div>
-        </Toolbar>
+          <InputBase
+            placeholder="Search Nearo"
+            value={this.props.navStore.navInfo.searchTerm}
+            onChange={this.handleChange('searchInput')}
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+          />
+        </div>
       </Fragment>
     )
   }

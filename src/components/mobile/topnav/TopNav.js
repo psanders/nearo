@@ -6,7 +6,9 @@ import IconButton from '@material-ui/core/IconButton'
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined'
 import { observer, inject } from 'mobx-react'
 
+import Drawer from 'components/mobile/drawer/Drawer'
 import PostPanel from 'components/shared/postpanel/PostPanel'
+import SearchBar from 'components/mobile/searchbar/SearchBar'
 import { commonStyles } from 'shared/styles/styles'
 
 @inject('appStore')
@@ -39,22 +41,15 @@ class TopNav extends Component {
     return (
       <Fragment>
         <AppBar elevation={scrollPosition === 0? 0 : 1 }>
-          <Toolbar > {
+          <Toolbar>
+            {
             appStore.isReady() &&
               <Fragment>
-                <Typography variant="h6" >
-                  <span style={commonStyles.logo}>Nearo {  }</span>
+                <Typography variant="h6" onClick={this.handleNav}>
+                  <span style={{color: '#fff', marginRight: 20}}>N</span>
                 </Typography>
-                {
-                  usersStore.isSignedIn() &&
-                  <Fragment>
-                    <span style={ commonStyles.flex } />
-                    <IconButton onClick={ this.handleClick }>
-                      <NotificationsIcon style={ commonStyles.clrWhite } />
-                    </IconButton>
-                    <PostPanel />
-                  </Fragment>
-                }
+                <SearchBar />
+                <Drawer />
               </Fragment>
             }
           </Toolbar>
