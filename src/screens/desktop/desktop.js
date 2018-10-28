@@ -77,11 +77,11 @@ const styles = theme => ({
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
-    backgroundColor: '#dae0e6'
+    backgroundColor: '#E6E6E6'
   },
   content: {
     flexGrow: 1,
-    backgroundColor: '#dae0e6',
+    backgroundColor: '#E6E6E6',
   },
   toolbar: theme.mixins.toolbar,
 })

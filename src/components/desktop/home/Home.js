@@ -3,10 +3,10 @@ import Typography from '@material-ui/core/Typography'
 import { observer, inject } from 'mobx-react'
 import {computed} from 'mobx'
 
-import Categories from './Categories'
 import Gallery from './Gallery'
 import './Gallery.css'
 import { scrollTop } from 'components/commons/utils'
+import PostPanel from 'components/shared/postpanel/PostPanel'
 
 @inject('routing')
 @inject('postsStore')
@@ -26,23 +26,33 @@ class Home extends Component {
     scrollTop()
   }
 
-  handleChange = category => {
-    const navInfo = this.props.navStore.navInfo
-    navInfo.searchTerm = category.name
-    this.props.navStore.setNavInfo(navInfo)
-    this.props.routing.push('/explore')
-  }
-
   render() {
+
+    const style = {
+      title: {
+        marginTop: 20,
+        marginLeft: 10
+      },
+      subtitle: {
+        marginLeft: 10,
+        marginBottom: 20,
+        fontWeight: 300
+      }
+    }
+
     return <div>
-      <div style={{minHeight: '100vh', paddingTop: 20, width: 900, margin: '0 auto'}}>
-        <div style={{marginBottom: 20, marginLeft: 10, width: 880}}>
-          <Typography color="textSecondary" component="h1" variant="overline" gutterBottom>
-            Results near { this.props.navStore.navInfo.locInfo.address }
-          </Typography>
-          <Categories onCategoryChange={ category => this.handleChange(category)}/>
-        </div>
-        <Gallery/>
+      <div style={{marginTop: 50, marginBottom: 50, width: '100vw', textAlign: 'center'}}>
+        <Typography style={style.title} component="h1" variant="h3"  gutterBottom>
+          Buy Sell or Trade Locally
+        </Typography>
+        <Typography component="h2" variant="h5" color="textSecondary"
+          style={style.subtitle} gutterBottom>
+          Free Illustrations vectors for personal and commercial use. Download in .AI and .EPS format.
+        </Typography>
+        <PostPanel />
+      </div>
+      <div className="gallery-container" style={{margin: '0 auto'}}>
+        <Gallery />
       </div>
     </div>
   }

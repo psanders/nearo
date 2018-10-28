@@ -7,10 +7,8 @@ import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
-import Moment from 'react-moment'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Linkify from 'react-linkify'
-import firebase from 'firebase/app'
 import { observer, inject } from 'mobx-react'
 import green from '@material-ui/core/colors/green';
 
@@ -40,7 +38,7 @@ class RecipeReviewCard extends React.Component {
           avatar={
             <Avatar alt={post.title} src={post.avatar} aria-label="Recipe" className={classes.avatar} />
           }
-          subheader={ <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment>}
+          subheader={ post.author }
         />
         {
           post.media &&
@@ -123,9 +121,9 @@ const styles = theme => ({
     width: 280,
   },
   card: {
-    width: 280,
+    maxWidth: 280,
     marginBottom: theme.spacing.unit * 2,
-    border: '1px solid lightgray'
+    borderRadius: 0
   },
   media: {
     height: 0,

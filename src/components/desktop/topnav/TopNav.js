@@ -27,8 +27,18 @@ import Locator from 'components/shared/locator/Locator'
 @inject('postsStore')
 @observer
 class TopNav extends React.Component {
+  state = {
+    scrollPosition: 0
+  }
+
   @computed get address() {
     return this.props.navStore.navInfo.locInfo.address
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", event => {
+      this.setState({scrollPosition: window.pageYOffset || document.documentElement.scrollTop})
+    }, false);
   }
 
   handleChange = name => event => {
@@ -45,12 +55,13 @@ class TopNav extends React.Component {
 
   render() {
     const { classes, usersStore, appStore, navStore, postsStore } = this.props
+    const { scrollPosition } = this.state
 
     return (
       <div>
-        <AppBar elevation={1}>
+        <AppBar elevation={scrollPosition === 0? 0 : 1}>
           <Toolbar>
-            <Typography variant="h6" color="inherit" onClick={this.handleNav}>
+            <Typography variant="h6" onClick={this.handleNav}>
               <span className={classes.logo}>Nearo</span>
             </Typography>
             <TextField
