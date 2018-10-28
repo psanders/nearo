@@ -39,7 +39,7 @@ class MainContainer extends Component {
           <DesktopScreen />
         </Hidden>
         <Hidden smUp={true}>
-          <div style={{background: '#dae0e6', height: '100vh'}}>
+          <div style={{background: '#E6E6E6', height: '100vh'}}>
             <MobileScreen />
           </div>
         </Hidden>

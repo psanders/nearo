@@ -55,14 +55,7 @@ class PostList extends Component {
 const styles = theme => ({
   divider: {
     height: 6,
-    borderbColor: '#dae0e6'
-  },
-  mapArea: {
-    backgroundColor: '#e5e3df',
-    height: 'calc(100vh - 55px)',
-    position: 'fixed',
-    width: '50%',
-    left: '50%'
+    borderbColor: '#E6E6E6'
   },
   // What was this for?
   postArea: {
