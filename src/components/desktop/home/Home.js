@@ -31,7 +31,8 @@ class Home extends Component {
     const style = {
       title: {
         marginTop: 20,
-        marginLeft: 10
+        marginLeft: 10,
+        fontFamily: 'Bitter'
       },
       subtitle: {
         marginLeft: 10,
@@ -42,12 +43,12 @@ class Home extends Component {
 
     return <div>
       <div style={{marginTop: 50, marginBottom: 50, width: '100vw', textAlign: 'center'}}>
-        <Typography style={style.title} component="h1" variant="h3"  gutterBottom>
+        <Typography color="primary" style={style.title} component="h1" variant="h3" gutterBottom>
           Buy Sell or Trade Locally
         </Typography>
         <Typography component="h2" variant="h5" color="textSecondary"
           style={style.subtitle} gutterBottom>
-          Local classifieds for jobs, housing, for sale, events, services, community, and more.
+          Local classifieds for jobs, housing, sales, events, services, community, and more.
         </Typography>
         <PostPanel />
       </div>

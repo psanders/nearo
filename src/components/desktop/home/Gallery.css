@@ -3,9 +3,10 @@
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
   width: auto;
+  margin-left: -23px; /* gutter size offset */
 }
 .my-masonry-grid_column {
-  padding-right: 15px; /* gutter size */
+  padding-left: 15px; /* gutter size */
   background-clip: padding-box;
 }
 
@@ -23,6 +24,32 @@ button.btn {
   color: #f4f4f4
 }
 
-.gallery-container {
-  max-width: 1150px;
+@media (max-width: 960px) {
+  .my-masonry-grid {
+    margin-left: -25px; /* gutter size offset */
+  }
+  .my-masonry-grid_column {
+    padding-left: 15px; /* gutter size offset */
+  }
+  .my-masonry-grid_column > div {
+    margin-bottom: 15px; /* space between items */
+  }
+  .gallery-container {
+    max-width: 850px;
+  }
+}
+
+@media (min-width: 960px) {
+  .my-masonry-grid {
+    margin-left: -75px; /* gutter size offset */
+  }
+  .my-masonry-grid_column {
+    padding-left: 15px; /* gutter size offset */
+  }
+  .my-masonry-grid_column > div {
+    margin-bottom: 15px; /* space between items */
+  }
+  .gallery-container {
+    max-width: 960px;
+  }
 }

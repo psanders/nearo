@@ -49,7 +49,7 @@ class DesktopScreen extends Component {
       <main className={ classes.content }>
         { ! hideNav() &&
           <Fragment>
-            <TopNav />
+            <TopNav withLocator={pathname === '/explore'}/>
             <div className={ classes.toolbar } />
           </Fragment>
         }

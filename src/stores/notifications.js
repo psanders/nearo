@@ -54,8 +54,8 @@ class NotificationsStore {
       }
       // I'm passing push as a reference index.js
       // Not the most elegant but it works
-      this.showNotification('Please login', 10000,
-        () => this.push('/login') , "Login")
+      this.showNotification('Please sign in', 10000,
+        () => this.push('/login') , "Sign In")
     }
 
     showNotification = (message,

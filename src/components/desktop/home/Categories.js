@@ -103,8 +103,8 @@ class DetailedExpansionPanel extends Component {
     >
       <MainCategories onCategoryChange={category => handleChange(category)}/>
       <Divider />
-      <div style={{padding: 10}}>
-        <Typography variant="body2">
+      <div style={{padding: 10, paddingLeft: 20}}>
+        <Typography variant="body1">
           More
         </Typography>
         { categories }

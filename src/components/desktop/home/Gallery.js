@@ -30,7 +30,7 @@ class Gallery extends Component {
         loadMore={ postsStore.showMoreResults }
         loader={<div className="loader" key={0}>Loading ...</div>}>
         <Masonry
-          breakpointCols={{default: 4}}
+          breakpointCols={{default: 4, 960: 3, 600: 3}}
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column">
             { childElements }

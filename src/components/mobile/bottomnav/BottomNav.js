@@ -65,7 +65,7 @@ class BNav extends Component {
           {
             appStore.isReady() &&
             !usersStore.isSignedIn() &&
-            <BottomNavigationAction label="Login" value="/login" icon={<LoginIcon />}  /> 
+            <BottomNavigationAction label="Sign In" value="/login" icon={<LoginIcon />}  />
           }
       </BottomNavigation>
     )

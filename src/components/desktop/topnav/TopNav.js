@@ -10,7 +10,6 @@ import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import IconButton from '@material-ui/core/IconButton'
-import LoginIcon from '@material-ui/icons/Fingerprint'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import CloseIcon from '@material-ui/icons/Close'
 import { observer, inject } from 'mobx-react'
@@ -54,7 +53,7 @@ class TopNav extends React.Component {
   handleNav = () => this.props.routing.push('/')
 
   render() {
-    const { classes, usersStore, appStore, navStore, postsStore } = this.props
+    const { classes, usersStore, appStore, navStore, postsStore, withLocator } = this.props
     const { scrollPosition } = this.state
 
     return (
@@ -66,6 +65,7 @@ class TopNav extends React.Component {
             </Typography>
             <TextField
               className={classnames(classes.right, classes.left, classes.searchInput2)}
+              style={{width: withLocator? '' : 500}}
               placeholder="Search"
               type="text"
               value={ navStore.navInfo.searchTerm }
@@ -92,27 +92,32 @@ class TopNav extends React.Component {
                 ),
               }}
             />
-            <Locator address={this.address} name="gobal-location" />
+            {
+              withLocator &&
+              <Locator address={this.address} name="gobal-location" />
+            }
             <span className={ classes.flex } />
             {
               !appStore.loading && !usersStore.isSignedIn() &&
               <div>
                 <Hidden smDown={true}>
                   <Button onClick={ this.goToLogin } variant="outlined" className={classes.loginBtn}
-                    aria-label="Sign Up"
+                    aria-label="Register"
                   >
-                    Login
+                    Sign In
                   </Button>
                   <Button onClick={ this.goToLogin } variant="outlined" className={classes.signupBtn}
                     aria-label="Sign Up"
                   >
-                    Sign Up
+                    Register
                   </Button>
                 </Hidden>
                 <Hidden mdUp={true}>
-                  <IconButton onClick={ this.goToLogin } className={classes.fingerPrint} aria-label="Login">
-                    <LoginIcon />
-                  </IconButton>
+                  <Button onClick={ this.goToLogin } variant="outlined" className={classes.signupBtn}
+                    aria-label="Sign Up"
+                  >
+                    Sign In / Up
+                  </Button>
                 </Hidden>
               </div>
             }
