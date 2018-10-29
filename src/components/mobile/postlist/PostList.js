@@ -32,7 +32,8 @@ class PostList extends Component {
   render() {
     const { classes, postsStore, appStore } = this.props
 
-    return (<div><Grid container>
+    return (<div>
+      <Grid container>
         <Grid item xs={12} sm={12} md={6} className={classes.postArea}>
           <InfiniteScroll
             hasMore={ postsStore.keepScrolling }

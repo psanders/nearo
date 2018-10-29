@@ -42,7 +42,6 @@ class MobileScreen extends Component {
       {
         <Collapse in={appStore.isReady()}>
           <div>
-            { pathname === '/' && <HomePage /> }
             { (pathname === '/explore' || pathname === '/') && <HomePage /> }
             { ('/' + getMainPath(pathname) === '/posts') && <PostPage /> }
             { pathname === '/favorites' && <FavoritesPage /> }
