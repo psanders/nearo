@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Linkify from 'react-linkify'
 import { observer, inject } from 'mobx-react'
-import green from '@material-ui/core/colors/green';
+import green from '@material-ui/core/colors/green'
 
 import PostActions from 'components/shared/postactions/PostActions'
 import { imageURL } from 'components/commons/utils'
