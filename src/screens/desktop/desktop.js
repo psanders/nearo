@@ -5,6 +5,7 @@ import Loadable from 'react-loadable'
 import { observer, inject } from 'mobx-react'
 
 import ProfilePage from './profile.page'
+import AboutPage from './about.page'
 import LoginPage from './login.page'
 import Notifier from 'components/shared/notifications/Notifier'
 import SimpleNotification from 'components/shared/notifications/SimpleNotification'
@@ -41,7 +42,8 @@ class DesktopScreen extends Component {
     const hideNav = () => {
       return pathname === '/profile' ||
         '/' + getMainPath(pathname) === '/posts' ||
-        pathname === '/post'
+        pathname === '/post' ||
+        pathname === '/about'
         ? true : false
     }
 
@@ -58,6 +60,7 @@ class DesktopScreen extends Component {
         { '/' + getMainPath(pathname) === '/posts' && <PostPage /> }
         { pathname === '/profile' && <ProfilePage /> }
         { pathname === '/login' && <LoginPage /> }
+        { pathname === '/about' && <AboutPage /> }
         { show404(pathname) && <NoMatch /> }
       </main>
       <Notifier widthWith={350} withOrigin={{vertical: 'top', horizontal: 'right'}}/>
