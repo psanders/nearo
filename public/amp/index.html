@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
-    <title>Buy, sell, and trade locally | Nearo</title>
-    <meta name="description" content="Nearo is local classifieds for jobs, housing, for sale, events, services, and community. Find cars, trucks, electronics, furniture, and more." />
+    <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+    <amp-install-serviceworker
+        src="/serviceworker.js"
+        layout="nodisplay">
+    </amp-install-serviceworker>
     <link rel="canonical" href="https://nearo.co/amp/index.html">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
-    <link href="https://fonts.googleapis.com/css?family=Bitter|Roboto:300,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bitter:400|Roboto:300,400" rel="stylesheet">
     <style amp-custom>
       html,body {
         font-family: 'Roboto', sans-serif;
@@ -26,8 +29,7 @@
         font-family: 'Bitter', serif;
         font-size: 25px;
         margin-left: 10px;
-        font-weight: 200;
-        color: #484ec2;
+        font-weight: 400;
       }
       .subtitle {
         color: gray;
@@ -82,8 +84,14 @@
         background-color: #f4f4f4;
       }
     </style>
+    <title>Buy, sell, and trade locally | Nearo</title>
+    <meta name="description" content="Nearo is local classifieds for jobs, housing, for sale, events, services, and community. Find cars, trucks, electronics, furniture, and more." />
   </head>
   <body>
+    <amp-install-serviceworker
+          src="/serviceworker.js"
+          layout="nodisplay">
+    </amp-install-serviceworker>
     <amp-carousel width="700" height="500" layout="responsive" type="slides">
       <amp-img layout="responsive" src="/images/house.jpg"
         width="700"
