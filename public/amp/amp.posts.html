@@ -12,9 +12,14 @@
     <style amp-custom>
       html,body {
         font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
       }
       .container {
-        height: 110vh;
+        background-color: #484ec2;
+        padding: 5px;
+        padding-bottom: 15px;
+        height: 250px;
       }
       .title {
         font-family: 'Bitter', serif;
@@ -79,37 +84,35 @@
     <meta name="description" content="Nearo is local classifieds for jobs, housing, for sale, events, services, and community. Find cars, trucks, electronics, furniture, and more." />
   </head>
   <body>
-    <div class="container">
-      <amp-carousel width="700" height="500" layout="responsive" type="slides">
-        <amp-img layout="responsive" src="/images/house.jpg"
-          width="700"
-          height="500" >
-        </amp-img>
-        <amp-img layout="responsive" src="/images/car.jpg"
-          width="700"
-          height="500" >
-        </amp-img>
-        <amp-img layout="responsive" src="/images/guitar.jpg"
-          width="700"
-          height="500" >
-        </amp-img>
-      </amp-carousel>
-      <h1 class="title">Buy Sell or Trade <br /> Locally</h1>
-      <h2 class="subtitle">
-        Nearo is a FREE service to publish personal ads in your local area.
-        From cars to houses and everything in between.
-      </h2>
-      <div class="btn-container">
-        <a href="/login"><button class="btn btn-filled" type="link">Register</button></a>
-        <a href="/login"><button class="btn btn-outlined" type="button">Sign in</button></a>
-      </div>
-      <div class="btn-explore">
-        <a class="link" href="/explore"><p>or Begin exploring Nearo</p></a>
-      </div>
-    </div>
     <amp-install-serviceworker
         src="/service-worker.js"
         layout="nodisplay">
     </amp-install-serviceworker>
+    <amp-carousel width="700" height="500" layout="responsive" type="slides">
+      <amp-img layout="responsive" src="/images/house.jpg"
+        width="700"
+        height="500" >
+      </amp-img>
+      <amp-img layout="responsive" src="/images/car.jpg"
+        width="700"
+        height="500" >
+      </amp-img>
+      <amp-img layout="responsive" src="/images/guitar.jpg"
+        width="700"
+        height="500" >
+      </amp-img>
+    </amp-carousel>
+    <h1 class="title">Buy Sell or Trade <br /> Locally</h1>
+    <h2 class="subtitle">
+      Nearo is a FREE service to publish personal ads in your local area.
+      From cars to houses and everything in between.
+    </h2>
+    <div class="btn-container">
+      <a href="/login"><button class="btn btn-filled" type="link">Register</button></a>
+      <a href="/login"><button class="btn btn-outlined" type="button">Sign in</button></a>
+    </div>
+    <div class="btn-explore">
+      <a class="link" href="/explore"><p>or Begin exploring Nearo</p></a>
+    </div>
   </body>
 </html>
