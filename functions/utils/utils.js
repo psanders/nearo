@@ -41,6 +41,7 @@ exports.getTags = post => {
   if (post.media.length > 0) {
 	   tags += `<meta property="og:image" content="${imageURL(post, 'md')}" />`
   }
+  tags += `<title>${post.title} near ${post.locText} | Nearo</title>`
 	return tags
 }
 
