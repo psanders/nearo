@@ -25,6 +25,7 @@ exports.generateFeed = (callback) => {
   admin.firestore().collection('posts')
     .where("deleted", "==", false)
     .limit(10)
+    .orderBy("timestamp", "desc")
     .get()
     .then(querySnapshot => {
       querySnapshot.forEach(snapshot => {
