@@ -8,6 +8,7 @@ const algoliasearch = require('algoliasearch')
 const admin = require('firebase-admin')
 const utils = require('./utils/utils')
 const rss = require('./utils/rss')
+const dynamicTags = '<meta name="functions-dynamic-tags"/>'
 
 admin.initializeApp(functions.config().firebase)
 
@@ -110,35 +111,46 @@ exports.optimizeImages= functions.storage.object().onFinalize((object) => {
   .catch(error => console.error(error))
 })
 
-exports.host = functions.https.onRequest((req, res) => {
-	let indexHTML = fs.readFileSync('./index.html').toString()
-	const path = req.path ? req.path.split('/') : req.path
-	const dynamicTags = '<meta name="functions-dynamic-tags"/>'
-
-  if (utils.isABot(utils.ua(req)) && path.length > 1 && path[1] === 'posts') {
-		const id = path[2]
-		admin.firestore().collection('posts').doc(id).get().then(snapshot => {
-			const post = snapshot.data()
-      if (post) {
-        post.id = id
-        indexHTML = indexHTML.replace(dynamicTags, utils.getTags(post))
-      }
-      return res.status(200).send(indexHTML)
-		}).catch(error => {
-      console.error(error)
-    })
-	} else {
-    indexHTML = indexHTML.replace(dynamicTags, utils.getDefaultTags(path[1]))
-    return res.status(200).send(indexHTML)
-  }
-	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
-})
-
-exports.feed = functions.https.onRequest((req, res) => {
+function feed(res) {
   rss.generateFeed(xml => {
     res.
       set("Content-Type", "text/xml; charset=utf8")
       .status(200)
       .send(xml)
   })
+}
+
+function posts(res, id) {
+	let indexHTML = fs.readFileSync('./index.html').toString()
+  admin.firestore().collection('posts').doc(id).get().then(snapshot => {
+    const post = snapshot.data()
+    if (post) {
+      post.id = id
+      indexHTML = indexHTML.replace(dynamicTags, utils.getTags(post))
+    }
+    return res.status(200).send(indexHTML)
+  }).catch(error => {
+    console.error(error)
+  })
+  return
+}
+
+function bypass(res) {
+	let indexHTML = fs.readFileSync('./index.html').toString()
+  indexHTML = indexHTML.replace(dynamicTags, utils.getDefaultTags(path[1]))
+  return res.status(200).send(indexHTML)
+}
+
+exports.host = functions.https.onRequest((req, res) => {
+	const path = req.path ? req.path.split('/') : req.path
+
+  if (utils.isABot(utils.ua(req)) && path.length > 1 && path[1] === 'posts') {
+    const id = path[2]
+    return posts(res, id)
+	} else if(path[1] === 'feed') {
+    return feed(res)
+  }
+
+  return bypass(res)
+	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
 })

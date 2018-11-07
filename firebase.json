@@ -8,14 +8,6 @@
     ],
     "rewrites": [
       {
-        "source": "/amp",
-        "destination": "/amp"
-      },
-      {
-        "source": "/feed",
-        "function": "feed"
-      },
-      {
         "source": "**",
         "function": "host"
       }
