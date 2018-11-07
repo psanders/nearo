@@ -23,6 +23,12 @@ const AboutPage = Loadable({ loader: () => import('./about.page'), loading: () =
 @inject('postsStore')
 @observer
 class MobileScreen extends Component {
+  componentDidMount() {
+    const pathname = this.props.routing.location.pathname
+    if(pathname.includes('/amp')) {
+      this.props.routing.push('/')
+    }
+  }
 
   render () {
     const { classes, appStore } = this.props

@@ -9,15 +9,34 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <link href="https://fonts.googleapis.com/css?family=Bitter:400|Roboto:300,400" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
     <style amp-custom>
       html,body {
         font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .main {
+        height: 120vh;
+      }
+      .container {
+        background-color: #484ec2;
+        padding: 5px;
+        padding-bottom: 15px;
+        height: 250px;
+      }
+      .features {
+        padding-left: 5px;
+      }
+      .contact {
+        padding-left: 5px;
       }
       .title {
         font-family: 'Bitter', serif;
         font-size: 25px;
         margin-left: 10px;
         font-weight: 400;
+        color: #484ec2;
       }
       .subtitle {
         color: gray;
@@ -35,6 +54,7 @@
       }
       a.link {
         color: #484ec2;
+        text-decoration: none;
       }
       .btn {
         border-radius: 2px;
@@ -58,46 +78,63 @@
         color: #484ec2;
       }
       .btn-container {
-        margin-top: 10px;
+        margin-top: 30px;
         display: flex;
         justify-content: center;
+      }
+      .btn-explore {
+        position: fixed;
+        bottom: 0;
+        padding: 5px;
+        border-top: 1px solid #e4e4e4;
+        width: 100%;
+        background-color: #f4f4f4;
+      }
+      .fa-money-bill-alt,.fa-tachometer-alt, .fa-envelope, .fa-mobile-alt  {
+        color: gray;
       }
     </style>
     <title>Buy, sell, and trade locally | Nearo</title>
     <meta name="description" content="Nearo is local classifieds for jobs, housing, for sale, events, services, and community. Find cars, trucks, electronics, furniture, and more." />
   </head>
   <body>
-    <div class="container">
-      <amp-carousel width="700" height="500" layout="responsive" type="slides">
-        <amp-img layout="responsive" src="/images/house.jpg"
-          width="700"
-          height="500" >
-        </amp-img>
-        <amp-img layout="responsive" src="/images/car.jpg"
-          width="700"
-          height="500" >
-        </amp-img>
-        <amp-img layout="responsive" src="/images/guitar.jpg"
-          width="700"
-          height="500" >
-        </amp-img>
-      </amp-carousel>
-      <h1 class="title">Buy Sell or Trade <br /> Locally</h1>
-      <h2 class="subtitle">
-        Nearo is a FREE service to publish personal ads in your local area.
-        From cars to houses and everything in between.
-      </h2>
-      <div class="btn-container">
-        <a href="/login"><button class="btn btn-filled" type="link">Register</button></a>
-        <a href="/login"><button class="btn btn-outlined" type="button">Sign in</button></a>
-      </div>
-      <div class="btn-container">
-        <a class="link" href="/explore"><p>or Begin exploring Nearo</p></a>
-      </div>
-    </div>
     <amp-install-serviceworker
         src="/service-worker.js"
         layout="nodisplay">
     </amp-install-serviceworker>
+    <div class="main">
+      <amp-carousel width="600" height="500" layout="responsive" type="slides">
+        <amp-img layout="responsive" src="https://imganuncios.mitula.net/jeep_commander_2008_2008_jeep_commander_black_12k_obo_1870003507138432975.jpg"
+          width="600"
+          height="500" >
+        </amp-img>
+        <amp-img layout="responsive" src="https://imganuncios.mitula.net/jeep_commander_2008_2008_jeep_commander_black_12k_obo_1870003507138432975.jpg"
+          width="600"
+          height="500" >
+        </amp-img>
+      </amp-carousel>
+      <h1 class="title">2007 Jeep Commander</h1>
+      <h2 class="subtitle">
+        Here I will place a small description of your vehicle to make it more
+        attractive to potential buyers.
+      </h2>
+      <div class="features">
+        <p>Features</p>
+        <ul class="fa-ul">
+          <li><span class="fa-li" ><i class="fas fa-money-bill-alt"></i></i></span>$10,900</li>
+          <li><span class="fa-li"><i class="fas fa-tachometer-alt"></i></span>108K</li>
+        </ul>
+      </div>
+      <div class="contact">
+        <p>Contact</p>
+        <ul class="fa-ul">
+          <li><span class="fa-li" ><i class="fas fa-envelope"></i></i></span>jbp48067@gmail.com</li>
+          <li><span class="fa-li"><i class="fas fa-mobile-alt"></i></span>(248) 703-2085</li>
+        </ul>
+      </div>
+      <div class="btn-explore">
+        <a class="link" href="/explore"><p>See More Details</p></a>
+      </div>
+    </div>
   </body>
 </html>

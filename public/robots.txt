@@ -1,3 +1,4 @@
 Sitemap: https://nearo.co/sitemap.xml
+Sitemap: https://nearo.co/feed
 User-agent: *
-Disallow: 
+Disallow:

@@ -36,6 +36,13 @@ const Explorer = Loadable({
 @observer
 class DesktopScreen extends Component {
 
+  componentDidMount() {
+    const pathname = this.props.routing.location.pathname
+    if(pathname.includes('/amp')) {
+      this.props.routing.push('/')
+    }
+  }
+
   render () {
     const { classes } = this.props
     const pathname = this.props.routing.location.pathname
