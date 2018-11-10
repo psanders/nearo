@@ -6,9 +6,12 @@ import Typography from '@material-ui/core/Typography'
 import Linkify from 'react-linkify'
 import Moment from 'react-moment'
 import firebase from 'firebase/app'
+import ImageGallery from 'react-image-gallery'
+import "react-image-gallery/styles/css/image-gallery.css"
 
 import {
   imageURL,
+  postMedia,
   ellip,
   hasPanorama,
   hasMedia,
@@ -21,7 +24,13 @@ export const postContent = (post, classes, gutterBottom) => {
     { hasMedia(post)  &&
       !hasPanorama(post) &&
       <div>
-        <img alt="" className={classes.photo} src={imageURL(post, 'md')} />
+      <ImageGallery
+        showBullets={post.media.length > 1}
+        lazyLoad={true}
+        showPlayButton={false}
+        showThumbnails={false}
+        showFullscreenButton={false}
+        items={postMedia(post)} />
         {
           post.category === 'forsale' && (post.price > 0 || post.sold) &&
           <Chip

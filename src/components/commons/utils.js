@@ -19,7 +19,8 @@ export const show404 = pathname => getMainPath(pathname) !== 'posts' && !routes.
 
 export const hasMedia = post => post.media && post.media.length > 0
 
-export const hasPanorama = post => post.media && post.media.length > 1
+export const hasPanorama = post => hasMedia(post) &&
+  post.media.filter(m => m.filename.startsWith("img_360")).length > 0
 
 export const capitalize = word => word ? word.replace(/\w/, c => c.toUpperCase()) : ''
 
@@ -30,7 +31,7 @@ export const openURL = (url, blank = false) => {
   win.focus()
 }
 
-export const imageURL = (post, size) => {
+export const imageURL = (post, size, pos = 0) => {
   if (!post.media || post.media.length === 0) return null
 
   // This is a fix for issue #3. In the future it will be better to find a
@@ -44,10 +45,26 @@ export const imageURL = (post, size) => {
   if (size === 'panorama') {
     return bucketBaseUrl + '%2F' + post.media[1].filename + '?alt=media'
   } else if (size && !justPosted) {
-    return bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[0].filename + '?alt=media'
+    return bucketBaseUrl + '%2Fimg_' + size + '_' + post.media[pos].filename + '?alt=media'
   }
 
-  return bucketBaseUrl + '%2F' + post.media[0].filename + '?alt=media'
+  return bucketBaseUrl + '%2F' + post.media[pos].filename + '?alt=media'
+}
+
+export const postMedia = post => {
+  if (!post.media || post.media.length === 0) return []
+
+  const results = []
+
+  post.media.forEach((media, i) => {
+    console.log('img=', imageURL(post, 'md', i))
+    const item = {
+      original: imageURL(post, 'md', i)
+    }
+    results.push(item)
+  })
+
+  return results
 }
 
 export const ellip = (str, len, c1 = ',', c2 = '') => {
