@@ -9,7 +9,7 @@ import { hasMedia } from 'components/commons/utils'
 import PostActions from 'components/shared/postactions/PostActions'
 import PostImage from './PostImage'
 import PlaceHolder from './PlaceHolder'
-import PostDate from './PostDate'
+import Caption from './Caption'
 
 const style = {
   actionsContainer: {
@@ -40,7 +40,7 @@ class PostCard extends Component {
         <Typography component="p" variant="body1" gutterBottom>
           <Linkify>{ post.body }</Linkify>
         </Typography>
-        <PostDate post={ post } />
+        <Caption post={ post } />
         <PostActions post={ post } />
       </div>
     </Paper>

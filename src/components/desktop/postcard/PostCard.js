@@ -13,6 +13,7 @@ import { observer, inject } from 'mobx-react'
 import { hasMedia } from 'components/commons/utils'
 import PostActions from 'components/shared/postactions/PostActions'
 import PlaceHolder from 'components/mobile/postcard/PlaceHolder'
+import Caption from 'components/mobile/postcard/Caption'
 import PostImage from 'components/desktop/postcard/PostImage'
 
 const styles = {
@@ -89,9 +90,7 @@ class PostCard extends Component {
                 <Typography variant="body1" gutterBottom>
                   <Linkify>{ post.body }</Linkify>
                 </Typography>
-                <Typography variant="caption" color="textSecondary">By { post.author }
-                  &nbsp;<Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment>
-                </Typography>
+                <Caption post={ post }/>
               </Grid>
               <Grid item >
                 <div className={classes.actionsContainer}>

@@ -15,6 +15,7 @@ import {
   hasMedia,
 } from 'components/commons/utils'
 import Viewer360 from 'components/shared/viewer360/Viewer360'
+import Caption from 'components/mobile/postcard/Caption'
 
 const photo = {
   width: '100%',
@@ -60,9 +61,7 @@ export const postContent = (post, classes, gutterBottom) => {
       <Typography variant="body1" gutterBottom>
         <Linkify>{ post.body }</Linkify>
       </Typography>
-      <Typography variant="caption" gutterBottom className={classes.bottom10}>
-        Posted <Moment fromNow={true} interval={30000}>{new firebase.firestore.Timestamp(post.timestamp.seconds, post.timestamp.nanoseconds).toDate()}</Moment> nearby "{ ellip(post.locText, 22) }"
-      </Typography>
+      <Caption post={post} />
     </div>
   </div>
 }
