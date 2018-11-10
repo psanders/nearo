@@ -35,7 +35,7 @@ class Profile extends Component {
 
     return (<div>
         <AppBar elevation={scrollPosition === 0? 0 : 1}>
-          <Toolbar color="secondary" >
+          <Toolbar color="secondary" style={{paddingLeft: 5}}>
             <IconButton onClick={ this.handleGoBack } color="inherit" aria-label="Close">
               <ArrowBackIcon className={ classes.arrawBack }/>
             </IconButton>

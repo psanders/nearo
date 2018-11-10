@@ -36,6 +36,7 @@ class MobileScreen extends Component {
     const hideNav = pathname => pathname === '/profile'
       || pathname === '/login'
       || pathname === '/about'
+      || ('/' + getMainPath(pathname) === '/posts')     
       || pathname === '/location'
 
     return <Fragment>
