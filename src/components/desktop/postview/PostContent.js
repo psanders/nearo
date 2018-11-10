@@ -1,13 +1,11 @@
 import React from 'react'
-import Avatar from '@material-ui/core/Avatar'
-import Chip from '@material-ui/core/Chip'
-import MoneyIcon from '@material-ui/icons/AttachMoney'
 import Typography from '@material-ui/core/Typography'
 import Linkify from 'react-linkify'
 import Moment from 'react-moment'
 import firebase from 'firebase/app'
-import ImageGallery from 'react-image-gallery'
-import "react-image-gallery/styles/css/image-gallery.css"
+import { Carousel } from 'react-responsive-carousel'
+import "react-responsive-carousel/lib/styles/carousel.min.css"
+import "./overwrite.css"
 
 import {
   imageURL,
@@ -18,29 +16,38 @@ import {
 } from 'components/commons/utils'
 import Viewer360 from 'components/shared/viewer360/Viewer360'
 
+const photo = {
+  width: '100%',
+  height: '100%',
+  overflow: 'hidden',
+  display: 'flex',
+}
+
 export const postContent = (post, classes, gutterBottom) => {
 
   return <div>
     { hasMedia(post)  &&
       !hasPanorama(post) &&
-      <div>
-        <ImageGallery
-          showBullets={post.media.length > 1}
-          lazyLoad={true}
-          showPlayButton={false}
-          showThumbnails={false}
-          showFullscreenButton={false}
-          items={postMedia(post)} />
+      <Carousel showThumbs={ false }
+        showIndicators={ post.media.length > 1 }
+        showStatus={ post.media.length > 1 }>
         {
-          post.category === 'forsale' && (post.price > 0 || post.sold) &&
-          <Chip
-            avatar={<Avatar><MoneyIcon className={classes.moneyIcon}></MoneyIcon></Avatar>}
-            label={ post.sold ? 'Sold' : post.price }
-            className={classes.chip}
-            color="secondary"
-          />
+          postMedia(post).map(post => {
+            const blur = {
+              width: '100%',
+              height:'100%',
+              backgroundImage: "url('" + post.original + "')",
+              position: 'absolute',
+              backgroundSize: 'cover',
+              filter: 'blur(5px)',
+            }
+            return <div key={ post.original } style={ photo }>
+                <div style={ blur }></div>
+                <img alt={ post.title } style={{zIndex: 1000, width: '100%', alignSelf: 'center'}} src={post.original} />
+            </div>
+          })
         }
-      </div>
+      </Carousel>
     }
     {
       hasMedia(post) &&
