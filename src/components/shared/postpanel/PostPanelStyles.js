@@ -39,6 +39,11 @@ export const styles = theme => ({
   button: {
     textTransform: 'capitalize'
   },
+  rmBtn: {
+    position: 'absolute',
+    right: 2,
+    top: 2
+  },
   addIcon: {
     color: theme.palette.accent.main
   },
@@ -65,4 +70,16 @@ export const styles = theme => ({
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 2,
   },
+  photo: {
+    width: 100,
+    height: 100,
+    overflow: 'hidden',
+    display: 'flex',
+    borderRadius: 4,
+    border: '2px solid #333',
+    position: 'relative',
+    float: 'left',
+    marginRight: 5,
+    marginBottom: 5
+  }
 })

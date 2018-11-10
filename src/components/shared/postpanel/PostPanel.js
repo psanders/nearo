@@ -3,6 +3,7 @@ import firebase from 'firebase/app'
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Hidden from '@material-ui/core/Hidden'
@@ -12,9 +13,8 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
 import Avatar from '@material-ui/core/Avatar'
-import Chip from '@material-ui/core/Chip'
-import IconButton from '@material-ui/core/IconButton'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Close'
 import CloseIcon from '@material-ui/icons/Close'
 import { observer, inject } from 'mobx-react'
 import { withStyles } from '@material-ui/core/styles'
@@ -26,7 +26,6 @@ import LocatorMini from 'components/shared/locator/LocatorMini'
 import { imageURL, ellip } from 'components/commons/utils'
 import { styles } from './PostPanelStyles'
 import UploaderButton from './UploaderButton'
-
 
 @inject('notificationsStore')
 @inject('postsStore')
@@ -75,6 +74,22 @@ class PostPanel extends Component {
     this.setState({loading: false})
     this.setState({expanded: false})
     this.setState({media: []})
+  }
+
+  getUploadedImages = (classes) => {
+    return this.state.media.map((m, i) => {
+      const image = imageURL({media: this.state.media}, 'md', i)
+      return <div className={classes.photo} >
+        <img alt="Post media" style={{ width: 100, alignSelf: 'center'}} src={ image }/>
+        <div/>
+        <IconButton
+          style={{padding: 0, borderRadius: 0}}
+          onClick={ () => this.setState({media: this.state.media.filter(mdia => mdia.filename !== m.filename)}) }
+          className={classes.rmBtn} >
+          <DeleteIcon style={{backgroundColor: '#fff'}} fontSize="small" />
+        </IconButton>
+      </div>
+    })
   }
 
   async createPost (body, locInfo) {
@@ -134,6 +149,13 @@ class PostPanel extends Component {
       ? this.state.locInfo
       : this.props.navStore.navInfo.locInfo
     this.createPost(this.state.body, locInfo)
+  }
+
+  handleUploadSuccess = filename => {
+    this.setState({loading: false})
+    const media = this.state.media
+    media.push({filename: filename})
+    this.setState({media: media})
   }
 
   render() {
@@ -202,7 +224,7 @@ class PostPanel extends Component {
               onChange={ this.updateTitle }
               autoFocus
               fullWidth
-              variant="filled"
+              variant="outlined"
               placeholder="Post title"
               margin="dense"
               InputProps={{
@@ -218,7 +240,7 @@ class PostPanel extends Component {
               multiline
               rows="3"
               placeholder="Post Body"
-              variant="filled"
+              variant="outlined"
               InputProps={{
                 inputProps: {
                   maxLength: 254,
@@ -227,43 +249,23 @@ class PostPanel extends Component {
             />
           </DialogContent>
 
-          { this.state.media.length > 0 &&
-            <div>
-              <Hidden xsDown={true}>
-                <div style={{ padding: 10, paddingBottom: 0 }}>
-                  <img alt="Post media" style={{ width: 100 }} src={ imageURL({media: this.state.media}) }/>
-                  <div/>
-                  <Button onClick={ () => this.setState({media: []}) }
-                    style={{width: 100, borderRadius: 0}}
-                    className={classes.button} size="small">Remove</Button>
-                </div>
-              </Hidden>
-              <Hidden smUp={true}>
-                <div style={{ padding: 10 }}>
-                  <Chip
-                    avatar={<Avatar src={ imageURL({media: this.state.media}) } />}
-                    label="Remove"
-                    onDelete={ () => this.setState({media: []}) }
-                    variant="outlined"
-                  />
-                </div>
-              </Hidden>
+          {
+            this.state.media.length > 0 &&
+            <div style={{ maxHeight: 200, padding: 10, paddingBottom: 0, overflow: 'scroll'}}>
+              { this.getUploadedImages(classes) }
             </div>
           }
 
-          { this.state.loading && <LinearProgress discolor="secondary" /> }
+          { this.state.loading &&
+            <div style={{ padding: 10}}>
+              <LinearProgress discolor="secondary" />
+            </div>
+           }
 
           <DialogActions style={{position: 'relative', bottom: 0, left: 0}}>
             <UploaderButton
               onUploadStart={this.handleOnUploadStart}
-              onUploadSuccess={(filename) => {
-                this.setState({loading: false})
-                // This will later serve as a way to add multiple resources
-                const media = [{
-                  filename: filename
-                }]
-                this.setState({media: media})
-              }}
+              onUploadSuccess={this.handleUploadSuccess}
               onError={() => {
                   this.props.notificationsStore.showNotification('Unable to upload image. Try again later')
                   this.setState({loading: false})

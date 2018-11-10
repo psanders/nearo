@@ -36,7 +36,7 @@ export const imageURL = (post, size, pos = 0) => {
 
   // This is a fix for issue #3. In the future it will be better to find a
   // better way to handle error while using CardMedia
-  if (!post.timestamp) post.timestamp = { seconds: 0 }
+  if (!post.timestamp) post.timestamp = { seconds: new Date().getTime() }
 
   const justPosted = time(post.timestamp.seconds) < 120
     ? true
@@ -57,7 +57,6 @@ export const postMedia = post => {
   const results = []
 
   post.media.forEach((media, i) => {
-    console.log('img=', imageURL(post, 'md', i))
     const item = {
       original: imageURL(post, 'md', i)
     }

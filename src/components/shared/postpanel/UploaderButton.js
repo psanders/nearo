@@ -43,6 +43,7 @@ class UploaderButton extends Component {
           <FileUploader
             id="uploaderInput"
             hidden
+            multiple
             accept="image/png,image/jpg,image/gif"
             storageRef={firebase.storage().ref('imgs')}
             onUploadStart={this.props.onUploadStart}
