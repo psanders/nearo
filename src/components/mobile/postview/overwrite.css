@@ -1,4 +1,7 @@
-
 button.control-arrow {
   border-radius: 0;
+}
+
+.carousel .control-dots {
+  margin-left: -10px;
 }
