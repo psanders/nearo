@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
-import Linkify from 'react-linkify'
 import Card from '@material-ui/core/Card'
 import { observer, inject } from 'mobx-react'
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
+import green from '@material-ui/core/colors/green'
 
-import { ellip } from 'components/commons/utils'
 import PostImage from './PostImage'
 import PlaceHolder from './PlaceHolder'
 import Caption from './Caption'
@@ -28,9 +27,18 @@ const styles = theme => ({
     paddingBottom: 0
   },
   cover: {
-    width: 90,
-    height: 90
+    width: 50,
+    height: 50
   },
+  price: {
+    marginLeft: 3,
+    fontSize: 12,
+    color: green[400],
+    border: '1px solid gray',
+    borderRadius: 2,
+    paddingLeft: 3,
+    paddingRight: 3
+  }
 })
 
 @inject('routing')
@@ -48,12 +56,16 @@ class PostCard extends Component {
     }}>
       <div className={classes.details}>
         <div className={classes.content}>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body1">
             { post.title }
+            { post.category === 'forsale' &&
+              post.price !== 0 &&
+              <span className={classes.price}>
+                {"$" + post.price }
+              </span>
+            }
           </Typography>
-          <Typography variant="caption">
-            <Linkify>{ ellip(post.body, 50) }</Linkify>
-          </Typography>
+
           <Caption post={ post } />
         </div>
       </div>

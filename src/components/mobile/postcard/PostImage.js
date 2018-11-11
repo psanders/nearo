@@ -4,8 +4,8 @@ import { imageURL } from 'components/commons/utils'
 
 const style = {
   width: {
-    width: 80,
-    height: 80
+    width: 50,
+    height: 50
   },
 }
 

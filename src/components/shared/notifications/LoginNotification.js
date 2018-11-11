@@ -35,7 +35,7 @@ class LoginNotification extends Component {
 
     return (
       <SnackbarContent
-        className={classes.root}
+        className={ classes.root }
         aria-describedby="client-snackbar"
         message={
           <Fragment>
@@ -88,6 +88,7 @@ const styles = theme => ({
     alignItems: 'center',
     display: 'flex',
     width: '100%',
+    paddingTop: 0
   },
   content: {
     alignItems: 'center',

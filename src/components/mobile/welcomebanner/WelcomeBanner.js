@@ -22,7 +22,6 @@ class WelcomeBanner extends Component {
       },
       fonts: {
         title: {
-          marginTop: 20,
           marginLeft: 10,
           fontFamily: 'Bitter',
         },
@@ -33,8 +32,8 @@ class WelcomeBanner extends Component {
         }
       },
       buttonsContainer: {
-        marginTop: 40,
-        marginBottom: 10,
+        marginTop: 10,
+        marginBottom: 5,
       },
       button: {
         width: 100,
@@ -67,10 +66,10 @@ class WelcomeBanner extends Component {
         </IconButton>
       </div>
       <div style={{textAlign: 'center'}}>
-        <Typography style={style.fonts.title} color="primary" component="h1" variant="h5" gutterBottom>
+        <Typography style={style.fonts.title} color="primary" component="h1" variant="h5" >
           Buy Sell or Trade Locally
         </Typography>
-        <Typography component="h2" variant="h6" color="textSecondary" style={style.fonts.subtitle} gutterBottom>
+        <Typography component="h2" variant="h6" color="textSecondary" style={style.fonts.subtitle} >
           Search for jobs, housing, events, services, community, and more.
         </Typography>
         <div style={style.buttonsContainer}>

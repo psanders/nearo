@@ -83,6 +83,12 @@ class PostView extends Component {
           <div style={{padding: 10, paddingBottom: 0}}>
             <Typography component="h1" variant="subtitle2" >
               { post.title }
+              { post.category === 'forsale' &&
+                post.price !== 0 &&
+                <span className={classes.price}>
+                  {"$" + post.price }
+                </span>
+              }
             </Typography>
             { post.id && <Caption post={post} /> }
           </div>

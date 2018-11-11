@@ -5,6 +5,13 @@ import ScreenSwitch from './screens/ScreenSwitch'
 import './App.css'
 
 const theme = createMuiTheme({
+  overrides: {
+    MuiSnackbarContent: {
+      message: {
+        padding: 0,
+      },
+    },
+  },
   props: {
     MuiButtonBase: {
       disableRipple: true,

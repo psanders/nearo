@@ -1,4 +1,15 @@
+import green from '@material-ui/core/colors/green'
+
 export const styles = theme => ({
+  price: {
+    marginLeft: 3,
+    fontSize: 12,
+    color: green[400],
+    border: '1px solid gray',
+    borderRadius: 2,
+    paddingLeft: 3,
+    paddingRight: 3
+  },
   root: {
     backgroundColor: '#fff'
   },

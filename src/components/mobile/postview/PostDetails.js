@@ -16,7 +16,7 @@ class MediaCard extends Component {
       <Typography className={ classes.capitalize } component="h2" variant="subtitle2" gutterBottom>
         Description
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography color="textSecondary" variant="body1" gutterBottom>
         <Linkify>{ post.body }</Linkify>
       </Typography>
     </Card>
