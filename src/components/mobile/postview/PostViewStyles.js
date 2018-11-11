@@ -2,9 +2,6 @@ export const styles = theme => ({
   root: {
     backgroundColor: '#fff'
   },
-  leftColumn: {
-    backgroundColor: '#fff',
-  },
   post: {
     minHeight: 400,
   },

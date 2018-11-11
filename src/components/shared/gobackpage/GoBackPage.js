@@ -4,11 +4,9 @@ import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import CloseIcon from '@material-ui/icons/Close'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { observer, inject } from 'mobx-react'
-import classnames from 'classnames'
 
 @inject('routing')
 @inject('appStore')
@@ -37,11 +35,8 @@ class Profile extends Component {
         <AppBar elevation={scrollPosition === 0? 0 : 1}>
           <Toolbar color="secondary" style={{paddingLeft: 5}}>
             <IconButton onClick={ this.handleGoBack } color="inherit" aria-label="Close">
-              <ArrowBackIcon className={ classes.arrawBack }/>
+              <CloseIcon className={ classes.arrawBack }/>
             </IconButton>
-            <Typography variant="h6" className={classnames(classes.flex, classes.logo)}>
-              Nearo
-            </Typography>
           </Toolbar>
           {
             appStore.loading &&

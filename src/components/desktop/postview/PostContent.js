@@ -1,8 +1,6 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import Linkify from 'react-linkify'
-import Moment from 'react-moment'
-import firebase from 'firebase/app'
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import "./overwrite.css"
@@ -10,7 +8,6 @@ import "./overwrite.css"
 import {
   imageURL,
   postMedia,
-  ellip,
   hasPanorama,
   hasMedia,
 } from 'components/commons/utils'
@@ -43,8 +40,8 @@ export const postContent = (post, classes, gutterBottom) => {
               filter: 'blur(5px)',
             }
             return <div key={ post.original } style={ photo }>
-                <div style={ blur }></div>
-                <img alt={ post.title } style={{zIndex: 1000, width: '100%', alignSelf: 'center'}} src={post.original} />
+              <div style={ blur }></div>
+              <img alt={ post.title } style={{zIndex: 1000, width: '100%', alignSelf: 'center'}} src={post.original} />
             </div>
           })
         }

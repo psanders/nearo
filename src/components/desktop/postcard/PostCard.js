@@ -5,9 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
-import Moment from 'react-moment'
 import Linkify from 'react-linkify'
-import firebase from 'firebase/app'
 import { observer, inject } from 'mobx-react'
 
 import { hasMedia } from 'components/commons/utils'

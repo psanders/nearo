@@ -88,7 +88,9 @@ class PostView extends Component {
 
     const rightColumn = post => <Fragment>
       <ProfileCard user={ user } gutterBottom={16}/>
-      <MapCard center={ post._geoloc } gutterBottom={16}/>
+      <div style={{marginBottom: 15}}>
+        <MapCard center={ post._geoloc } />
+      </div>
       { post._geoloc && <About gutterBottom={16}/> }
     </Fragment>
 

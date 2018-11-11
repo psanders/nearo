@@ -7,7 +7,7 @@ import MarkerIcon from '@material-ui/icons/Place'
 import GoogleMapReact from 'google-map-react'
 
 function MapCard(props) {
-  const { classes, center, gutterBottom } = props
+  const { classes, center, height } = props
 
   if(!center) return null
 
@@ -19,7 +19,7 @@ function MapCard(props) {
   }
 
   return (
-    <Card elevation={0} className={classes.card} style={{marginBottom: gutterBottom ? gutterBottom : 10}}>
+    <Card elevation={0} className={classes.card} style={{height: height? height: ''}}>
       <CardContent className={classes.cardContent}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y" }}

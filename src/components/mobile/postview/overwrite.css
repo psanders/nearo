@@ -5,3 +5,7 @@ button.control-arrow {
 .carousel .control-dots {
   margin-left: -10px;
 }
+
+.carousel .slider-wrapper {
+  /*border-radius: 5px;*/
+}
