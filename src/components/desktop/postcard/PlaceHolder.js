@@ -6,14 +6,15 @@ const style = {
     transform: 'rotate(45deg)',
     width: '30px',
     position: 'relative',
-    top: 'calc(50% - 15px)',
-    left: 'calc(50% - 15px)'
+    top: 'calc(50% - 15px)'
   },
   placeHolder: {
     backgroundColor: '#f4f4f4',
     border: '1px solid #757ce8',
-    width: 79,
-    height: 79,
+    width: 130,
+    height: 110,
+    borderRadius: 3,
+    margin: 10
   }
 }
 

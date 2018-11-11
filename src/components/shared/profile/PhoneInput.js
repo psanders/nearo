@@ -59,7 +59,7 @@ class PhoneInput extends Component {
 
     return (
       <TextField
-        variant="filled"
+        variant="outlined"
         id="user-phone"
         label="Phone"
         fullWidth

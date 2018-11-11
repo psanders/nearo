@@ -1,31 +1,20 @@
 import React, { Fragment } from 'react'
-import Icon360 from '@material-ui/icons/ThreeSixty'
-import { imageURL, hasPanorama } from 'components/commons/utils'
+import CardMedia from '@material-ui/core/CardMedia'
+import { imageURL } from 'components/commons/utils'
 
 const style = {
   width: {
-    width: '100vw'
-  },
-  panorama: {
-    position: 'absolute',
-    backgroundPosition: '5px -1px',
-    borderRadius: 25,
-    backgroundColor: 'rgba(0,0,0,.4)',
-    borderColor: '#fff',
-    color: '#fff',
-    padding: 3,
-    height: 20,
-    width: 20,
-    right: 5,
-    bottom: 5,
+    width: 80,
+    height: 80
   },
 }
 
-const panoramaIcon = <Icon360 style={style.panorama}/>
-
 const PostImage = props => <Fragment>
-  <img alt="" style={ style.width } src={ imageURL(props.post, 'md') } />
-   { hasPanorama(props.post) && panoramaIcon }
+  <CardMedia
+    style={ style.width }
+    title="Live from space album cover"
+    image={imageURL(props.post, 'md')}
+  />
 </Fragment>
 
 export default PostImage

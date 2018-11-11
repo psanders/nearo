@@ -10,7 +10,7 @@ import { observer, inject } from 'mobx-react'
 
 import { hasMedia } from 'components/commons/utils'
 import PostActions from 'components/shared/postactions/PostActions'
-import PlaceHolder from 'components/mobile/postcard/PlaceHolder'
+import PlaceHolder from 'components/desktop/postcard/PlaceHolder'
 import Caption from 'components/mobile/postcard/Caption'
 import PostImage from 'components/desktop/postcard/PostImage'
 

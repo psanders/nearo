@@ -59,7 +59,7 @@ class PostList extends Component {
 
 const styles = theme => ({
   divider: {
-    height: 6,
+    height: 1,
     borderbColor: '#E6E6E6'
   },
   // What was this for?

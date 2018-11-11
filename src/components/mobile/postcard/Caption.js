@@ -14,7 +14,7 @@ const Caption = props => {
 
   return <Typography
     variant="caption"
-    color="textSecondary" gutterBottom>Posted <Moment fromNow={true}
+    color="textSecondary"><Moment fromNow={true}
     interval={30000}>{timestamp(props.post.timestamp)}</Moment> nearby "{ ellip(props.post.locText, 22) }"
   </Typography>
 }

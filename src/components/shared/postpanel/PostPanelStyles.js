@@ -61,6 +61,7 @@ export const styles = theme => ({
     marginRight: 5
   },
   fab: {
+    textTransform: 'capitalize',
     color: '#fff',
     backgroundColor: red[400],
     '&:hover': {

@@ -13,6 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import withMobileDialog from '@material-ui/core/withMobileDialog'
 import Avatar from '@material-ui/core/Avatar'
 import EditIcon from '@material-ui/icons/Edit'
+import CameraIcon from '@material-ui/icons/CameraAlt'
 import DeleteIcon from '@material-ui/icons/Close'
 import CloseIcon from '@material-ui/icons/Close'
 import { observer, inject } from 'mobx-react'
@@ -193,8 +194,10 @@ class PostPanel extends Component {
         }
         {
           asFabButton &&
-          <Button onClick={ postsStore.openPostDialog } variant="fab" color="primary" className={classes.fab} >
-            <EditIcon />
+          <Button onClick={ postsStore.openPostDialog }
+            className={classes.fab} >
+            Create Post
+            <CameraIcon style={{fontSize: 18, marginLeft: 10}} />
           </Button>
         }
         <Dialog

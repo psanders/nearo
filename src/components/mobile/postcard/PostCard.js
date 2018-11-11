@@ -1,21 +1,37 @@
 import React, { Component } from 'react'
 import Typography from '@material-ui/core/Typography'
-import ButtonBase from '@material-ui/core/ButtonBase'
 import Linkify from 'react-linkify'
-import Paper from '@material-ui/core/Paper'
+import Card from '@material-ui/core/Card'
 import { observer, inject } from 'mobx-react'
+import { withStyles } from '@material-ui/core/styles';
 
-import { hasMedia } from 'components/commons/utils'
-import PostActions from 'components/shared/postactions/PostActions'
+import { ellip } from 'components/commons/utils'
 import PostImage from './PostImage'
 import PlaceHolder from './PlaceHolder'
 import Caption from './Caption'
 
-const style = {
-  actionsContainer: {
-    padding: 10
-  }
-}
+const styles = theme => ({
+  root: {
+    padding: 0
+  },
+  card: {
+    display: 'flex',
+    padding: 5
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: 5
+  },
+  content: {
+    flex: '1 0 auto',
+    paddingBottom: 0
+  },
+  cover: {
+    width: 90,
+    height: 90
+  },
+})
 
 @inject('routing')
 @inject('postsStore')
@@ -23,28 +39,31 @@ const style = {
 class PostCard extends Component {
 
   render() {
-    const { post, routing, postsStore } = this.props
+    const { classes, post, routing, postsStore } = this.props
 
-    return <Paper elevation={0}>
-      <ButtonBase aria-label="Open Publication Details" onClick={() => {
-        postsStore.currentPost = post
-        routing.push('/posts/' + post.id)
-      }}>
-        { hasMedia(post) && <PostImage post={ post }/> }
-        { !hasMedia(post) && <PlaceHolder /> }
-      </ButtonBase>
-      <div style={style.actionsContainer}>
-        <Typography variant="subtitle1" gutterBottom>
-          { post.title }
-        </Typography>
-        <Typography component="p" variant="body1" gutterBottom>
-          <Linkify>{ post.body }</Linkify>
-        </Typography>
-        <Caption post={ post } />
-        <PostActions post={ post } />
+    return <Card elevation={0}
+      className={classes.card} onClick={() => {
+      postsStore.currentPost = post
+      routing.push('/posts/' + post.id)
+    }}>
+      <div className={classes.details}>
+        <div className={classes.content}>
+          <Typography variant="body1" gutterBottom>
+            { post.title }
+          </Typography>
+          <Typography variant="caption">
+            <Linkify>{ ellip(post.body, 50) }</Linkify>
+          </Typography>
+          <Caption post={ post } />
+        </div>
       </div>
-    </Paper>
+      <span style={{flex: 1}} />
+      <div>
+        { post.media.length > 0 && <PostImage post={ post }/> }
+        { post.media.length === 0 && <PlaceHolder /> }
+      </div>
+    </Card>
   }
 }
 
-export default PostCard
+export default withStyles(styles, { withTheme: true })(PostCard)
