@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles'
@@ -31,7 +31,7 @@ import { computed } from 'mobx'
 @inject('navStore')
 @inject('notificationsStore')
 @observer
-class SwipeableTemporaryDrawer extends React.Component {
+class SwipeableTemporaryDrawer extends Component {
   state = {
     open: false
   }

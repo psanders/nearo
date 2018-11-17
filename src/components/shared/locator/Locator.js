@@ -97,8 +97,7 @@ class Locator extends Component {
                 id="menu-list-grow"
                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
               >
-                <Paper style={{
-                  borderTop: '',
+                <Paper square style={{
                   width: withWidth? 'calc(' + withWidth + ' - 42px)' : 250}}>
                   <ClickAwayListener onClickAway={this.handleClose} >
                     <SearchInput onSelect={this.handleSelect}/>

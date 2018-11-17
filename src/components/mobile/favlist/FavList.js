@@ -31,7 +31,7 @@ class FavList extends Component {
 
 const styles = theme => ({
   divider: {
-    height: 5,
+    height: 1,
   },
   progress: {
     margin: theme.spacing.unit * 2

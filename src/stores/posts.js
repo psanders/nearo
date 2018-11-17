@@ -25,14 +25,15 @@ class PostsStore {
   constructor () {
     when(
       () => appStore.isReady() && usersStore.isSignedIn(),
-      () => this.updateBySearch(navStore.navInfo)
+      () => {
+        this.updateBySearch(navStore.navInfo)
+        this.loadFavorities()
+      }
     )
 
     when(
       () => appStore.isReady() && !usersStore.isSignedIn(),
-      () => {
-        this.updateBySearch(navStore.navInfo)
-      }
+      () => this.updateBySearch(navStore.navInfo)
     )
 
     autorun(() => this.updateBySearch(navStore.navInfo))

@@ -60,17 +60,6 @@ export const styles = theme => ({
     marginTop: 67,
     marginRight: 5
   },
-  fab: {
-    textTransform: 'capitalize',
-    color: '#fff',
-    backgroundColor: red[400],
-    '&:hover': {
-      backgroundColor: red[400],
-    },
-    position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
-  },
   photo: {
     width: 100,
     height: 100,

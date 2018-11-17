@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 import { withStyles } from '@material-ui/core/styles'
@@ -7,10 +7,8 @@ import { computed } from 'mobx'
 import InfiniteScroll from 'react-infinite-scroller'
 
 import PostCard from '../postcard/PostCard'
-import PostPanel from 'components/shared/postpanel/PostPanel'
 
 @inject('postsStore')
-@inject('appStore')
 @inject('navStore')
 @inject('usersStore')
 @inject('bookmarksStore')
@@ -30,7 +28,7 @@ class PostList extends Component {
 
   // If is empty show an image an a message of emptiness
   render() {
-    const { classes, postsStore, appStore } = this.props
+    const { classes, postsStore } = this.props
 
     return (<div>
       <Grid container>
@@ -52,7 +50,6 @@ class PostList extends Component {
           </InfiniteScroll>
         </Grid>
       </Grid>
-      { appStore.isReady() && <PostPanel asFabButton={true} /> }
     </div>)
   }
 }

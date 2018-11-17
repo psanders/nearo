@@ -159,7 +159,7 @@ class PostPanel extends Component {
   }
 
   render() {
-    const { classes, fullScreen, postsStore, asFabButton } = this.props
+    const { classes, fullScreen, postsStore, hideButton } = this.props
     this.updateBody = this.updateBody.bind(this)
 
     const showCounter = () => {
@@ -183,21 +183,13 @@ class PostPanel extends Component {
     return (
       <Fragment>
         {
-          !asFabButton &&
+          !hideButton &&
           <Button onClick={ postsStore.openPostDialog }
             variant="text" className={classes.newPostBtn}
             size="small"
             aria-label="Add New Publication"
           >
             Create Post
-          </Button>
-        }
-        {
-          asFabButton &&
-          <Button onClick={ postsStore.openPostDialog }
-            className={classes.fab} >
-            Create Post
-            <CameraIcon style={{fontSize: 18, marginLeft: 10}} />
           </Button>
         }
         <Dialog

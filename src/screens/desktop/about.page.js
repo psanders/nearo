@@ -9,12 +9,11 @@ import { terms } from 'terms_and_conditions'
 
 const style = {
   minHeight: 'calc(100vh-55px)',
-  borderRadius: 0,
   padding: 20,
 }
 
 const AboutPage = () => <GoBackPage children={
-  <Paper elevation={0} style={style}>
+  <Paper elevation={0} style={style} square>
     <Typography>
       <ReactMarkdown source={terms} />
       <ReactMarkdown source={privacyContent} />

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Paper from '@material-ui/core/Paper'
 import PostList from 'components/mobile/postlist/PostList'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
@@ -16,7 +17,10 @@ class HomePage extends Component {
   render () {
     return <div>
       { !this.props.appStore.isIntroBannerClosed() && <WelcomeBanner /> }
-      <PostList />
+      <Paper square elevation={0}>
+        <a href="/explore" >Go to explore</a>
+      </Paper>
+
     </div>
   }
 }
