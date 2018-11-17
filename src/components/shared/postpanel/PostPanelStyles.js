@@ -1,5 +1,3 @@
-import red from '@material-ui/core/colors/red'
-
 export const styles = theme => ({
   flex: {
     flex: 1,

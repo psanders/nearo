@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper'
-import PostList from 'components/mobile/postlist/PostList'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
