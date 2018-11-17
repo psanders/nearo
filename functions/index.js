@@ -155,5 +155,4 @@ exports.host = functions.https.onRequest((req, res) => {
   }
 
   return bypass(res)
-	res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
 })
