@@ -86,7 +86,7 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "depcheck": "depcheck",
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js && cp build/index.html functions",
+    "build": "node scripts/build.js && cp build/index.html functions && rm build/index.html",
     "test": "node scripts/test.js --env=jsdom",
     "jest": "jest src/components --env=jsdom",
     "seolint": "seolint localhost:8000"
