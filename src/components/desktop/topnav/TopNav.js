@@ -76,6 +76,9 @@ class TopNav extends React.Component {
               }}
               InputProps={{
                 disableUnderline: true,
+                inputProps:{
+                  "aria-label" : "Search Field"
+                },
                 classes: {
                   input: classes.bootstrapInput,
                 },

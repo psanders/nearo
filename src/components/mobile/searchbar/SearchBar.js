@@ -2,8 +2,9 @@ import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
-import InputBase from '@material-ui/core/InputBase'
+import TextField from '@material-ui/core/TextField'
 import SearchIcon from '@material-ui/icons/Search'
+import classenames from 'classnames'
 
 import { ellip } from 'components/commons/utils'
 import { styles } from './styles'
@@ -39,13 +40,18 @@ class SubBar extends Component {
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
-          <InputBase
+          <TextField
+            type="search"
+            className={classenames(classes.inputInput)}
             placeholder="Search Nearo"
             value={this.props.navStore.navInfo.searchTerm}
             onChange={this.handleChange('searchInput')}
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
+            InputProps={{
+              disableUnderline: true,
+              style:{color: 'inherit'},
+              inputProps:{
+                "aria-label" : "Search Field"
+              }
             }}
           />
         </div>

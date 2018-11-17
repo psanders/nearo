@@ -51,7 +51,7 @@ class TopNav extends Component {
             {
               appStore.isReady() &&
               <Fragment>
-                <Avatar style={logo.avatar}
+                <Avatar alt="Nearo Logo" style={logo.avatar}
                   onClick={ this.handleNav }
                   src="/images/icons/android-icon-192x192.png"
                 />

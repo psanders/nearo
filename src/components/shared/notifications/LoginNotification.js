@@ -53,7 +53,7 @@ class LoginNotification extends Component {
             <Divider />
             <div className={ classes.content }>
               <Button onClick={ this.letsDoIt } className={ classes.signupBtn } size="small" variant="contained">
-                Lets do it!
+                Continue
               </Button>
               <Typography variant="caption" className={classes.headerLabel}>
                 Login or Signup to begin posting and enjoying other features. By continuing, you agree with {"Nearo's"} <a href="/about" className={classes.link}>privacy policy</a> and <a href="/about" className={classes.link}>terms of service</a>

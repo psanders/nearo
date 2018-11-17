@@ -28,12 +28,10 @@ export const styles = theme => ({
   },
   inputInput: {
     borderRadius: 25,
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingLeft: theme.spacing.unit * 8,
     transition: theme.transitions.create('width'),
     color: theme.palette.primary.light,
+    borderBottom: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       width: 120,
