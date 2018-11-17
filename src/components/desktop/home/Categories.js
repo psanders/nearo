@@ -74,7 +74,6 @@ class DetailedExpansionPanel extends Component {
     const { classes, routing, navStore } = this.props
 
     const handleChange = category => {
-      console.log('category', category)
       const navInfo = navStore.navInfo
       navInfo.searchTerm = category.name
       navStore.setNavInfo(navInfo)

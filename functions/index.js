@@ -144,6 +144,9 @@ function bypass(res) {
 exports.host = functions.https.onRequest((req, res) => {
 	const path = req.path ? req.path.split('/') : req.path
 
+  // Keep an eye on this setting
+	res.set('Cache-Control', 'public, max-age=604800, s-maxage=604800')
+
   if (utils.isABot(utils.ua(req)) && path.length > 1 && path[1] === 'posts') {
     const id = path[2]
     return posts(res, id)
@@ -152,5 +155,5 @@ exports.host = functions.https.onRequest((req, res) => {
   }
 
   return bypass(res)
-	//res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
+	res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
 })

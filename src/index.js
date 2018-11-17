@@ -1,6 +1,5 @@
 import React from 'react'
 import 'babel-polyfill' // This helps Googlebot to properly render the pages
-import 'typeface-roboto'
 import './index.css'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
