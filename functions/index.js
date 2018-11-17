@@ -8,7 +8,7 @@ const algoliasearch = require('algoliasearch')
 const admin = require('firebase-admin')
 const utils = require('./utils/utils')
 const rss = require('./utils/rss')
-const dynamicTags = '<meta name="functions-dynamic-tags"/>'
+const dynamicTags = '<meta name="functions-dynamic-tags">'
 
 admin.initializeApp(functions.config().firebase)
 

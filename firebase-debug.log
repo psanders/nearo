@@ -1,0 +1,42 @@
+[debug] [2018-11-17T00:24:11.358Z] ----------------------------------------------------------------------
+[debug] [2018-11-17T00:24:11.360Z] Command:       /usr/local/lib/node_modules/node/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-17T00:24:11.361Z] CLI Version:   5.0.1
+[debug] [2018-11-17T00:24:11.361Z] Platform:      darwin
+[debug] [2018-11-17T00:24:11.361Z] Node Version:  v10.5.0
+[debug] [2018-11-17T00:24:11.364Z] Time:          Fri Nov 16 2018 19:24:11 GMT-0500 (Eastern Standard Time)
+[debug] [2018-11-17T00:24:11.365Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-17T00:24:11.381Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-17T00:24:11.381Z] > authorizing via signed-in user
+[debug] [2018-11-17T00:24:11.381Z] [iam] checking project locally-57510 for permissions ["firebase.projects.get"]
+[debug] [2018-11-17T00:24:11.384Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-17T00:24:11.384Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2018-11-17T00:24:11.801Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-17T00:24:11.815Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/locally-57510:testIamPermissions  
+
+[debug] [2018-11-17T00:24:12.344Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-17T00:24:12.346Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/locally-57510  
+ 
+[debug] [2018-11-17T00:24:12.692Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/psanders/Projects/nearo'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-11-17T00:24:13.454Z] Fetching environment
+[debug] [2018-11-17T00:24:13.457Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/225376231981:getServerAppConfig  
+ 
+[debug] [2018-11-17T00:24:13.458Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/225376231981/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-17T00:24:13.829Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-17T00:24:13.830Z] Starting @google-cloud/functions-emulator
+[debug] [2018-11-17T00:24:14.030Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: build
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2018-11-17T00:24:15.397Z] Parsing function triggers
+[info] ✔  functions: host: http://localhost:5001/locally-57510/us-central1/host
+[info] [hosting] Rewriting /favicon.ico to local function host
+[info] [hosting] Rewriting /favicon.ico to local function host
+[info] [hosting] Rewriting /main.11642491.css.map to local function host
+[info] [hosting] Rewriting /favicon.ico to local function host
+[info] [hosting] Rewriting /main.11642491.css.map to local function host
