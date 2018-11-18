@@ -7,13 +7,13 @@ import firebase from 'firebase/app'
 class BookmarksStore {
     @observable bookmarks = []
     @observable staffBookmarks = []
+    @observable sbLoaded = false
     @observable loaded = false
 
     constructor() {
       when(
         () => usersStore.isStatusVerified() && usersStore.isSignedIn(),
         () => {
-          this.loadStaffBookmars()
           this.loadBookmarks(usersStore.currentUser)
         }
       )
@@ -25,6 +25,8 @@ class BookmarksStore {
           this.loaded = true
         }
       )
+
+      this.loadStaffBookmars()
     }
 
     loadBookmarks(user) {
@@ -51,10 +53,11 @@ class BookmarksStore {
             this.staffBookmarks.push(postId)
           })
         }
+        this.sbLoaded = true
       })
     }
 
-    isLoaded = () => this.loaded
+    isLoaded = () => this.loaded && this.sbLoaded
 
     updateLikes = (post, up = 1) => {
       const postRef = db.collection('posts').doc(post.id)

@@ -48,6 +48,7 @@ const styles = theme => ({
 
 @inject('postsStore')
 @inject('routing')
+@inject('bookmarksStore')
 @observer
 class StaffPick extends Component {
 
@@ -62,7 +63,6 @@ class StaffPick extends Component {
       <div className={classes.root}>
         <GridList className={classes.gridList} cols={2.5}>
           {this.posts.map(post => (
-            post.media.length > 0 &&
             <GridListTile key={post.id} classes={{tile: classes.listTile}}>
               <Avatar classes={{root:classes.avatar}} src={post.avatar} />
               <img onClick={() => routing.push('/posts/' + post.id)} src={imageURL(post, 'md')} alt={post.title} />

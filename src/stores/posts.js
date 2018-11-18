@@ -25,18 +25,25 @@ class PostsStore {
   @observable postsInViewport = new Map()
 
   constructor () {
+
     when(
       () => appStore.isReady() && usersStore.isSignedIn(),
       () => {
         this.updateBySearch(navStore.navInfo)
         this.loadFavorities()
-        this.loadStaffPick()
       }
     )
 
     when(
       () => appStore.isReady() && !usersStore.isSignedIn(),
-      () => this.updateBySearch(navStore.navInfo)
+      () => {
+        this.updateBySearch(navStore.navInfo)
+      }
+    )
+
+    when(
+      () => appStore.isReady(),
+      () => this.loadStaffPick()
     )
 
     autorun(() => this.updateBySearch(navStore.navInfo))
@@ -66,13 +73,14 @@ class PostsStore {
 
   loadStaffPick() {
     this.staffPick.replace([])
-    bookmarksStore.staffBookmarks.map(bookmark => {
-      return db.collection('posts').doc(bookmark).get()
+    bookmarksStore.staffBookmarks.forEach(bookmark => {
+      db.collection('posts').doc(bookmark).get()
       .then(value => {
         const post = value.data()
         post.id = value.id
-        if (hasMedia(post)) this.staffPick.push(post)
-        return
+        if (hasMedia(post)) {
+          this.staffPick.push(post)
+        }
       })
     })
   }

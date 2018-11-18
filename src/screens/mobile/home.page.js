@@ -15,6 +15,7 @@ import WelcomeBanner from 'components/mobile/welcomebanner/WelcomeBanner'
 
 @inject('routing')
 @inject('appStore')
+@inject('bookmarksStore')
 @observer
 class HomePage extends Component {
   @computed get introBannerStatus () {
@@ -40,8 +41,7 @@ class HomePage extends Component {
           Staff Pick
         </Typography>
         <Typography variant="caption" gutterBottom style={{marginBottom: 10}}>
-          See what you can do with post on Nearo
-          . This items are top picks by our staff .
+          See what you can do with post on Nearo. This items are top picks by our staff.
         </Typography>
         <StaffPick />
       </Paper>
@@ -80,7 +80,7 @@ class HomePage extends Component {
         </div>
       </Paper>
 
-      <div square elevation={0} style={{width: '100%', textAlign: 'center', marginTop: 10, marginBottom: 10}}>
+      <div elevation={0} style={{width: '100%', textAlign: 'center', marginTop: 10, marginBottom: 10}}>
         <Typography variant="body1" color="textSecondary">
           Nearo © 2018 <a style={style.anchor} href="/about">Privacy & Terms</a>
         </Typography>
