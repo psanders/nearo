@@ -8,6 +8,7 @@ import { navStore } from './navigation'
 import { appStore } from './app'
 import { doSearchAlgolia } from '../components/commons/firebase/algolia'
 import firebase from 'firebase/app'
+import { hasMedia } from '../components/commons/utils'
 
 const maxItemperPage = 20 // It will load those 20 items super fast!
 
@@ -15,6 +16,7 @@ class PostsStore {
   @observable postDialogOpen = false
   @observable posts = []
   @observable favPosts = []
+  @observable staffPick = []
   @observable currentPost = null
   @observable nbHits = 0
   @observable deletedPost
@@ -28,6 +30,7 @@ class PostsStore {
       () => {
         this.updateBySearch(navStore.navInfo)
         this.loadFavorities()
+        this.loadStaffPick()
       }
     )
 
@@ -56,6 +59,19 @@ class PostsStore {
         const post = value.data()
         post.id = value.id
         this.favPosts.push(post)
+        return
+      })
+    })
+  }
+
+  loadStaffPick() {
+    this.staffPick.replace([])
+    bookmarksStore.staffBookmarks.map(bookmark => {
+      return db.collection('posts').doc(bookmark).get()
+      .then(value => {
+        const post = value.data()
+        post.id = value.id
+        if (hasMedia(post)) this.staffPick.push(post)
         return
       })
     })

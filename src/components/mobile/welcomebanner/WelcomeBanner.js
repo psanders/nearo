@@ -3,42 +3,46 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
+import CameraIcon from '@material-ui/icons/CameraAlt'
 import CloseIcon from '@material-ui/icons/Close'
 import { storeUserInfo } from 'components/commons/dbfunctions'
-import blue from '@material-ui/core/colors/blue'
 import { observer, inject } from 'mobx-react'
 
 @inject('routing')
 @inject('appStore')
+@inject('postsStore')
 @observer
 class WelcomeBanner extends Component {
   render() {
-    const gotoRegister = () => this.props.routing.push('/login')
     const style = {
       root: {
-        backgroundColor: '#f5f5f5',
         borderRadius: 0,
-        paddingBottom: 35
+        border: '0px solid #484ec2',
+        marginTop: -1,
+        paddingBottom: 30,
+        background: 'linear-gradient(to bottom, #484ec2, #4615b2)'
       },
       fonts: {
         title: {
           marginLeft: 10,
           fontFamily: 'Bitter',
+          color: '#fff'
         },
         subtitle: {
           marginLeft: 10,
           marginBottom: 20,
           fontWeight: 300,
+          color: '#fff'
         }
       },
       buttonsContainer: {
         marginTop: 10,
-        marginBottom: 5,
+        marginBottom: 20,
       },
       button: {
         width: 100,
         marginRight: 10,
-        backgroundColor: blue[300],
+
         borderRadius: 0,
         color: '#fff'
       },
@@ -46,10 +50,11 @@ class WelcomeBanner extends Component {
         width: 100,
         marginRight: 10,
         borderRadius: 0,
-        border: '2px solid ' + blue[300],
-        color: blue[300]
+        border: '2px solid #fff',
+        color: '#fff'
       },
       closeBtn: {
+        color: '#fff'
       },
     }
 
@@ -58,7 +63,7 @@ class WelcomeBanner extends Component {
       storeUserInfo('closed-intro-banner', true)
     }
 
-    return <Paper style={style.root}>
+    return <Paper style={style.root} elevation={0}>
       <div style={{display: 'flex', width: '100%'}}>
         <span style={{flex: 1}} />
         <IconButton onClick={ () => close() } aria-label="Close" style={style.closeBtn}>
@@ -73,15 +78,13 @@ class WelcomeBanner extends Component {
           Search for jobs, housing, events, services, community, and more.
         </Typography>
         <div style={style.buttonsContainer}>
-          <Button onClick={ () => gotoRegister()} style={style.button} variant="text" size="large">
-            Register
-          </Button>
-          <Button onClick={ () => gotoRegister()} style={style.registerBtn} variant="text" size="large">
-            Sign In
+          <Button onClick={this.props.postsStore.openPostDialog} variant="extendedFab" color="secondary">
+            Create Free Post
+            <CameraIcon style={{marginLeft: 20}}/>
           </Button>
         </div>
-        <Typography variant="caption" gutterBottom>
-          Make the most out of Nearo. Register Today!
+        <Typography variant="caption" style={{color: '#F4F4F4'}} gutterBottom>
+          Or begin exploring Nearo now.
         </Typography>
       </div>
     </Paper>

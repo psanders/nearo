@@ -6,12 +6,16 @@ import firebase from 'firebase/app'
 
 class BookmarksStore {
     @observable bookmarks = []
+    @observable staffBookmarks = []
     @observable loaded = false
 
     constructor() {
       when(
         () => usersStore.isStatusVerified() && usersStore.isSignedIn(),
-        () => this.loadBookmarks(usersStore.currentUser)
+        () => {
+          this.loadStaffBookmars()
+          this.loadBookmarks(usersStore.currentUser)
+        }
       )
 
       when(
@@ -34,6 +38,19 @@ class BookmarksStore {
           })
         }
         this.loaded = true
+      })
+    }
+
+    loadStaffBookmars() {
+      const likes = db.collection("bookmarks").doc('psanders@nearo.co')
+      likes
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          doc.data().posts.forEach(postId => {
+            this.staffBookmarks.push(postId)
+          })
+        }
       })
     }
 
