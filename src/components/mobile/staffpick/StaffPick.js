@@ -5,7 +5,6 @@ import Avatar from '@material-ui/core/Avatar'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
-import blue from '@material-ui/core/colors/blue'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
