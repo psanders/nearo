@@ -41,7 +41,7 @@ class HomePage extends Component {
           Staff Pick
         </Typography>
         <Typography variant="caption" gutterBottom style={{marginBottom: 10}}>
-          See what you can do with post on Nearo. This items are top picks by our staff.
+          See what you can do with a post on Nearo. This items are top picks by our staff.
         </Typography>
         <StaffPick />
       </Paper>
