@@ -35,13 +35,11 @@ class MainContainer extends Component {
             </title>
           </Helmet>
         }
-        <Hidden xsDown={true}>
+        <Hidden smDown={true}>
           <DesktopScreen />
         </Hidden>
-        <Hidden smUp={true}>
-          <div style={{height: '100vh'}}>
-            <MobileScreen />
-          </div>
+        <Hidden mdUp={true}>
+          <MobileScreen />
         </Hidden>
       </Fragment>
     )
