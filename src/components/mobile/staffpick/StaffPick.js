@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Grow from '@material-ui/core/Grow'
 import { withStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import GridList from '@material-ui/core/GridList'
@@ -63,17 +64,19 @@ class StaffPick extends Component {
       <div className={classes.root}>
         <GridList className={classes.gridList} cols={2.5}>
           {this.posts.map(post => (
-            <GridListTile key={post.id} classes={{tile: classes.listTile}}>
-              <Avatar classes={{root:classes.avatar}} src={post.avatar} />
-              <img onClick={() => routing.push('/posts/' + post.id)} src={imageURL(post, 'md')} alt={post.title} />
-              <GridListTileBar
-                title={post.title}
-                classes={{
-                  root: classes.titleBar,
-                  title: classes.title,
-                }}
-              />
-            </GridListTile>
+            <Grow key={post.id} in={true} timeout={1000}>
+              <GridListTile classes={{tile: classes.listTile}}>
+                <Avatar classes={{root:classes.avatar}} src={post.avatar} />
+                <img onClick={() => routing.push('/posts/' + post.id)} src={imageURL(post, 'md')} alt={post.title} />
+                <GridListTileBar
+                  title={post.title}
+                  classes={{
+                    root: classes.titleBar,
+                    title: classes.title,
+                  }}
+                />
+              </GridListTile>
+            </Grow>
           ))}
         </GridList>
       </div>

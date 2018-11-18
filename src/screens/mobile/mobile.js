@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import Collapse from '@material-ui/core/Collapse'
 import Loadable from 'react-loadable'
 import Button from '@material-ui/core/Button'
 import UpIcon from '@material-ui/icons/KeyboardArrowUp'
@@ -24,7 +23,6 @@ const AboutPage = Loadable({ loader: () => import('./about.page'), loading: () =
 const PostPanel = Loadable({ loader: () => import('components/shared/postpanel/PostPanel'), loading: () => null})
 
 @inject('routing')
-@inject('appStore')
 @inject('postsStore')
 @observer
 class MobileScreen extends Component {
@@ -36,7 +34,7 @@ class MobileScreen extends Component {
   }
 
   render () {
-    const { classes, appStore } = this.props
+    const { classes } = this.props
     const pathname = this.props.routing.location.pathname
     const hideNav = pathname => pathname === '/profile'
       || pathname === '/login'
@@ -56,21 +54,17 @@ class MobileScreen extends Component {
           { pathname === '/favorites' && <SubNav /> }
         </Fragment>
       }
-      {
-        <Collapse in={appStore.isReady()}>
-          <div>
-            { pathname === '/' && <HomePage /> }
-            { pathname === '/explore'  && <ExplorePage /> }
-            { pathname === '/favorites' && <FavoritesPage /> }
-            { pathname === '/location' && <LocationPage /> }
-            { pathname === '/profile' && <ProfilePage /> }
-            { pathname === '/login' && <LoginPage /> }
-            { pathname === '/about' && <AboutPage /> }
-            { ('/' + getMainPath(pathname) === '/posts') && <PostPage /> }
-            { show404(pathname) && <NothingPage /> }
-          </div>
-        </Collapse>
-      }
+      <div>
+        { pathname === '/' && <HomePage /> }
+        { pathname === '/explore'  && <ExplorePage /> }
+        { pathname === '/favorites' && <FavoritesPage /> }
+        { pathname === '/location' && <LocationPage /> }
+        { pathname === '/profile' && <ProfilePage /> }
+        { pathname === '/login' && <LoginPage /> }
+        { pathname === '/about' && <AboutPage /> }
+        { ('/' + getMainPath(pathname) === '/posts') && <PostPage /> }
+        { show404(pathname) && <NothingPage /> }
+      </div>
       <Notifier />
       <SimpleNotification withExtraSpacing />
       <PostPanel hideButton={true}/>

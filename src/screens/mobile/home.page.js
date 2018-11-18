@@ -7,6 +7,8 @@ import PlayIcon from '@material-ui/icons/KeyboardArrowRight'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
@@ -18,8 +20,12 @@ import WelcomeBanner from 'components/mobile/welcomebanner/WelcomeBanner'
 @inject('bookmarksStore')
 @observer
 class HomePage extends Component {
-  @computed get introBannerStatus () {
-    return this.props.appStore.closedIntroBanner
+  state = {
+    value: this.currentView,
+  }
+
+  @computed get currentView() {
+    return this.props.routing.location.pathname
   }
 
   render () {
@@ -31,20 +37,33 @@ class HomePage extends Component {
     }
 
     return <div>
+      <Paper square elevation={0}>
+        <Tabs
+          value={this.state.value}
+          indicatorColor="primary"
+          textColor="primary"
+          fullWidth
+        >
+          <Tab label="Home" value="/"/>
+          <Tab label="Explore" value="/explore" onClick={() => this.props.routing.push('/explore')} />
+          <Tab label="About" value="/about" onClick={() => this.props.routing.push('/about')} />
+        </Tabs>
+      </Paper>
       { !this.props.appStore.isIntroBannerClosed() && <WelcomeBanner /> }
       <Divider style={{marginTop: 10}}/>
       <Paper square elevation={0} style={{
         padding: 10,
         paddingTop: 10,
         paddingBottom: 10}}>
-        <Typography variant="body1" gutterBottom>
-          Staff Pick
-        </Typography>
-        <Typography variant="caption" gutterBottom style={{marginBottom: 10}}>
-          See what you can do with a post on Nearo. This items are top picks by our staff.
-        </Typography>
-        <StaffPick />
+          <Typography variant="body1" gutterBottom>
+            Staff Pick
+          </Typography>
+          <Typography variant="caption" gutterBottom style={{marginBottom: 10}}>
+            See what you can do with a post on Nearo. This items are top picks by our staff.
+          </Typography>
+          <StaffPick />
       </Paper>
+
       <Divider/>
 
       <Divider style={{marginTop: 10}}/>
