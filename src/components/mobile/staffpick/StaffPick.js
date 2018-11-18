@@ -37,8 +37,8 @@ const styles = theme => ({
   },
   avatar: {
     zIndex: 1000,
-    width: 35,
-    height: 35,
+    width: 30,
+    height: 30,
     position: 'absolute',
     top: 5,
     left: 5,
@@ -60,7 +60,7 @@ class StaffPick extends Component {
 
     return (
       <div className={classes.root}>
-        <GridList className={classes.gridList} cols={2.2}>
+        <GridList className={classes.gridList} cols={2.5}>
           {this.posts.map(post => (
             post.media.length > 0 &&
             <GridListTile key={post.id} classes={{tile: classes.listTile}}>

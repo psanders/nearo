@@ -75,7 +75,7 @@ class WelcomeBanner extends Component {
           Buy Sell or Trade Locally
         </Typography>
         <Typography component="h2" variant="h6" color="textSecondary" style={style.fonts.subtitle} >
-          Search for jobs, housing, events, services, community, and more.
+          Search for jobs, housing, events, services, community, and more
         </Typography>
         <div style={style.buttonsContainer}>
           <Button onClick={this.props.postsStore.openPostDialog} variant="extendedFab" color="secondary">
@@ -84,7 +84,7 @@ class WelcomeBanner extends Component {
           </Button>
         </div>
         <Typography variant="caption" style={{color: '#F4F4F4'}} gutterBottom>
-          Or begin exploring Nearo now.
+          Or begin exploring Nearo
         </Typography>
       </div>
     </Paper>

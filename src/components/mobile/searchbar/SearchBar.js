@@ -10,18 +10,16 @@ import { ellip } from 'components/commons/utils'
 import { styles } from './styles'
 
 @inject('navStore')
+@inject('routing')
 @inject('postsStore')
 @observer
 class SubBar extends Component {
-
-  componentDidMount() {
-    this.props.navStore.navInfo.searchTerm = ''
-  }
 
   handleChange = name => event => {
     const navInfo = this.props.navStore.navInfo
     navInfo.searchTerm = event.target.value
     this.props.navStore.setNavInfo(navInfo)
+    this.props.routing.push('/explore')
   }
 
   handleSearch = () => {
@@ -32,20 +30,20 @@ class SubBar extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, navStore} = this.props
 
     return (
       <Fragment>
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
+        <div className={ classes.search }>
+          <div className={ classes.searchIcon }>
             <SearchIcon />
           </div>
           <TextField
             type="search"
             className={classenames(classes.inputInput)}
             placeholder="Search Nearo"
-            value={this.props.navStore.navInfo.searchTerm}
-            onChange={this.handleChange('searchInput')}
+            value={ navStore.navInfo.searchTerm }
+            onChange={ this.handleChange('searchInput') }
             InputProps={{
               disableUnderline: true,
               style:{color: 'inherit'},
