@@ -6,17 +6,14 @@ import { observer, inject } from 'mobx-react'
 import Helmet from 'react-helmet-async'
 import Loadable from 'react-loadable'
 
-const loading = <Typography variant="body1" color="secondary" style={{ margin: 20 }}>
+import MobileScreen from './mobile/mobile'
+
+const loading = <Typography variant="body1" color="textSecondary" style={{ margin: 20 }}>
   Loading...
 </Typography>
 
 const DesktopScreen = Loadable({
   loader: () => import('./desktop/desktop'),
-  loading: () => loading,
-})
-
-const MobileScreen = Loadable({
-  loader: () => import('./mobile/mobile'),
   loading: () => loading,
 })
 
