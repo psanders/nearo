@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
-import Button from '@material-ui/core/Button'
+import { observer, inject } from 'mobx-react'
+import { computed } from 'mobx'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import Paper from '@material-ui/core/Paper'
-import PlayIcon from '@material-ui/icons/KeyboardArrowRight'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import { observer, inject } from 'mobx-react'
-import { computed } from 'mobx'
 
+import Categories from 'components/mobile/categories/Categories.js'
 import StaffPick from 'components/mobile/staffpick/StaffPick'
 import WelcomeBanner from 'components/mobile/welcomebanner/WelcomeBanner'
 
@@ -37,51 +33,44 @@ class HomePage extends Component {
     return <div>
       { !this.props.appStore.isIntroBannerClosed() && <WelcomeBanner /> }
       <Divider style={{marginTop: 10}}/>
+      <Categories />
+      <Divider/>
+
+      <Divider style={{marginTop: 10}}/>
       <Paper square elevation={0}>
           <div style={{
             padding: 10,
             paddingTop: 10,
-            paddingBottom: 10}}>
-          <Typography variant="body1" gutterBottom>
-            Staff Picks
-          </Typography>
-          <Typography variant="caption" gutterBottom style={{marginBottom: 10}}>
-            See what you can do with a post on Nearo. This items are top picks by our staff.
-          </Typography>
-          <StaffPick />
-          </div>
-          <Divider style={{marginTop: 10, height: '0.05em'}}/>
-          <Button onClick={() => this.props.routing.push('/explore')} style={{textTransform: 'capitalize', width: '100%'}} variant="text">
-            <Typography color="primary" variant="body1">
-            Begin Exploring Nearo
+            paddingBottom: 15}}>
+            <Typography variant="body1" gutterBottom>
+              Staff Picks
             </Typography>
-            <PlayIcon color="secondary" style={{marginLeft: 20}} />
-          </Button>
+            <Typography variant="caption" gutterBottom style={{marginBottom: 10}}>
+              See what you can do with a post on Nearo. This items are top picks by our staff.
+            </Typography>
+            <StaffPick />
+          </div>
       </Paper>
+
+      <Typography style={{margin: 10}}variant="body1" gutterBottom>
+        Announcements
+      </Typography>
 
       <Divider style={{marginTop: 10}}/>
       <Paper square elevation={0} style={{
-        padding: 10}}>
-        <Typography variant="body1" color="textSecondary" gutterBottom>
-          Hot Topics
-        </Typography>
-        <div style={{display: 'inline-block', width: '100%'}}>
-          <List style={{float: 'left', width: '30%'}} dense={true}>
-            <ListItem><a  color="primary" style={style.anchor} href="/explore?q=cars"><ListItemText color="primary" primary="Cars" /></a></ListItem>
-            <ListItem><a style={style.anchor} href="/explore?q=housing"><ListItemText primary="Housing" /></a></ListItem>
-            <ListItem><a style={style.anchor} href="/explore?q=service"><ListItemText primary="Service" /></a></ListItem>
-          </List>
-          <List style={{float: 'left', width: '30%'}} dense={true}>
-            <ListItem><a style={style.anchor} href="/explore?q=forsale"><ListItemText primary="For Sale" /></a></ListItem>
-            <ListItem><a style={style.anchor} href="/explore?q=community"><ListItemText primary="Community" /></a></ListItem>
-            <ListItem><a style={style.anchor} href="/explore?q=jobs"><ListItemText primary="Jobs" /></a></ListItem>
-          </List>
-          <List style={{float: 'left', width: '30%'}} dense={true}>
-            <ListItem><a style={style.anchor} href="/explore?q=news"><ListItemText primary="News" /></a></ListItem>
-            <ListItem><a style={style.anchor} href="/explore?q=investments"><ListItemText primary="Investments" /></a></ListItem>
-            <ListItem><a style={style.anchor} href="/explore?q=events"><ListItemText primary="Events" /></a></ListItem>
-          </List>
-        </div>
+        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 15}}>
+          <Typography variant="body1" gutterBottom>
+            Try Our 360 Immersive Feature
+          </Typography>
+          <img alt="360 view sample" onClick={() => this.props.routing.push('/posts/Ip5Di7VydameJhCS2zSS')} width="100%" src="https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs%2Fimg_md_b62e2162-7234-44ce-9c34-81fec9436923.png?alt=media" />
+          <Typography variant="body1" gutterBottom style={{marginBottom: 10}}>
+            We are looking for real estate professionals wanting to try the
+            Immersive 360 photo feature. Participants will receive this premium
+            feature at no cost for the rest of the year(including photo sessions).
+            Only ava nearby #Fayetteville #NC #realestate"
+          </Typography>
       </Paper>
 
       <div elevation={0} style={{width: '100%', textAlign: 'center', marginTop: 10, marginBottom: 10}}>
