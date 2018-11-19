@@ -3,10 +3,6 @@ import Paper from '@material-ui/core/Paper'
 import Divider from '@material-ui/core/Divider'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import HomeIcon from '@material-ui/icons/Home'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import CameraIcon from '@material-ui/icons/CameraAlt'
-import LocationIcon from '@material-ui/icons/LocationOn'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
@@ -59,10 +55,9 @@ class SubNav extends Component {
        textColor="primary"
        fullWidth
      >
-     <Tab icon={<HomeIcon />} value="/explore" />
-     <Tab icon={<FavoriteIcon />} value="/favorites" />
-     <Tab icon={<CameraIcon />} value="/createpost"/>
-     <Tab icon={<LocationIcon />} value="/location"/>
+       <Tab style={{textTransform: 'capitalize'}} label="Home" value="/" />
+       <Tab style={{textTransform: 'capitalize'}} label="Explore" value="/explore" />
+       <Tab style={{textTransform: 'capitalize'}} label="About" value="/about" />
      </Tabs>
      <Divider />
    </Paper>

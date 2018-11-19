@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
+import GoBackPage from 'components/shared/gobackpage/GoBackPage'
 import FavList from '../../components/mobile/favlist/FavList'
 import NothingPage from './nothing.page'
 
@@ -17,8 +18,8 @@ class Favorites extends Component {
   }
 
   render = () => this.posts.length > 0
-    ? <FavList posts={ this.posts }/>
-    : <NothingPage />
+    ? <GoBackPage children={<FavList posts={ this.posts }/>} />
+    : <GoBackPage children={ <NothingPage /> } />
 }
 
 export default Favorites

@@ -41,6 +41,7 @@ class MobileScreen extends Component {
       || pathname === '/about'
       || ('/' + getMainPath(pathname) === '/posts')
       || pathname === '/location'
+      || pathname === '/favorites'
     const showUpBtn = pathname => {
       return pathname === '/explore' || pathname === '/favorites'
     }
@@ -50,8 +51,8 @@ class MobileScreen extends Component {
         <Fragment>
           <div className={ classes.toolbar } />
           <TopNav />
+          { pathname === '/' && <SubNav />}
           { pathname === '/explore' && <SubNav />}
-          { pathname === '/favorites' && <SubNav /> }
         </Fragment>
       }
       <div>

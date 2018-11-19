@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
+import CameraIcon from '@material-ui/icons/CameraAlt'
 import Avatar from '@material-ui/core/Avatar'
 import { observer, inject } from 'mobx-react'
 
@@ -9,14 +10,15 @@ import SearchBar from 'components/mobile/searchbar/SearchBar'
 
 @inject('routing')
 @inject('appStore')
+@inject('postsStore')
 @observer
 class TopNav extends Component {
   state = {
     scrollPosition: 0
   }
 
-  handleNav = () => {
-    this.props.routing.push('/')
+  openPostDialog = () => {
+    this.props.postsStore.openPostDialog()
   }
 
   componentDidMount() {
@@ -41,6 +43,7 @@ class TopNav extends Component {
         height: 30,
         marginLeft: 15,
         marginRight: 10,
+        backgroundColor: 'transparent'
       }
     }
 
@@ -52,9 +55,10 @@ class TopNav extends Component {
               appStore.isReady() &&
               <Fragment>
                 <Avatar alt="Nearo Logo" style={logo.avatar}
-                  onClick={ this.handleNav }
-                  src="/images/icons/android-icon-192x192.png"
-                />
+                  onClick={ this.openPostDialog }
+                >
+                  <CameraIcon />
+                </Avatar>
                 <SearchBar />
                 <Drawer />
               </Fragment>

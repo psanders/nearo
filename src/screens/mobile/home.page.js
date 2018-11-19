@@ -7,8 +7,6 @@ import PlayIcon from '@material-ui/icons/KeyboardArrowRight'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
 
@@ -37,18 +35,6 @@ class HomePage extends Component {
     }
 
     return <div>
-      <Paper square elevation={0}>
-        <Tabs
-          value={this.state.value}
-          indicatorColor="primary"
-          textColor="primary"
-          fullWidth
-        >
-          <Tab style={{textTransform: 'capitalize'}} label="Home" value="/"/>
-          <Tab style={{textTransform: 'capitalize'}} label="Explore" value="/explore" onClick={() => this.props.routing.push('/explore')} />
-          <Tab style={{textTransform: 'capitalize'}} label="About" value="/about" onClick={() => this.props.routing.push('/about')} />
-        </Tabs>
-      </Paper>
       { !this.props.appStore.isIntroBannerClosed() && <WelcomeBanner /> }
       <Divider style={{marginTop: 10}}/>
       <Paper square elevation={0}>
@@ -57,7 +43,7 @@ class HomePage extends Component {
             paddingTop: 10,
             paddingBottom: 10}}>
           <Typography variant="body1" gutterBottom>
-            Staff Pick
+            Staff Picks
           </Typography>
           <Typography variant="caption" gutterBottom style={{marginBottom: 10}}>
             See what you can do with a post on Nearo. This items are top picks by our staff.

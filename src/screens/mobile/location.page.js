@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
 import { observer, inject } from 'mobx-react'
 import { computed } from 'mobx'
+import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 
 import GoBackPage from 'components/shared/gobackpage/GoBackPage'
 import Locator from 'components/shared/locator/Locator'
