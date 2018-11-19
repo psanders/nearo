@@ -38,12 +38,21 @@ const styles = theme => ({
   },
   avatar: {
     zIndex: 1000,
-    width: 30,
-    height: 30,
+    width: 36,
+    height: 36,
     position: 'absolute',
     top: 5,
     left: 5,
-    border: '3px solid ' + theme.palette.primary.main
+    border: '2px solid ' + theme.palette.primary.main
+  },
+  avatarImage: {
+    width: 34,
+    height: 34,
+    borderRadius: '50%',
+    top: 'calc(50% - 17px)',
+    left: 'calc(50% - 17px)',
+    position: 'absolute',
+    selfAlign: 'center'
   }
 })
 
@@ -52,7 +61,6 @@ const styles = theme => ({
 @inject('bookmarksStore')
 @observer
 class StaffPick extends Component {
-
   @computed get posts() {
     return this.props.postsStore.staffPick
   }
@@ -64,9 +72,9 @@ class StaffPick extends Component {
       <div className={classes.root}>
         <GridList className={classes.gridList} cols={2.5}>
           {this.posts.map(post => (
-            <Grow key={post.id} in={true} timeout={1000}>
+            <Grow key={post.id} in={true} timeout={500}>
               <GridListTile classes={{tile: classes.listTile}}>
-                <Avatar classes={{root:classes.avatar}} src={post.avatar} />
+                <Avatar classes={{root:classes.avatar, img: classes.avatarImage}} src={post.avatar} />
                 <img onClick={() => routing.push('/posts/' + post.id)} src={imageURL(post, 'md')} alt={post.title} />
                 <GridListTileBar
                   title={post.title}

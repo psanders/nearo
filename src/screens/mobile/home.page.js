@@ -44,17 +44,18 @@ class HomePage extends Component {
           textColor="primary"
           fullWidth
         >
-          <Tab label="Home" value="/"/>
-          <Tab label="Explore" value="/explore" onClick={() => this.props.routing.push('/explore')} />
-          <Tab label="About" value="/about" onClick={() => this.props.routing.push('/about')} />
+          <Tab style={{textTransform: 'capitalize'}} label="Home" value="/"/>
+          <Tab style={{textTransform: 'capitalize'}} label="Explore" value="/explore" onClick={() => this.props.routing.push('/explore')} />
+          <Tab style={{textTransform: 'capitalize'}} label="About" value="/about" onClick={() => this.props.routing.push('/about')} />
         </Tabs>
       </Paper>
       { !this.props.appStore.isIntroBannerClosed() && <WelcomeBanner /> }
       <Divider style={{marginTop: 10}}/>
-      <Paper square elevation={0} style={{
-        padding: 10,
-        paddingTop: 10,
-        paddingBottom: 10}}>
+      <Paper square elevation={0}>
+          <div style={{
+            padding: 10,
+            paddingTop: 10,
+            paddingBottom: 10}}>
           <Typography variant="body1" gutterBottom>
             Staff Pick
           </Typography>
@@ -62,16 +63,14 @@ class HomePage extends Component {
             See what you can do with a post on Nearo. This items are top picks by our staff.
           </Typography>
           <StaffPick />
-      </Paper>
-
-      <Divider/>
-
-      <Divider style={{marginTop: 10}}/>
-      <Paper square elevation={0}>
-        <Button color="primary" onClick={() => this.props.routing.push('/explore')} style={{width: '100%'}} variant="text">
-          Explore
-          <PlayIcon style={{marginLeft: 15}} />
-        </Button>
+          </div>
+          <Divider style={{marginTop: 10, height: '0.05em'}}/>
+          <Button onClick={() => this.props.routing.push('/explore')} style={{textTransform: 'capitalize', width: '100%'}} variant="text">
+            <Typography color="primary" variant="body1">
+            Begin Exploring Nearo
+            </Typography>
+            <PlayIcon color="secondary" style={{marginLeft: 20}} />
+          </Button>
       </Paper>
 
       <Divider style={{marginTop: 10}}/>
@@ -93,8 +92,8 @@ class HomePage extends Component {
           </List>
           <List style={{float: 'left', width: '30%'}} dense={true}>
             <ListItem><a style={style.anchor} href="/explore?q=news"><ListItemText primary="News" /></a></ListItem>
-            <ListItem><a style={style.anchor} href="/explore?q=Investments"><ListItemText primary="Investments" /></a></ListItem>
-            <ListItem><a style={style.anchor} href="/explore?q=jobs"><ListItemText primary="Jobs" /></a></ListItem>
+            <ListItem><a style={style.anchor} href="/explore?q=investments"><ListItemText primary="Investments" /></a></ListItem>
+            <ListItem><a style={style.anchor} href="/explore?q=events"><ListItemText primary="Events" /></a></ListItem>
           </List>
         </div>
       </Paper>

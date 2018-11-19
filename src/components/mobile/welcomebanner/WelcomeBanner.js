@@ -67,7 +67,7 @@ class WelcomeBanner extends Component {
       <div style={{display: 'flex', width: '100%'}}>
         <span style={{flex: 1}} />
         <IconButton onClick={ () => close() } aria-label="Close" style={style.closeBtn}>
-          <CloseIcon />
+          <CloseIcon fontSize="small" />
         </IconButton>
       </div>
       <div style={{textAlign: 'center'}}>
