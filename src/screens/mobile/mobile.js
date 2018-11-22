@@ -49,13 +49,11 @@ class MobileScreen extends Component {
     return <Fragment>
       { ! hideNav(pathname) &&
         <Fragment>
-          <div className={ classes.toolbar } />
+          <div style={{ height: 50 }}/>
           <TopNav />
-          { pathname === '/' && <SubNav />}
           { pathname === '/explore' && <SubNav />}
         </Fragment>
       }
-      <div>
         { pathname === '/' && <HomePage /> }
         { pathname === '/explore'  && <ExplorePage /> }
         { pathname === '/favorites' && <FavoritesPage /> }
@@ -65,7 +63,6 @@ class MobileScreen extends Component {
         { pathname === '/about' && <AboutPage /> }
         { ('/' + getMainPath(pathname) === '/posts') && <PostPage /> }
         { show404(pathname) && <NothingPage /> }
-      </div>
       <Notifier />
       <SimpleNotification withExtraSpacing />
       <PostPanel hideButton={true}/>

@@ -13,23 +13,23 @@ import SearchBar from 'components/mobile/searchbar/SearchBar'
 @inject('postsStore')
 @observer
 class TopNav extends Component {
-  state = {
+  /*state = {
     scrollPosition: 0
-  }
+  }*/
 
   openPostDialog = () => {
     this.props.postsStore.openPostDialog()
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     window.addEventListener("scroll", event => {
       this.setState({scrollPosition: window.pageYOffset || document.documentElement.scrollTop})
     }, false);
-  }
+  }*/
 
   render() {
     const { appStore } = this.props
-    const { scrollPosition } = this.state
+  //  const { scrollPosition } = this.state
     const logo = {
       margins: {
         marginLeft: 20,
@@ -48,24 +48,17 @@ class TopNav extends Component {
     }
 
     return (
-      <Fragment>
-        <AppBar elevation={scrollPosition === 0 ? 0 : 1 }>
-          <Toolbar disableGutters>
-            {
-              appStore.isReady() &&
-              <Fragment>
-                <Avatar alt="Nearo Logo" style={logo.avatar}
-                  onClick={ this.openPostDialog }
-                >
-                  <CameraIcon />
-                </Avatar>
-                <SearchBar />
-                <Drawer />
-              </Fragment>
-            }
-          </Toolbar>
-        </AppBar>
-      </Fragment>
+      <AppBar elevation={0}>
+        <Toolbar disableGutters variant="dense">
+          <Avatar alt="Nearo Logo" style={logo.avatar}
+            onClick={ this.openPostDialog }
+          >
+            <CameraIcon />
+          </Avatar>
+          <SearchBar />
+          <Drawer />
+        </Toolbar>
+      </AppBar>
     )
   }
 }

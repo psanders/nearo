@@ -31,11 +31,7 @@ class HomePage extends Component {
     }
 
     return <div>
-      { !this.props.appStore.isIntroBannerClosed() && <WelcomeBanner /> }
-      <Divider style={{marginTop: 10}}/>
-      <Categories />
-      <Divider/>
-
+      { /*!this.props.appStore.isIntroBannerClosed() &&*/ <WelcomeBanner /> }
       <Divider style={{marginTop: 10}}/>
       <Paper square elevation={0}>
           <div style={{
@@ -51,27 +47,11 @@ class HomePage extends Component {
             <StaffPick />
           </div>
       </Paper>
-
-      <Typography style={{margin: 10}}variant="body1" gutterBottom>
-        Announcements
-      </Typography>
+      <Divider/>
 
       <Divider style={{marginTop: 10}}/>
-      <Paper square elevation={0} style={{
-        padding: 10,
-        paddingTop: 10,
-        paddingBottom: 15}}>
-          <Typography variant="body1" gutterBottom>
-            Try Our 360 Immersive Feature
-          </Typography>
-          <img alt="360 view sample" onClick={() => this.props.routing.push('/posts/Ip5Di7VydameJhCS2zSS')} width="100%" src="https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs%2Fimg_md_b62e2162-7234-44ce-9c34-81fec9436923.png?alt=media" />
-          <Typography variant="body1" gutterBottom style={{marginBottom: 10}}>
-            We are looking for real estate professionals wanting to try the
-            Immersive 360 photo feature. Participants will receive this premium
-            feature at no cost for the rest of the year(including photo sessions).
-            Only ava nearby #Fayetteville #NC #realestate"
-          </Typography>
-      </Paper>
+      <Categories />
+      <Divider/>
 
       <div elevation={0} style={{width: '100%', textAlign: 'center', marginTop: 10, marginBottom: 10}}>
         <Typography variant="body1" color="textSecondary">

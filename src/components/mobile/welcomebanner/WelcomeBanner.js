@@ -18,7 +18,7 @@ class WelcomeBanner extends Component {
       root: {
         borderRadius: 0,
         border: '0px solid #484ec2',
-        marginTop: -1,
+        marginTop: -3,
         paddingBottom: 30,
         background: 'linear-gradient(to bottom, #484ec2, #4615b2)'
       },
@@ -42,7 +42,6 @@ class WelcomeBanner extends Component {
       button: {
         width: 100,
         marginRight: 10,
-
         borderRadius: 0,
         color: '#fff'
       },
@@ -64,18 +63,18 @@ class WelcomeBanner extends Component {
     }
 
     return <Paper style={style.root} elevation={0}>
-      <div style={{display: 'flex', width: '100%'}}>
+      {/*<div style={{display: 'flex', width: '100%'}}>
         <span style={{flex: 1}} />
         <IconButton onClick={ () => close() } aria-label="Close" style={style.closeBtn}>
           <CloseIcon fontSize="small" />
         </IconButton>
-      </div>
-      <div style={{textAlign: 'center'}}>
+      </div>*/}
+      <div style={{textAlign: 'center', paddingTop: 20}}>
         <Typography style={style.fonts.title} color="primary" component="h1" variant="h5" >
           Buy Sell or Trade Locally
         </Typography>
         <Typography component="h2" variant="h6" color="textSecondary" style={style.fonts.subtitle} >
-          Search for jobs, housing, events, services, community, and more
+          From car to houses and everything <br />in between
         </Typography>
         <div style={style.buttonsContainer}>
           <Button onClick={this.props.postsStore.openPostDialog} variant="extendedFab" color="secondary">
@@ -83,9 +82,11 @@ class WelcomeBanner extends Component {
             <CameraIcon style={{marginLeft: 20}}/>
           </Button>
         </div>
-        <Typography variant="caption" style={{color: '#F4F4F4'}} gutterBottom>
-          Or begin exploring Nearo
-        </Typography>
+        <a href="/explore" style={{textDecorationColor: '#fff', textDecoration: 'underline'}}>
+          <Typography variant="caption" style={{color: '#F4F4F4'}} gutterBottom>
+            Or begin exploring Nearo
+          </Typography>
+        </a>
       </div>
     </Paper>
   }

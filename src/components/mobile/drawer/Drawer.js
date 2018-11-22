@@ -109,27 +109,6 @@ class SwipeableTemporaryDrawer extends Component {
           </ListItem>
         </List>
         <Divider />
-        <List
-          subheader={<ListSubheader component="div">Main Categories</ListSubheader>}
-        >
-          <ListItem button onClick={() => this.changeCategory('Cars')}>
-            <ListItemIcon><LabelIcon className={classes.carsLabel} /></ListItemIcon>
-            <ListItemText primary="Cars" />
-          </ListItem>
-          <ListItem button onClick={() => this.changeCategory('Housing')}>
-            <ListItemIcon><LabelIcon className={classes.housingLabel} /></ListItemIcon>
-            <ListItemText primary="Housing" />
-          </ListItem>
-          <ListItem button onClick={() => this.changeCategory('Services')}>
-            <ListItemIcon><LabelIcon className={classes.servicesLabel}/></ListItemIcon>
-            <ListItemText primary="Services" />
-          </ListItem>
-          <ListItem button onClick={() => this.changeCategory('Events')}>
-            <ListItemIcon><LabelIcon className={classes.eventsLabel}/></ListItemIcon>
-            <ListItemText primary="Events" />
-          </ListItem>
-        </List>
-        <Divider />
         <List>
           <ListItem button onClick={ () => this.navigate('/about') }>
             <ListItemIcon><HelpIcon /></ListItemIcon>
