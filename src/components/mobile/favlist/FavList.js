@@ -39,7 +39,7 @@ const styles = theme => ({
   // What was this for?
   postArea: {
     backgroundColor: '#fff',
-    minHeight: 'calc(100vh - 55px)',
+    minHeight: 'calc(100vh - 49px)',
   }
 })
 
