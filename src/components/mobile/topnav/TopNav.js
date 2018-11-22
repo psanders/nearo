@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import CameraIcon from '@material-ui/icons/CameraAlt'
@@ -9,7 +9,6 @@ import Drawer from 'components/mobile/drawer/Drawer'
 import SearchBar from 'components/mobile/searchbar/SearchBar'
 
 @inject('routing')
-@inject('appStore')
 @inject('postsStore')
 @observer
 class TopNav extends Component {
@@ -28,7 +27,6 @@ class TopNav extends Component {
   }*/
 
   render() {
-    const { appStore } = this.props
   //  const { scrollPosition } = this.state
     const logo = {
       margins: {

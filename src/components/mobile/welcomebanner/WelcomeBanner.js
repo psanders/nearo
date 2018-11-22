@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
 import CameraIcon from '@material-ui/icons/CameraAlt'
-import CloseIcon from '@material-ui/icons/Close'
-import { storeUserInfo } from 'components/commons/dbfunctions'
 import { observer, inject } from 'mobx-react'
 
 @inject('routing')
@@ -57,10 +54,10 @@ class WelcomeBanner extends Component {
       },
     }
 
-    const close = () => {
+    /*const close = () => {
       this.props.appStore.closeIntroBanner()
       storeUserInfo('closed-intro-banner', true)
-    }
+    }*/
 
     return <Paper style={style.root} elevation={0}>
       {/*<div style={{display: 'flex', width: '100%'}}>
