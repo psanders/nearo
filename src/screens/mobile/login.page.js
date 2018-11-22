@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import { observer, inject } from 'mobx-react'
+import { withStyles } from '@material-ui/core/styles'
 
 import GoBackPage from '../../components/shared/gobackpage/GoBackPage'
 import Profile from '../../components/shared/profile/Profile'
@@ -16,9 +16,7 @@ class ProfilePage extends Component {
     return <Fragment>
       {
         this.props.usersStore.isSignedIn() &&
-        <div>
-          <GoBackPage children={ <Profile /> } />
-        </div>
+        <Profile />
       }
       {
         !this.props.usersStore.isSignedIn() &&
@@ -29,7 +27,7 @@ class ProfilePage extends Component {
               <LoginScreen />
             </div>
           </div>
-        } />
+        } dense />
       }
     </Fragment>
   }

@@ -8,26 +8,12 @@ import { observer, inject } from 'mobx-react'
 import Drawer from 'components/mobile/drawer/Drawer'
 import SearchBar from 'components/mobile/searchbar/SearchBar'
 
-@inject('routing')
 @inject('postsStore')
 @observer
 class TopNav extends Component {
-  /*state = {
-    scrollPosition: 0
-  }*/
-
-  openPostDialog = () => {
-    this.props.postsStore.openPostDialog()
-  }
-
-  /*componentDidMount() {
-    window.addEventListener("scroll", event => {
-      this.setState({scrollPosition: window.pageYOffset || document.documentElement.scrollTop})
-    }, false);
-  }*/
+  openPostDialog = () => this.props.postsStore.openPostDialog()
 
   render() {
-  //  const { scrollPosition } = this.state
     const logo = {
       margins: {
         marginLeft: 20,

@@ -79,7 +79,7 @@ class PostView extends Component {
         <Helmet>
           { post.title && <title>{post.title} near {post.locText} | Nearo</title> }
         </Helmet>
-        <Paper elevation={0} style={{minHeight: '100vh'}}>
+        <Paper square elevation={0} style={{minHeight: '100vh'}}>
           <div style={{padding: 10, paddingBottom: 0}}>
             <Typography component="h1" variant="subtitle2" >
               { post.title }

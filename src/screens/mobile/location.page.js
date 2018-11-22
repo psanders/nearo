@@ -23,6 +23,7 @@ class NoMatch extends Component {
     const { classes } = props
 
     return <GoBackPage
+      dense
       children={<div className={classes.root}>
       <div className={classes.container}>
         <Typography className={classes.title} color="textSecondary">
@@ -43,7 +44,7 @@ class NoMatch extends Component {
 
 const styles = {
   root: {
-    minHeight: 'calc(100vh - 55px)',
+    minHeight: 'calc(100vh - 49px)',
     display: 'flex',
     backgroundColor: '#fff'
   },

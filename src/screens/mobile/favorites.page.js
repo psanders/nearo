@@ -18,8 +18,8 @@ class Favorites extends Component {
   }
 
   render = () => this.posts.length > 0
-    ? <GoBackPage children={<FavList posts={ this.posts }/>} />
-    : <GoBackPage children={ <NothingPage /> } />
+    ? <GoBackPage  children={<FavList posts={ this.posts }/>} dense/>
+    : <GoBackPage children={ <NothingPage /> } dense/>
 }
 
 export default Favorites

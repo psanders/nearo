@@ -13,27 +13,16 @@ import { observer, inject } from 'mobx-react'
 @inject('usersStore')
 @observer
 class Profile extends Component {
-  state = {
-    scrollPosition: 0
-  }
-
-  componentDidMount() {
-    window.addEventListener("scroll", event => {
-      this.setState({scrollPosition: window.pageYOffset || document.documentElement.scrollTop})
-    }, false);
-  }
-
   handleGoBack = () => window.history.length < 3
     ? this.props.routing.push('/')
     : this.props.routing.goBack()
 
   render() {
-    const { classes, appStore, children } = this.props
-    const { scrollPosition } = this.state
+    const { classes, appStore, children, dense } = this.props
 
     return (<div>
-        <AppBar elevation={scrollPosition === 0? 0 : 1}>
-          <Toolbar color="secondary" style={{paddingLeft: 5}}>
+        <AppBar elevation={0}>
+          <Toolbar disableGutters variant={dense? "dense":"regular"} color="secondary">
             <IconButton onClick={ this.handleGoBack } color="inherit" aria-label="Close">
               <CloseIcon className={ classes.arrawBack }/>
             </IconButton>
@@ -44,7 +33,7 @@ class Profile extends Component {
           }
         </AppBar>
         <div className={classes.container}>
-          <div className={ classes.toolbar } />
+          <div style={{height: 49}}/>
           { children }
         </div>
       </div>

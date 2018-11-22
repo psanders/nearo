@@ -49,7 +49,7 @@ class MobileScreen extends Component {
     return <Fragment>
       { ! hideNav(pathname) &&
         <Fragment>
-          <div style={{ height: 50 }}/>
+          <div style={{ height: 49 }}/>
           <TopNav />
           { pathname === '/explore' && <SubNav />}
         </Fragment>
