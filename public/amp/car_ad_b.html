@@ -1,0 +1,317 @@
+<!doctype html>
+<html amp lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+    <script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+    <link rel="canonical" href="https://nearo.co/amp/index.html" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <link href="https://fonts.googleapis.com/css?family=Bitter:400|Roboto:300,400,500" rel="stylesheet" />
+    <style amp-custom>
+      html,body {
+        font-family: 'Roboto', sans-serif;
+        color: #444444;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .title {
+        font-family: 'Bitter', serif;
+        font-size: 22px;
+        margin-left: 10px;
+        position: fixed;
+        top: 155px;
+        color: #fff;
+      }
+      .subtitle {
+        font-size: 17px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top:30px;
+        color: #404040;
+      }
+      .subtitle-highlight {
+        color: black;
+        font-weight: 500;
+      }
+      @media screen and (min-width: 962px) {
+        .title {
+          font-size: 3vw;
+        }
+        .subtitle {
+          font-size: 2vw;
+        }
+      }
+      a.link {
+        color: #484ec2;
+      }
+      .get {
+        margin-top: -1px;
+        padding: 8px;
+        background-color: #484ec2;
+        background-image: linear-gradient(to left, #484ec2, #4615b2);
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+        top: 0;
+        z-index: 1000;
+      }
+      .signup-box {
+        width: 160px;
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+      }
+      .signup-btn {
+        align-self: center;
+        background-color: #fff;
+        border: 0;
+        border-radius: 20px;
+        color: #404040;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 10px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-weight: bold;
+        color: #484ec2;
+        font-size: 14px;
+      }
+      .signup-btn-highlight {
+        background-image: linear-gradient(to left, #07d1ff, #2f73ff);
+        color: #fff;
+        width: 160px;
+      }
+      .app-name {
+        margin-left: 10px;
+        align-self: center;
+        font-size: 15px;
+        color: #fff;
+      }
+      .text-dark {
+        color: #484ec2;
+      }
+      .short-app-slogan {
+        color: #fff;
+        font-size: 12px;
+      }
+      .brand {
+        align-self: center;
+        height: 45px;
+      }
+      .brand-round {
+        border-radius: 5px;
+      }
+      .flex {
+        flex: 1;
+      }
+      .stars {
+        margin-left: 5px;
+        color: #ffc107;
+      }
+      .star {
+        color: #ffc107;
+      }
+      .selling-points {
+        margin: 10px;
+        margin-top: 20px;
+        margin-bottom: 0;
+        margin-left: 15px;
+        color: #404040;
+      }
+      .selling-points-list {
+        list-style-type: none;
+        color: #404040;
+        margin-left: -20px;
+      }
+      .testimonial-box {
+        padding: 3px;
+        background-color: #fff;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .testimonial-name {
+        text-align: right;
+      }
+      .avatar {
+        vertical-align: middle;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+      .preview-box {
+        height: 490px;
+        margin-top: 20px;
+        padding: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-image: linear-gradient(to bottom, #fff, #f8f9ff);
+      }
+      .preview-box-container {
+        height: 410px;
+        width: 300px;
+        margin: 0 auto;
+      }
+      .preview-box-caption {
+        min-width: 300px;
+        margin: 20px;
+      }
+      .preview-box-caption-text {
+        font-size: 14px;
+        margin: 0 auto;
+        font-size: 14px;
+        color: #848282;
+      }
+      .last-chance {
+        background-image: linear-gradient(to bottom, #fff, #f8f9ff);
+        padding: 40px;
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
+    <title>Sell your car locally | Nearo</title>
+    <meta name="description" content="Nearo is local classifieds for jobs, housing, for sale, events, services, and community. Find cars, trucks, electronics, furniture, and more." />
+  </head>
+  <body>
+    <div class="container">
+      <amp-img layout="responsive" src="images/car_b.jpeg"
+        width="600"
+        height="681">
+      </amp-img>
+
+      <div class="get">
+        <amp-img class="brand" src="/images/icons/android-icon-192x192.png"
+          width="40"
+          height="40">
+        </amp-img>
+        <p class="app-name">Nearo App <span class="stars">&#9733; &#9733; &#9733; &#9733;</span> <span class="star">&#9734;</span><br /><span class="short-app-slogan">Sell your used car online</span></p>
+        <span class="flex"></span>
+        <a id="signup" href="/" class="signup-btn">Signup</a>
+      </div>
+
+      <p class="subtitle">
+        <span class="subtitle-highlight">Nearo is a FREE</span> service to publish personal ads in your local area.
+        From cars to houses and everything in between.
+      </p>
+
+      <div>
+        <p class="selling-points">Sell faster and securely:</p>
+        <ul class="selling-points-list">
+          <li>&#10003;&nbsp Create your free post in minutes</li>
+          <li>&#10003;&nbsp Get potential buyers from places nearby</li>
+          <li>&#10003;&nbsp Receive messages from interested people</li>
+          <li>&#10003;&nbsp Meet locally and finish the transaction</li>
+        </ul>
+      </div>
+
+      <div class="preview-box">
+        <div class="preview-box-container">
+          <amp-img style="align-self: center; margin: 0 auto" class="brand brand-round" src="images/ss3.png"
+            width="200"
+            height="350">
+          </amp-img>
+          <amp-img style="position: relative; top: -300px; left: 90px" class="brand brand-round" src="images/ss2.png"
+            width="200"
+            height="350">
+          </amp-img>
+        </div>
+        <div class="preview-box-caption" >
+          <p class="preview-box-caption-text"><i>Nearo</i> shows your posts to people nearby ensuring they are always relevant. The hottest post of the day are shown in the front page.</p>
+        </div>
+      </div>
+
+      <amp-carousel height="200"
+        autoplay
+        layout="fixed-height"
+        type="slides">
+        <div>
+          <div class="testimonial-box">
+            <amp-img class="avatar" src="images/carol_marshall.jpg"
+              width="35"
+              height="35">
+            </amp-img>
+            <p class="testimonial-text">"I created a post and got five messages within a few hours.
+              This guys are doing a great job."
+            </p>
+            <p class="testimonial-name">&mdash; Carol Marshall</p>
+          </div>
+        </div>
+        <div>
+          <div class="testimonial-box">
+            <amp-img class="avatar" src="images/justin_shaifer.jpeg"
+              width="35"
+              height="35">
+            </amp-img>
+            <p class="testimonial-text">"Hands down the best marketplace for new or used stuff. I already recommended to all my friends."</p>
+            <p class="testimonial-name">&mdash; Justin Shaifer</p>
+          </div>
+        </div>
+        <div>
+          <div class="testimonial-box">
+            <amp-img class="avatar" src="images/raysa_nolasco.png"
+              width="35"
+              height="35">
+            </amp-img>
+            <p class="testimonial-text">"Selling with Nearo feels safer than selling in Craigslist."</p>
+            <p class="testimonial-name">&mdash; Raysa Nolasco</p>
+          </div>
+        </div>
+      </amp-carousel>
+    </div>
+    <amp-install-serviceworker
+        src="/service-worker.js"
+        layout="nodisplay">
+    </amp-install-serviceworker>
+    <amp-analytics type="facebookpixel" id="facebook-pixel">
+      <script type="application/json">
+        {
+        	"vars": {
+        		"pixelId": "1264086740292093"
+        	},
+        	"triggers": {
+        		"trackPageview": {
+        			"on": "visible",
+        			"request": "pageview"
+        		}
+        	}
+        }
+      </script>
+    </amp-analytics>
+    <amp-analytics type="googleanalytics">
+      <script type="application/json">
+        {
+          "vars": {
+            "account": "UA-71722942-2"
+          },
+          "triggers": {
+            "default pageview": {
+              "on": "visible",
+              "request": "pageview",
+              "vars": {
+                "title": "Sell your car locally (B)"
+              }
+            },
+            "click on #signup trigger": {
+              "on": "click",
+              "selector": "#signup",
+              "request": "event",
+              "vars": {
+                "eventCategory": "Engagement",
+                "eventAction": "Created Post",
+                "eventLabel": "Created Post"
+              }
+            }
+          }
+        }
+      </script>
+    </amp-analytics>
+  </body>
+</html>
