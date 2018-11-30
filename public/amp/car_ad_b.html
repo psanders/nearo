@@ -53,7 +53,7 @@
         margin-top: -1px;
         padding: 8px;
         background-color: #484ec2;
-        background-image: linear-gradient(to left, #484ec2, #4615b2);
+        /*background-image: linear-gradient(to left, #484ec2, #4615b2);*/
         display: flex;
         flex-direction: row;
         height: 50px;
@@ -71,33 +71,29 @@
       }
       .signup-btn {
         align-self: center;
-        background-color: #fff;
+        background-color: #07baff;
         border: 0;
         border-radius: 20px;
-        color: #404040;
         padding: 10px;
         padding-left: 20px;
         padding-right: 20px;
-        padding-top: 10px;
         text-transform: uppercase;
         text-decoration: none;
         font-weight: bold;
-        color: #484ec2;
-        font-size: 14px;
-      }
-      .signup-btn-highlight {
-        background-image: linear-gradient(to left, #07d1ff, #2f73ff);
         color: #fff;
-        width: 160px;
+        font-size: 14px;
+        /*-webkit-animation: color_change 8s infinite alternate;
+      	-moz-animation: color_change 8s infinite alternate;
+      	-ms-animation: color_change 8s infinite alternate;
+      	-o-animation: color_change 8s infinite alternate;
+      	animation: color_change 8s infinite alternate;*/
       }
       .app-name {
         margin-left: 10px;
         align-self: center;
+        font-weight: 500;
         font-size: 15px;
         color: #fff;
-      }
-      .text-dark {
-        color: #484ec2;
       }
       .short-app-slogan {
         color: #fff;
@@ -170,23 +166,35 @@
         font-size: 14px;
         color: #848282;
       }
-      .last-chance {
-        background-image: linear-gradient(to bottom, #fff, #f8f9ff);
-        padding: 40px;
-        text-align: center;
-        margin-top: 20px;
+      /*@-webkit-keyframes color_change {
+      	from { background-color: #ffc107; }
+      	to { background-color: red; }
       }
+      @-moz-keyframes color_change {
+      	from { background-color: #ffc107; }
+      	to { background-color: red; }
+      }
+      @-ms-keyframes color_change {
+      	from { background-color: #ffc107; }
+      	to { background-color: red; }
+      }
+      @-o-keyframes color_change {
+      	from { background-color: #ffc107; }
+      	to { background-color: red; }
+      }
+      @keyframes color_change {
+      	from { background-color: #ffc107; }
+      	to {
+          background-color: #07baff;
+          color: #fff;
+        }
+      }*/
     </style>
     <title>Sell your car locally | Nearo</title>
     <meta name="description" content="Nearo is local classifieds for jobs, housing, for sale, events, services, and community. Find cars, trucks, electronics, furniture, and more." />
   </head>
   <body>
     <div class="container">
-      <amp-img layout="responsive" src="images/car_b.jpeg"
-        width="600"
-        height="681">
-      </amp-img>
-
       <div class="get">
         <amp-img class="brand" src="/images/icons/android-icon-192x192.png"
           width="40"
@@ -198,17 +206,17 @@
       </div>
 
       <p class="subtitle">
-        <span class="subtitle-highlight">Nearo is a FREE</span> service to publish personal ads in your local area.
-        From cars to houses and everything in between.
+        <span class="subtitle-highlight">Nearo is a FREE</span> marketplace to publish used cars in your local area.
+        Post your car and get offers within hours.
       </p>
 
       <div>
-        <p class="selling-points">Sell faster and securely:</p>
+        <p class="selling-points">How does it work?</p>
         <ul class="selling-points-list">
-          <li>&#10003;&nbsp Create your free post in minutes</li>
-          <li>&#10003;&nbsp Get potential buyers from places nearby</li>
-          <li>&#10003;&nbsp Receive messages from interested people</li>
-          <li>&#10003;&nbsp Meet locally and finish the transaction</li>
+          <li>&#10122;&nbsp Publish your car in minutes</li>
+          <li>&#10123;&nbsp Get potential buyers from places nearby</li>
+          <li>&#10124;&nbsp Receive messages from interested people</li>
+          <li>&#10125;&nbsp Meet locally and finish the transaction</li>
         </ul>
       </div>
 
@@ -224,7 +232,7 @@
           </amp-img>
         </div>
         <div class="preview-box-caption" >
-          <p class="preview-box-caption-text"><i>Nearo</i> shows your posts to people nearby ensuring they are always relevant. The hottest post of the day are shown in the front page.</p>
+          <p class="preview-box-caption-text"><i>Nearo</i> shows your car to people nearby ensuring they are always relevant. The hottest post of the day are shown in the front page.</p>
         </div>
       </div>
 
@@ -238,7 +246,7 @@
               width="35"
               height="35">
             </amp-img>
-            <p class="testimonial-text">"I created a post and got five messages within a few hours.
+            <p class="testimonial-text">"I posted my car and got five messages within a few hours.
               This guys are doing a great job."
             </p>
             <p class="testimonial-name">&mdash; Carol Marshall</p>
@@ -250,7 +258,7 @@
               width="35"
               height="35">
             </amp-img>
-            <p class="testimonial-text">"Hands down the best marketplace for new or used stuff. I already recommended to all my friends."</p>
+            <p class="testimonial-text">"Hands down the best marketplace for new or used cars. I already recommended to all my friends."</p>
             <p class="testimonial-name">&mdash; Justin Shaifer</p>
           </div>
         </div>
@@ -260,7 +268,7 @@
               width="35"
               height="35">
             </amp-img>
-            <p class="testimonial-text">"Selling with Nearo feels safer than selling in Craigslist."</p>
+            <p class="testimonial-text">"I'm getting better result with Nearo and it feels safer than selling in Craigslist."</p>
             <p class="testimonial-name">&mdash; Raysa Nolasco</p>
           </div>
         </div>
