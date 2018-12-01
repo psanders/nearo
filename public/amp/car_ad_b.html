@@ -293,28 +293,27 @@
         }
       </script>
     </amp-analytics>
-    <amp-analytics type="googleanalytics">
+    <amp-analytics type="gtag" data-credentials="include">
       <script type="application/json">
         {
           "vars": {
-            "account": "UA-71722942-2"
+            "gtag_id": "UA-71722942-2",
+            "config": {
+              "UA-71722942-2": {
+                "groups": "default",
+                "page_title": "Sell your car locally (B)",
+                "page_location": "https://nearo.co/amp/car_ad_b.html"
+              }
+            }
           },
           "triggers": {
-            "default pageview": {
-              "on": "visible",
-              "request": "pageview",
-              "vars": {
-                "title": "Sell your car locally (B)"
-              }
-            },
             "click on #signup trigger": {
               "on": "click",
               "selector": "#signup",
-              "request": "event",
               "vars": {
-                "eventCategory": "Engagement",
-                "eventAction": "accepted-signup-prompt",
-                "eventLabel": "Accepted Auth Prompt"
+                "event_category": "Engagement",
+                "event_name": "accepted-signup-prompt",
+                "event_label": "Accepted Auth Prompt"
               }
             }
           }
