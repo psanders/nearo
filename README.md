@@ -1,4 +1,4 @@
-# A firebase application for local selling, buying, and news
+# 🔥 A firebase application for local selling, buying, and news
 
 > You need a firebase and algolia accounts to run this application
 
