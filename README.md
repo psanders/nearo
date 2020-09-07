@@ -1,3 +1,16 @@
-# Nearo
+# Nearo Classified Ads Application
 
-Start with npm start
+## Requirements
+
+- Node 10
+- Firebase Project
+- Google Maps API Key
+- Algolia API Key
+
+## Installing
+
+`npm i`
+
+## Starting
+
+`npm start`
