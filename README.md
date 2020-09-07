@@ -7,7 +7,7 @@ Website Snapshot:
 
 Desktop search view:
 
-<img src="https://github.com/psanders/nearo/blob/master/public/images/desktop_search.gif" width="400" alt=""/>
+<img src="https://github.com/psanders/nearo/blob/master/public/images/desktop_search.gif" alt="Desktop seartch view"/>
 
 Some of the Nearo's features can give you a technological advantage. For example, 360 photos. As you know, 360 images can help a person have a better idea of what they are going to see, with its benefits. Particularly for those posting houses and vehicles.
 
