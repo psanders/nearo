@@ -1,6 +1,6 @@
 # A firebase application for local selling, buying, and news
 
-> You need an accounts in firebase an algolia to run this application
+> You need a firebase and algolia accounts to run this application
 
 Demo site: Coming soon
 
