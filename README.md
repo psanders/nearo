@@ -1,16 +1,24 @@
-# Nearo Classified Ads Application
+# 🔥 A react.js app for local selling, buying, and news
 
-## Requirements
+> You need a firebase and algolia accounts to run this application
 
-- Node 10
-- Firebase Project
-- Google Maps API Key
-- Algolia API Key
+Demo site: Coming soon
 
-## Installing
+![screenshot of site](https://raw.githubusercontent.com/psanders/nearo/master/public/images/nearo_item.jpg "Local selling, buying, and news")
 
-`npm i`
+## Build Setup
 
-## Starting
+``` bash
+# install dependencies
+$ npm run install
 
-`npm start`
+# serve with hot reload at localhost:3000
+$ npm run start
+
+# build for production and launch server
+$ npm run build
+$ npm run start
+```
+
+For detailed explanation on how things work, checkout [React.js docs](https://reactjs.org/).
+
