@@ -1,4 +1,4 @@
-# 🔥 A React.js app for local selling, buying, and news
+# 🔥 A react.js app for local selling, buying, and news
 
 > You need a firebase and algolia accounts to run this application
 
