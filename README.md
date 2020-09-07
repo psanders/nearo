@@ -2,9 +2,13 @@
 
 > You need a firebase and algolia accounts to run this application
 
-Demo site: Coming soon
+Search view on desktop:
 
-![screenshot of site](https://raw.githubusercontent.com/psanders/nearo/master/public/images/nearo_item.jpg "Local selling, buying, and news")
+![screenshot of site](https://github.com/psanders/nearo/blob/master/public/images/desktop_search.gif "Search view on desktop")
+
+Item view on desktop:
+
+![screenshot of site](https://github.com/psanders/nearo/blob/master/public/images/desktop_item_view.gif "Item view on desktop")
 
 ## Build Setup
 
