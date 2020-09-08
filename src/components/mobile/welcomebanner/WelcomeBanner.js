@@ -71,7 +71,7 @@ class WelcomeBanner extends Component {
           Buy Sell or Trade Locally
         </Typography>
         <Typography component="h2" variant="h6" color="textSecondary" style={style.fonts.subtitle} >
-          From car to houses and everything <br />in between
+          From cars to houses and everything <br />in between
         </Typography>
         <div style={style.buttonsContainer}>
           <Button onClick={this.props.postsStore.openPostDialog} variant="extendedFab" color="secondary">
