@@ -9,7 +9,7 @@ Demo: Comming soon
 
 ## Requirements
 
-To run this application you must have a Firebase account, and create a project with hosting, storage, and database enabled. For item indexation and seach the application uses Algolia. Finally, for maps you are going to need a valid Google Maps API Key.
+To run this application, you must have a [Firebase](https://firebase.google.com/) account, and create a project with hosting, storage, and database enabled. For item indexation and search, the application uses [Algolia](algolia.com). Finally, for maps, you are going to need a valid Google Maps API Key.
 
 ## Features
 
@@ -17,6 +17,7 @@ Nearo's main features are:
 
 - Optimized for mobile
 - Multiple images per post
+- Maps view for items
 - Any authentication available in Firebase
 - Geo-tagging and searching
 - Item sharing for Facebook and Twitter
@@ -41,7 +42,7 @@ $ npm start
 
 - [ ] Code cleanup
 - [ ] Implement a chat
-- [ ] Re-implment the search page on Desktop
+- [ ] Re-implement the search page on Desktop
 
 ## Bugs and Feedback
 
@@ -59,4 +60,3 @@ For contributing, please see the following links:
 
 ## License
 Copyright (C) 2020 by Pedro Sanders. MIT License (see [LICENSE](https://github.com/psanders/nearo/blob/master/LICENSE) for details).
-
