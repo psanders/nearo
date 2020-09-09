@@ -51,7 +51,7 @@ For bugs, questions, and discussions, please use the [Github Issues](https://git
 
 For contributing, please see the following links:
 
- - [Contribution Documents](https://github.com/psanders/routr/nearo/master/CONTRIBUTING.md)
+ - [Contribution Documents](https://github.com/psanders/nearo/master/CONTRIBUTING.md)
  - [Contributors](https://github.com/psanders/nearo/contributors)
 
 ## Authors
