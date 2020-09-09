@@ -2,7 +2,7 @@
 
 Nearo is a directory or list of personal ads that are presented in proximity order, thus helping to keep the publication relevant. In a way, it could be compared to Craigslist, but with a presentation more in line with the new times and taking certain precautions to maintain users' safety.
 
-Demo: Comming soon
+Demo: Coming soon
 
 | ![img-1](public/images/mobile_landing.png '1') | ![img-2](public/images/mobile_item.png '2') | ![img-3](public/images/mobile_explore.png '3') | ![img-4](public/images/mobile_profile.png '4')
 | :-------------------------: | :-------------------------: | :-------------------------: | :-------------------------: |
