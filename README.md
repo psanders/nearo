@@ -9,7 +9,7 @@ Demo: Coming soon
 
 ## Requirements
 
-To run this application, you must have a [Firebase](https://firebase.google.com/) account, and create a project with hosting, storage, and database enabled. For item indexation and search, the application uses [Algolia](algolia.com). Finally, for maps, you are going to need a valid Google Maps API Key.
+You must have a [Firebase](https://firebase.google.com/) account to run this application(with hosting, storage, and database enabled). For item indexation and search, the application uses [Algolia](algolia.com). Finally, for maps, you are going to need a valid Google Maps API Key.
 
 ## Features
 
