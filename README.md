@@ -2,15 +2,26 @@
 
 Nearo is a directory or list of personal ads that are presented in proximity order, thus helping to keep the publication relevant. In a way, it could be compared to Craigslist, but with a presentation more in line with the new times and taking certain precautions to maintain users' safety.
 
+Demo: Comming soon
+
 | ![img-1](public/images/mobile_landing.png '1') | ![img-2](public/images/mobile_item.png '2') | ![img-3](public/images/mobile_explore.png '3') | ![img-4](public/images/mobile_profile.png '4')
 | :-------------------------: | :-------------------------: | :-------------------------: | :-------------------------: |
 
+## Requirements
 
-Some of the Nearo's features can give you a technological advantage. For example, 360 photos. As you know, 360 images can help a person have a better idea of what they are going to see, with its benefits. Particularly for those posting houses and vehicles.
+To run this application you must have a Firebase account, and create a project with hosting, storage, and database enabled. For item indexation and seach the application uses Algolia. Finally, for maps you are going to need a valid Google Maps API Key.
 
-Mobile item view:
+## Features
 
-<img src="https://github.com/psanders/nearo/blob/master/public/images/mobile_item_view.gif" width="200" alt=""/>
+Nearo's main features are:
+
+- Optimized for mobile
+- Multiple images per post
+- Any authentication available in Firebase
+- Geo-tagging and searching
+- Item sharing for Facebook and Twitter
+
+<img src="https://github.com/psanders/nearo/blob/master/public/images/mobile_item_view.gif" width="200" alt="Mobile 3d view"/>
 
 ## Build Setup
 
@@ -26,5 +37,26 @@ $ npm run build
 $ npm start
 ```
 
-For detailed explanation on how things work, checkout [React.js docs](https://reactjs.org/).
+## Todo
+
+- [ ] Code cleanup
+- [ ] Implement a chat
+- [ ] Re-implment the search page on Desktop
+
+## Bugs and Feedback
+
+For bugs, questions, and discussions, please use the [Github Issues](https://github.com/psanders/nearo/issues)
+
+## Contributing
+
+For contributing, please see the following links:
+
+ - [Contribution Documents](https://github.com/psanders/routr/nearo/master/CONTRIBUTING.md)
+ - [Contributors](https://github.com/psanders/nearo/contributors)
+
+## Authors
+ - [Pedro Sanders](https://github.com/psanders)
+
+## License
+Copyright (C) 2020 by Pedro Sanders. MIT License (see [LICENSE](https://github.com/psanders/nearo/blob/master/LICENSE) for details).
 
