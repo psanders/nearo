@@ -17,7 +17,7 @@ Nearo's main features are:
 
 - Optimized for mobile
 - Multiple images per post
-- Maps view for items
+- Google Maps view
 - Any authentication available in Firebase
 - Geo-tagging and searching
 - Item sharing for Facebook and Twitter
