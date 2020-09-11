@@ -42,7 +42,7 @@ $ npm start
 
 - [ ] Code cleanup
 - [ ] Implement a chat
-- [ ] Re-implement the search page on Desktop
+- [ ] Re-implement the search page on Desktop screens
 
 ## Bugs and Feedback
 
