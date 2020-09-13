@@ -1,6 +1,6 @@
 # 🔥 A react.js app for local selling, buying, and news
 
-Nearo is a directory or list of personal ads that are presented in proximity order, thus helping to keep the publication relevant. In a way, it could be compared to Craigslist, but with a presentation more in line with the new times and taking certain precautions to maintain users' safety.
+Nearo is a directory or list of personal ads presented in proximity order, thus helping to keep the publication relevant. It is similar to CL, but with a modern design and system to improve users' safety.
 
 Demo: Coming soon
 
