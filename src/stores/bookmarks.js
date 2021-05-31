@@ -44,12 +44,15 @@ class BookmarksStore {
     }
 
     loadStaffBookmars() {
-      const likes = db.collection("bookmarks").doc('psanders@nearo.co')
+      // WARNING: Hardcode alert :s
+      const likes = db.collection('bookmarks').doc('sanderspedro@gmail.com')
       likes
       .get()
       .then(doc => {
         if (doc.exists) {
+          
           doc.data().posts.forEach(postId => {
+            console.log('yyyy: ' + postId)
             this.staffBookmarks.push(postId)
           })
         }

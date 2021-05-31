@@ -40,7 +40,7 @@ class About extends React.Component {
                   About
                 </Typography>
                 <Typography variant="caption" gutterBottom align="center">
-                Terms and Conditions | Privacy Policy User Agreement © 2018 Nearo, Inc. All rights reserved
+                Terms and Conditions | Privacy Policy User Agreement © 2020 Nearo, Inc. All rights reserved
                 </Typography>
             </CardContent>
           </CardActionArea>

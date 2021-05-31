@@ -1,6 +1,7 @@
 import ellipsize from 'ellipsize'
 
-const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/locally-57510.appspot.com/o/imgs'
+// WARNING: Hardcode value
+const bucketBaseUrl = 'https://firebasestorage.googleapis.com/v0/b/nearo-52fe3.appspot.com/o/imgs'
 const routes = ['/', '/amp','/about', '/explore', '/posts', '/profile', '/login', '/location', '/favorites']
 const time = postedTime => new Date().getTime() / 1000 - postedTime
 

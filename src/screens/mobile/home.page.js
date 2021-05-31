@@ -55,7 +55,7 @@ class HomePage extends Component {
 
       <div elevation={0} style={{width: '100%', textAlign: 'center', marginTop: 10, marginBottom: 10}}>
         <Typography variant="body1" color="textSecondary">
-          Nearo © 2018 <a style={style.anchor} href="/about">Privacy & Terms</a>
+          Nearo © 2020 <a style={style.anchor} href="/about">Privacy & Terms</a>
         </Typography>
       </div>
     </div>

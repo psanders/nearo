@@ -43,17 +43,18 @@ class AvatarUpdater extends Component {
   setEditorRef = editor => this.editor = editor
 
   handleUploadSuccess = filename => {
-    this.setState({filename: filename})
+    this.setState({ filename })
     firebase
     .storage()
     .ref("imgs")
     .child(filename)
     .getDownloadURL()
     .then(url => {
-      this.setState({imageURL: url})
-      this.setState({loading: false})
+      this.setState({ imageURL: url })
+      this.setState({ loading: false })
     }).catch(error => {
-      this.setState({loading: false})
+      this.setState({ loading: false })
+      console.log('PINGOTA XXX')
       console.error(error)
     })
   }

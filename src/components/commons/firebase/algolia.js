@@ -1,7 +1,7 @@
 import algoliasearch from 'algoliasearch'
 
-const ALGOLIA_ID = "IVUNNPL7J8"
-const ALGOLIA_SEARCH_KEY = "c7a59a9ddbe2354bf0d9a1cdfc7f5fe3"
+const ALGOLIA_ID = "KM5M04U5PS"
+const ALGOLIA_SEARCH_KEY = "05d1cc503cf7ebc5e7d2433a15b77bf4"
 const client = algoliasearch(ALGOLIA_ID, ALGOLIA_SEARCH_KEY)
 const index = client.initIndex('posts')
 

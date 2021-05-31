@@ -56,7 +56,7 @@ class GMap extends Component {
     })
 
     return (<GoogleMapReact yesIWantToUseGoogleMapApiInternals={true} bootstrapURLKeys={{
-        key: "AIzaSyBJWWg7cJV5835KCpmNsG2D2UwBbs0EY9Y"
+        key: "AIzaSyA2sqesH5AcQiQItt41d3E4NjNrL_udVWw"
       }} defaultCenter={center} defaultZoom={zoom} onGoogleApiLoaded={({map, maps}) => {
         this.setState({map: map})
         this.setState({maps: maps})

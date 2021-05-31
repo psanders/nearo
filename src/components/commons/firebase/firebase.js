@@ -3,20 +3,20 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 const prodConfig = {
-  apiKey: "AIzaSyAshRmJgF-p3IesZfmeLzhB-n705ePUAFA",
+  apiKey: "AIzaSyC27pgP5VsYnR6FNFHTWYf4WJQUjR-Npck",
   authDomain: "nearo.co",
-  databaseURL: "https://locally-57510.firebaseio.com",
-  projectId: "locally-57510",
-  storageBucket: "locally-57510.appspot.com",
+  databaseURL: "https://nearo-52fe3.firebaseio.com",
+  projectId: "nearo-52fe3",
+  storageBucket: "nearo-52fe3.appspot.com",
   messagingSenderId: "225376231981"
 }
 
 const devConfig = {
-  apiKey: "AIzaSyAshRmJgF-p3IesZfmeLzhB-n705ePUAFA",
+  apiKey: "AIzaSyC27pgP5VsYnR6FNFHTWYf4WJQUjR-Npck",
   authDomain: "nearo.co",
-  databaseURL: "https://locally-57510.firebaseio.com",
-  projectId: "locally-57510",
-  storageBucket: "locally-57510.appspot.com",
+  databaseURL: "https://nearo-52fe3.firebaseio.com",
+  projectId: "nearo-52fe3",
+  storageBucket: "nearo-52fe3.appspot.com",
   messagingSenderId: "225376231981"
 }
 
