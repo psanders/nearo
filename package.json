@@ -34,7 +34,7 @@
     "firebase": "5.5.4",
     "firebase-functions": "2.1.0",
     "firebase-admin": "6.0.0",
-    "firebase-tools": "5.1.1",
+    "firebase-tools": "13.6.0",
     "react-firebase-file-uploader": "2.4.2",
     "react-firebaseui": "3.1.2",
     "fs-extra": "3.0.1",
